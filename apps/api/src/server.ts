@@ -1,10 +1,8 @@
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import cors from 'cors';
-import 'dotenv/config';
 import express from 'express';
 
 import { appRouter } from '@api/router';
-
 
 async function main() {
   const port = process.env.PORT || 3000;
@@ -12,7 +10,6 @@ async function main() {
   const app = express();
 
   app.use(cors());
-
 
   app.use(
     '/trpc',
@@ -27,7 +24,6 @@ async function main() {
           : undefined,
     })
   );
-
 
   // For testing purposes, wait-on requests '/'
   app.get('/', (req, res) => res.send('Server is running!'));

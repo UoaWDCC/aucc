@@ -11,7 +11,6 @@ function Index() {
     name: 'world',
   });
 
-
   if (query.error) {
     return <p className="text-xl text-red-500">Error: {query.error.message}</p>;
   }
@@ -20,7 +19,9 @@ function Index() {
     return <p className="text-xl">Loading...</p>;
   }
 
-  return <div>
-    <p className="text-xl">Message: {query.data?.message}</p>
-  </div>;
+  return (
+    <div>
+      <p className="text-xl">Message: {query.data?.message}</p>
+    </div>
+  );
 }
