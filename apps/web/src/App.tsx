@@ -1,6 +1,6 @@
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 
-import { TrpcWrapper } from './components/TrpcWrapper';
+import { TrpcWrapper } from './providers/TRPCProvider';
 import './index.css';
 import { routeTree } from './routeTree.gen';
 

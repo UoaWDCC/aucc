@@ -3,8 +3,11 @@ import { httpBatchLink } from '@trpc/client';
 import { useState } from 'react';
 import superjson from 'superjson';
 
-import { trpc } from '@/utils/trpc';
+import { trpc } from '@/lib/trpc';
 
+// This is a wrapper for the TRPC client and React Query client
+// It is used to provide the TRPC client and React Query client to the rest of the app
+// https://trpc.io/docs/client/react/setup
 export function TrpcWrapper({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>

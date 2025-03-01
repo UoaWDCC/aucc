@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 
-import { trpc } from '@/utils/trpc';
+import { trpc } from '@/lib/trpc';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,

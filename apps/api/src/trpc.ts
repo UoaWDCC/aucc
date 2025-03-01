@@ -10,6 +10,8 @@ type Context = {
 };
 
 const trpc = initTRPC.context<Context>().create({
+  // Allows us to serialise Date/Map/Set etc between client/server
+  // https://trpc.io/docs/server/data-transformers
   transformer: superjson,
 });
 
