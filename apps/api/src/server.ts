@@ -1,13 +1,12 @@
+import { appRouter } from '@api/router';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import cors from 'cors';
 import express from 'express';
 
-import { appRouter } from '@api/router';
-
 async function main() {
   const port = process.env.PORT || 3000;
 
-  const app = express();
+  const app: ReturnType<typeof express> = express();
 
   app.use(cors());
 
@@ -26,8 +25,10 @@ async function main() {
   );
 
   // For testing purposes, wait-on requests '/'
-  app.get('/', (req, res) => res.send('Server is running!'));
-
+  app.get('/', (req, res) => {
+    res.send('Server is running!');
+  });
+  
   app.listen(port, () => {
     console.log(`App listening on port: ${port}`);
   });
