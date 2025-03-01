@@ -1,0 +1,1 @@
+{ "extends": ["@aucc/eslint-config/eslint"] }

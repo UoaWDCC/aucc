@@ -1,0 +1,10 @@
+{
+  "extends": "@aucc/typescript-config/base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowSyntheticDefaultImports": true,
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
