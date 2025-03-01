@@ -13,6 +13,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "start:backend": "node apps/api/dist/server.js"
   },
+  "dependencies": {
+    "@aucc/trpc": "workspace:*"
+  },
   "devDependencies": {
     "@aucc/eslint-config": "workspace:*",
     "@aucc/typescript-config": "workspace:*",

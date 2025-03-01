@@ -1,4 +1,4 @@
-import { appRouter } from '@api/router';
+import { appRouter } from '@aucc/trpc/server';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import cors from 'cors';
 import express from 'express';
@@ -28,7 +28,7 @@ async function main() {
   app.get('/', (req, res) => {
     res.send('Server is running!');
   });
-  
+
   app.listen(port, () => {
     console.log(`App listening on port: ${port}`);
   });

@@ -1,4 +1,4 @@
-import { trpc } from '@/lib/trpc';
+import { trpc } from '@aucc/trpc/client';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({

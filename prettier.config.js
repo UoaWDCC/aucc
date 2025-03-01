@@ -16,4 +16,4 @@ const config = {
   importOrderCaseSensitive: false,
 };
 
-export default config;
+module.exports = config;

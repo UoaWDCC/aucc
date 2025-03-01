@@ -1,0 +1,25 @@
+{
+  "name": "@aucc/trpc",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "rimraf node_modules"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.66.11",
+    "@trpc/client": "^11.0.0-rc.819",
+    "@trpc/react-query": "^11.0.0-rc.819",
+    "@trpc/server": "^11.0.0-rc.819",
+    "react": "^18.2.0",
+    "superjson": "^2.2.2",
+    "zod": "3.24.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@types/express": "^5.0.0"
+  }
+}
