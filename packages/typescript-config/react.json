@@ -4,9 +4,7 @@
   "extends": "./base.json",
   "compilerOptions": {
     "module": "EsNext",
-     "jsx": "react-jsx",
-
-
+    "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
