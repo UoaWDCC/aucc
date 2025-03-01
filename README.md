@@ -15,7 +15,6 @@
 - `@aucc/api`: Express.js, Drizzle and tRPC Server
 - `@aucc/eslint-config`: `eslint` configurations
 - `@aucc/typescript-config`: `tsconfig.json`s used throughout the monorepo
-- `@aucc/tailwind-config`: shared Tailwind configuration
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 

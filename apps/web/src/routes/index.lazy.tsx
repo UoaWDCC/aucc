@@ -20,5 +20,7 @@ function Index() {
     return <p className="text-xl">Loading...</p>;
   }
 
-  return <p className="text-xl">Message: {query.data?.message}</p>;
+  return <div>
+    <p className="text-xl">Message: {query.data?.message}</p>
+  </div>;
 }
