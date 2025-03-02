@@ -1,16 +1,10 @@
 {
   "extends": "@aucc/typescript-config/react.json",
   "compilerOptions": {
-    "useDefineForClassFields": true,
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "noEmit": true,
-    
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["./src/**/*.ts", "vite.config.ts"],
 }

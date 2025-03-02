@@ -1,5 +1,5 @@
 import { initTRPC } from '@trpc/server';
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import superjson from 'superjson';
 
 type TRPCContext = {

@@ -2,9 +2,8 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./base.json",
   "compilerOptions": {
-    "lib": ["esnext"],
-    "target": "esnext",
+    "module": "preserve",
     "noEmit": true,
-    "outDir": "dist"
+    "lib": ["es2022"]
   }
 }

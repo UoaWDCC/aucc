@@ -5,12 +5,13 @@
     "paths": {
       "@api/*": ["./src/*"],
     },
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "outDir": "./dist",
   },
   "tsc-alias": {
     "resolveFullPaths": true,
     "verbose": false
   },
-  "include": ["src"],
+  "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
