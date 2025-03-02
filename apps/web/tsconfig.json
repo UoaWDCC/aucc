@@ -4,7 +4,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-    }
+    },
+    "jsx": "preserve",
   },
-  "include": ["./src/**/*.ts", "vite.config.ts"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx","./src/**/*.d.ts", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }

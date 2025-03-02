@@ -26,7 +26,7 @@ coverage
 out/
 build
 dist
-**/tsconfig.tsbuildinfo
+tsconfig.tsbuildinfo
 
 
 # Debug
