@@ -13,12 +13,17 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "start:backend": "node apps/api/dist/server.js"
   },
+  "dependencies": {
+    "@aucc/trpc": "workspace:*"
+  },
   "devDependencies": {
     "@aucc/eslint-config": "workspace:*",
     "@aucc/typescript-config": "workspace:*",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "turbo": "latest"
+    "turbo": "latest",
+    "typescript": "^5.7.3"
   },
   "volta": {
     "node": "22.14.0"

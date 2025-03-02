@@ -1,0 +1,8 @@
+{
+  "extends": "@aucc/typescript-config/base.json",
+  "compilerOptions": {
+    "module": "preserve",
+    "noEmit": true
+  },
+  "include": ["index.ts", "client", "server"],
+}
