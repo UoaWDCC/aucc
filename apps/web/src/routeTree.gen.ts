@@ -10,64 +10,246 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as IndexImport } from './routes/index';
+import { Route as rootRoute } from './routes/__root'
+import { Route as TripsEventsImport } from './routes/trips-events'
+import { Route as TripReportsImport } from './routes/trip-reports'
+import { Route as SignupImport } from './routes/signup'
+import { Route as ResourcesImport } from './routes/resources'
+import { Route as MerchandiseImport } from './routes/merchandise'
+import { Route as GearHireImport } from './routes/gear-hire'
+import { Route as GalleryImport } from './routes/gallery'
+import { Route as ContactImport } from './routes/contact'
+import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const TripsEventsRoute = TripsEventsImport.update({
+  id: '/trips-events',
+  path: '/trips-events',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TripReportsRoute = TripReportsImport.update({
+  id: '/trip-reports',
+  path: '/trip-reports',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignupRoute = SignupImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ResourcesRoute = ResourcesImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MerchandiseRoute = MerchandiseImport.update({
+  id: '/merchandise',
+  path: '/merchandise',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GearHireRoute = GearHireImport.update({
+  id: '/gear-hire',
+  path: '/gear-hire',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GalleryRoute = GalleryImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContactRoute = ContactImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactImport
+      parentRoute: typeof rootRoute
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryImport
+      parentRoute: typeof rootRoute
+    }
+    '/gear-hire': {
+      id: '/gear-hire'
+      path: '/gear-hire'
+      fullPath: '/gear-hire'
+      preLoaderRoute: typeof GearHireImport
+      parentRoute: typeof rootRoute
+    }
+    '/merchandise': {
+      id: '/merchandise'
+      path: '/merchandise'
+      fullPath: '/merchandise'
+      preLoaderRoute: typeof MerchandiseImport
+      parentRoute: typeof rootRoute
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
+    '/trip-reports': {
+      id: '/trip-reports'
+      path: '/trip-reports'
+      fullPath: '/trip-reports'
+      preLoaderRoute: typeof TripReportsImport
+      parentRoute: typeof rootRoute
+    }
+    '/trips-events': {
+      id: '/trips-events'
+      path: '/trips-events'
+      fullPath: '/trips-events'
+      preLoaderRoute: typeof TripsEventsImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
+  '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/gear-hire': typeof GearHireRoute
+  '/merchandise': typeof MerchandiseRoute
+  '/resources': typeof ResourcesRoute
+  '/signup': typeof SignupRoute
+  '/trip-reports': typeof TripReportsRoute
+  '/trips-events': typeof TripsEventsRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
+  '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/gear-hire': typeof GearHireRoute
+  '/merchandise': typeof MerchandiseRoute
+  '/resources': typeof ResourcesRoute
+  '/signup': typeof SignupRoute
+  '/trip-reports': typeof TripReportsRoute
+  '/trips-events': typeof TripsEventsRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/': typeof IndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/gear-hire': typeof GearHireRoute
+  '/merchandise': typeof MerchandiseRoute
+  '/resources': typeof ResourcesRoute
+  '/signup': typeof SignupRoute
+  '/trip-reports': typeof TripReportsRoute
+  '/trips-events': typeof TripsEventsRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/';
-  id: '__root__' | '/';
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/gallery'
+    | '/gear-hire'
+    | '/merchandise'
+    | '/resources'
+    | '/signup'
+    | '/trip-reports'
+    | '/trips-events'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/contact'
+    | '/gallery'
+    | '/gear-hire'
+    | '/merchandise'
+    | '/resources'
+    | '/signup'
+    | '/trip-reports'
+    | '/trips-events'
+  id:
+    | '__root__'
+    | '/'
+    | '/contact'
+    | '/gallery'
+    | '/gear-hire'
+    | '/merchandise'
+    | '/resources'
+    | '/signup'
+    | '/trip-reports'
+    | '/trips-events'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
+  IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
+  GearHireRoute: typeof GearHireRoute
+  MerchandiseRoute: typeof MerchandiseRoute
+  ResourcesRoute: typeof ResourcesRoute
+  SignupRoute: typeof SignupRoute
+  TripReportsRoute: typeof TripReportsRoute
+  TripsEventsRoute: typeof TripsEventsRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-};
+  ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
+  GearHireRoute: GearHireRoute,
+  MerchandiseRoute: MerchandiseRoute,
+  ResourcesRoute: ResourcesRoute,
+  SignupRoute: SignupRoute,
+  TripReportsRoute: TripReportsRoute,
+  TripsEventsRoute: TripsEventsRoute,
+}
 
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -75,11 +257,43 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/contact",
+        "/gallery",
+        "/gear-hire",
+        "/merchandise",
+        "/resources",
+        "/signup",
+        "/trip-reports",
+        "/trips-events"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/contact": {
+      "filePath": "contact.tsx"
+    },
+    "/gallery": {
+      "filePath": "gallery.tsx"
+    },
+    "/gear-hire": {
+      "filePath": "gear-hire.tsx"
+    },
+    "/merchandise": {
+      "filePath": "merchandise.tsx"
+    },
+    "/resources": {
+      "filePath": "resources.tsx"
+    },
+    "/signup": {
+      "filePath": "signup.tsx"
+    },
+    "/trip-reports": {
+      "filePath": "trip-reports.tsx"
+    },
+    "/trips-events": {
+      "filePath": "trips-events.tsx"
     }
   }
 }
