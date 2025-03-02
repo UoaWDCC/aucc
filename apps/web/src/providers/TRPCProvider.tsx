@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { trpc } from '@aucc/trpc/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import { useState } from 'react';
 import superjson from 'superjson';
 
 // This is a wrapper for the TRPC client and React Query client

@@ -10,7 +10,13 @@ const config = {
   printWidth: 140,
   tabWidth: 2,
   useTabs: false,
-  importOrder: ['^@core/(.*)$', '', '^@server/(.*)$', '', '^@ui/(.*)$', '', '^[./]'],
+  importOrder: [
+    '^react',
+    '<THIRD_PARTY_MODULES>',
+    '^@/(.*)$',
+    '^~/(.*)$',
+    '^[./]'
+  ],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   importOrderTypeScriptVersion: '5.0.0',
   importOrderCaseSensitive: false,
