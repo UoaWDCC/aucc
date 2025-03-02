@@ -8,7 +8,7 @@ function RootLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
-      <nav className="bg-blue-600 text-white py-4">
+      <nav className="bg-gray-500 text-white py-4">
         <ul className="flex justify-center space-x-6">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/signup">Sign Up / Fees</Link></li>

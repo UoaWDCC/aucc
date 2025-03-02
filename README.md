@@ -55,3 +55,11 @@ To run all apps and packages in development mode, run the following command:
 ```
 pnpm dev
 ```
+
+### Important note
+
+Frontend (web) and backend (api) are run separately at different port
+
+Frontend will run at http://localhost:5173/
+Backend will run at http://localhost:3000/
+
