@@ -29,6 +29,7 @@ This repository contains the source code for the Auckland University Canoe Club 
     ```bash
     cp .env.example .env
     ```
+    Populate the ENV with the relevant values
 
 ## Local Development
 
@@ -45,14 +46,3 @@ This repository contains the source code for the Auckland University Canoe Club 
 3. Access the website:
     - Frontend: http://localhost:3000
     - Payload CMS Admin: http://localhost:3000/admin
-
-## Environment Configuration
-
-```bash
-cp .env.example .env
-```
-
-Update the `.env` file with your specific configuration values. Key variables include:
-- `DATABASE_URL`: PostgreSQL connection string
-- `PAYLOAD_SECRET`: Secret key for Payload CMS
-
