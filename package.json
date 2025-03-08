@@ -1,0 +1,63 @@
+{
+  "name": "aucc",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "prebuild": "node --env-file=.env load-env.mjs",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.25.0",
+    "@payloadcms/next": "^3.25.0",
+    "@payloadcms/payload-cloud": "^3.25.0",
+    "@payloadcms/richtext-lexical": "^3.25.0",
+    "@t3-oss/env-nextjs": "^0.12.0",
+    "@tailwindcss/postcss": "^4.0.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.8.1",
+    "jiti": "^2.4.2",
+    "lucide-react": "^0.477.0",
+    "next": "15.1.5",
+    "payload": "^3.25.0",
+    "postcss": "^8.5.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "sharp": "0.32.6",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.0.9",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@types/node": "^22.5.4",
+    "@types/react": "19.0.7",
+    "@types/react-dom": "19.0.3",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "15.1.5",
+    "prettier": "^3.4.2",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": "^22.14.0",
+    "pnpm": "^10.5.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  },
+  "volta": {
+    "node": "22.14.0"
+  }
+}
