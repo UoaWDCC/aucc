@@ -23,6 +23,16 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Accept environment variables from build arguments
+ARG DATABASE_URL="http://localhost:5432/default_db"
+ARG PAYLOAD_SECRET="default_secret"
+ARG SERVER_URL="http://localhost:3000"
+
+# Set these arguments as environment variables inside the container
+ENV DATABASE_URL=${DATABASE_URL}
+ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
+ENV SERVER_URL=${SERVER_URL}
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
@@ -45,7 +55,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Remove this line if you do not have this folder
-COPY --from=builder /app/public ./public
+# COPY --from=builder /app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
