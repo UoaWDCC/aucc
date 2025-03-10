@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@10.5.2",
   "scripts": {
     "prebuild": "node --env-file=.env load-env.mjs",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
