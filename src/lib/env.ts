@@ -8,5 +8,11 @@ export const env = createEnv({
     SERVER_URL: z.string().url(),
   },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
-  experimental__runtimeEnv: process.env,
+  // experimental__runtimeEnv: process.env,
+
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
+    SERVER_URL: process.env.SERVER_URL,
+  },
 })
