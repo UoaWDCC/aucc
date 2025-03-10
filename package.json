@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@10.5.2",
   "scripts": {
-    "prebuild": "node --env-file=.env load-env.mjs",
+    "prebuild": "node load-env.mjs",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
@@ -24,6 +25,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "graphql": "^16.8.1",
     "jiti": "^2.4.2",
     "lucide-react": "^0.477.0",
