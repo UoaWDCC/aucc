@@ -14,3 +14,5 @@ export const Users: CollectionConfig = {
   ],
   timestamps: true,
 }
+
+// test comment
