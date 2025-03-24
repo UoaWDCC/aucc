@@ -143,7 +143,7 @@ resource "aws_cloudfront_distribution" "media_distribution" {
     max_ttl                = 31536000 # 1 year max cache
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.price_class
 
   restrictions {
     geo_restriction {
