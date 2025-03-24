@@ -43,9 +43,13 @@ variable "cors_allowed_origins" {
   description = "List of allowed origins for CORS configuration"
 }
 
+locals {
+  s3_origin_id = "aucc-payload-cms-media-origin"
+}
+
 # S3 bucket for payload media content
 resource "aws_s3_bucket" "media_bucket" {
-  bucket = "payload-cms-media-bucket=${var.environment}"
+  bucket = "aucc-payload-bucket=${var.environment}"
 
   tags = {
     Name        = "Payload CMS Media Bucket"
@@ -78,8 +82,8 @@ resource "aws_s3_bucket_cors_configuration" "media_bucket" {
 
 # Create Origin Access Control for CloudFront
 resource "aws_cloudfront_origin_access_control" "default" {
-  name                              = "payload-cms-oac"
-  description                       = "OAC for Payload CMS media bucket"
+  name                              = "aucc-payload-cms-oac"
+  description                       = "OAC for AUCC Payload CMS media bucket"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -106,10 +110,6 @@ resource "aws_s3_bucket_policy" "media_bucket" {
   })
 }
 
-locals {
-  s3_origin_id = "payloadCmsMediaOrigin"
-}
-
 # CloudFront distribution optimized for media content
 resource "aws_cloudfront_distribution" "media_distribution" {
   origin {
@@ -120,7 +120,7 @@ resource "aws_cloudfront_distribution" "media_distribution" {
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Payload CMS Media Distribution"
+  comment             = "AUCC Payload CMS Media Distribution"
   default_root_object = "index.html"
 
   # Replace with your actual domain
@@ -153,7 +153,7 @@ resource "aws_cloudfront_distribution" "media_distribution" {
 
   tags = {
     Environment = var.environment
-    Service     = "PayloadCMS"
+    Service     = "AUCC-PayloadCMS"
   }
 
   viewer_certificate {
@@ -165,7 +165,64 @@ resource "aws_cloudfront_distribution" "media_distribution" {
   }
 }
 
+# IAM user for Payload CMS to access S3 bucket
+resource "aws_iam_user" "payload_cms_user" {
+  name = "aucc-payload-cms-s3-user-${var.environment}"
+  
+  tags = {
+    Name        = "AUCC Payload CMS S3 User"
+    Environment = var.environment
+  }
+}
+
+# Access keys for the IAM user
+resource "aws_iam_access_key" "payload_cms_user" {
+  user = aws_iam_user.payload_cms_user.name
+}
+
+# IAM policy for Payload CMS S3 access
+resource "aws_iam_policy" "payload_cms_s3_policy" {
+  name        = "aucc-payload-cms-s3-policy-${var.environment}"
+  description = "Policy for AUCC Payload CMS to access S3 media bucket"
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          aws_s3_bucket.media_bucket.arn,
+          "${aws_s3_bucket.media_bucket.arn}/*"
+        ]
+      }
+    ]
+  })
+}
+
+# Attach policy to IAM user
+resource "aws_iam_user_policy_attachment" "payload_cms_user_policy" {
+  user       = aws_iam_user.payload_cms_user.name
+  policy_arn = aws_iam_policy.payload_cms_s3_policy.arn
+}
+
 # Output the CloudFront domain name
 output "cloudfront_domain_name" {
   value = aws_cloudfront_distribution.media_distribution.domain_name
+}
+
+# Output the access key credentials for Payload CMS configuration
+output "payload_cms_access_key_id" {
+  value     = aws_iam_access_key.payload_cms_user.id
+  sensitive = false
+}
+
+output "payload_cms_secret_access_key" {
+  value     = aws_iam_access_key.payload_cms_user.secret
+  sensitive = true
 }
