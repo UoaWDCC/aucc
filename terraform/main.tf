@@ -49,7 +49,7 @@ locals {
 
 # S3 bucket for payload media content
 resource "aws_s3_bucket" "media_bucket" {
-  bucket = "aucc-payload-bucket=${var.environment}"
+  bucket = "aucc-payload-bucket-${var.environment}"
 
   tags = {
     Name        = "Payload CMS Media Bucket"
