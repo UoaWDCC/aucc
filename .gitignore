@@ -44,3 +44,13 @@ next-env.d.ts
 
 .vscode
 .pnpm-store
+
+# Ignore Terraform state files and lock files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/crash.log
+
+# Ignore generated plan files (optional)
+terraform/*.tfplan
