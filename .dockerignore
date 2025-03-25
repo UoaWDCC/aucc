@@ -47,3 +47,6 @@ media
 **/.vscode
 **/.pnpm-store
 fly.toml
+
+# 
+terraform
