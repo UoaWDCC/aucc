@@ -7,8 +7,9 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
-import { env } from './lib/env'
+import { Users } from '@/collections/users'
+import { env } from '@/lib/env'
+import { Media } from '@/collections/media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +21,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users],
+  collections: [Users, Media],
   editor: lexicalEditor(),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,
@@ -36,10 +37,13 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        // media: true,
-        // 'media-with-prefix': {
-        //   prefix,
-        // },
+        media: {
+          prefix: 'media',
+          disableLocalStorage: true,
+          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+            return `${env.S3_CF_PUBLIC_ENDPOINT}/${path.posix.join(prefix || '', filename || '')}`
+          },
+        },
       },
       bucket: env.S3_BUCKET,
       config: {
