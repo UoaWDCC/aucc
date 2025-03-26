@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/lib": ["./src/lib/*"],
-      "@/collections": ["./src/lib/*"],
+      "@/collections": ["./src/collections/*"],
       "@payload-config": ["./src/payload.config.ts"]
     },
     "target": "ES2022"
