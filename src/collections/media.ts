@@ -1,6 +1,7 @@
+import type { CollectionConfig } from 'payload'
+
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -15,7 +16,7 @@ export const Media: CollectionConfig = {
       name: 'alt',
       label: 'Alt Text',
       type: 'text',
-    }
+    },
   ],
   upload: {
     adminThumbnail: 'thumbnail',
@@ -43,5 +44,5 @@ export const Media: CollectionConfig = {
         height: 1080,
       },
     ],
-  }
+  },
 }

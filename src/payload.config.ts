@@ -1,15 +1,14 @@
-import { s3Storage } from '@payloadcms/storage-s3'
-
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { Media } from '@/collections/media'
 import { Users } from '@/collections/users'
 import { env } from '@/lib/env'
-import { Media } from '@/collections/media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -40,7 +39,13 @@ export default buildConfig({
         media: {
           prefix: 'media',
           disableLocalStorage: true,
-          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+          generateFileURL: ({
+            filename,
+            prefix,
+          }: {
+            filename: string
+            prefix?: string
+          }) => {
             return `${env.S3_CF_PUBLIC_ENDPOINT}/${path.posix.join(prefix || '', filename || '')}`
           },
         },
