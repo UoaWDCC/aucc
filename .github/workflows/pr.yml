@@ -1,0 +1,38 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Run Linters
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit
+
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  required:
+    name: PR Check Summary
+    needs: [lint, build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if conditional jobs failed
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')
+        run: exit 1
+
+  deploy_preview:
+    name: Deploy Preview
+    needs: [required]
+    uses: ./.github/workflows/deploy-preview.yml
+    secrets: inherit

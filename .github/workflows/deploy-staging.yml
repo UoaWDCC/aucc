@@ -11,7 +11,7 @@ env:
 jobs:
   deploy:
     name: Deploy app
-    environment: development
+    environment: staging
     runs-on: ubuntu-latest
     concurrency: deploy-group # optional: ensure only one action runs at a time
     steps:
@@ -21,6 +21,24 @@ jobs:
       - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
+      - name: Get Environment Secrets
+        uses: Infisical/secrets-action@v1.0.9
+        with:
+          method: 'universal'
+          client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+          client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          domain: 'https://app.infisical.com'
+          env-slug: 'staging'
+          project-slug: 'aucc-website'
+
       - name: Deploy
         run: |
-          flyctl deploy --remote-only --config fly.staging.toml
+          build_secrets=""
+          while IFS= read -r var; do
+            var=$(echo "$var" | xargs)
+            if [ -n "$var" ]; then
+              build_secrets+="--build-secret $var=\"\${$var}\" "
+            fi
+          done < .env.build
+
+          flyctl deploy --remote-only --config fly.staging.toml $build_secrets
