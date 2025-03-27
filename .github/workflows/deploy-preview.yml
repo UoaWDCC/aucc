@@ -1,0 +1,65 @@
+name: Deploy Preview App
+on:
+  workflow_call:
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  # Set these to your Fly.io organization and preferred region.
+  FLY_REGION: syd
+  FLY_ORG: projects-aucc
+
+jobs:
+  preview_app:
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    # environment:
+    #   name: preview
+    #   url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+
+      - name: Get Environment Secrets
+        uses: Infisical/secrets-action@v1.0.9
+        with:
+          method: 'universal'
+          client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+          client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          domain: 'https://app.infisical.com'
+          env-slug: 'dev'
+          project-slug: 'aucc-website'
+
+      - name: Deploy PR app to Fly.io
+        id: deploy
+        uses: superfly/fly-pr-review-apps@latest
+        with:
+          name: aucc-preview-pr-${{ github.event.number }}
+          config: fly.preview.toml
+          secrets: >-
+            SKIP_ENV_VALIDATION="true"
+            DATABASE_URL="${{ env.DATABASE_URL }}"
+            PAYLOAD_SECRET="${{ env.PAYLOAD_SECRET}}"
+            SERVER_URL="https://aucc-preview-pr-${{ github.event.number }}.fly.dev"
+            S3_BUCKET="${{ env.S3_BUCKET}}"
+            S3_ACCESS_KEY_ID="${{ env.S3_ACCESS_KEY_ID}}"
+            S3_SECRET_ACCESS_KEY="${{ env.S3_SECRET_ACCESS_KEY}}"
+            S3_REGION="${{ env.S3_REGION}}"
+            S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"
+      
+      - name: Find Comment
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Preview deployment is live
+      
+      - name: Update PR Comment with Preview URL
+        uses: peter-evans/create-or-update-comment@v4
+        if: steps.fx.outputs.comment-id == ''
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: "🚀 Preview deployment is live: [Preview Link](${{ steps.deploy.outputs.url }})"
+          reactions: rocket
+          token: ${{ secrets.GITHUB_TOKEN }}

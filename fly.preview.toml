@@ -1,4 +1,4 @@
-app = 'aucc-staging'
+app = 'aucc-preview'
 primary_region = 'syd'
 
 [build]
@@ -14,4 +14,4 @@ primary_region = 'syd'
 [[vm]]
   cpu_kind = 'shared'
   cpus = 1
-  memory = '1gb'
+  memory = '256mb'

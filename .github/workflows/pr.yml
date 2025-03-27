@@ -11,10 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  env:
-    name: Get env
-    uses: ./.github/workflows/env.yml
-
   lint:
     name: Run Linters
     uses: ./.github/workflows/lint.yml
@@ -34,3 +30,9 @@ jobs:
       - name: Fail if conditional jobs failed
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')
         run: exit 1
+
+  deploy_preview:
+    name: Deploy Preview
+    needs: [required]
+    uses: ./.github/workflows/deploy-preview.yml
+    secrets: inherit

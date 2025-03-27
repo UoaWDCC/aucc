@@ -23,25 +23,36 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Accept environment variables from build arguments
-ARG DATABASE_URL="http://localhost:5432/default_db"
-ARG PAYLOAD_SECRET="default_secret"
-ARG SERVER_URL="http://localhost:3000"
-
-# Set these arguments as environment variables inside the container
-ENV DATABASE_URL=${DATABASE_URL}
-ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
-ENV SERVER_URL=${SERVER_URL}
-
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV SKIP_ENV_VALIDATION "true"
 
 RUN \
-  if [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  if [ -f pnpm-lock.yaml ]; then corepack enable pnpm; \
   else echo "Lockfile not found." && exit 1; \
   fi
+
+# These variables are required at build time for SSG
+# This will likely not need to be updated on further env changes
+RUN --mount=type=secret,id=DATABASE_URL \
+    --mount=type=secret,id=PAYLOAD_SECRET \
+    --mount=type=secret,id=SERVER_URL \
+    --mount=type=secret,id=S3_BUCKET \
+    --mount=type=secret,id=S3_ACCESS_KEY_ID \
+    --mount=type=secret,id=S3_SECRET_ACCESS_KEY \
+    --mount=type=secret,id=S3_REGION \
+    --mount=type=secret,id=S3_CF_PUBLIC_ENDPOINT \
+    DATABASE_URL="$(cat /run/secrets/DATABASE_URL)" \
+    PAYLOAD_SECRET="$(cat /run/secrets/PAYLOAD_SECRET)" \
+    SERVER_URL="$(cat /run/secrets/SERVER_URL)" \
+    S3_BUCKET="$(cat /run/secrets/S3_BUCKET)" \
+    S3_ACCESS_KEY_ID="$(cat /run/secrets/S3_ACCESS_KEY_ID)" \
+    S3_SECRET_ACCESS_KEY="$(cat /run/secrets/S3_SECRET_ACCESS_KEY)" \
+    S3_REGION="$(cat /run/secrets/S3_REGION)" \
+    S3_CF_PUBLIC_ENDPOINT="$(cat /run/secrets/S3_CF_PUBLIC_ENDPOINT)" \
+    pnpm build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -49,7 +60,7 @@ WORKDIR /app
 
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs

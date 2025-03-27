@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.string().min(1),
     PAYLOAD_SECRET: z.string().min(1),
     SERVER_URL: z.string().url(),
     S3_BUCKET: z.string().min(1),
@@ -15,4 +15,5 @@ export const env = createEnv({
   // this can be used in Next.js^13.4.4 and above,
   // client side runtime environment variables still need to be manually destructured
   experimental__runtimeEnv: process.env,
+  skipValidation: process.env.SKIP_ENV_VALIDATION === 'true',
 })
