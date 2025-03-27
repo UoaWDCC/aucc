@@ -1,5 +1,8 @@
 name: Deploy Preview App
 on:
+  pull_request:
+    # This will also run when the PR is closed to clean up the preview app on fly.
+    types: [closed]
   workflow_call:
 
 env:
@@ -47,6 +50,10 @@ jobs:
             S3_REGION="${{ env.S3_REGION}}"
             S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"
       
+      - name: Skip comment for closed PRs
+        if: github.event.action == 'closed'
+        run: echo "PR is closed, skipping comment creation" && exit 0
+
       - name: Find Comment
         uses: peter-evans/find-comment@v3
         id: fc
