@@ -57,7 +57,7 @@ jobs:
       
       - name: Update PR Comment with Preview URL
         uses: peter-evans/create-or-update-comment@v4
-        if: steps.fx.outputs.comment-id == ''
+        if: steps.fc.outputs.comment-id == ''
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: "🚀 Preview deployment is live: [Preview Link](${{ steps.deploy.outputs.url }})"
