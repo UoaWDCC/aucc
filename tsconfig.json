@@ -21,10 +21,17 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/lib": ["./src/lib/*"],
+      "@/collections": ["./src/collections/*"],
       "@payload-config": ["./src/payload.config.ts"]
     },
     "target": "ES2022"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".prettierrc.ts"
+  ],
   "exclude": ["node_modules"]
 }

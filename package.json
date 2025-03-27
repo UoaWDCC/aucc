@@ -5,7 +5,6 @@
   "type": "module",
   "packageManager": "pnpm@10.5.2",
   "scripts": {
-    "prebuild": "node load-env.mjs",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
@@ -28,11 +27,11 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "graphql": "^16.8.1",
-    "jiti": "^2.4.2",
     "lucide-react": "^0.477.0",
     "next": "15.2.3",
     "payload": "3.30.0",
     "postcss": "^8.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sharp": "0.32.6",
@@ -43,6 +42,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@types/node": "^22.5.4",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
@@ -50,6 +50,9 @@
     "eslint-config-next": "15.1.5",
     "prettier": "^3.4.2",
     "typescript": "5.7.3"
+  },
+  "resolutions": {
+    "@payloadcms/*": "3.30.0"
   },
   "engines": {
     "node": "^22.14.0",

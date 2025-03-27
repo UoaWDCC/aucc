@@ -42,8 +42,11 @@ build
 # **/.env
 !.env
 
+# terraform
+terraform
+
 media
 
 **/.vscode
 **/.pnpm-store
-fly.toml
+fly*.toml
