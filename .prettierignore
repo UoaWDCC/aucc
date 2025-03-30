@@ -2,3 +2,4 @@
 **/payload-types.ts
 **/(payload)/**
 tsconfig.json
+pnpm-lock.yaml

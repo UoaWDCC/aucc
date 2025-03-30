@@ -44,6 +44,9 @@ next-env.d.ts
 
 .pnpm-store
 
+# eslint cache
+.eslintcache
+
 # Ignore Terraform state files and lock files
 terraform/.terraform/
 terraform/.terraform.lock.hcl

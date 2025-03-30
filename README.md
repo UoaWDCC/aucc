@@ -23,9 +23,7 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 
 ## 2025 Team
 
-### Leadership
-
-- David Zhu (Project Manager)
-- Phawat Saengsiripongpun (Tech Lead)
-
-### Project Members
+| Name        | Role            |
+| ----------- | --------------- |
+| Daniel Yang | Project Manager |
+| David Zhu   | Tech Lead       |
