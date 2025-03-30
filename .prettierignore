@@ -1,2 +1,4 @@
-src/payload-types.ts
-src/app/(payload)/*
+**/node_modules
+**/payload-types.ts
+**/(payload)/**
+tsconfig.json

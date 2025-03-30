@@ -2,7 +2,7 @@
   "tabWidth": 2,
   "semi": false,
   "singleQuote": true,
-  "trailingComma": "es5",
+  "trailingComma": "all",
   "plugins": [
     "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"

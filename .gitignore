@@ -42,7 +42,6 @@ next-env.d.ts
 
 /media
 
-.vscode
 .pnpm-store
 
 # Ignore Terraform state files and lock files
