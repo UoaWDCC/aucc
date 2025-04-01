@@ -7,7 +7,6 @@ on:
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  # Set these to your Fly.io organization and preferred region.
   FLY_REGION: syd
   FLY_ORG: projects-aucc
 
@@ -16,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
+    # We could configure custom preview environments for each PR, but this is a bit more
+    # complex and require a bit more work, and not necessary for now. We also need elevated
+    # permissions if we wish to tear down environments when the PR is closed.
     # environment:
     #   name: preview
     #   url: ${{ steps.deploy.outputs.url }}
@@ -64,7 +66,8 @@ jobs:
 
       - name: Update PR Comment with Preview URL
         uses: peter-evans/create-or-update-comment@v4
-        if: steps.fc.outputs.comment-id == ''
+        # This will only run if the comment was not found to prevent duplicate comments
+        if: steps.fc.outputs.comment-id == '' 
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: '🚀 Preview deployment is live: [Preview Link](${{ steps.deploy.outputs.url }})'
