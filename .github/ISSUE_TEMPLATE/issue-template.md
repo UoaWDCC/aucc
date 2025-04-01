@@ -1,7 +1,7 @@
 ---
 name: Issue Template
 about: Describe a feature or functionality from the user's perspective
-title: '[AUCC-123] Short, descriptive title'
+title: '[ISSUE-TYPE] Short, descriptive title'
 labels: ''
 assignees: ''
 ---
@@ -16,7 +16,7 @@ assignees: ''
 
 ### 🎯 **Acceptance Criteria**
 
-Define the conditions that must be met for this story to be complete:
+<!-- Define the conditions that must be met for this story to be complete: -->
 
 - [ ] The feature should [specific functionality].
 - [ ] Error states should be handled [describe errors].
@@ -24,19 +24,9 @@ Define the conditions that must be met for this story to be complete:
 
 ---
 
-### 📊 **Tasks**
-
-Break this story into actionable tasks:
-
-- [ ] Implement API call to [endpoint].
-- [ ] Write unit and integration tests.
-- [ ] Update relevant documentation.
-
----
-
 ### 🔗 **Dependencies**
 
-List any related issues or blockers:
+<!-- List any related issues or blockers: -->
 
 - #123 [Linked Issue or Task]
 
@@ -44,4 +34,4 @@ List any related issues or blockers:
 
 ### 📚 **Additional Context**
 
-Include screenshots, wireframes, or references that provide more context.
+<!-- Include screenshots, wireframes, or references that provide more context. -->
