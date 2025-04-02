@@ -24,11 +24,24 @@ assignees: ''
 
 ---
 
+### 📊 **Definition of Done (DoD)**
+
+<!-- Checklist of requirements that must be fulfilled before the issue can be considered complete -->
+
+- [ ] Acceptance criteria met
+- [ ] Agreed tests written
+- [ ] Agreed documentation in GitHub wiki
+- [ ] PR reviewed
+
+---
+
 ### 🔗 **Dependencies**
 
-<!-- List any related issues or blockers: -->
+<!-- List any related issues or blockers, for example:
 
-- #123 [Linked Issue or Task]
+- #123
+
+-->
 
 ---
 
