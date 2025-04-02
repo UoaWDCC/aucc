@@ -23,8 +23,9 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 
 ## 2025 Team
 
-| Name        | Role            |
-| ----------- | --------------- |
-| Daniel Yang | Project Manager |
-| David Zhu   | Tech Lead       |
-| Franck Chen | Developer       |
+| Name           | Role            |
+|----------------| --------------- |
+| Daniel Yang    | Project Manager |
+| David Zhu      | Tech Lead       |
+| Franck Chen    | Developer       |
+| Henri Chemla   | Developer       |
