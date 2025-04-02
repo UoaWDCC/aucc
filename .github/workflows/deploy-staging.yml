@@ -32,13 +32,13 @@ jobs:
           project-slug: 'aucc-website'
 
       - name: Deploy
-        run: |
-          build_secrets=""
-          while IFS= read -r var; do
-            var=$(echo "$var" | xargs)
-            if [ -n "$var" ]; then
-              build_secrets+="--build-secret $var=\"\${$var}\" "
-            fi
-          done < .env.build
-
-          flyctl deploy --remote-only --config fly.staging.toml $build_secrets
+        run: >-
+          flyctl deploy --remote-only --config fly.staging.toml
+          --build-secret DATABASE_URL="${{ env.DATABASE_URL }}"
+          --build-secret PAYLOAD_SECRET="${{ env.PAYLOAD_SECRET}}"
+          --build-secret SERVER_URL="${{ env.SERVER_URL}}"
+          --build-secret S3_BUCKET="${{ env.S3_BUCKET}}"
+          --build-secret S3_ACCESS_KEY_ID="${{ env.S3_ACCESS_KEY_ID}}"
+          --build-secret S3_SECRET_ACCESS_KEY="${{ env.S3_SECRET_ACCESS_KEY}}"
+          --build-secret S3_REGION="${{ env.S3_REGION}}"
+          --build-secret S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"

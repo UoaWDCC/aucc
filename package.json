@@ -13,7 +13,8 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.30.0",
@@ -31,7 +32,6 @@
     "next": "15.2.3",
     "payload": "3.30.0",
     "postcss": "^8.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sharp": "0.32.6",
@@ -48,7 +48,11 @@
     "@types/react-dom": "19.0.3",
     "eslint": "^9.16.0",
     "eslint-config-next": "15.1.5",
-    "prettier": "^3.4.2",
+    "eslint-config-prettier": "^10.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "5.7.3"
   },
   "resolutions": {
@@ -65,5 +69,11 @@
   },
   "volta": {
     "node": "22.14.0"
+  },
+  "lint-staged": {
+    "*.{mjs,js,ts,tsx,json,md}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   }
 }
