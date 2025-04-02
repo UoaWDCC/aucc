@@ -27,3 +27,4 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 | ----------- | --------------- |
 | Daniel Yang | Project Manager |
 | David Zhu   | Tech Lead       |
+| Franck Chen | Developer       |
