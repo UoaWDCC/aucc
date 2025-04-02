@@ -27,3 +27,4 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 | ----------------------- | --------------- |
 | David Zhu               | Project Manager |
 | Phawat Saengsiripongpun | Tech Lead       |
+| Franck Chen             | Developer       |
