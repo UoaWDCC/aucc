@@ -31,3 +31,4 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 | Henri Chemla            | Developer       |
 | Dom Pietersen           | Developer       |
 | Lawrence Li             | Developer       |
+| Mai Pham                | Developer       |
