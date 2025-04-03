@@ -29,4 +29,5 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 | Phawat Saengsiripongpun | Tech Lead       |
 | Franck Chen             | Developer       |
 | Henri Chemla            | Developer       |
+| Dom Pietersen           | Developer       |
 | Lawrence Li             | Developer       |
