@@ -30,3 +30,6 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 | Franck Chen             | Developer       |
 | Henri Chemla            | Developer       |
 | Troy Abbott             | Developer       |
+| Dom Pietersen           | Developer       |
+| Lawrence Li             | Developer       |
+
