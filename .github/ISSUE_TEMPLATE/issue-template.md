@@ -24,11 +24,31 @@ assignees: ''
 
 ---
 
+<<<<<<< HEAD
+
 ### 🔗 **Dependencies**
 
-<!-- List any related issues or blockers: -->
+# <!-- List any related issues or blockers: -->
 
-- #123 [Linked Issue or Task]
+### 📊 **Definition of Done (DoD)**
+
+<!-- Checklist of requirements that must be fulfilled before the issue can be considered complete -->
+
+- [ ] Acceptance criteria met
+- [ ] Agreed tests written
+- [ ] Agreed documentation in GitHub wiki
+- [ ] PR reviewed
+
+---
+
+### 🔗 **Dependencies**
+
+<!-- List any related issues or blockers, for example:
+>>>>>>> 5ee75839ca6e37c50903890794212ecb264db70e
+
+- #123
+
+-->
 
 ---
 
