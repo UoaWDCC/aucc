@@ -1,14 +1,10 @@
-import { fileURLToPath } from 'url'
-
 export default async function GalleryPage() {
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
-
   return (
-    <div className="home">
-      <div className="footer">
+    <div>
+      <div>
         <h1>Welcome to the gallery page.</h1>
         <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
+        <a>
           <code>app/(frontend)/gallery/page.tsx</code>
         </a>
       </div>
