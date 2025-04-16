@@ -80,5 +80,4 @@ export const TripReports: CollectionConfig = {
       label: 'Slug',
     },
   ],
-  timestamps: true,
 }
