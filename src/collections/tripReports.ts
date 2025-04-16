@@ -28,19 +28,20 @@ export const TripReports: CollectionConfig = {
         { label: 'Published', value: 'published' },
       ],
     },
-    {
-      name: 'author',
-      type: 'relationship',
-      required: true,
-      hasMany: false,
-      relationTo: 'users',
-    },
+    // TODO(@Troyabbs): uncomment this to switch this on when the exec collection is ready #issue 16
+    // {
+    //   name: 'author',
+    //   type: 'relationship',
+    //   required: true,
+    //   hasMany: true,
+    //   relationTo: 'execs',
+    // },
     {
       name: 'tripDate',
       type: 'date',
       label: 'Trip Date',
     },
-    // Just uncomment this to switch this on when the event collection is ready @Franck #issue 34
+    // TODO(@f13322): uncomment this to switch this on when the event collection is ready #issue 34
     // {
     //   name: 'relatedEvent',
     //   type: 'relationship',

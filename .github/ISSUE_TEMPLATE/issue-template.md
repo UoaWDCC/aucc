@@ -24,12 +24,6 @@ assignees: ''
 
 ---
 
-<<<<<<< HEAD
-
-### 🔗 **Dependencies**
-
-# <!-- List any related issues or blockers: -->
-
 ### 📊 **Definition of Done (DoD)**
 
 <!-- Checklist of requirements that must be fulfilled before the issue can be considered complete -->
@@ -44,7 +38,6 @@ assignees: ''
 ### 🔗 **Dependencies**
 
 <!-- List any related issues or blockers, for example:
->>>>>>> 5ee75839ca6e37c50903890794212ecb264db70e
 
 - #123
 
