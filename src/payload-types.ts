@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    rivers: River;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +78,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    rivers: RiversSelect<false> | RiversSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -187,6 +189,19 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers".
+ */
+export interface River {
+  id: number;
+  name?: string | null;
+  grade?: number | null;
+  description?: string | null;
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -199,6 +214,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'rivers';
+        value: number | River;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -320,6 +339,18 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers_select".
+ */
+export interface RiversSelect<T extends boolean = true> {
+  name?: T;
+  grade?: T;
+  description?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
