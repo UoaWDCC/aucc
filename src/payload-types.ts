@@ -208,9 +208,12 @@ export interface River {
  */
 export interface TripReport {
   id: number;
-  name: string;
-  tripDate: string;
-  description?: {
+  title: string;
+  status: 'draft' | 'published';
+  author: number | User;
+  tripDate?: string | null;
+  relatedRiver?: (number | null) | River;
+  content?: {
     root: {
       type: string;
       children: {
@@ -226,8 +229,8 @@ export interface TripReport {
     [k: string]: unknown;
   } | null;
   location?: string | null;
-  image?: (number | null) | Media;
-  user: number | User;
+  gallery?: (number | Media)[] | null;
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -392,12 +395,15 @@ export interface RiversSelect<T extends boolean = true> {
  * via the `definition` "trip-reports_select".
  */
 export interface TripReportsSelect<T extends boolean = true> {
-  name?: T;
+  title?: T;
+  status?: T;
+  author?: T;
   tripDate?: T;
-  description?: T;
+  relatedRiver?: T;
+  content?: T;
   location?: T;
-  image?: T;
-  user?: T;
+  gallery?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
