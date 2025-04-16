@@ -9,6 +9,7 @@ import sharp from 'sharp'
 import { Media } from '@/collections/media'
 import { Users } from '@/collections/users'
 import { env } from '@/lib/env'
+import { Rivers } from './collections/rivers'
 import { TripReports } from './collections/tripReports'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, TripReports],
+  collections: [Users, Media, Rivers, TripReports],
   editor: lexicalEditor(),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,
