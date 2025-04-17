@@ -24,7 +24,7 @@ export const Events: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
-      options: ['draft', 'published', 'archived'],
+      options: ['Draft', 'Published', 'Archived'],
       defaultValue: 'draft',
       required: true,
     },
