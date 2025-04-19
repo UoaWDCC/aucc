@@ -96,7 +96,7 @@ export const TripReports: CollectionConfig = {
     {
       name: 'content',
       type: 'richText',
-      label: 'content',
+      label: 'Content',
     },
   ],
 }
