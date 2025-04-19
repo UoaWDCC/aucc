@@ -213,7 +213,7 @@ export interface River {
 export interface Event {
   id: number;
   title: string;
-  status: 'draft' | 'published' | 'archived';
+  status: 'Draft' | 'Published' | 'Archived';
   startTime: string;
   endTime?: string | null;
   location?: string | null;
