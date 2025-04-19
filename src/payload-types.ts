@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     rivers: River;
     events: Event;
+    'trip-reports': TripReport;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     rivers: RiversSelect<false> | RiversSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -209,7 +211,7 @@ export interface River {
 export interface Event {
   id: number;
   title: string;
-  status: 'draft' | 'published' | 'archived';
+  status: 'Draft' | 'Published' | 'Archived';
   startTime: string;
   endTime?: string | null;
   location?: string | null;
@@ -229,6 +231,41 @@ export interface Event {
     [k: string]: unknown;
   } | null;
   featuredImage?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports".
+ */
+export interface TripReport {
+  id: number;
+  title: string;
+  status: 'draft' | 'published';
+  tripDate?: string | null;
+  location?: string | null;
+  relatedEvent?: (number | null) | Event;
+  relatedRiver?: (number | null) | River;
+  gallery?: (number | Media)[] | null;
+  /**
+   * Automatically generated from title
+   */
+  slug?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -254,6 +291,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'trip-reports';
+        value: number | TripReport;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -400,6 +441,23 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   description?: T;
   featuredImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports_select".
+ */
+export interface TripReportsSelect<T extends boolean = true> {
+  title?: T;
+  status?: T;
+  tripDate?: T;
+  location?: T;
+  relatedEvent?: T;
+  relatedRiver?: T;
+  gallery?: T;
+  slug?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
