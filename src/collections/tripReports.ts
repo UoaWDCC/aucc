@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
@@ -10,6 +11,19 @@ export const TripReports: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        if (data.title && data.title !== originalDoc?.title) {
+          data.slug = slugify(data.title, {
+            lower: true,
+            strict: true,
+          })
+        }
+        return data
+      },
+    ],
   },
   fields: [
     {
@@ -41,14 +55,18 @@ export const TripReports: CollectionConfig = {
       type: 'date',
       label: 'Trip Date',
     },
-    // TODO(@f13322): uncomment this to switch this on when the event collection is ready #issue 34
-    // {
-    //   name: 'relatedEvent',
-    //   type: 'relationship',
-    //   relationTo: 'events',
-    //   required: false,
-    //   label: 'Related Event',
-    // },
+    {
+      name: 'location',
+      type: 'text',
+      label: 'Trip Location',
+    },
+    {
+      name: 'relatedEvent',
+      type: 'relationship',
+      relationTo: 'events',
+      required: false,
+      label: 'Related Event',
+    },
     {
       name: 'relatedRiver',
       type: 'relationship',
@@ -57,18 +75,8 @@ export const TripReports: CollectionConfig = {
       label: 'Related River',
     },
     {
-      name: 'content',
-      type: 'richText',
-      label: 'Trip Description',
-    },
-    {
-      name: 'location',
-      type: 'text',
-      label: 'Trip Location',
-    },
-    {
       name: 'gallery',
-      type: 'relationship',
+      type: 'upload',
       hasMany: true,
       relationTo: 'media',
       label: 'Trip Gallery',
@@ -79,6 +87,16 @@ export const TripReports: CollectionConfig = {
       unique: true,
       index: true,
       label: 'Slug',
+      admin: {
+        readOnly: true,
+        description: 'Automatically generated from title',
+        hidden: true,
+      },
+    },
+    {
+      name: 'content',
+      type: 'richText',
+      label: 'content',
     },
   ],
 }
