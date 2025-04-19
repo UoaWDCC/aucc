@@ -1,7 +1,3 @@
-import {
-  defaultEditorFeatures,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
@@ -24,7 +20,20 @@ export const Events: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
-      options: ['Draft', 'Published', 'Archived'],
+      options: [
+        {
+          label: 'Draft',
+          value: 'draft',
+        },
+        {
+          label: 'Published',
+          value: 'published',
+        },
+        {
+          label: 'Archived',
+          value: 'archived',
+        },
+      ],
       defaultValue: 'draft',
       required: true,
     },
@@ -57,8 +66,7 @@ export const Events: CollectionConfig = {
     },
     {
       name: 'featuredImage',
-      type: 'relationship',
-      hasMany: false,
+      type: 'upload',
       relationTo: 'media',
     },
   ],
