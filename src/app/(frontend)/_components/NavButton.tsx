@@ -6,9 +6,5 @@ type NavButtonProps = {
 }
 
 export default function NavButton({ children, route }: NavButtonProps) {
-  return (
-    <Link href={route} className="border-2 border-black">
-      {children}
-    </Link>
-  )
+  return <Link href={route}>{children}</Link>
 }

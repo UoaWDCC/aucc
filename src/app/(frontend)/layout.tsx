@@ -2,8 +2,8 @@ import React from 'react'
 
 import './styles.css'
 
-import Footer from './components/Footer'
-import Navbar from './components/Navbar'
+import Footer from './_components/Footer'
+import Header from './_components/Header'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -16,8 +16,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main>{children}</main>
+        <Header />
+        {/* Can remove the h-dvh when theres content on the page*/}
+        <main className="h-dvh">{children}</main>
         <Footer />
       </body>
     </html>
