@@ -43,7 +43,6 @@ export const Execs: CollectionConfig = {
       label: 'Profile Image',
       type: 'upload',
       relationTo: 'media',
-      required: true,
     },
   ],
 }
