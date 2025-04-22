@@ -1,18 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
-type Event = {
-  id: string
-  title: string
-  startTime: string
-  location?: string
-  slug?: string
-}
-
-export default function EventsPage() {
+// 👇 Suspense 내부에 렌더링용 분리 컴포넌트
+function EventList() {
   const searchParams = useSearchParams()
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
@@ -53,10 +46,7 @@ export default function EventsPage() {
     return <p className="p-6 text-red-600">❌ Failed to load events.</p>
 
   return (
-    <div className="p-6">
-      <h1 className="mb-4 text-3xl font-bold">🎉 Events Page</h1>
-      <p className="mb-4 text-gray-600">List of events:</p>
-
+    <>
       {events.length === 0 ? (
         <p>No events found.</p>
       ) : (
@@ -93,6 +83,18 @@ export default function EventsPage() {
           </Link>
         )}
       </div>
+    </>
+  )
+}
+
+export default function EventsPage() {
+  return (
+    <div className="p-6">
+      <h1 className="mb-4 text-3xl font-bold">🎉 Events Page</h1>
+      <p className="mb-4 text-gray-600">List of events:</p>
+      <Suspense fallback={<p>Loading events...</p>}>
+        <EventList />
+      </Suspense>
     </div>
   )
 }
