@@ -72,6 +72,7 @@ export interface Config {
     rivers: River;
     events: Event;
     'trip-reports': TripReport;
+    execs: Exec;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     rivers: RiversSelect<false> | RiversSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;
+    execs: ExecsSelect<false> | ExecsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -242,6 +244,7 @@ export interface TripReport {
   id: number;
   title: string;
   status: 'draft' | 'published';
+  author: (number | Exec)[];
   tripDate?: string | null;
   location?: string | null;
   relatedEvent?: (number | null) | Event;
@@ -271,6 +274,20 @@ export interface TripReport {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "execs".
+ */
+export interface Exec {
+  id: number;
+  name: string;
+  pronouns?: string | null;
+  role: string;
+  email: string;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -295,6 +312,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'trip-reports';
         value: number | TripReport;
+      } | null)
+    | ({
+        relationTo: 'execs';
+        value: number | Exec;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -451,6 +472,7 @@ export interface EventsSelect<T extends boolean = true> {
 export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
+  author?: T;
   tripDate?: T;
   location?: T;
   relatedEvent?: T;
@@ -458,6 +480,19 @@ export interface TripReportsSelect<T extends boolean = true> {
   gallery?: T;
   slug?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "execs_select".
+ */
+export interface ExecsSelect<T extends boolean = true> {
+  name?: T;
+  pronouns?: T;
+  role?: T;
+  email?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
