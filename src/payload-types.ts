@@ -282,7 +282,7 @@ export interface Exec {
   pronouns?: string | null;
   role: string;
   email: string;
-  image: number | Media;
+  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
