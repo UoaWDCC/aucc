@@ -213,7 +213,7 @@ export interface River {
 export interface Event {
   id: number;
   title: string;
-  status: 'Draft' | 'Published' | 'Archived';
+  status: 'draft' | 'published' | 'archived';
   startTime: string;
   endTime?: string | null;
   location?: string | null;
@@ -282,7 +282,7 @@ export interface Exec {
   pronouns?: string | null;
   role: string;
   email: string;
-  image: number | Media;
+  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
