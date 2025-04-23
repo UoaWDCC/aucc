@@ -7,9 +7,6 @@ import { RiversGridFallback } from './_components/RiversGridFallback'
 export default async function RiversPage() {
   const { rivers } = await getRivers({ limit: 10 })
 
-  // Artificial delay to simulate a slow network
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-
   return (
     <div className="p-4">
       <div>
