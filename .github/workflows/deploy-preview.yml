@@ -52,14 +52,14 @@ jobs:
             S3_REGION="${{ env.S3_REGION}}"
             S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"
           build_secrets: >-
-            DATABASE_URL="${{ env.DATABASE_URL }}"
-            PAYLOAD_SECRET="${{ env.PAYLOAD_SECRET}}"
-            SERVER_URL="https://aucc-preview-pr-${{ github.event.number }}.fly.dev"
-            S3_BUCKET="${{ env.S3_BUCKET}}"
-            S3_ACCESS_KEY_ID="${{ env.S3_ACCESS_KEY_ID}}"
-            S3_SECRET_ACCESS_KEY="${{ env.S3_SECRET_ACCESS_KEY}}"
-            S3_REGION="${{ env.S3_REGION}}"
-            S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"
+            DATABASE_URL=${{ env.DATABASE_URL }}
+            PAYLOAD_SECRET=${{ env.PAYLOAD_SECRET}}
+            SERVER_URL=https://aucc-preview-pr-${{ github.event.number }}.fly.dev
+            S3_BUCKET=${{ env.S3_BUCKET}}
+            S3_ACCESS_KEY_ID=${{ env.S3_ACCESS_KEY_ID}}
+            S3_SECRET_ACCESS_KEY=${{ env.S3_SECRET_ACCESS_KEY}}
+            S3_REGION=${{ env.S3_REGION}}
+            S3_CF_PUBLIC_ENDPOINT=${{ env.S3_CF_PUBLIC_ENDPOINT}}
 
       - name: Skip comment for closed PRs
         if: github.event.action == 'closed'
