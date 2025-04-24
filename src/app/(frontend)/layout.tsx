@@ -15,10 +15,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      <body>
+      {/* Can remove the min-h-dvh when theres content on the page*/}
+      <body className="min-h-dvh">
         <Header />
-        {/* Can remove the h-dvh when theres content on the page*/}
-        <main className="h-dvh">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
