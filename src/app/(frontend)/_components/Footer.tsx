@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
     <footer className="flex w-full justify-center bg-black text-white">
-      <div>© AUCC {currentYear}</div>
+      <div>&copy; AUCC {currentYear}</div>
     </footer>
   )
 }

@@ -1,10 +1,11 @@
+import React, { ReactNode } from 'react'
 import Link from 'next/link'
 
 type NavButtonProps = {
-  children: React.ReactNode
-  route: string
+  children: ReactNode
+  href: string
 }
 
-export default function NavButton({ children, route }: NavButtonProps) {
-  return <Link href={route}>{children}</Link>
+export function NavButton({ children, href }: NavButtonProps) {
+  return <Link href={href}>{children}</Link>
 }

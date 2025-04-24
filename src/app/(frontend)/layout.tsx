@@ -2,8 +2,8 @@ import React from 'react'
 
 import './styles.css'
 
-import Footer from './_components/Footer'
-import Header from './_components/Header'
+import { Footer } from './_components/Footer'
+import { Header } from './_components/Header'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -15,8 +15,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      {/* Can remove the min-h-dvh when theres content on the page*/}
-      <body className="min-h-dvh">
+      <body>
         <Header />
         <main>{children}</main>
         <Footer />
