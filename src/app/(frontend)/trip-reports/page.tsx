@@ -1,22 +1,21 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+
+import { GetTripReports } from './_components/GetTripReports'
+import { TripReportsGrid } from './_components/TripReportsGrid'
+import { TripReportsGridFallback } from './_components/TripReportsGridFallback'
 
 export default async function TripReportsPage() {
-  // // const payload = await getPayload({ config })
-
-  // console.log('payload', payload)
+  const { docs: reports } = await GetTripReports(1, 20, '-createdAt')
 
   return (
-    <div>
-      <div className="mb-4 text-center">
+    <div className="p-4">
+      <div className="text-left">
         <h1 className="text-2xl font-bold">Trip Reports</h1>
         <h2 className="text-gray-600">A list of all trip reports available.</h2>
       </div>
-      <div>
-        <p>Hello there</p>
-        <a>
-          <code>app/(frontend)/trips/page.tsx</code>
-        </a>
-      </div>
+      <Suspense fallback={<TripReportsGridFallback />}>
+        <TripReportsGrid reportsList={reports} />
+      </Suspense>
     </div>
   )
 }
