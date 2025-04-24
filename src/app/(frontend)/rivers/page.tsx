@@ -5,7 +5,7 @@ import { RiversGrid } from './_components/RiversGrid'
 import { RiversGridFallback } from './_components/RiversGridFallback'
 
 export default async function RiversPage() {
-  const { rivers } = await getRivers({ limit: 10 })
+  const { rivers } = await getRivers()
 
   return (
     <div className="p-4">

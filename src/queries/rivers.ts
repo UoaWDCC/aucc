@@ -5,9 +5,18 @@ import type { River } from '@/payload-types'
  * Get all rivers
  * @param page - The page number to get
  * @param limit - The number of rivers to get per page
+ * @param sort - The field to sort the rivers by
  * @returns The rivers and pagination information
  */
-export async function getRivers({ page = 1, limit = 10, sort = 'grade' } = {}) {
+export async function getRivers({
+  page = 1,
+  limit = 10,
+  sort = 'grade',
+}: {
+  page?: number
+  limit?: number
+  sort?: string
+} = {}) {
   const payload = await getPayloadClient()
 
   const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
@@ -18,7 +27,7 @@ export async function getRivers({ page = 1, limit = 10, sort = 'grade' } = {}) {
   })
 
   return {
-    rivers: docs as River[],
+    rivers: docs,
     hasNextPage,
     nextPage,
     totalDocs,
@@ -46,5 +55,5 @@ export async function getRiverBySlug(slug: string): Promise<River | null> {
     return null
   }
 
-  return river.docs[0] as River
+  return river.docs[0]
 }
