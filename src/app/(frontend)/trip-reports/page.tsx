@@ -1,9 +1,17 @@
+import React from 'react'
+
 export default async function TripReportsPage() {
+  // // const payload = await getPayload({ config })
+
+  // console.log('payload', payload)
+
   return (
     <div>
+      <div className="mb-4 text-center">
+        <h1 className="text-2xl font-bold">Trip Reports</h1>
+        <h2 className="text-gray-600">A list of all trip reports available.</h2>
+      </div>
       <div>
-        <h1>Welcome to the trip reports page.</h1>
-        <p>Update this page by editing</p>
         <p>Hello there</p>
         <a>
           <code>app/(frontend)/trips/page.tsx</code>
