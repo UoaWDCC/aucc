@@ -12,7 +12,7 @@ import { env } from '@/lib/env'
 import { Events } from './collections/events'
 import { Execs } from './collections/execs'
 import { Rivers } from './collections/rivers'
-import { TripReports } from './collections/tripReports'
+import { TripReports } from './collections/trip-reports'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

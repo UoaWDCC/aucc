@@ -21,9 +21,14 @@ jobs:
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
+  test:
+    name: Run Unit Tests
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
   required:
     name: PR Check Summary
-    needs: [lint, build]
+    needs: [lint, build, test]
     if: always()
     runs-on: ubuntu-latest
     steps:
