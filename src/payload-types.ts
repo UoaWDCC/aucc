@@ -203,6 +203,10 @@ export interface River {
   grade?: number | null;
   description?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Automatically generated from name
+   */
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -447,6 +451,7 @@ export interface RiversSelect<T extends boolean = true> {
   grade?: T;
   description?: T;
   image?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

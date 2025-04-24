@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
@@ -10,6 +11,19 @@ export const Rivers: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        if (data.name && data.name !== originalDoc?.name) {
+          data.slug = slugify(data.name, {
+            lower: true,
+            strict: true,
+          })
+        }
+        return data
+      },
+    ],
   },
   fields: [
     {
@@ -28,6 +42,18 @@ export const Rivers: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      index: true,
+      label: 'Slug',
+      admin: {
+        readOnly: true,
+        description: 'Automatically generated from name',
+        hidden: true,
+      },
     },
   ],
 }
