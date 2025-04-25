@@ -6,12 +6,15 @@ import { TripReportsGrid } from './_components/TripReportsGrid'
 import { TripReportsGridFallback } from './_components/TripReportsGridFallback'
 
 export default async function TripReportsPage({
-  searchParams,
+  searchParams: SearchParamsPromise,
 }: {
-  searchParams: { page?: string; limit?: string }
+  searchParams: Promise<{ page?: string; limit?: string }>
 }) {
-  const page = parseInt(searchParams.page as string) || 1
-  const limit = parseInt(searchParams.limit as string) || 4
+  const { page: pageStr = '1', limit: limitStr = '8' } =
+    await SearchParamsPromise
+  const page = parseInt(pageStr, 10)
+  const limit = parseInt(limitStr, 10)
+
   const {
     tripReports: reports,
     totalDocs,
