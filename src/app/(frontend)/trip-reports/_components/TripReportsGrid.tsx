@@ -9,7 +9,7 @@ interface TripReportsGridProps {
 
 export function TripReportsGrid({ reportsList }: TripReportsGridProps) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="mt-2 grid grid-cols-2 gap-4">
       {reportsList.map((report) => (
         <TripReportCard key={report.id} report={report} />
       ))}

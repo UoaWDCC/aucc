@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import Link from 'next/link'
 
-import { GetTripReports } from './_components/GetTripReports'
+import { getTripReports } from '@/queries/tripReports'
 import { TripReportsGrid } from './_components/TripReportsGrid'
 import { TripReportsGridFallback } from './_components/TripReportsGridFallback'
 
@@ -10,15 +10,14 @@ export default async function TripReportsPage({
 }: {
   searchParams: { page?: string; limit?: string }
 }) {
-  // const {docs: reports} = await GetTripReports(1, 20, '-createdAt')
   const page = parseInt(searchParams.page as string) || 1
-  const limit = parseInt(searchParams.limit as string) || 2
+  const limit = parseInt(searchParams.limit as string) || 4
   const {
-    docs: reports,
+    tripReports: reports,
     totalDocs,
     hasNextPage,
     nextPage,
-  } = await GetTripReports(page, limit, '-createdAt')
+  } = await getTripReports(page, limit, '-createdAt')
   const totalPages = Math.ceil(totalDocs / limit)
 
   const pageLinks: (number | '…')[] = []
