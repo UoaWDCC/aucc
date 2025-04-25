@@ -1,5 +1,4 @@
 import { getPayloadClient } from '@/lib/payload'
-import type { TripReport } from '@/payload-types'
 
 /**
  * Get all trip reports
