@@ -3,12 +3,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { TripReport } from '@/payload-types'
+import type { Exec } from '@/payload-types'
+import { RichTextRenderer } from '../../_components/RichText/index'
 
 export interface TripReportCardProps {
   report: TripReport
 }
 
+function isExec(a: number | Exec): a is Exec {
+  return typeof a !== 'number'
+}
+
 export function TripReportCard({ report }: TripReportCardProps) {
+  const postAuthors = report.author.filter(isExec)
+
   const galleryItems = report.gallery as { url: string }[] | undefined
   const coverImage = galleryItems?.[0]?.url
   return (
@@ -36,6 +44,16 @@ export function TripReportCard({ report }: TripReportCardProps) {
       )}
       {report.location && (
         <p className="text-sm text-gray-700">{report.location}</p>
+      )}
+      {postAuthors.length > 0 && (
+        <p className="mt-1 text-sm text-gray-500">
+          By {postAuthors.map((authorObject) => authorObject.name).join(', ')}
+        </p>
+      )}
+      {report.content && (
+        <div className="mt-1 line-clamp-2 text-sm whitespace-pre-wrap text-gray-600">
+          {<RichTextRenderer data={report.content} />}
+        </div>
       )}
     </Link>
   )
