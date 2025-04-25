@@ -54,7 +54,7 @@ describe('getTripReports', () => {
 
     mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-    const result = await getTripReports(2, 20, 'name')
+    const result = await getTripReports({ page: 2, limit: 20, sort: 'name' })
 
     expect(mockPayloadClient.find).toHaveBeenCalledWith({
       collection: 'trip-reports',

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { TripReport } from '@/payload-types'
 import type { Exec } from '@/payload-types'
-import { RichTextRenderer } from '../../_components/RichText/index'
+import { RichTextRenderer } from '../../../../components/RichText/index'
 
 export interface TripReportCardProps {
   report: TripReport
@@ -16,9 +16,9 @@ function isExec(a: number | Exec): a is Exec {
 
 export function TripReportCard({ report }: TripReportCardProps) {
   const postAuthors = report.author.filter(isExec)
-
   const galleryItems = report.gallery as { url: string }[] | undefined
   const coverImage = galleryItems?.[0]?.url
+
   return (
     <Link
       href={`/trip-reports/${report.slug}`}
@@ -47,12 +47,15 @@ export function TripReportCard({ report }: TripReportCardProps) {
       )}
       {postAuthors.length > 0 && (
         <p className="mt-1 text-sm text-gray-500">
-          By {postAuthors.map((authorObject) => authorObject.name).join(', ')}
+          By {postAuthors.map((a) => a.name).join(', ')}
         </p>
       )}
+
       {report.content && (
         <div className="mt-1 line-clamp-2 text-sm whitespace-pre-wrap text-gray-600">
-          {<RichTextRenderer data={report.content} />}
+          <Suspense fallback={<p>Loading content…</p>}>
+            <RichTextRenderer data={report.content} />
+          </Suspense>
         </div>
       )}
     </Link>

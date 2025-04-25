@@ -7,11 +7,15 @@ import { getPayloadClient } from '@/lib/payload'
  * @param sort - The field to sort the rivers by
  * @returns The trip reports and pagination information
  */
-export async function getTripReports(
+export async function getTripReports({
   page = 1,
   limit = 10,
   sort = '-createdAt',
-) {
+}: {
+  page?: number
+  limit?: number
+  sort?: string
+} = {}) {
   const payload = await getPayloadClient()
 
   const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
