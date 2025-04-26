@@ -2,9 +2,9 @@ import React, { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { getPlainText } from '@/components/PlainText'
 import { TripReport } from '@/payload-types'
 import type { Exec } from '@/payload-types'
-import { RichTextRenderer } from '../../../../components/RichText/index'
 
 export interface TripReportCardProps {
   report: TripReport
@@ -53,9 +53,7 @@ export function TripReportCard({ report }: TripReportCardProps) {
 
       {report.content && (
         <div className="mt-1 line-clamp-2 text-sm whitespace-pre-wrap text-gray-600">
-          <Suspense fallback={<p>Loading content…</p>}>
-            <RichTextRenderer data={report.content} />
-          </Suspense>
+          {getPlainText(report.content)}
         </div>
       )}
     </Link>
