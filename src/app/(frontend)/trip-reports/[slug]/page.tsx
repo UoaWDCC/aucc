@@ -1,3 +1,4 @@
+import { RichText } from '@payloadcms/richtext-lexical/react'
 import { getPayload } from 'payload'
 
 import { getTripReportBySlug } from '@/queries/trip-reports'
@@ -21,12 +22,19 @@ export default async function SpecificTripReportPage({
     )
   }
 
+  const date = tripReport?.tripDate
+    ? new Date(tripReport.tripDate).toLocaleDateString()
+    : ''
+
   return (
-    <div>
+    <div className="m-20 flex h-full w-[90vw] flex-col bg-gray-100 p-15 pt-0">
       <div>
         <div>
           <h1 className="p-10 pb-5 text-4xl font-bold">{tripReport.title}</h1>
-          <p className="p-10 pt-0 text-2xl">{tripReport.tripDate}</p>
+          <p className="p-10 pt-0 text-2xl">Date: {date}</p>
+        </div>
+        <div className="w-full bg-white p-5">
+          {tripReport.content && <RichText data={tripReport.content} />}
         </div>
       </div>
     </div>
