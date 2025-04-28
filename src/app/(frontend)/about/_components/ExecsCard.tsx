@@ -15,8 +15,8 @@ export function ExecCard({ exec }: ExecCardProps) {
             src={exec.image.url}
             alt={exec.name || ''}
             className="h-full w-full object-cover"
-            width={1}
-            height={1}
+            width={300}
+            height={300}
             style={{ objectFit: 'contain' }}
           />
         )}

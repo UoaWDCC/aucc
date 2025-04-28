@@ -3,9 +3,9 @@ import { getPayloadClient } from '@/lib/payload'
 /**
  * Get all execs
  * @param page - The page number to get
- * @param limit - The number of rivers to get per page
- * @param sort - The field to sort the rivers by
- * @returns The trip reports and pagination information
+ * @param limit - The number of execs to get per page
+ * @param sort - The field to sort the execs by
+ * @returns The execs and pagination information
  */
 export async function getExecs({
   page = 1,
