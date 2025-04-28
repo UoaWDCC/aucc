@@ -2,8 +2,8 @@ import { getPayloadClient } from '@/lib/payload'
 import type { TripReport } from '@/payload-types'
 
 /**
- * Get a trip report by its ID
- * @param id - ID of the Trip Report toget
+ * Get a trip report by its slug
+ * @param slug - slug of the Trip Report to get
  * @returns The Trip Report
  */
 export async function getTripReportBySlug(

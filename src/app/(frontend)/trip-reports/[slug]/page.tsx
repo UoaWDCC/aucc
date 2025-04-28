@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { getTripReportBySlug } from '@/queries/trip-reports'
@@ -11,14 +12,7 @@ export default async function SpecificTripReportPage({
   const tripReport = await getTripReportBySlug(slug)
 
   if (!tripReport) {
-    return (
-      <div>
-        <h1>Trip report not found</h1>
-        <a>
-          <code>app/(frontend)/trips/[slugs]/page.tsx</code>
-        </a>
-      </div>
-    )
+    return notFound()
   }
 
   const date = tripReport?.tripDate
