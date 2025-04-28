@@ -8,7 +8,7 @@ export function ExecsGridFallback() {
             <div className="mr-auto ml-auto h-5 w-2/3 bg-gray-200" />
             <div className="mt-1 mr-auto ml-auto h-4 w-1/3 animate-pulse bg-gray-200" />
             <div className="mt-1 mr-auto ml-auto h-4 w-1/2 animate-pulse bg-gray-200" />
-            <div className="mt-1 mr-auto ml-auto h-4 w-5/8 animate-pulse bg-gray-200" />
+            <div className="mt-1 mr-auto ml-auto h-4 w-3/5 animate-pulse bg-gray-200" />
           </div>
         </div>
       ))}
