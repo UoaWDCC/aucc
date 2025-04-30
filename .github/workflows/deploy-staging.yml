@@ -10,6 +10,8 @@ env:
 
 jobs:
   deploy:
+    # Disable the deploy to staging workflow
+    if: ${{ false }}
     name: Deploy app
     environment: staging
     runs-on: ubuntu-latest
