@@ -4,9 +4,15 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   output: 'standalone',
   transpilePackages: ['@t3-oss/env-nextjs'],
-
-  env: {
-    SERVER_URL: process.env.SERVER_URL,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: process.env.S3_CF_PUBLIC_ENDPOINT
+          ? new URL(process.env.S3_CF_PUBLIC_ENDPOINT).hostname
+          : '*.cloudfront.net',
+      },
+    ],
   },
 }
 

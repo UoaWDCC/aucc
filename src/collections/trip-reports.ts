@@ -42,14 +42,13 @@ export const TripReports: CollectionConfig = {
         { label: 'Published', value: 'published' },
       ],
     },
-    // TODO(@Troyabbs): uncomment this to switch this on when the exec collection is ready #issue 16
-    // {
-    //   name: 'author',
-    //   type: 'relationship',
-    //   required: true,
-    //   hasMany: true,
-    //   relationTo: 'execs',
-    // },
+    {
+      name: 'author',
+      type: 'relationship',
+      required: true,
+      hasMany: true,
+      relationTo: 'execs',
+    },
     {
       name: 'tripDate',
       type: 'date',

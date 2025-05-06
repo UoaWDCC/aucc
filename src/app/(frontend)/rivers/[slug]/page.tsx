@@ -1,4 +1,4 @@
-export default async function SpecificRiverPage({
+export default async function RiverPage({
   params,
 }: {
   params: Promise<{ slug: string }>
