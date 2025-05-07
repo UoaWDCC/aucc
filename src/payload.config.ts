@@ -65,5 +65,3 @@ export default buildConfig({
     }),
   ],
 })
-
-export const serverURL = env.SERVER_URL

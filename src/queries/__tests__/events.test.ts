@@ -36,7 +36,7 @@ describe('Event queries', () => {
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'events',
         where: {
-          _status: { equals: 'published' },
+          status: { equals: 'published' },
         },
         page: 1,
         limit: 10,
