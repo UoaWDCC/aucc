@@ -31,7 +31,17 @@ export const Events: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    // erase the slug field as it is repeated in the trip-reports.ts
+    {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      index: true,
+      admin: {
+        readOnly: true,
+        hidden: true,
+        description: 'Automatically generated from title',
+      },
+    },
     {
       name: 'status',
       type: 'select',
@@ -74,18 +84,6 @@ export const Events: CollectionConfig = {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      unique: true,
-      index: true,
-      label: 'Slug',
-      admin: {
-        readOnly: true,
-        description: 'Automatically generated from name',
-        hidden: true,
-      },
     },
   ],
 }
