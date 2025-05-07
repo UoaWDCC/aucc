@@ -85,5 +85,17 @@ export const Events: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
     },
+    {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      index: true,
+      label: 'Slug',
+      admin: {
+        readOnly: true,
+        description: 'Automatically generated from name',
+        hidden: true,
+      },
+    },
   ],
 }
