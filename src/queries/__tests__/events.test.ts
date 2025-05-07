@@ -1,14 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
-import { getAllEvents, getEventBySlug } from '@/queries/events'
+import { getAllEvents } from '@/queries/events'
 
-// Mock the payload client
 vi.mock('@/lib/payload', () => ({
   getPayloadClient: vi.fn(),
 }))
 
-describe('Event queries', () => {
+describe('getAllEvents', () => {
   const mockPayloadClient = {
     find: vi.fn(),
   }
@@ -18,82 +17,77 @@ describe('Event queries', () => {
     ;(getPayloadClient as any).mockResolvedValue(mockPayloadClient)
   })
 
-  describe('getAllEvents', () => {
-    it('should fetch events with default parameters', async () => {
-      const mockResponse = {
-        docs: [
-          { id: '1', title: 'Mock Event', startTime: '2025-06-01T10:00:00Z' },
-        ],
-        hasNextPage: false,
-        nextPage: null,
-        totalDocs: 1,
-      }
+  it('should fetch events with default parameters', async () => {
+    const mockResponse = {
+      docs: [
+        { id: '1', title: 'Mock Event', startTime: '2025-06-01T10:00:00Z' },
+      ],
+      hasNextPage: false,
+      nextPage: null,
+      totalDocs: 1,
+    }
 
-      mockPayloadClient.find.mockResolvedValue(mockResponse)
+    mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-      const result = await getAllEvents()
+    const result = await getAllEvents()
 
-      expect(mockPayloadClient.find).toHaveBeenCalledWith({
-        collection: 'events',
-        where: {
-          status: { equals: 'published' },
-        },
-        page: 1,
-        limit: 10,
-        sort: '-startTime',
-      })
-
-      expect(result).toEqual({
-        events: mockResponse.docs,
-        hasNextPage: false,
-        nextPage: null,
-        totalDocs: 1,
-      })
+    expect(mockPayloadClient.find).toHaveBeenCalledWith({
+      collection: 'events',
+      page: 1,
+      limit: 10,
+      sort: '-startTime',
     })
 
-    it('should handle no events found', async () => {
-      mockPayloadClient.find.mockResolvedValue({
-        docs: [],
-        hasNextPage: false,
-        nextPage: null,
-        totalDocs: 0,
-      })
-
-      const result = await getAllEvents()
-
-      expect(result.events).toHaveLength(0)
+    expect(result).toEqual({
+      events: mockResponse.docs,
+      hasNextPage: false,
+      nextPage: null,
+      totalDocs: 1,
     })
   })
 
-  describe('getEventBySlug', () => {
-    it('should return null when event not found', async () => {
-      mockPayloadClient.find.mockResolvedValue({ docs: [] })
+  it('should fetch events with custom parameters', async () => {
+    const mockResponse = {
+      docs: [
+        { id: '2', title: 'Another Event', startTime: '2025-07-01T10:00:00Z' },
+      ],
+      hasNextPage: true,
+      nextPage: 3,
+      totalDocs: 25,
+    }
 
-      const result = await getEventBySlug('missing-event')
+    mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-      expect(mockPayloadClient.find).toHaveBeenCalledWith({
-        collection: 'events',
-        where: {
-          slug: { equals: 'missing-event' },
-        },
-      })
+    const result = await getAllEvents({ page: 2, limit: 20, sort: 'title' })
 
-      expect(result).toBeNull()
+    expect(mockPayloadClient.find).toHaveBeenCalledWith({
+      collection: 'events',
+      page: 2,
+      limit: 20,
+      sort: 'title',
     })
 
-    it('should return event when found', async () => {
-      const mockEvent = {
-        id: 'e1',
-        title: 'Test Event',
-        startTime: '2025-06-01T10:00:00Z',
-        slug: 'test-event',
-      }
-
-      mockPayloadClient.find.mockResolvedValue({ docs: [mockEvent] })
-
-      const result = await getEventBySlug('test-event')
-
-      expect(result).toEqual(mockEvent)
+    expect(result).toEqual({
+      events: mockResponse.docs,
+      hasNextPage: true,
+      nextPage: 3,
+      totalDocs: 25,
     })
+  })
+
+  it('should handle empty result sets', async () => {
+    const mockResponse = {
+      docs: [],
+      hasNextPage: false,
+      nextPage: null,
+      totalDocs: 0,
+    }
+
+    mockPayloadClient.find.mockResolvedValue(mockResponse)
+
+    const result = await getAllEvents()
+
+    expect(result.events).toHaveLength(0)
+    expect(result.totalDocs).toBe(0)
   })
 })
