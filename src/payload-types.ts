@@ -241,6 +241,10 @@ export interface Event {
     [k: string]: unknown;
   } | null;
   featuredImage?: (number | null) | Media;
+  /**
+   * Automatically generated from name
+   */
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -472,6 +476,7 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   description?: T;
   featuredImage?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
