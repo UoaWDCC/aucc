@@ -32,21 +32,23 @@ export const Events: CollectionConfig = {
       required: true,
     },
     {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      index: true,
+      admin: {
+        readOnly: true,
+        hidden: true,
+        description: 'Automatically generated from title',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
       options: [
-        {
-          label: 'Draft',
-          value: 'draft',
-        },
-        {
-          label: 'Published',
-          value: 'published',
-        },
-        {
-          label: 'Archived',
-          value: 'archived',
-        },
+        { label: 'Draft', value: 'draft' },
+        { label: 'Published', value: 'published' },
+        { label: 'Archived', value: 'archived' },
       ],
       defaultValue: 'draft',
       required: true,
@@ -82,18 +84,6 @@ export const Events: CollectionConfig = {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      unique: true,
-      index: true,
-      label: 'Slug',
-      admin: {
-        readOnly: true,
-        description: 'Automatically generated from name',
-        hidden: true,
-      },
     },
   ],
 }
