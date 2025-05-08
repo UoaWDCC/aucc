@@ -238,7 +238,7 @@ export interface Event {
   } | null;
   featuredImage?: (number | null) | Media;
   /**
-   * Automatically generated from name
+   * Automatically generated from ID
    */
   slug?: string | null;
   updatedAt: string;

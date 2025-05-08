@@ -13,15 +13,19 @@ export const Events: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    beforeChange: [
-      ({ data, originalDoc }) => {
-        if (data.title && data.title !== originalDoc?.title) {
-          data.slug = slugify(data.title, {
-            lower: true,
-            strict: true,
-          })
+    afterChange: [
+      ({ doc, req, operation }) => {
+        if (operation === 'create' && doc.id) {
+          setTimeout(() => {
+            req.payload.update({
+              collection: 'events',
+              id: doc.id.toString(),
+              data: {
+                slug: doc.id.toString(),
+              },
+            })
+          }, 300)
         }
-        return data
       },
     ],
   },
@@ -93,7 +97,7 @@ export const Events: CollectionConfig = {
       label: 'Slug',
       admin: {
         readOnly: true,
-        description: 'Automatically generated from name',
+        description: 'Automatically generated from ID',
         hidden: true,
       },
     },
