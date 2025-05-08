@@ -23,9 +23,15 @@ To get started with contributing to the project, follow the [**Onboarding Guide*
 
 ## 2025 Team
 
-| Name           | Role            |
-|----------------| --------------- |
-| Daniel Yang    | Project Manager |
-| David Zhu      | Tech Lead       |
-| Franck Chen    | Developer       |
-| Henri Chemla   | Developer       |
+| Name                    | Role            |
+| ----------------------- | --------------- |
+| David Zhu               | Project Manager |
+| Phawat Saengsiripongpun | Tech Lead       |
+| Franck Chen             | Developer       |
+| Henri Chemla            | Developer       |
+| Troy Abbott             | Developer       |
+| Ava Lee                 | Developer       |
+| Dom Pietersen           | Developer       |
+| Lawrence Li             | Developer       |
+| Mai Pham                | Developer       |
+| Hanna Lin               | Designer        |
