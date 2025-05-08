@@ -30,6 +30,7 @@ function stringFromRichText(nodes: Node[]): string {
 
 /**
  * Turn a Lexical-serialized state (i.e RichText) into one plain-text string.
+ * Uses the `stringFromRichText` helper function to convert the RichText nodes into a string.
  */
 export function extractPlainText(data: SerializedEditorState): string {
   const children = (data as any).root.children as Node[]
