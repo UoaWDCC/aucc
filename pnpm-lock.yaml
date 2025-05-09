@@ -9,7 +9,6 @@ overrides:
 
 importers:
 
-
   .:
     dependencies:
       '@payloadcms/db-postgres':
@@ -124,15 +123,6 @@ importers:
       msw:
         specifier: ^2.7.5
         version: 2.7.5(@types/node@22.13.13)(typescript@5.7.3)
-      eslint-config-prettier:
-        specifier: ^10.1.1
-        version: 10.1.1(eslint@9.23.0(jiti@2.4.2))
-      husky:
-        specifier: ^9.1.7
-        version: 9.1.7
-      lint-staged:
-        specifier: ^15.5.0
-        version: 15.5.0
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
