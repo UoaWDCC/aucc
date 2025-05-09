@@ -9,7 +9,6 @@ overrides:
 
 importers:
 
-
   .:
     dependencies:
       '@payloadcms/db-postgres':
