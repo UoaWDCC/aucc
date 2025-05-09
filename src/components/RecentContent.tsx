@@ -1,44 +1,20 @@
-import { getPayload } from 'payload'
-
-import config from '@/payload.config'
+import { getRecentEvents } from '@/queries/events'
+import { getRecentTripReports } from '@/queries/tripReports'
 import { Event, TripReport } from '../payload-types'
 
-export async function RecentContent() {
-  const payload = await getPayload({ config })
+export default async function RecentContent() {
+  const events: Event[] | null = await getRecentEvents()
+  const trips: TripReport[] | null = await getRecentTripReports()
 
-  let events: Event[] = []
-  let trips: TripReport[] = []
-  let error: string | null = null
-
-  try {
-    const eventsRes = await payload.find({
-      collection: 'events',
-      limit: 3,
-      sort: '-createdAt',
-    })
-
-    const tripsRes = await payload.find({
-      collection: 'trip-reports',
-      limit: 3,
-      sort: '-createdAt',
-    })
-
-    events = eventsRes.docs
-    trips = tripsRes.docs
-  } catch (err) {
-    console.error(err)
-    error = 'Failed to load content.'
-  }
-
-  if (error) {
-    return <p style={{ color: 'red' }}>{error}</p>
+  if (!events || !trips) {
+    return <p className="text-red-500">Failed to load content.</p>
   }
 
   return (
     <>
       <section>
-        <h2>Recent Events</h2>
-        <ul>
+        <h2 className="text-lg font-semibold">Recent Events</h2>
+        <ul className="list-disc pl-5">
           {events.map((e) => (
             <li key={e.id}>
               {e.title} — {new Date(e.createdAt).toLocaleDateString()}
@@ -47,9 +23,9 @@ export async function RecentContent() {
         </ul>
       </section>
 
-      <section>
-        <h2>Recent Trip Reports</h2>
-        <ul>
+      <section className="mt-6">
+        <h2 className="text-lg font-semibold">Recent Trip Reports</h2>
+        <ul className="list-disc pl-5">
           {trips.map((t) => (
             <li key={t.id}>
               {t.title} — {new Date(t.createdAt).toLocaleDateString()}
