@@ -32,3 +32,22 @@ export async function getTripReports({
     totalDocs,
   }
 }
+
+/**
+ * Get the 3 most recent published trip reports
+ * @returns Array of recent trip reports or null on failure
+ */
+export async function getRecentTripReports() {
+  try {
+    const payload = await getPayloadClient()
+    const result = await payload.find({
+      collection: 'trip-reports',
+      limit: 3,
+      sort: '-createdAt',
+    })
+    return result.docs
+  } catch (error) {
+    console.error('Failed to fetch recent trip reports:', error)
+    return null
+  }
+}
