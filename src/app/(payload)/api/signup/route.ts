@@ -20,7 +20,7 @@ export async function POST(req:NextRequest){
         }
         console.log(body)
     } catch (error){
-        console.log(error)
+        console.error(error)
         return NextResponse.json({ message: "Error" }, { status: 500})
     }
     return NextResponse.json({ message: "Success" }, { status: 200 });
