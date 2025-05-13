@@ -33,17 +33,16 @@ export async function getAllEvents({
  * @param id - The ID of the event to get
  * @returns The event
  */
-export async function getEventBySlug(slug: string): Promise<Event | null> {
+export async function getEventById(id: string): Promise<Event | null> {
   try {
     const payload = await getPayloadClient()
-    const event = await payload.find({
+    const event = await payload.findByID({
       collection: 'events',
-      where: { slug: { equals: slug } },
+      id,
     })
-    return event.docs[0] || null
+    return event as Event
   } catch (error) {
-    console.error('Failed to fetch event:', error)
+    console.error('Failed to fetch event by ID:', error)
     return null
   }
 }
-
