@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import { getTripReportBySlug } from '@/queries/trip-reports'
+import { getTripReportBySlug } from '@/queries/tripReports'
 
 export default async function SpecificTripReportPage({
   params,
