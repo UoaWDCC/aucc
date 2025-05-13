@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
 import { TripReport } from '@/payload-types'
-import { getTripReports } from '@/queries/tripReports'
-import { getTripReportBySlug } from '../tripReports'
+import { getTripReports } from '@/queries/trip-reports'
+import { getTripReportBySlug } from '../trip-reports'
 
 // Mock the payload client
 vi.mock('@/lib/payload', () => ({
