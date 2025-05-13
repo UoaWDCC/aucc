@@ -46,4 +46,3 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
     return null
   }
 }
-
