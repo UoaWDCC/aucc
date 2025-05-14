@@ -217,6 +217,10 @@ export interface River {
 export interface Event {
   id: number;
   title: string;
+  /**
+   * Automatically generated from title
+   */
+  slug?: string | null;
   status: 'draft' | 'published' | 'archived';
   startTime: string;
   endTime?: string | null;
@@ -237,10 +241,6 @@ export interface Event {
     [k: string]: unknown;
   } | null;
   featuredImage?: (number | null) | Media;
-  /**
-   * Automatically generated from name
-   */
-  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -465,13 +465,13 @@ export interface RiversSelect<T extends boolean = true> {
  */
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   status?: T;
   startTime?: T;
   endTime?: T;
   location?: T;
   description?: T;
   featuredImage?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

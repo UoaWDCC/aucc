@@ -43,6 +43,27 @@ export const Execs: CollectionConfig = {
       label: 'Profile Image',
       type: 'upload',
       relationTo: 'media',
+      hooks: {
+        beforeChange: [
+          async ({ value, req }) => {
+            const mediaDoc = await req.payload.findByID({
+              collection: 'media',
+              id: value,
+            })
+
+            const allowedMimeTypes = [
+              'image/jpeg',
+              'image/png',
+              'image/webp',
+              'image/gif',
+            ]
+
+            if (!allowedMimeTypes.includes(mediaDoc.mimeType ?? '')) {
+              return 'An image file must be uploaded'
+            }
+          },
+        ],
+      },
     },
   ],
 }
