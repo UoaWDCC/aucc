@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 
-import { getTripReports } from '@/queries/tripReports'
+import { getTripReports } from '@/queries/trip-reports'
 import { TripReportsGrid } from './_components/TripReportsGrid'
 import { TripReportsGridFallback } from './_components/TripReportsGridFallback'
 
