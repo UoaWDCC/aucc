@@ -2,7 +2,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: process.env.STANDALONE_OUTPUT === 'true' ? 'standalone' : undefined,
   transpilePackages: ['@t3-oss/env-nextjs'],
   images: {
     remotePatterns: [
