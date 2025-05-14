@@ -11,7 +11,7 @@ interface EventCardProps {
 export function EventCard({ event }: EventCardProps) {
   return (
     <Link
-      href={`/events/${event.slug}`}
+      href={`/events/${event.id}`}
       className="block border p-2 hover:bg-gray-50"
     >
       <div className="h-48 bg-gray-200">
