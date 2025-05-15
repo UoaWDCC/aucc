@@ -10,7 +10,7 @@ interface RiverCardProps {
 export function RiverCard({ river }: RiverCardProps) {
   return (
     <Link
-      href={`/rivers/${river.id}`}
+      href={`/rivers/${river.slug}`}
       className="block border p-2 hover:bg-gray-50"
     >
       <div className="h-48 bg-gray-200">
