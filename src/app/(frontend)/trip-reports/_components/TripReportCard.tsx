@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getPlainText } from '@/components/PlainText'
+import { getPlainText } from '@/lib/utils/getPlainText'
 import { TripReport } from '@/payload-types'
 import type { Exec } from '@/payload-types'
 
