@@ -21,6 +21,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@mdx-js/react": "^3.1.0",
     "@payloadcms/db-postgres": "3.30.0",
     "@payloadcms/next": "3.30.0",
     "@payloadcms/richtext-lexical": "3.30.0",
