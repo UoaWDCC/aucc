@@ -1,8 +1,11 @@
+import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
+
+const affectedPaths = ['/events']
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -11,6 +14,15 @@ export const Events: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        affectedPaths.forEach((path) => {
+          revalidatePath(path)
+        })
+      },
+    ],
   },
   fields: [
     {

@@ -1,8 +1,11 @@
+import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
+
+const affectedPaths = ['/about']
 
 export const Execs: CollectionConfig = {
   slug: 'execs',
@@ -14,6 +17,15 @@ export const Execs: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        affectedPaths.forEach((path) => {
+          revalidatePath(path)
+        })
+      },
+    ],
   },
   fields: [
     {

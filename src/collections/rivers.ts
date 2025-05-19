@@ -1,9 +1,12 @@
+import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
+
+const affectedPaths = ['/rivers']
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
@@ -23,6 +26,13 @@ export const Rivers: CollectionConfig = {
           })
         }
         return data
+      },
+    ],
+    afterChange: [
+      () => {
+        affectedPaths.forEach((path) => {
+          revalidatePath(path)
+        })
       },
     ],
   },

@@ -1,7 +1,10 @@
+import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
+
+const affectedPaths = ['/']
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -10,6 +13,15 @@ export const Media: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        affectedPaths.forEach((path) => {
+          revalidatePath(path)
+        })
+      },
+    ],
   },
   fields: [
     {
