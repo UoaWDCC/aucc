@@ -1,17 +1,17 @@
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 
-import { getEventBySlug } from '@/queries/events'
+import { getEventById } from '@/queries/events'
 import { EventPage } from './_components/EventPage'
 import { EventPageFallback } from './_components/EventPageFallback'
 
 export default async function SpecificEventPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ id: string }>
 }) {
-  const { slug } = await params
-  const event = await getEventBySlug(slug)
+  const { id } = await params
+  const event = await getEventById(id)
 
   if (!event || event.status !== 'published') {
     notFound()
