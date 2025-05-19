@@ -8,6 +8,7 @@ export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['gallery', 'title', 'status', 'tripDate', 'location'],
   },
   access: {
     create: authenticated,
@@ -29,6 +30,16 @@ export const TripReports: CollectionConfig = {
     ],
   },
   fields: [
+    {
+      name: 'gallery',
+      type: 'upload',
+      hasMany: true,
+      relationTo: 'media',
+      label: 'Trip Gallery',
+      admin: {
+        className: 'hide-filename',
+      },
+    },
     {
       name: 'title',
       type: 'text',
@@ -75,13 +86,6 @@ export const TripReports: CollectionConfig = {
       required: false,
       relationTo: 'rivers',
       label: 'Related River',
-    },
-    {
-      name: 'gallery',
-      type: 'upload',
-      hasMany: true,
-      relationTo: 'media',
-      label: 'Trip Gallery',
     },
     {
       name: 'slug',

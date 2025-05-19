@@ -7,6 +7,13 @@ export const Events: CollectionConfig = {
   slug: 'events',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: [
+      'featuredImage',
+      'title',
+      'status',
+      'startTime',
+      'endTime',
+    ],
   },
   access: {
     create: authenticated,
@@ -15,6 +22,14 @@ export const Events: CollectionConfig = {
     delete: authenticated,
   },
   fields: [
+    {
+      name: 'featuredImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        className: 'hide-filename',
+      },
+    },
     {
       name: 'title',
       type: 'text',
@@ -57,11 +72,6 @@ export const Events: CollectionConfig = {
     {
       name: 'description',
       type: 'richText',
-    },
-    {
-      name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
     },
   ],
 }

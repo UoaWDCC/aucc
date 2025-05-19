@@ -8,6 +8,7 @@ export const Rivers: CollectionConfig = {
   slug: 'rivers',
   admin: {
     useAsTitle: 'name',
+    defaultColumns: ['image', 'name', 'grade', 'description'],
   },
   access: {
     create: authenticated,
@@ -30,6 +31,14 @@ export const Rivers: CollectionConfig = {
   },
   fields: [
     {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        className: 'hide-filename',
+      },
+    },
+    {
       name: 'name',
       type: 'text',
     },
@@ -40,11 +49,6 @@ export const Rivers: CollectionConfig = {
     {
       name: 'description',
       type: 'text',
-    },
-    {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
     },
     {
       name: 'slug',

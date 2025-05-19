@@ -7,6 +7,7 @@ export const Execs: CollectionConfig = {
   slug: 'execs',
   admin: {
     useAsTitle: 'name',
+    defaultColumns: ['image', 'name', 'role', 'email'],
   },
   access: {
     create: authenticated,
@@ -15,6 +16,15 @@ export const Execs: CollectionConfig = {
     delete: authenticated,
   },
   fields: [
+    {
+      name: 'image',
+      label: 'Profile Image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        className: 'hide-filename',
+      },
+    },
     {
       name: 'name',
       label: 'Full Name',
@@ -37,12 +47,6 @@ export const Execs: CollectionConfig = {
       label: 'Email Address',
       type: 'email',
       required: true,
-    },
-    {
-      name: 'image',
-      label: 'Profile Image',
-      type: 'upload',
-      relationTo: 'media',
     },
   ],
 }
