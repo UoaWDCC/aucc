@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
@@ -12,35 +11,11 @@ export const Events: CollectionConfig = {
     update: authenticated,
     delete: authenticated,
   },
-  hooks: {
-    beforeChange: [
-      ({ data, originalDoc }) => {
-        if (data.title && data.title !== originalDoc?.title) {
-          data.slug = slugify(data.title, {
-            lower: true,
-            strict: true,
-          })
-        }
-        return data
-      },
-    ],
-  },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      unique: true,
-      index: true,
-      admin: {
-        readOnly: true,
-        hidden: true,
-        description: 'Automatically generated from title',
-      },
     },
     {
       name: 'status',
