@@ -5,6 +5,9 @@ import { authenticated } from '@/access/authenticated'
 
 export const Events: CollectionConfig = {
   slug: 'events',
+  admin: {
+    useAsTitle: 'title',
+  },
   access: {
     create: authenticated,
     read: anyone,

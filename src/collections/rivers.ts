@@ -6,6 +6,9 @@ import { authenticated } from '@/access/authenticated'
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
+  admin: {
+    useAsTitle: 'name',
+  },
   access: {
     create: authenticated,
     read: anyone,

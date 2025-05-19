@@ -6,6 +6,9 @@ import { authenticated } from '@/access/authenticated'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
+  admin: {
+    useAsTitle: 'title',
+  },
   access: {
     create: authenticated,
     read: anyone,
