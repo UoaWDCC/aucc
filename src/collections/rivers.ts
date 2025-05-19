@@ -28,7 +28,7 @@ export const Rivers: CollectionConfig = {
         return data
       },
     ],
-    afterChange: [
+    afterOperation: [
       () => {
         affectedPaths.forEach((path) => {
           revalidatePath(path)

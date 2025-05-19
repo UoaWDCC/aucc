@@ -28,7 +28,7 @@ export const TripReports: CollectionConfig = {
       },
     ],
 
-    afterChange: [
+    afterOperation: [
       () => {
         affectedPaths.forEach((path) => {
           revalidatePath(path)

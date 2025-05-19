@@ -19,7 +19,7 @@ export const Execs: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [
+    afterOperation: [
       () => {
         affectedPaths.forEach((path) => {
           revalidatePath(path)

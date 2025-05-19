@@ -16,7 +16,7 @@ export const Events: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [
+    afterOperation: [
       () => {
         affectedPaths.forEach((path) => {
           revalidatePath(path)
