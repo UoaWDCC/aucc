@@ -7,7 +7,7 @@ const registerSchema = z.object({
 })
 
 export async function POST(req: NextRequest) {
-  const key = 'placeholder'
+  const key = process.env.API_KEY
   if (req.headers.get('apikey') != key) {
     return NextResponse.json({ message: 'Incorrect apikey' }, { status: 401 })
   }

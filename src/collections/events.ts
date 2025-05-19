@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
@@ -6,6 +5,8 @@ import { authenticated } from '@/access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
 
 const affectedPaths = ['/events']
+const url = process.env.SERVER_URL || 'http://localhost:3000'
+const apikey = process.env.API_KEY as string
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -18,8 +19,19 @@ export const Events: CollectionConfig = {
   hooks: {
     afterOperation: [
       () => {
-        affectedPaths.forEach((path) => {
-          revalidatePath(path)
+        affectedPaths.map((path) => {
+          try {
+            fetch(`${url}/api/webhook/revalidate`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                apikey: apikey,
+              },
+              body: JSON.stringify({ path }),
+            })
+          } catch (error) {
+            console.warn(error)
+          }
         })
       },
     ],

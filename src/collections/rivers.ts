@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
@@ -7,6 +6,8 @@ import { authenticated } from '@/access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
 
 const affectedPaths = ['/rivers']
+const url = process.env.SERVER_URL || 'http://localhost:3000'
+const apikey = process.env.API_KEY as string
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
@@ -30,8 +31,19 @@ export const Rivers: CollectionConfig = {
     ],
     afterOperation: [
       () => {
-        affectedPaths.forEach((path) => {
-          revalidatePath(path)
+        affectedPaths.map((path) => {
+          try {
+            fetch(`${url}/api/webhook/revalidate`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                apikey: apikey,
+              },
+              body: JSON.stringify({ path }),
+            })
+          } catch (error) {
+            console.warn(error)
+          }
         })
       },
     ],
