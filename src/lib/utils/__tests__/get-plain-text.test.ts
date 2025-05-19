@@ -50,15 +50,6 @@ describe('getPlainText', () => {
     expect(getPlainText(state as any)).toBe('Nested content')
   })
 
-  it('truncates and appends an ellipsis when exceeding maxLength', () => {
-    const state = {
-      root: {
-        children: [{ type: 'text', text: 'Hello world from payload utils' }],
-      },
-    }
-    expect(getPlainText(state as any, 11)).toBe('Hello world…')
-  })
-
   it('does not append an ellipsis when under maxLength', () => {
     const state = {
       root: { children: [{ type: 'text', text: 'Short text' }] },
@@ -143,5 +134,29 @@ describe('getPlainText', () => {
       },
     }
     expect(getPlainText(state as any)).toBe('')
+  })
+  it('returns nothing if maxLength is 0', () => {
+    const state = {
+      root: {
+        children: [{ type: 'text', text: 'among us' }],
+      },
+    }
+    expect(getPlainText(state as any, 0)).toBe('…')
+  })
+  it('returns nothing if maxLength is 0 and there is nothing in the rich text object', () => {
+    const state = {
+      root: {
+        children: [],
+      },
+    }
+    expect(getPlainText(state as any, 0)).toBe('…')
+  })
+  it('returns nothing if maxLength is negative', () => {
+    const state = {
+      root: {
+        children: [{ type: 'text', text: 'among us' }],
+      },
+    }
+    expect(getPlainText(state as any, -10)).toBe('')
   })
 })
