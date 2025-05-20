@@ -3,25 +3,30 @@ import { CollectionConfig } from 'payload'
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 
-export const GalleryImages: CollectionConfig = {
-  slug: 'gallery-images',
+export const Gallery: CollectionConfig = {
+  slug: 'gallery',
   access: {
     create: authenticated,
     read: anyone,
     update: authenticated,
     delete: authenticated,
   },
+  labels: {
+    singular: 'Image',
+    plural: 'Gallery',
+  },
   fields: [
     {
       name: 'image',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       required: true,
+      hasMany: true,
     },
     {
       name: 'tag',
       type: 'relationship',
-      relationTo: 'image-tags',
+      relationTo: 'tags',
       hasMany: true,
     },
   ],

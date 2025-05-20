@@ -3,8 +3,8 @@ import { CollectionConfig } from 'payload'
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 
-export const ImageTags: CollectionConfig = {
-  slug: 'image-tags',
+export const Tags: CollectionConfig = {
+  slug: 'tags',
   access: {
     create: authenticated,
     read: anyone,
