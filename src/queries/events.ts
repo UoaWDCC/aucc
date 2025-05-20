@@ -63,30 +63,6 @@ export async function getRecentEvents(): Promise<Event[] | null> {
       collection: 'events',
       limit: 3,
       sort: '-createdAt',
-      where: {
-        status: {
-          equals: 'published',
-        },
-      },
-    })
-    return result.docs
-  } catch (error) {
-    console.error('Failed to fetch recent events:', error)
-    return null
-  }
-}
-
-/**
- * Get the 3 most recent published events
- * @returns Array of recent events or null on failure
- */
-export async function getRecentEvents(): Promise<Event[] | null> {
-  try {
-    const payload = await getPayloadClient()
-    const result = await payload.find({
-      collection: 'events',
-      limit: 3,
-      sort: '-createdAt',
     })
     return result.docs
   } catch (error) {

@@ -2,7 +2,7 @@ import { getRecentEvents } from '@/queries/events'
 import { getRecentTripReports } from '@/queries/tripReports'
 import { Event, TripReport } from '../payload-types'
 
-export default async function RecentContent() {
+export async function RecentContent() {
   const events: Event[] | null = await getRecentEvents()
   const trips: TripReport[] | null = await getRecentTripReports()
 
