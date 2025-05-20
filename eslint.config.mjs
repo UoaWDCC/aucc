@@ -11,7 +11,12 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   // prettier should be put last to override other configs
-  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
+  ...compat.extends(
+    'next/core-web-vitals',
+    'next/typescript',
+    'plugin:storybook/recommended',
+    'prettier',
+  ),
   {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
