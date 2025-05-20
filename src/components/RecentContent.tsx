@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { Event, TripReport } from '../payload-types'
 
-export function RecentContent() {
+export async function RecentContent() {
   const payload = await getPayload({ config })
 
   let events: Event[] = []

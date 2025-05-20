@@ -1,7 +1,12 @@
 import { getPayloadClient } from '@/lib/payload'
 import type { Event } from '@/payload-types'
 
-// Get all events
+/**
+ * Get all events with pagination
+ * @param page - Page number
+ * @param limit - Events per page
+ * @param sort - Sort order
+ */
 export async function getAllEvents({
   page = 1,
   limit = 10,
@@ -29,20 +34,20 @@ export async function getAllEvents({
 }
 
 /**
- * Get a event by its ID
- * @param id - The ID of the event to get
- * @returns The event
+ * Get an event by its ID
+ * @param id - Event ID
+ * @returns Event object or null
  */
-export async function getEventBySlug(slug: string): Promise<Event | null> {
+export async function getEventById(id: string): Promise<Event | null> {
   try {
     const payload = await getPayloadClient()
-    const event = await payload.find({
+    const event = await payload.findByID({
       collection: 'events',
-      where: { slug: { equals: slug } },
+      id,
     })
-    return event.docs[0] || null
+    return event as Event
   } catch (error) {
-    console.error('Failed to fetch event:', error)
+    console.error('Failed to fetch event by ID:', error)
     return null
   }
 }
