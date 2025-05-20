@@ -6,6 +6,11 @@ type Node = {
   children?: Node[]
 }
 
+/**
+ * Recursively walks through the nodes and returns a plain-text string.
+ * @param nodes - The nodes to walk through.
+ * @returns A plain-text string.
+ */
 function walk(nodes: Node[]): string {
   let out = ''
   for (const n of nodes) {
@@ -31,7 +36,7 @@ export function getPlainText(
   maxLength?: number,
 ): string {
   // this will recursively retrieve all text from the RichText element.
-  const children = (data as any).root.children as Node[]
+  const children = data.root.children as Node[]
   const full = walk(children).trim()
 
   if (maxLength === undefined || full.length < maxLength) {

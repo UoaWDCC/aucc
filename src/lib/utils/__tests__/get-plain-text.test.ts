@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getPlainText } from '@/lib/utils/getPlainText'
+import { getPlainText } from '@/lib/utils/get-plain-text'
 
 describe('getPlainText', () => {
   it('returns plain text for a simple text node', () => {
