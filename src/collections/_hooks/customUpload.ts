@@ -1,4 +1,4 @@
-import type { Field, PayloadRequest } from 'payload'
+import type { Field } from 'payload'
 
 type ImageUploadFieldArgs = {
   name: string
