@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { createImageValidationHook } from './validateImageUpload'
+import { customUploadField } from './_hooks/customUpload'
 
 export const Execs: CollectionConfig = {
   slug: 'execs',
@@ -39,14 +39,11 @@ export const Execs: CollectionConfig = {
       type: 'email',
       required: true,
     },
-    {
+    customUploadField({
       name: 'image',
       label: 'Profile Image',
-      type: 'upload',
-      relationTo: 'media',
-      hooks: {
-        beforeChange: [createImageValidationHook()],
-      },
-    },
+      required: true,
+      mimeType: 'image',
+    }),
   ],
 }
