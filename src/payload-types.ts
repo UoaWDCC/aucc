@@ -73,6 +73,10 @@ export interface Config {
     events: Event;
     'trip-reports': TripReport;
     execs: Exec;
+    rivers: River;
+    events: Event;
+    'trip-reports': TripReport;
+    execs: Exec;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +85,10 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    rivers: RiversSelect<false> | RiversSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;
+    execs: ExecsSelect<false> | ExecsSelect<true>;
     rivers: RiversSelect<false> | RiversSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;

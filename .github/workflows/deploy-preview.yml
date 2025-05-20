@@ -18,6 +18,9 @@ jobs:
     # We could configure custom preview environments for each PR, but this is a bit more
     # complex and require a bit more work, and not necessary for now. We also need elevated
     # permissions if we wish to tear down environments when the PR is closed.
+    # We could configure custom preview environments for each PR, but this is a bit more
+    # complex and require a bit more work, and not necessary for now. We also need elevated
+    # permissions if we wish to tear down environments when the PR is closed.
     # environment:
     #   name: preview
     #   url: ${{ steps.deploy.outputs.url }}

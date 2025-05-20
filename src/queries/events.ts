@@ -33,16 +33,40 @@ export async function getAllEvents({
  * @param id - The ID of the event to get
  * @returns The event
  */
-export async function getEventById(id: string): Promise<Event | null> {
+export async function getEventBySlug(slug: string): Promise<Event | null> {
   try {
     const payload = await getPayloadClient()
-    const event = await payload.findByID({
+    const event = await payload.find({
       collection: 'events',
-      id,
+      where: { slug: { equals: slug } },
     })
-    return event as Event
+    return event.docs[0] || null
   } catch (error) {
-    console.error('Failed to fetch event by ID:', error)
+    console.error('Failed to fetch event:', error)
+    return null
+  }
+}
+
+/**
+ * Get the 3 most recent published events
+ * @returns Array of recent events or null on failure
+ */
+export async function getRecentEvents(): Promise<Event[] | null> {
+  try {
+    const payload = await getPayloadClient()
+    const result = await payload.find({
+      collection: 'events',
+      limit: 3,
+      sort: '-createdAt',
+      where: {
+        status: {
+          equals: 'published',
+        },
+      },
+    })
+    return result.docs
+  } catch (error) {
+    console.error('Failed to fetch recent events:', error)
     return null
   }
 }
