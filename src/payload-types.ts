@@ -73,6 +73,8 @@ export interface Config {
     events: Event;
     'trip-reports': TripReport;
     execs: Exec;
+    'gallery-images': GalleryImage;
+    'image-tags': ImageTag;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +87,8 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;
     execs: ExecsSelect<false> | ExecsSelect<true>;
+    'gallery-images': GalleryImagesSelect<false> | GalleryImagesSelect<true>;
+    'image-tags': ImageTagsSelect<false> | ImageTagsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -292,6 +296,27 @@ export interface Exec {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-images".
+ */
+export interface GalleryImage {
+  id: number;
+  image: number | Media;
+  tag?: (number | ImageTag)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "image-tags".
+ */
+export interface ImageTag {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -320,6 +345,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'execs';
         value: number | Exec;
+      } | null)
+    | ({
+        relationTo: 'gallery-images';
+        value: number | GalleryImage;
+      } | null)
+    | ({
+        relationTo: 'image-tags';
+        value: number | ImageTag;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -498,6 +531,25 @@ export interface ExecsSelect<T extends boolean = true> {
   role?: T;
   email?: T;
   image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-images_select".
+ */
+export interface GalleryImagesSelect<T extends boolean = true> {
+  image?: T;
+  tag?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "image-tags_select".
+ */
+export interface ImageTagsSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }

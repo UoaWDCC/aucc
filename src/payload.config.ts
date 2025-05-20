@@ -11,6 +11,8 @@ import { Users } from '@/collections/users'
 import { env } from '@/lib/env'
 import { Events } from './collections/events'
 import { Execs } from './collections/execs'
+import { GalleryImages } from './collections/gallery-images'
+import { ImageTags } from './collections/image-tags'
 import { Rivers } from './collections/rivers'
 import { TripReports } from './collections/trip-reports'
 
@@ -24,7 +26,16 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Rivers, Events, TripReports, Execs],
+  collections: [
+    Users,
+    Media,
+    Rivers,
+    Events,
+    TripReports,
+    Execs,
+    GalleryImages,
+    ImageTags,
+  ],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,
