@@ -3,9 +3,17 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { getPayloadClient } from '@/lib/payload'
 import { getEventById, getEvents } from '@/queries/events'
 
+// Mock the payload client
 vi.mock('@/lib/payload', () => ({
   getPayloadClient: vi.fn(),
 }))
+
+// Mock the cache
+vi.mock('next/cache', async () => {
+  return {
+    unstable_cache: (fn: any) => fn,
+  }
+})
 
 describe('getAllEvents', () => {
   const mockPayloadClient = {

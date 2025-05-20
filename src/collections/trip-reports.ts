@@ -1,13 +1,10 @@
+import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { customUploadField } from './_fields/custom-upload'
-
-const affectedPaths = ['/trip-reports']
-const url = process.env.SERVER_URL || 'http://localhost:3000'
-const apikey = process.env.API_KEY as string
+import { cacheTags } from '@/config/revalidation'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
@@ -29,25 +26,8 @@ export const TripReports: CollectionConfig = {
         return data
       },
     ],
-
-    afterOperation: [
-      () => {
-        affectedPaths.map((path) => {
-          try {
-            fetch(`${url}/api/webhook/revalidate`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                apikey: apikey,
-              },
-              body: JSON.stringify({ path }),
-            })
-          } catch (error) {
-            console.warn(error)
-          }
-        })
-      },
-    ],
+    afterChange: [() => revalidateTag('trip-reports')],
+    afterDelete: [() => revalidateTag('trip-reports')],
   },
   fields: [
     {
@@ -97,13 +77,13 @@ export const TripReports: CollectionConfig = {
       relationTo: 'rivers',
       label: 'Related River',
     },
-    customUploadField({
+    {
       name: 'gallery',
-      label: 'Trip Gallery',
+      type: 'upload',
       hasMany: true,
-      required: true,
-      mimeType: 'image',
-    }),
+      relationTo: 'media',
+      label: 'Trip Gallery',
+    },
     {
       name: 'slug',
       type: 'text',

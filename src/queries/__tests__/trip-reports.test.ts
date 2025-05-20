@@ -10,6 +10,13 @@ vi.mock('@/lib/payload', () => ({
   getPayloadClient: vi.fn(),
 }))
 
+// Mock the cache
+vi.mock('next/cache', async () => {
+  return {
+    unstable_cache: (fn: any) => fn,
+  }
+})
+
 describe('Trip Report queries', () => {
   const mockPayloadClient = {
     find: vi.fn(),
