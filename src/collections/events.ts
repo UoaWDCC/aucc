@@ -1,8 +1,9 @@
+import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { customUploadField } from './_fields/custom-upload'
+import { cacheTags } from '@/config/revalidation'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -11,6 +12,10 @@ export const Events: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [() => revalidateTag('events')],
+    afterDelete: [() => revalidateTag('events')],
   },
   fields: [
     {
@@ -56,9 +61,10 @@ export const Events: CollectionConfig = {
       name: 'description',
       type: 'richText',
     },
-    customUploadField({
+    {
       name: 'featuredImage',
-      mimeType: 'image',
-    }),
+      type: 'upload',
+      relationTo: 'media',
+    },
   ],
 }

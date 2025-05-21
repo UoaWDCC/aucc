@@ -1,8 +1,9 @@
+import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { customUploadField } from './_fields/custom-upload'
+import { cacheTags } from '@/config/revalidation'
 
 export const Execs: CollectionConfig = {
   slug: 'execs',
@@ -14,6 +15,10 @@ export const Execs: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [() => revalidateTag('execs')],
+    afterDelete: [() => revalidateTag('execs')],
   },
   fields: [
     {
@@ -39,11 +44,11 @@ export const Execs: CollectionConfig = {
       type: 'email',
       required: true,
     },
-    customUploadField({
+    {
       name: 'image',
       label: 'Profile Image',
-      required: true,
-      mimeType: 'image',
-    }),
+      type: 'upload',
+      relationTo: 'media',
+    },
   ],
 }

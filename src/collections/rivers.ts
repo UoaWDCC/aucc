@@ -1,9 +1,10 @@
+import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { customUploadField } from './_fields/custom-upload'
+import { cacheTags } from '@/config/revalidation'
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
@@ -25,6 +26,8 @@ export const Rivers: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [() => revalidateTag('rivers')],
+    afterDelete: [() => revalidateTag('rivers')],
   },
   fields: [
     {
@@ -39,10 +42,11 @@ export const Rivers: CollectionConfig = {
       name: 'description',
       type: 'text',
     },
-    customUploadField({
+    {
       name: 'image',
-      mimeType: 'image',
-    }),
+      type: 'upload',
+      relationTo: 'media',
+    },
     {
       name: 'slug',
       type: 'text',
