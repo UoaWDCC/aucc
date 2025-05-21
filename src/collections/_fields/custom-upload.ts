@@ -1,6 +1,6 @@
 import type { Field } from 'payload'
 
-type ImageUploadFieldArgs = {
+type CustomUploadFieldArgs = {
   name: string
   label?: string
   required?: boolean
@@ -14,7 +14,7 @@ export const customUploadField = ({
   required = false,
   hasMany = false,
   mimeType,
-}: ImageUploadFieldArgs): Field => ({
+}: CustomUploadFieldArgs): Field => ({
   name,
   label,
   type: 'upload',

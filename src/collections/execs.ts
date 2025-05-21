@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { customUploadField } from './_hooks/customUpload'
+import { customUploadField } from './_fields/custom-upload'
 
 export const Execs: CollectionConfig = {
   slug: 'execs',

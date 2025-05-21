@@ -20,7 +20,6 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     adminThumbnail: 'thumbnail',
-    //mimeTypes: ['image/*'],
     // TODO(dyzhuu) confirm image sizes
     imageSizes: [
       {

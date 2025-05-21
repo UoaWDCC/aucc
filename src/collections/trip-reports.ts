@@ -3,7 +3,7 @@ import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { customUploadField } from './_hooks/customUpload'
+import { customUploadField } from './_fields/custom-upload'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
