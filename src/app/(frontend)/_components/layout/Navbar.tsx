@@ -5,6 +5,7 @@ import { NavButton } from './NavButton'
 export function Navbar() {
   return (
     <div className="flex gap-5">
+      <NavButton href="/">Home</NavButton>
       <NavButton href="/about">About</NavButton>
       <NavButton href="/events">Events</NavButton>
       <NavButton href="/gallery">Gallery</NavButton>
