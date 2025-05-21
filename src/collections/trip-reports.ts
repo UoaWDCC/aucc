@@ -4,6 +4,7 @@ import slugify from 'slugify'
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { customUploadField } from './_fields/custom-upload'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
@@ -76,13 +77,13 @@ export const TripReports: CollectionConfig = {
       relationTo: 'rivers',
       label: 'Related River',
     },
-    {
+    customUploadField({
       name: 'gallery',
-      type: 'upload',
-      hasMany: true,
-      relationTo: 'media',
       label: 'Trip Gallery',
-    },
+      hasMany: true,
+      required: true,
+      mimeType: 'image',
+    }),
     {
       name: 'slug',
       type: 'text',

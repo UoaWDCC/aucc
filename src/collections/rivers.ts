@@ -4,6 +4,7 @@ import slugify from 'slugify'
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { customUploadField } from './_fields/custom-upload'
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
@@ -41,11 +42,10 @@ export const Rivers: CollectionConfig = {
       name: 'description',
       type: 'text',
     },
-    {
+    customUploadField({
       name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-    },
+      mimeType: 'image',
+    }),
     {
       name: 'slug',
       type: 'text',

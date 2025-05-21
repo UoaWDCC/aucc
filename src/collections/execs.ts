@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { customUploadField } from './_fields/custom-upload'
 
 export const Execs: CollectionConfig = {
   slug: 'execs',
@@ -43,11 +44,11 @@ export const Execs: CollectionConfig = {
       type: 'email',
       required: true,
     },
-    {
+    customUploadField({
       name: 'image',
       label: 'Profile Image',
-      type: 'upload',
-      relationTo: 'media',
-    },
+      required: true,
+      mimeType: 'image',
+    }),
   ],
 }
