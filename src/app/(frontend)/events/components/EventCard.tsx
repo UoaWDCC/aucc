@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getPlainText } from '@/components/PlainText'
+import { getPlainText } from '@/lib/utils/get-plain-text'
 import type { Event } from '@/payload-types'
 
 interface EventCardProps {
