@@ -6,6 +6,10 @@ type CustomUploadFieldArgs = {
   required?: boolean
   hasMany?: boolean
   mimeType: string
+  admin?: {
+    className?: string
+    [key: string]: any
+  }
 }
 
 export const customUploadField = ({
@@ -14,6 +18,7 @@ export const customUploadField = ({
   required = false,
   hasMany = false,
   mimeType,
+  admin,
 }: CustomUploadFieldArgs): Field => ({
   name,
   label,
@@ -21,6 +26,7 @@ export const customUploadField = ({
   relationTo: 'media',
   required,
   hasMany,
+  admin,
   filterOptions: {
     mimeType: { contains: mimeType },
   },
