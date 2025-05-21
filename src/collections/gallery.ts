@@ -21,7 +21,6 @@ export const Gallery: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: true,
-      hasMany: true,
     },
     {
       name: 'tag',
