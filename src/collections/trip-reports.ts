@@ -1,10 +1,9 @@
-import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { cacheTags } from '@/config/revalidation'
+import { cacheTags } from '@/lib/utils/revalidation'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
@@ -26,8 +25,8 @@ export const TripReports: CollectionConfig = {
         return data
       },
     ],
-    afterChange: [() => revalidateTag('trip-reports')],
-    afterDelete: [() => revalidateTag('trip-reports')],
+    afterChange: [() => cacheTags.tripReports.revalidate()],
+    afterDelete: [() => cacheTags.tripReports.revalidate()],
   },
   fields: [
     {

@@ -1,9 +1,8 @@
-import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { cacheTags } from '@/config/revalidation'
+import { cacheTags } from '@/lib/utils/revalidation'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -14,8 +13,8 @@ export const Media: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [() => revalidateTag('media')],
-    afterDelete: [() => revalidateTag('media')],
+    afterChange: [() => cacheTags.media.revalidate()],
+    afterDelete: [() => cacheTags.media.revalidate()],
   },
   fields: [
     {

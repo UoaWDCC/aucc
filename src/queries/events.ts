@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
-import { cacheTags, getRevalidationTags } from '@/config/revalidation'
 import { getPayloadClient } from '@/lib/payload'
+import { cacheTags } from '@/lib/utils/revalidation'
 import type { Event } from '@/payload-types'
 
 // Get all events
@@ -33,7 +33,7 @@ export const getEvents = unstable_cache(
   },
   ['getAllEvents'],
   {
-    tags: getRevalidationTags('events'),
+    tags: cacheTags.events.relatedTags,
   },
 )
 
@@ -58,6 +58,6 @@ export const getEventById = unstable_cache(
   },
   ['getEventById'],
   {
-    tags: getRevalidationTags('events'),
+    tags: cacheTags.events.relatedTags,
   },
 )

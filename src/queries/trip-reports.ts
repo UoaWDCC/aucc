@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
-import { cacheTags, getRevalidationTags } from '@/config/revalidation'
 import { getPayloadClient } from '@/lib/payload'
+import { cacheTags } from '@/lib/utils/revalidation'
 import type { TripReport } from '@/payload-types'
 
 /**
@@ -39,7 +39,7 @@ export const getTripReports = unstable_cache(
   },
   ['getTripReports'],
   {
-    tags: getRevalidationTags('trip-reports'),
+    tags: cacheTags.tripReports.relatedTags,
   },
 )
 
@@ -69,6 +69,6 @@ export const getTripReportBySlug = unstable_cache(
   },
   ['getTripReportBySlug'],
   {
-    tags: getRevalidationTags('trip-reports'),
+    tags: cacheTags.tripReports.relatedTags,
   },
 )

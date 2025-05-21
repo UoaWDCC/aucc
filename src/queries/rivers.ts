@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
-import { cacheTags, getRevalidationTags } from '@/config/revalidation'
 import { getPayloadClient } from '@/lib/payload'
+import { cacheTags } from '@/lib/utils/revalidation'
 import type { River } from '@/payload-types'
 
 /**
@@ -39,7 +39,7 @@ export const getRivers = unstable_cache(
   },
   ['getRivers'],
   {
-    tags: getRevalidationTags('rivers'),
+    tags: cacheTags.rivers.relatedTags,
   },
 )
 
@@ -69,6 +69,6 @@ export const getRiverBySlug = unstable_cache(
   },
   ['getRiverBySlug'],
   {
-    tags: getRevalidationTags('rivers'),
+    tags: cacheTags.rivers.relatedTags,
   },
 )

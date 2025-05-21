@@ -1,9 +1,8 @@
-import { revalidateTag } from 'next/cache'
 import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
-import { cacheTags } from '@/config/revalidation'
+import { cacheTags } from '@/lib/utils/revalidation'
 
 export const Execs: CollectionConfig = {
   slug: 'execs',
@@ -17,8 +16,8 @@ export const Execs: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [() => revalidateTag('execs')],
-    afterDelete: [() => revalidateTag('execs')],
+    afterChange: [() => cacheTags.execs.revalidate()],
+    afterDelete: [() => cacheTags.execs.revalidate()],
   },
   fields: [
     {
