@@ -1,38 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Rubik+Mono+One&family=Rubik:ital,wght@0,300..900;1,300..900&family=Unbounded:wght@200..900&display=swap');
-
 @import 'tailwindcss';
-
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+@config "./tailwind.config.js";
+
 
 /* @custom-variant dark (&:is(.dark *)); */
 
 :root {
+  /* Fonts */
   --font-heading: Rubik Mono One, monospace;
   --font-body: Rubik, sans-serif;
   --font-handwritten: Caveat, cursive;
   --font-unbounded: Unbounded, sans-serif;
+
+  /* Colors */
   --abyss: oklch(27.35% 0.017 189.89);
   --grass: oklch(66.38% 0.088 132.22);
   --cream: oklch(95.08% 0.008 189.89);
   --water: oklch(79.98% 0.038 187.93);
   --algae: oklch(74.26% 0.113 127.26);
+
+  /* Radius */
   --radius: 0.5rem;
 }
 
 @theme inline {
+  /* Fonts */
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
   --font-handwritten: var(--font-handwritten);
   --font-unbounded: var(--font-unbounded);
+
+  /* Colors */
   --color-abyss: var(--abyss);
   --color-grass: var(--grass);
   --color-cream: var(--cream);
   --color-water: var(--water);
   --color-algae: var(--algae);
+
+  /* Radius */
   --radius-sm: calc(var(--radius) - 4px); /* 4px */
   --radius-md: var(--radius); /* 8px */
   --radius-lg: calc(var(--radius) + 8px); /* 16px */
   --radius-full: 100%;
+
   /* --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -70,6 +82,6 @@
     @apply border-border outline-ring/50;
   } */
   body {
-    @apply bg-abyss text-cream font-body;
+    @apply bg-abyss text-abyss font-body;
   }
 }
