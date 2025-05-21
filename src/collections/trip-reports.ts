@@ -7,6 +7,10 @@ import { customUploadField } from './_fields/custom-upload'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['gallery', 'title', 'status', 'tripDate', 'location'],
+  },
   access: {
     create: authenticated,
     read: anyone,
@@ -80,6 +84,9 @@ export const TripReports: CollectionConfig = {
       hasMany: true,
       required: true,
       mimeType: 'image',
+      admin: {
+        className: 'hide-filename show-first',
+      },
     }),
     {
       name: 'slug',
