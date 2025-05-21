@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
+import { customUploadField } from './_fields/custom-upload'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -55,10 +56,9 @@ export const Events: CollectionConfig = {
       name: 'description',
       type: 'richText',
     },
-    {
+    customUploadField({
       name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
+      mimeType: 'image',
+    }),
   ],
 }
