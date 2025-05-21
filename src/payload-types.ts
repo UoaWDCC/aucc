@@ -199,7 +199,6 @@ export interface Media {
  */
 export interface River {
   id: number;
-  image?: (number | null) | Media;
   name?: string | null;
   grade?: number | null;
   description?: string | null;
@@ -207,6 +206,7 @@ export interface River {
    * Automatically generated from name
    */
   slug?: string | null;
+  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -216,7 +216,6 @@ export interface River {
  */
 export interface Event {
   id: number;
-  featuredImage?: (number | null) | Media;
   title: string;
   status: 'draft' | 'published' | 'archived';
   startTime: string;
@@ -237,6 +236,7 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  featuredImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -246,7 +246,6 @@ export interface Event {
  */
 export interface TripReport {
   id: number;
-  gallery?: (number | Media)[] | null;
   title: string;
   status: 'draft' | 'published';
   author: (number | Exec)[];
@@ -273,6 +272,7 @@ export interface TripReport {
     };
     [k: string]: unknown;
   } | null;
+  gallery?: (number | Media)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -282,11 +282,11 @@ export interface TripReport {
  */
 export interface Exec {
   id: number;
-  image?: (number | null) | Media;
   name: string;
   pronouns?: string | null;
   role: string;
   email: string;
+  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -447,11 +447,11 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "rivers_select".
  */
 export interface RiversSelect<T extends boolean = true> {
-  image?: T;
   name?: T;
   grade?: T;
   description?: T;
   slug?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -460,13 +460,13 @@ export interface RiversSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  featuredImage?: T;
   title?: T;
   status?: T;
   startTime?: T;
   endTime?: T;
   location?: T;
   description?: T;
+  featuredImage?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -475,7 +475,6 @@ export interface EventsSelect<T extends boolean = true> {
  * via the `definition` "trip-reports_select".
  */
 export interface TripReportsSelect<T extends boolean = true> {
-  gallery?: T;
   title?: T;
   status?: T;
   author?: T;
@@ -485,6 +484,7 @@ export interface TripReportsSelect<T extends boolean = true> {
   relatedRiver?: T;
   slug?: T;
   content?: T;
+  gallery?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -493,11 +493,11 @@ export interface TripReportsSelect<T extends boolean = true> {
  * via the `definition` "execs_select".
  */
 export interface ExecsSelect<T extends boolean = true> {
-  image?: T;
   name?: T;
   pronouns?: T;
   role?: T;
   email?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -17,15 +17,6 @@ export const Execs: CollectionConfig = {
   },
   fields: [
     {
-      name: 'image',
-      label: 'Profile Image',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        className: 'hide-filename',
-      },
-    },
-    {
       name: 'name',
       label: 'Full Name',
       type: 'text',
@@ -47,6 +38,15 @@ export const Execs: CollectionConfig = {
       label: 'Email Address',
       type: 'email',
       required: true,
+    },
+    {
+      name: 'image',
+      label: 'Profile Image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        className: 'hide-filename',
+      },
     },
   ],
 }

@@ -31,16 +31,6 @@ export const TripReports: CollectionConfig = {
   },
   fields: [
     {
-      name: 'gallery',
-      type: 'upload',
-      hasMany: true,
-      relationTo: 'media',
-      label: 'Trip Gallery',
-      admin: {
-        className: 'hide-filename',
-      },
-    },
-    {
       name: 'title',
       type: 'text',
       required: true,
@@ -103,6 +93,16 @@ export const TripReports: CollectionConfig = {
       name: 'content',
       type: 'richText',
       label: 'Content',
+    },
+    {
+      name: 'gallery',
+      type: 'upload',
+      hasMany: true,
+      relationTo: 'media',
+      label: 'Trip Gallery',
+      admin: {
+        className: 'hide-filename show-first',
+      },
     },
   ],
 }

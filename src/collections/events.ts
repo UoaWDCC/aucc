@@ -23,14 +23,6 @@ export const Events: CollectionConfig = {
   },
   fields: [
     {
-      name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        className: 'hide-filename',
-      },
-    },
-    {
       name: 'title',
       type: 'text',
       required: true,
@@ -72,6 +64,14 @@ export const Events: CollectionConfig = {
     {
       name: 'description',
       type: 'richText',
+    },
+    {
+      name: 'featuredImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        className: 'hide-filename',
+      },
     },
   ],
 }

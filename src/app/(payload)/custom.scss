@@ -1,6 +1,19 @@
+// Hides filename
 .hide-filename {
   .file__filename {
     display: none !important;
   }
 }
 
+.show-first{
+  .relationship-cell {
+    // Hides all text nodes
+    font-size: 0;
+    line-height: 0;
+
+    // Hides everything except the first thumbnail
+    & > div:not(:first-child) {
+      display: none !important;
+    }
+  }
+}

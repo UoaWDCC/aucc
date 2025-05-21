@@ -31,14 +31,6 @@ export const Rivers: CollectionConfig = {
   },
   fields: [
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        className: 'hide-filename',
-      },
-    },
-    {
       name: 'name',
       type: 'text',
     },
@@ -60,6 +52,14 @@ export const Rivers: CollectionConfig = {
         readOnly: true,
         description: 'Automatically generated from name',
         hidden: true,
+      },
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        className: 'hide-filename',
       },
     },
   ],
