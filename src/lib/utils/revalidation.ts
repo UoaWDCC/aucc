@@ -1,6 +1,6 @@
 import { revalidateTag } from 'next/cache'
 
-type CacheTag = keyof typeof tagRelations
+export type CacheTag = keyof typeof tagRelations
 
 const tagRelations = {
   events: ['media'],
