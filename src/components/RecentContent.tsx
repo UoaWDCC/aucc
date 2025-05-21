@@ -1,12 +1,16 @@
-import { getRecentEvents } from '@/queries/events'
-import { getRecentTripReports } from '@/queries/tripReports'
+import { getEvents } from '@/queries/events'
+import { getTripReports } from '@/queries/trip-reports'
 import { Event, TripReport } from '../payload-types'
 
 export async function RecentContent() {
-  const events: Event[] | null = await getRecentEvents()
-  const trips: TripReport[] | null = await getRecentTripReports()
+  const { events } = await getEvents({
+    limit: 3,
+  })
+  const { tripReports } = await getTripReports({
+    limit: 3,
+  })
 
-  if (!events || !trips) {
+  if (!events || !tripReports) {
     return <p className="text-red-500">Failed to load content.</p>
   }
 
@@ -26,7 +30,7 @@ export async function RecentContent() {
       <section className="mt-6">
         <h2 className="text-lg font-semibold">Recent Trip Reports</h2>
         <ul className="list-disc pl-5">
-          {trips.map((t) => (
+          {tripReports.map((t) => (
             <li key={t.id}>
               {t.title} — {new Date(t.createdAt).toLocaleDateString()}
             </li>

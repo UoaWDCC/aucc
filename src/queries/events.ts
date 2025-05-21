@@ -2,12 +2,12 @@ import { getPayloadClient } from '@/lib/payload'
 import type { Event } from '@/payload-types'
 
 /**
- * Get all events with pagination
+ * Get events with pagination
  * @param page - Page number
  * @param limit - Events per page
  * @param sort - Sort order
  */
-export async function getAllEvents({
+export async function getEvents({
   page = 1,
   limit = 10,
   sort = '-startTime',
@@ -48,25 +48,6 @@ export async function getEventById(id: string): Promise<Event | null> {
     return event as Event
   } catch (error) {
     console.error('Failed to fetch event by ID:', error)
-    return null
-  }
-}
-
-/**
- * Get the 3 most recent published events
- * @returns Array of recent events or null on failure
- */
-export async function getRecentEvents(): Promise<Event[] | null> {
-  try {
-    const payload = await getPayloadClient()
-    const result = await payload.find({
-      collection: 'events',
-      limit: 3,
-      sort: '-createdAt',
-    })
-    return result.docs
-  } catch (error) {
-    console.error('Failed to fetch recent events:', error)
     return null
   }
 }
