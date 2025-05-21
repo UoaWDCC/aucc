@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 
-import { getAllEvents } from '@/queries/events'
+import { getEvents } from '@/queries/events'
 import { EventsGrid } from './components/EventsGrid'
 import { EventsGridFallback } from './components/EventsGridFallback'
 
 export default async function EventsPage() {
-  const { events } = await getAllEvents()
+  const { events } = await getEvents()
 
   return (
     <div className="p-4">

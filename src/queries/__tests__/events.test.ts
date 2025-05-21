@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
-import { getAllEvents, getEventById } from '@/queries/events'
+import { getEventById, getEvents } from '@/queries/events'
 
 vi.mock('@/lib/payload', () => ({
   getPayloadClient: vi.fn(),
 }))
 
-describe('getAllEvents', () => {
+describe('getEvents', () => {
   const mockPayloadClient = {
     find: vi.fn(),
   }
@@ -29,7 +29,7 @@ describe('getAllEvents', () => {
 
     mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-    const result = await getAllEvents()
+    const result = await getEvents()
 
     expect(mockPayloadClient.find).toHaveBeenCalledWith({
       collection: 'events',
@@ -58,7 +58,7 @@ describe('getAllEvents', () => {
 
     mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-    const result = await getAllEvents({ page: 2, limit: 20, sort: 'title' })
+    const result = await getEvents({ page: 2, limit: 20, sort: 'title' })
 
     expect(mockPayloadClient.find).toHaveBeenCalledWith({
       collection: 'events',
@@ -85,7 +85,7 @@ describe('getAllEvents', () => {
 
     mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-    const result = await getAllEvents()
+    const result = await getEvents()
 
     expect(result.events).toHaveLength(0)
     expect(result.totalDocs).toBe(0)
