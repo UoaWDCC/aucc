@@ -54,6 +54,7 @@ jobs:
             S3_SECRET_ACCESS_KEY="${{ env.S3_SECRET_ACCESS_KEY}}"
             S3_REGION="${{ env.S3_REGION}}"
             S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"
+            API_KEY="${{ env.API_KEY}}"
           build_secrets: >-
             DATABASE_URL=${{ env.DATABASE_URL }}
             PAYLOAD_SECRET=${{ env.PAYLOAD_SECRET}}
@@ -63,6 +64,7 @@ jobs:
             S3_SECRET_ACCESS_KEY=${{ env.S3_SECRET_ACCESS_KEY}}
             S3_REGION=${{ env.S3_REGION}}
             S3_CF_PUBLIC_ENDPOINT=${{ env.S3_CF_PUBLIC_ENDPOINT}}
+            API_KEY=${{ env.API_KEY}}
 
       - name: Skip comment for closed PRs
         if: github.event.action == 'closed'

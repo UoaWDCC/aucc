@@ -42,3 +42,4 @@ jobs:
           --build-secret S3_SECRET_ACCESS_KEY="${{ env.S3_SECRET_ACCESS_KEY}}"
           --build-secret S3_REGION="${{ env.S3_REGION}}"
           --build-secret S3_CF_PUBLIC_ENDPOINT="${{ env.S3_CF_PUBLIC_ENDPOINT}}"
+          --build-secret API_KEY="${{ env.API_KEY}}"
