@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
-import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import { RichTextRenderer } from '@/components/RichText'
+import { RichText } from '@/components/RichText'
 import { getTripReportBySlug } from '@/queries/trip-reports'
 
 export default async function SpecificTripReportPage({
@@ -36,9 +35,7 @@ export default async function SpecificTripReportPage({
           </div>
         </div>
         <div className="w-full bg-white p-5">
-          {tripReport.content && (
-            <RichTextRenderer className="prose" data={tripReport.content} />
-          )}
+          {tripReport.content && <RichText data={tripReport.content} />}
         </div>
       </div>
     </div>
