@@ -6,6 +6,8 @@ export default {
       typography: {
         DEFAULT: {
           css: {
+            // TODO(dyzhuu) see if we need custom styling for prose rendering
+            //
             // h1: {
             //   fontFamily: 'var(--font-heading)',
             // },
