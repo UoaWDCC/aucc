@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload'
 
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { anyone } from './_access/anyone'
+import { authenticated } from './_access/authenticated'
 
 export const Tags: CollectionConfig = {
   slug: 'tags',
