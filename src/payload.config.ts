@@ -11,7 +11,9 @@ import { Users } from '@/collections/users'
 import { env } from '@/lib/env'
 import { Events } from './collections/events'
 import { Execs } from './collections/execs'
+import { Gallery } from './collections/gallery'
 import { Rivers } from './collections/rivers'
+import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
 
 const filename = fileURLToPath(import.meta.url)
@@ -24,7 +26,16 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Rivers, Events, TripReports, Execs],
+  collections: [
+    Users,
+    Media,
+    Rivers,
+    Events,
+    TripReports,
+    Execs,
+    Gallery,
+    Tags,
+  ],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,

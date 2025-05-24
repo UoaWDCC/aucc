@@ -7,6 +7,16 @@ import { customUploadField } from './_fields/custom-upload'
 
 export const Events: CollectionConfig = {
   slug: 'events',
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: [
+      'featuredImage',
+      'title',
+      'status',
+      'startTime',
+      'endTime',
+    ],
+  },
   access: {
     create: authenticated,
     read: anyone,
@@ -64,6 +74,9 @@ export const Events: CollectionConfig = {
     customUploadField({
       name: 'featuredImage',
       mimeType: 'image',
+      admin: {
+        className: 'hide-filename',
+      },
     }),
   ],
 }

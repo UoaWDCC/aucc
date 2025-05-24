@@ -8,6 +8,10 @@ import { customUploadField } from './_fields/custom-upload'
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
+  admin: {
+    useAsTitle: 'name',
+    defaultColumns: ['image', 'name', 'grade', 'description'],
+  },
   access: {
     create: authenticated,
     read: anyone,
@@ -45,6 +49,9 @@ export const Rivers: CollectionConfig = {
     customUploadField({
       name: 'image',
       mimeType: 'image',
+      admin: {
+        className: 'hide-filename',
+      },
     }),
     {
       name: 'slug',

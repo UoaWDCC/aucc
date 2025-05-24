@@ -9,6 +9,7 @@ export const Execs: CollectionConfig = {
   slug: 'execs',
   admin: {
     useAsTitle: 'name',
+    defaultColumns: ['image', 'name', 'role', 'email'],
   },
   access: {
     create: authenticated,
@@ -49,6 +50,9 @@ export const Execs: CollectionConfig = {
       label: 'Profile Image',
       required: true,
       mimeType: 'image',
+      admin: {
+        className: 'hide-filename',
+      },
     }),
   ],
 }

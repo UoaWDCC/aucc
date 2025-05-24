@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { getRiverBySlug } from '@/queries/rivers'
 import { RiverPage } from './_component/RiverPage'
 
-export default async function SpecificRiverPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ slug: string }>
@@ -15,12 +15,5 @@ export default async function SpecificRiverPage({
     notFound()
   }
 
-  return (
-    <div>
-      <div>
-        <h1>Welcome to the specific river page, current trip is {slug}</h1>
-        <RiverPage river={river} />
-      </div>
-    </div>
-  )
+  return <RiverPage river={river} />
 }
