@@ -16,7 +16,7 @@
   /* Colors */
   --abyss: oklch(27.35% 0.017 189.89);
   --grass: oklch(66.38% 0.088 132.22);
-  --cream: oklch(95.08% 0.008 189.89);
+  --cream: oklch(94.49% 0.013 97.45);
   --water: oklch(79.98% 0.038 187.93);
   --algae: oklch(74.26% 0.113 127.26);
 
@@ -47,6 +47,6 @@
 
 @layer base {
   body {
-    @apply bg-abyss text-abyss font-body;
+    @apply bg-cream text-abyss font-body;
   }
 }

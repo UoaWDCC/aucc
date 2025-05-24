@@ -300,7 +300,7 @@ export interface Exec {
  */
 export interface Gallery {
   id: number;
-  image: (number | Media)[];
+  image: number | Media;
   tag?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
