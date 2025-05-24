@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { anyone } from './_access/anyone'
+import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
 
 export const Rivers: CollectionConfig = {
