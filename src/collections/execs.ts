@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
@@ -15,6 +16,10 @@ export const Execs: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [() => cacheTags.execs.revalidate()],
+    afterDelete: [() => cacheTags.execs.revalidate()],
   },
   fields: [
     {

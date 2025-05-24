@@ -257,7 +257,7 @@ export interface TripReport {
   location?: string | null;
   relatedEvent?: (number | null) | Event;
   relatedRiver?: (number | null) | River;
-  gallery: (number | Media)[];
+  gallery?: (number | Media)[] | null;
   /**
    * Automatically generated from title
    */
@@ -290,7 +290,7 @@ export interface Exec {
   pronouns?: string | null;
   role: string;
   email: string;
-  image: number | Media;
+  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
