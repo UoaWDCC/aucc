@@ -69,6 +69,10 @@ export const cacheTags: Record<
 
 /**
  * Use dfs to find every tag that is related to the given tag
+ * 
+ * Dfs is used to ensure are tags that are indirectly related to the given tag
+ * are also found and included
+ * 
  @param tagName - The tag for the collection to get revalidation tags for
  @param relations - The record of relationships between collections
  @returns - List of tags that is related to given tag
