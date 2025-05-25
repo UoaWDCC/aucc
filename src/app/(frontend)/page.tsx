@@ -13,13 +13,6 @@ import './styles.css'
 
 import { WelcomeSection } from '@/components/WelcomeSection'
 
-function TEST() {
-  return (
-    <>
-      <div className="z-20 w-full bg-red-500">200</div>
-    </>
-  )
-}
 export default async function HomePage() {
   const headers = await getHeaders()
   const payloadConfig = await config

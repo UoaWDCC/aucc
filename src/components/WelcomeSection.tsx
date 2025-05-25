@@ -26,11 +26,11 @@ function AgendaArrow() {
 }
 export function WelcomeSection() {
   const imageURLs = [
-    `${env.NEXT_PUBLIC_CF_UR}/static/homepage/welcome-01.v1.webp`,
-    `${env.NEXT_PUBLIC_CF_UR}/static/homepage/welcome-02.v1.webp`,
-    `${env.NEXT_PUBLIC_CF_UR}/static/homepage/welcome-03.v1.webp`,
+    `${env.NEXT_PUBLIC_CF_URL}/static/homepage/welcome-01.v1.webp`,
+    `${env.NEXT_PUBLIC_CF_URL}/static/homepage/welcome-02.v1.webp`,
+    `${env.NEXT_PUBLIC_CF_URL}/static/homepage/welcome-03.v1.webp`,
   ]
-  const paddleURL = `${env.NEXT_PUBLIC_CF_UR}/static/homepage/paddle.v1.webp`
+  const paddleURL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/paddle.v1.webp`
   return (
     <>
       <div className="relative h-235 md:h-197.5">
