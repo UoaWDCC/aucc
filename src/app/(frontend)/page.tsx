@@ -9,6 +9,25 @@ import config from '@/payload.config'
 
 import './styles.css'
 
+function Background({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative isolate h-screen w-screen border-2 border-red-500">
+      <div className="absolute top-0 -z-1 h-1/2 w-full bg-green-500" />
+      <div className="absolute bottom-0 -z-1 h-1/2 w-full bg-blue-500" />
+      {children}
+    </div>
+  )
+}
+
+function Section() {
+  return (
+    <section className="flex h-full w-full">
+      <div className="h-full w-[300px]">pictures</div>
+      <div className="h-full flex-grow bg-black/20">text</div>
+    </section>
+  )
+}
+
 export default async function HomePage() {
   const headers = await getHeaders()
   const payloadConfig = await config
@@ -18,21 +37,10 @@ export default async function HomePage() {
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
   return (
-    <div className="home">
-      <div className="content">
-        <h1>Welcome to AUCC</h1>
-
-        <Suspense fallback={<p>Loading content...</p>}>
-          <RecentContent />
-        </Suspense>
-
-        <div className="footer">
-          <p>Update this page by editing</p>
-          <a className="codeLink" href={fileURL}>
-            <code>app/(frontend)/page.tsx</code>
-          </a>
-        </div>
-      </div>
+    <div>
+      <Background>
+        <Section />
+      </Background>
     </div>
   )
 }
