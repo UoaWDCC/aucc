@@ -1,14 +1,17 @@
+import Image from 'next/image'
+
 interface BackgroundImageProps {
-  src: string;
-  alt: string;
+  src: string
+  alt: string
 }
 
 export function BackgroundImage({ src, alt }: BackgroundImageProps) {
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className="absolute inset-0 w-full h-full object-cover z-0"
+      fill
+      className="absolute inset-0 z-0 h-full w-full object-cover"
     />
-  );
+  )
 }
