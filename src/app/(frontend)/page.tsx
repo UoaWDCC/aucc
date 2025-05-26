@@ -7,6 +7,8 @@ import { getPayload } from 'payload'
 import { RecentContent } from '@/components/RecentContent'
 import config from '@/payload.config'
 
+import HeroSection from './_components/sections/HomePage/Hero/HeroSection'
+
 import './styles.css'
 
 export default async function HomePage() {
@@ -20,10 +22,10 @@ export default async function HomePage() {
   return (
     <div className="home">
       <div className="content">
-        <h1>Welcome to AUCC</h1>
-
+        
         <Suspense fallback={<p>Loading content...</p>}>
-          <RecentContent />
+          <HeroSection />
+          <RecentContent /> 
         </Suspense>
 
         <div className="footer">
