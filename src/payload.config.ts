@@ -61,7 +61,7 @@ export default buildConfig({
             filename: string
             prefix?: string
           }) => {
-            return `${env.S3_CF_PUBLIC_ENDPOINT}/${path.posix.join(prefix || '', filename || '')}`
+            return `${env.NEXT_PUBLIC_CF_URL}/${path.posix.join(prefix || '', filename || '')}`
           },
         },
       },
