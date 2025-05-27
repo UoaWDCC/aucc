@@ -5,13 +5,12 @@ import Image from 'next/image'
 import { getPayload } from 'payload'
 
 import { RecentContent } from '@/components/RecentContent'
-import { WelcomeSectionBackground } from '@/components/WelcomeSectionBackground'
 import config from '@/payload.config'
 import HeroSection from './_components/sections/HomePage/Hero/HeroSection'
 
 import './styles.css'
 
-import { WelcomeSection } from '@/components/WelcomeSection'
+import WelcomeSection from './_components/sections/HomePage/Welcome/WelcomeSection'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -27,9 +26,8 @@ export default async function HomePage() {
         <h1>Welcome to AUCC</h1>
         <Suspense fallback={<p>Loading content...</p>}>
           <RecentContent />
-          <WelcomeSectionBackground>
-            <WelcomeSection />
-          </WelcomeSectionBackground>
+          <HeroSection />
+          <WelcomeSection />
         </Suspense>
 
         <div className="footer">
