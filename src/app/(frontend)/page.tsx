@@ -5,17 +5,19 @@ import Image from 'next/image'
 import { getPayload } from 'payload'
 
 import { RecentContent } from '@/components/RecentContent'
-import { WelcomeSectionBackground } from '@/components/WelcomeSection'
+import { WelcomeSectionBackground } from '@/components/WelcomeSectionBackground'
 import config from '@/payload.config'
 import HeroSection from './_components/sections/HomePage/Hero/HeroSection'
 
 import './styles.css'
 
+import { WelcomeSection } from '@/components/WelcomeSection'
+
 function TEST() {
   return (
-    <div>
+    <>
       <div className="z-20 w-full bg-red-500">200</div>
-    </div>
+    </>
   )
 }
 export default async function HomePage() {
@@ -32,9 +34,8 @@ export default async function HomePage() {
         <h1>Welcome to AUCC</h1>
         <Suspense fallback={<p>Loading content...</p>}>
           <RecentContent />
-          <div className="h-[15vh] w-full">1</div>
           <WelcomeSectionBackground>
-            <TEST></TEST>
+            <WelcomeSection />
           </WelcomeSectionBackground>
         </Suspense>
 
