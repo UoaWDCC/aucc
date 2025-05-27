@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { WelcomeSection } from '@/components/WelcomeSection'
-import { WelcomeSectionBackground } from '@/components/WelcomeSectionBackground'
+import { WelcomeSection } from '@/app/(frontend)/_components/sections/HomePage/Welcome/WelcomeSection'
+import { WelcomeSectionBackground } from '@/app/(frontend)/_components/sections/HomePage/Welcome/WelcomeSectionBackground'
 import { env } from '@/lib/env'
 
 const meta = {
@@ -19,9 +19,6 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   parameters: {},
-  args: {
-    children: <WelcomeSection />,
-  },
 }
 
 export const Empty: Story = {
