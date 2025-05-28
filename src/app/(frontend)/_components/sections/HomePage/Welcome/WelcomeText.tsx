@@ -3,12 +3,12 @@ import { env } from '@/lib/env'
 export function WelcomeText() {
   const paddleURL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/paddle.v1.webp`
   return (
-    <div className="flex flex-col items-center">
-      <div className="mt-11 mb-27.5 flex w-full flex-row justify-center">
-        <div className="font-heading text-grass w-[277px] text-center text-4xl tracking-tighter">
+    <div className="flex w-full flex-col items-center md:items-end">
+      <div className="md:bg-algae mt-11 mb-27.5 flex flex-row justify-center">
+        <div className="font-heading text-grass w-[277px] text-center text-4xl tracking-tighter md:w-full">
           HEY THERE
         </div>
-        <div className="text-grass font-handwritten -mt-7 -ml-1 -rotate-7 text-start text-6xl font-bold tracking-tight">
+        <div className="text-grass font-handwritten -mt-7 -ml-1 -rotate-7 text-start text-6xl font-bold tracking-tight md:-mt-5 md:mr-10 md:ml-0 md:-rotate-2">
           !
         </div>
       </div>
