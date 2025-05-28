@@ -1,6 +1,6 @@
 import { env } from '@/lib/env'
 
-export function WelComeText() {
+export function WelcomeText() {
   const paddleURL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/paddle.v1.webp`
   return (
     <div className="flex flex-col items-center">
