@@ -7,10 +7,9 @@ import { getPayload } from 'payload'
 import { RecentContent } from '@/components/RecentContent'
 import config from '@/payload.config'
 import HeroSection from './_components/sections/HomePage/Hero/HeroSection'
+import WelcomeSection from './_components/sections/HomePage/Welcome/WelcomeSection'
 
 import './styles.css'
-
-import WelcomeSection from './_components/sections/HomePage/Welcome/WelcomeSection'
 
 export default async function HomePage() {
   const headers = await getHeaders()
