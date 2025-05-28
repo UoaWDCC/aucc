@@ -11,7 +11,7 @@ export function HeroContent() {
           AUCC
         </span>
       </h1>
-      <div className="w-auto flex-row">
+      <div className="flex w-auto flex-row">
         <p className="mt-4 inline-block h-auto w-90 text-left text-base italic md:text-xl">
           Whitewater kayaking &amp; rafting in New Zealand’s most beautiful
           places.

@@ -7,7 +7,7 @@ export function CTAButton() {
       rel="noopener noreferrer"
       className="inline-block p-5"
     >
-      <button className="text-cream border-cream hover:border-algae cursor-pointer rounded-4xl border-4 px-8 py-3 italic shadow-lg transition">
+      <button className="text-cream border-cream hover:border-algae cursor-pointer rounded-4xl border-4 px-8 py-2 italic shadow-lg transition">
         Become a member
       </button>
     </a>
