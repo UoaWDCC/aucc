@@ -7,7 +7,7 @@ import { getPayload } from 'payload'
 import { RecentContent } from '@/components/RecentContent'
 import config from '@/payload.config'
 import HeroSection from './_components/sections/HomePage/Hero/HeroSection'
-import WelcomeSection from './_components/sections/HomePage/Welcome/WelcomeSection'
+import IntroSection from './_components/sections/HomePage/Intro/IntroSection'
 
 import './styles.css'
 
@@ -33,7 +33,7 @@ export default async function HomePage() {
         <Suspense fallback={<p>Loading content...</p>}>
           <RecentContent />
           <HeroSection />
-          <WelcomeSection />
+          <IntroSection />
         </Suspense>
 
         <div className="footer">

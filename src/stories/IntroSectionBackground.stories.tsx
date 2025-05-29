@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { WelcomeSectionBackground } from '@/app/(frontend)/_components/sections/HomePage/Welcome/WelcomeSectionBackground'
+import { IntroSectionBackground } from '@/app/(frontend)/_components/sections/HomePage/Intro/IntroSectionBackground'
 
 const meta = {
   title: 'WelcomeSectionBackground',
-  component: WelcomeSectionBackground,
+  component: IntroSectionBackground,
   parameters: {
     layout: 'fullscreen',
   },
 
   tags: ['autodocs'],
-} satisfies Meta<typeof WelcomeSectionBackground>
+} satisfies Meta<typeof IntroSectionBackground>
 
 export default meta
 type Story = StoryObj<typeof meta>
