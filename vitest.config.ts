@@ -1,7 +1,9 @@
 import path from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  plugins: [tsconfigPaths()],
   test: {
     environment: 'jsdom',
     globals: true,
@@ -12,5 +14,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  optimizeDeps: {
+    include: ['@storybook/nextjs-vite'],
   },
 })
