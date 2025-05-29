@@ -15,7 +15,7 @@ export function NextAdventureSectionBackground({
           <NextAdventureTopCurve className="absolute top-0 max-h-full" />
         </div>
       </div>
-      <div>{children}</div>
+      {children}
     </div>
   )
 }
