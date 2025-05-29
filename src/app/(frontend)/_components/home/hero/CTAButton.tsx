@@ -1,8 +1,7 @@
-'use client'
 export function CTAButton() {
   return (
     <a
-      href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
+      href="https://form.jotform.com/250418674375867"
       target="_blank"
       rel="noopener noreferrer"
       className="mt-8 inline-block"
@@ -13,5 +12,3 @@ export function CTAButton() {
     </a>
   )
 }
-
-// This button is used in the HeroContent component to navigate to the membership page.
