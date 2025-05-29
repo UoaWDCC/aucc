@@ -12,7 +12,7 @@ export function NextAdventureSectionBackground({
       <div className="absolute inset-0 -z-1">
         <div className="bg-water h-1/2"></div>
         <div className="bg-abyss relative h-1/2">
-          <NextAdventureTopCurve className="absolute top-0 max-h-full" />
+          <NextAdventureTopCurve className="absolute -top-px max-h-full" />
         </div>
       </div>
       {children}
