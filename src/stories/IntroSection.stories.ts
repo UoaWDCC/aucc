@@ -1,10 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 import { IntroSection } from '@/app/(frontend)/_components/home/intro/IntroSection'
 
 const meta = {
-  title: 'WelcomeSection',
+  title: 'IntroSection',
   component: IntroSection,
   parameters: {
     layout: 'fullscreen',
