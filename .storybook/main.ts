@@ -2,7 +2,7 @@ import path from 'path'
 import type { StorybookConfig } from '@storybook/experimental-nextjs-vite'
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../src/stories/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
