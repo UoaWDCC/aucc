@@ -7,5 +7,5 @@ interface IntroSectionBackGroundProps {
 export function IntroSectionBackground({
   children,
 }: IntroSectionBackGroundProps) {
-  return <div className="relative inset-0 h-300 w-full">{children}</div>
+  return <div className="relative inset-0 w-full">{children}</div>
 }

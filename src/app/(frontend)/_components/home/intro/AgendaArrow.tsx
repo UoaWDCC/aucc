@@ -23,7 +23,7 @@ function Arrow() {
 
 export function AgendaArrow() {
   return (
-    <div className="w-fyll relative mt-[min(92%,515px)] mr-auto ml-auto flex max-w-130 flex-row tracking-tighter">
+    <div className="relative mt-[min(92%,515px)] mr-auto ml-auto flex w-full max-w-130 flex-row tracking-tighter">
       <div className="ml-12 rotate-15 md:rotate-0">
         <Arrow />
       </div>
