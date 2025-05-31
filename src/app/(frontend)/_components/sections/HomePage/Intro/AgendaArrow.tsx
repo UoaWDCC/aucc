@@ -23,11 +23,11 @@ function Arrow() {
 
 export function AgendaArrow() {
   return (
-    <div className="absolute bottom-9.5 left-12 flex flex-row tracking-tighter">
-      <div className="rotate-15 md:rotate-0">
+    <div className="w-fyll relative mt-[min(92%,515px)] mr-auto ml-auto flex max-w-140 flex-row tracking-tighter">
+      <div className="ml-12 rotate-15 md:rotate-0">
         <Arrow />
       </div>
-      <div className="font-handwritten text-cream absolute top-21 left-11 w-36 rotate-10 text-[20px]">
+      <div className="font-handwritten text-cream absolute top-20 ml-20 rotate-10 text-[20px]">
         what&apos;s on the agenda?
       </div>
     </div>

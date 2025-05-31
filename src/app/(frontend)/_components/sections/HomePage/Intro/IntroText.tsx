@@ -7,23 +7,23 @@ export function IntroText() {
       // md:items-end md:pt-37 md:pr-46
     >
       <div className="mt-11 mb-27.5 flex flex-row justify-center">
-        <div className="font-heading text-grass w-[277px] text-center text-4xl tracking-tighter">
+        <h1 className="font-heading text-grass text-center text-4xl tracking-tighter">
           HEY THERE
-        </div>
-        <div
-          className="text-grass font-handwritten -mt-7 -ml-1 -rotate-7 text-start text-6xl font-bold tracking-tight"
+        </h1>
+        <span
+          className="text-grass font-handwritten -mt-5 -rotate-7 text-start text-6xl font-bold tracking-tight"
           // md:-mt-5 md:ml-0 md:-rotate-2    -Scrapped breakpoint code, consider breakpoint after design done
         >
           !
-        </div>
+        </span>
       </div>
 
-      <div
+      <p
         className="text-algae font-body mb-4.5 max-h-17 max-w-130 min-w-77 text-center text-[28px] leading-8 font-bold tracking-tighter italic"
         // md:mb-9 md:w-[50%] md:text-right md:text-[26px]    -Scrapped breakpoint code, consider breakpoint after design done
       >
         We’re the Auckland University Canoe Club.
-      </div>
+      </p>
 
       <div
         className="font-body w-full max-w-130 text-center text-sm leading-5 italic"
