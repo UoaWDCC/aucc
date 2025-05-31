@@ -1,3 +1,16 @@
+import { AgendaArrow } from './AgendaArrow'
+import { IntroImages } from './IntroImages'
+import { IntroSectionBackground } from './IntroSectionBackground'
+import { IntroText } from './IntroText'
+
 export function IntroSection() {
-  return <div className="bg-cream min-h-96">IntroSection</div>
+  return (
+    <IntroSectionBackground>
+      <div className="relative z-2">
+        <IntroText />
+        <IntroImages />
+        <AgendaArrow />
+      </div>
+    </IntroSectionBackground>
+  )
 }
