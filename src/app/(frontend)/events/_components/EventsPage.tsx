@@ -2,9 +2,9 @@
 
 import React, { Suspense } from 'react'
 
-import Map from '@/app/(frontend)/_components/Map/MapWrapper'
 import { EventsGrid } from '@/app/(frontend)/events/_components/EventsGrid'
 import { EventsGridFallback } from '@/app/(frontend)/events/_components/EventsGridFallback'
+import { MapComponent } from '@/components/Map/MapWrapper'
 import { Event } from '@/payload-types'
 
 interface EventsPageProps {
@@ -27,10 +27,16 @@ export function EventsPage({ events }: EventsPageProps) {
 
       <div className="mt-8">
         <h3 className="mb-2 text-lg font-semibold">Event Location Map</h3>
-        <Map
-          riverStart={[-36.8485, 174.785]}
-          riverEnd={[-36.8485, 174.763]}
-          zoom={13}
+        <MapComponent
+          coordinates={[
+            {
+              latitude: -36.8485,
+              longitude: 174.7633,
+              label: 'Start of River',
+            },
+            { latitude: -36.86, longitude: 174.775, label: 'End of River' },
+            { latitude: -36.868, longitude: 174.769, label: 'Ender of River' },
+          ]}
         />
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Map from '../app/(frontend)/_components/Map/Map'
+import Map from '../components/Map/Map'
 
 const meta: Meta<typeof Map> = {
   title: 'Components/Map',
@@ -17,8 +17,10 @@ type Story = StoryObj<typeof Map>
 
 export const TwoMarkers: Story = {
   args: {
-    riverStart: [-36.8485, 174.7633],
-    riverEnd: [-36.85, 174.765],
-    zoom: 13,
+    coordinates: [
+      { latitude: -36.8485, longitude: 174.7633, label: 'Start of River' },
+      { latitude: -36.86, longitude: 174.775, label: 'End of River' },
+      { latitude: -36.868, longitude: 174.769, label: 'Ender of River' },
+    ],
   },
 }
