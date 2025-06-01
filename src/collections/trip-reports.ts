@@ -10,7 +10,14 @@ export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['gallery', 'title', 'status', 'tripDate', 'location'],
+    defaultColumns: [
+      'coverImage',
+      'gallery',
+      'title',
+      'status',
+      'tripDate',
+      'location',
+    ],
   },
   access: {
     create: authenticated,
@@ -89,6 +96,16 @@ export const TripReports: CollectionConfig = {
       mimeType: 'image',
       admin: {
         className: 'hide-filename show-first',
+      },
+    }),
+    customUploadField({
+      name: 'coverImage',
+      label: 'Cover Image',
+      hasMany: false,
+      required: false,
+      mimeType: 'image',
+      admin: {
+        thumbnail: true,
       },
     }),
     {

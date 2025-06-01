@@ -258,6 +258,7 @@ export interface TripReport {
   relatedEvent?: (number | null) | Event;
   relatedRiver?: (number | null) | River;
   gallery: (number | Media)[];
+  coverImage?: (number | null) | Media;
   /**
    * Automatically generated from title
    */
@@ -516,6 +517,7 @@ export interface TripReportsSelect<T extends boolean = true> {
   relatedEvent?: T;
   relatedRiver?: T;
   gallery?: T;
+  coverImage?: T;
   slug?: T;
   content?: T;
   updatedAt?: T;

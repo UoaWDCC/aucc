@@ -6,6 +6,8 @@ import { getPlainText } from '@/lib/utils/get-plain-text'
 import { TripReport } from '@/payload-types'
 import type { Exec } from '@/payload-types'
 
+const PLACEHOLDER = '/hero_background_Image.jpg'
+
 export interface TripReportCardProps {
   report: TripReport
 }
@@ -16,8 +18,10 @@ function isExec(a: number | Exec): a is Exec {
 
 export function TripReportCard({ report }: TripReportCardProps) {
   const postAuthors = report.author.filter(isExec)
-  const galleryItems = report.gallery as { url: string }[] | undefined
-  const coverImage = galleryItems?.[0]?.url
+  const coverImage =
+    report.coverImage && typeof report.coverImage !== 'number'
+      ? report.coverImage.url
+      : PLACEHOLDER
 
   return (
     <Link
@@ -35,7 +39,6 @@ export function TripReportCard({ report }: TripReportCardProps) {
           />
         </div>
       )}
-
       <h3 className="mb-1 text-lg font-semibold">{report.title}</h3>
       {report.tripDate && (
         <p className="mb-1 text-sm text-gray-500">
@@ -50,7 +53,6 @@ export function TripReportCard({ report }: TripReportCardProps) {
           By {postAuthors.map((a) => a.name).join(', ')}
         </p>
       )}
-
       {report.content && (
         <div className="mt-1 line-clamp-2 text-sm whitespace-pre-wrap text-gray-600">
           {getPlainText(report.content)}
