@@ -25,29 +25,5 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     adminThumbnail: 'thumbnail',
-    // TODO(dyzhuu) confirm image sizes
-    imageSizes: [
-      {
-        name: 'thumbnail',
-        width: 300,
-        height: 300,
-        crop: 'center',
-      },
-      {
-        name: 'small',
-        width: 800,
-        height: 600,
-      },
-      {
-        name: 'medium',
-        width: 1280,
-        height: 720,
-      },
-      {
-        name: 'large',
-        width: 1920,
-        height: 1080,
-      },
-    ],
   },
 }
