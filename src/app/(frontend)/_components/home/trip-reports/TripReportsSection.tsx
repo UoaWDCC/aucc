@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import type { TripReport } from '@/payload-types'
 
+const PLACEHOLDER = '/hero_background_Image.jpg'
+
 interface TripReportsSectionProps {
   tripReports: TripReport[]
 }
@@ -44,7 +46,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
 
               <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-lg">
                 <Image
-                  src={reportA.coverImage?.url ?? '/placeholder.jpg'}
+                  src={reportA.coverImage?.url ?? PLACEHOLDER}
                   alt={reportA.title}
                   fill
                   className="object-cover"
@@ -65,7 +67,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
             <article className="col-span-1 row-span-1 flex flex-col rounded-2xl bg-[#0A0F0C]/90 p-3">
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
                 <Image
-                  src={reportB.coverImage?.url ?? '/placeholder.jpg'}
+                  src={reportB.coverImage?.url ?? PLACEHOLDER}
                   alt={reportB.title}
                   fill
                   className="object-cover"
@@ -87,7 +89,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
             <article className="col-span-1 row-span-1 flex flex-col justify-end rounded-2xl bg-[#0A0F0C]/90 p-3">
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
                 <Image
-                  src={reportC.coverImage?.url ?? '/placeholder.jpg'}
+                  src={reportC.coverImage?.url ?? PLACEHOLDER}
                   alt={reportC.title}
                   fill
                   className="object-cover"
