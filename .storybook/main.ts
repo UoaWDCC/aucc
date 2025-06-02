@@ -1,22 +1,21 @@
 import path from 'path'
-import type { StorybookConfig } from '@storybook/experimental-nextjs-vite'
+import type { StorybookConfig } from '@storybook/nextjs-vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@chromatic-com/storybook',
-    '@storybook/experimental-addon-test',
-  ],
+  addons: ['@chromatic-com/storybook', '@storybook/addon-docs'],
   framework: {
-    name: '@storybook/experimental-nextjs-vite',
+    name: '@storybook/nextjs-vite',
     options: {},
   },
-  viteFinal: async (config) => {
-    if (config.resolve) {
+  async viteFinal(config) {
+    config.plugins = [...(config.plugins || []), tsconfigPaths()]
+
+    if (config.resolve && config.resolve.alias) {
       config.resolve.alias = {
-        ...config.resolve?.alias,
-        '@': path.resolve(__dirname, './src'),
+        ...config.resolve.alias,
+        '@': path.resolve(__dirname, '../src'),
       }
     }
 

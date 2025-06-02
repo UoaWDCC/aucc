@@ -16,7 +16,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="flex min-h-dvh flex-col">
-        <Header />
+        {/* <Header /> */}
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>
