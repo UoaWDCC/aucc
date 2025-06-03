@@ -36,7 +36,7 @@ export function getPlainText(
   maxLength?: number,
 ): string {
   // this will recursively retrieve all text from the RichText element.
-  const children = data.root.children as Node[]
+  const children = (data?.root?.children as Node[]) ?? []
   const full = walk(children).trim()
 
   if (maxLength === undefined || full.length < maxLength) {
