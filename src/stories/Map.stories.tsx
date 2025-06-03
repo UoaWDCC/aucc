@@ -20,7 +20,8 @@ export const TwoMarkers: Story = {
     coordinates: [
       { latitude: -36.8485, longitude: 174.7633, label: 'Start of River' },
       { latitude: -36.86, longitude: 174.775, label: 'End of River' },
-      { latitude: -36.868, longitude: 174.769, label: 'Ender of River' },
+      { latitude: -36.868, longitude: 174.769 },
     ],
+    className: 'h-[400px] w-[700px] rounded-xl border shadow',
   },
 }
