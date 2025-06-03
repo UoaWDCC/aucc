@@ -9,8 +9,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.S3_CF_PUBLIC_ENDPOINT
-          ? new URL(process.env.S3_CF_PUBLIC_ENDPOINT).hostname
+        hostname: process.env.NEXT_PUBLIC_CF_URL
+          ? new URL(process.env.NEXT_PUBLIC_CF_URL).hostname
           : '*.cloudfront.net',
       },
     ],
