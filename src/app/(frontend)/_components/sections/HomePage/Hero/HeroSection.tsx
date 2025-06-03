@@ -2,16 +2,11 @@
 
 import { BackgroundImage } from './BackgroundImage'
 import { HeroContent } from './HeroContent'
-import { Overlay } from './Overlay'
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-screen justify-center bg-gray-900 md:items-center">
-      <BackgroundImage
-        src="/hero_background_Image.jpg"
-        alt="Kayaking in New Zealand"
-      />
-      <Overlay />
+    <section className="relative flex min-h-screen justify-center md:items-center">
+      <BackgroundImage alt="Kayaking in New Zealand" />
       <HeroContent />
     </section>
   )
