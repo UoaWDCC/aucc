@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram } from 'react-icons/fa'
+import { Facebook, Instagram } from 'lucide-react'
 
 export function ContactText() {
   return (
@@ -19,7 +19,7 @@ export function ContactText() {
           rel="noopener noreferrer"
           className="hover:text-algae flex flex-row items-center gap-3 transition-colors"
         >
-          <FaInstagram className="text-algae text-2xl" />
+          <Instagram className="text-algae text-2xl" />
           <span>aucanoeclub</span>
         </a>
 
@@ -30,7 +30,7 @@ export function ContactText() {
           rel="noopener noreferrer"
           className="hover:text-algae flex flex-row items-center gap-3 transition-colors"
         >
-          <FaFacebook className="text-algae text-2xl" />
+          <Facebook className="text-algae text-2xl" />
           <span>AUCanoeClub</span>
         </a>
       </div>
