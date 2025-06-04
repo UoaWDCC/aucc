@@ -1,4 +1,5 @@
-import type { TripReport } from '@/payload-types'
+import { getPlainText } from '@/lib/utils/get-plain-text'
+import type { TripReportDTO } from '@/queries/trip-reports'
 import { ContactUsSection } from './contact-us/ContactUsSection'
 import { GallerySection } from './gallery/GallerySection'
 import { HeroSection } from './hero/HeroSection'
@@ -7,7 +8,7 @@ import { NextAdventureSection } from './next-adventure/NextAdventureSection'
 import { TripReportsSection } from './trip-reports/TripReportsSection'
 
 interface HomePageProps {
-  latestReports: TripReport[]
+  latestReports: TripReportDTO[]
 }
 
 export function HomePage({ latestReports }: HomePageProps) {
@@ -17,7 +18,14 @@ export function HomePage({ latestReports }: HomePageProps) {
       <IntroSection />
       <NextAdventureSection />
       <GallerySection />
-      <TripReportsSection tripReports={latestReports} />
+      <TripReportsSection
+        tripReports={latestReports.map((report) => ({
+          title: report.title,
+          tripDate: report.tripDate ?? '',
+          coverImageURL: report.coverImage?.url ?? '',
+          content: getPlainText(report.content),
+        }))}
+      />
       <ContactUsSection />
     </>
   )

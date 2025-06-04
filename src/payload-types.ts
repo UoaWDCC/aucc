@@ -215,7 +215,7 @@ export interface Event {
  * via the `definition` "trip-reports".
  */
 export interface TripReport {
-  id: number;
+id: number;
   title: string;
   status: 'draft' | 'published';
   author: (number | Exec)[];
