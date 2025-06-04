@@ -1,4 +1,3 @@
-'use client'
 export function CTAButton() {
   return (
     <div className="ml-14 p-5">
@@ -15,5 +14,3 @@ export function CTAButton() {
     </div>
   )
 }
-
-// This button is used in the HeroContent component to navigate to the membership page.

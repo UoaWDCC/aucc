@@ -1,9 +1,8 @@
-'use client'
-
 import { BackgroundImage } from './BackgroundImage'
+import { HeroBottomCurve } from './HeroBottomCurve'
 import { HeroContent } from './HeroContent'
 
-export default function HeroSection() {
+export function HeroSection() {
   return (
     <section className="relative flex min-h-screen justify-center md:items-center">
       <BackgroundImage alt="Kayaking in New Zealand" />
