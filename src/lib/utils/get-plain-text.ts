@@ -32,9 +32,11 @@ function walk(nodes: Node[]): string {
  * @param maxLength - Optional maximum length. If provided, truncates and adds an ellipsis.
  */
 export function getPlainText(
-  data: SerializedEditorState,
+  data: SerializedEditorState | null | undefined,
   maxLength?: number,
 ): string {
+  if (!data) return ''
+
   // this will recursively retrieve all text from the RichText element.
   const children = (data?.root?.children as Node[]) ?? []
   const full = walk(children).trim()

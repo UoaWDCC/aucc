@@ -2,13 +2,19 @@ import React from 'react'
 import Image from 'next/image'
 
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import type { TripReport } from '@/payload-types'
 import { SARButton } from './SARButton'
 
 const PLACEHOLDER = '/hero_background_Image.jpg'
 
+interface TripReportCardProps {
+  title: string
+  tripDate: string
+  coverImageURL: string
+  content: string
+}
+
 interface TripReportsSectionProps {
-  tripReports: TripReport[]
+  tripReports: TripReportCardProps[]
 }
 
 export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
@@ -76,7 +82,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
               <div className="grid grid-cols-2 items-start gap-4">
                 <div className="relative mb-4 aspect-[4/3] w-full gap-4 overflow-hidden rounded-lg">
                   <Image
-                    src={reportA.coverImage?.url ?? PLACEHOLDER}
+                    src={reportA.coverImageURL ?? PLACEHOLDER}
                     alt={reportA.title}
                     fill
                     className="object-cover"
@@ -98,7 +104,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
               <div
                 className="relative aspect-[16/9] h-48 w-full overflow-hidden rounded-lg"
                 style={{
-                  backgroundImage: `url('${reportB.coverImage?.url ?? PLACEHOLDER}')`,
+                  backgroundImage: `url('${reportB.coverImageURL ?? PLACEHOLDER}')`,
                 }}
               >
                 <div className="text-cream absolute bottom-2 left-3">
@@ -121,7 +127,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
                 <div
                   className="relative aspect-[16/9] h-31.5 w-full overflow-hidden rounded-lg"
                   style={{
-                    backgroundImage: `url('${reportC.coverImage?.url ?? PLACEHOLDER}')`,
+                    backgroundImage: `url('${reportC.coverImageURL ?? PLACEHOLDER}')`,
                   }}
                 >
                   <div className="text-cream absolute bottom-2 left-2">
