@@ -2,7 +2,10 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { NoNumber } from '@/lib/utils/util-types'
 import type { River } from '@/payload-types'
+
+export type RiverDTO = NoNumber<River>
 
 /**
  * Get all rivers
@@ -31,7 +34,7 @@ export const getRivers = unstable_cache(
     })
 
     return {
-      rivers: docs,
+      rivers: docs as RiverDTO[],
       hasNextPage,
       nextPage,
       totalDocs,
@@ -65,7 +68,7 @@ export const getRiverBySlug = unstable_cache(
       return null
     }
 
-    return river.docs[0]
+    return river.docs[0] as RiverDTO
   },
   ['getRiverBySlug'],
   {
