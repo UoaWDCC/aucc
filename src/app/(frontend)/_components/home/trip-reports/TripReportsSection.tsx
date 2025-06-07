@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 
 import { getPlainText } from '@/lib/utils/get-plain-text'
+import { LRHeader } from './LRHeader'
 import { SARButton } from './SARButton'
 
 const PLACEHOLDER = '/hero_background_Image.jpg'
@@ -35,44 +36,12 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
       <section className="px-4 pt-20 pb-12 md:px-16 lg:px-72">
-        <div className="flex items-center pl-1.5">
-          <svg
-            width="27"
-            height="80"
-            viewBox="0 0 27 80"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M25.3742 9.15649C24.1801 7.41013 24.0727 5.10787 22.7908 3.42981"
-              stroke="#EFEFE1"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-            <path
-              d="M13.1833 15.282C11.4206 15.0116 10.0856 13.6039 8.66617 12.6587C7.89977 12.1484 6.41536 11.5567 6.10571 10.6427"
-              stroke="#EFEFE1"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-            <path
-              d="M2.46411 28.7404L8.49955 29.6662"
-              stroke="#EFEFE1"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-          </svg>
-
-          <h2 className="text-cream font-(heading: --Rubik-Mono-One) mb-3 text-center text-3xl font-extrabold">
-            LATEST&nbsp;&nbsp;&nbsp;REPORTS
-          </h2>
-        </div>
-
+        <LRHeader />
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-2">
           {/*** BIG CARD (reportA) ***/}
           {reportA && (
             <article className="col-span-2 flex h-70 flex-col rounded-2xl bg-[#0A0F0C]/90 p-4 sm:col-span-2 lg:col-span-2 lg:row-span-2">
-              <h3 className="text-cream font-(heading: --Rubik-Mono-One) mt-2 mb-1 text-2xl font-extrabold">
+              <h3 className="text-cream font-(heading: --Rubik-Mono-One) mt-2 mb-1 text-2xl font-extrabold break-all">
                 {reportA.title}
               </h3>
               <time className="text-cream font-(body: --Rubik) mb-4 text-sm italic">
@@ -85,7 +54,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
                     src={reportA.coverImageURL ?? PLACEHOLDER}
                     alt={reportA.title}
                     fill
-                    className="object-cover"
+                    className="h-37.5 w-32.5 object-cover"
                   />
                 </div>
                 <p className="font-(body: --Rubik) line-clamp-4 flex-grow text-sm leading-5.5 text-gray-300 italic">
@@ -112,7 +81,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
                     {formatDate(reportB.tripDate)}
                   </time>
 
-                  <h4 className="font-(heading: --Rubik-Mono-One) text-xl font-extrabold">
+                  <h4 className="font-(heading: --Rubik-Mono-One) text-xl font-extrabold break-all">
                     {reportB.title}
                   </h4>
                 </div>
@@ -135,7 +104,7 @@ export function TripReportsSection({ tripReports }: TripReportsSectionProps) {
                       {formatDate(reportC.tripDate)}
                     </time>
 
-                    <h4 className="font-(heading: --Rubik-Mono-One) text-xl font-extrabold">
+                    <h4 className="font-(heading: --Rubik-Mono-One) text-xl font-extrabold break-all">
                       {reportC.title}
                     </h4>
                   </div>
