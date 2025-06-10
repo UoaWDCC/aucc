@@ -4,7 +4,7 @@ function Arrow() {
       width="45"
       height="119"
       viewBox="0 0 55 119"
-      className="fill-none"
+      className="h-full w-full fill-none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -23,12 +23,12 @@ function Arrow() {
 
 export function ContactArrow() {
   return (
-    <div className="absolute top-[25%] left-[48%] z-30">
+    <div className="absolute top-[25%] left-[48%] z-30 md:top-[19%] md:left-[61%] lg:top-[19%] lg:left-[60%]">
       <div className="relative">
-        <div className="absolute top-[10px] left-[10px] scale-x-[-1] rotate-[70deg]">
+        <div className="h-[45]md:top-[10px] absolute top-[10px] left-[20px] w-[35] scale-x-[-1] rotate-[70deg] md:top-[20px] md:left-[52px] md:rotate-[50deg] lg:top-[15px] lg:left-[82px] lg:h-[130] lg:w-[50] lg:rotate-[60deg]">
           <Arrow />
         </div>
-        <div className="font-handwritten text-algae absolute top-[10px] left-[60px] rotate-[18.2deg] text-lg text-[20px] whitespace-nowrap">
+        <div className="font-handwritten text-algae absolute top-[16px] left-[35px] rotate-[22.2deg] text-[20px] whitespace-nowrap md:top-[15px] md:left-[80px] md:rotate-[8deg] md:text-[14px] lg:top-[20px] lg:left-[120px] lg:rotate-[8deg] lg:text-[20px]">
           find us here!
         </div>
       </div>
