@@ -5,13 +5,13 @@ export function ContactText() {
     <div className="flex w-full flex-col items-center px-4">
       {/* title*/}
       <div className="mt-64 mb-6 flex flex-row justify-center">
-        <h1 className="font-heading text-cream rotate-[18.2deg] text-center text-4xl tracking-tighter">
+        <h1 className="font-heading text-cream inline-block w-full rotate-[18.2deg] text-center text-[clamp(1.4rem,8vw,2rem)] tracking-tighter whitespace-nowrap">
           LOOKING FOR US?
         </h1>
       </div>
 
       {/* social media */}
-      <div className="text-cream font-body absolute top-[28%] left-[15%] flex flex-col items-start gap-3 text-[14px] italic">
+      <div className="text-cream font-body absolute top-[27%] left-[5%] flex flex-col items-start gap-3 text-[14px] italic">
         {/* Instagram */}
         <a
           href="https://www.instagram.com/aucanoeclub"

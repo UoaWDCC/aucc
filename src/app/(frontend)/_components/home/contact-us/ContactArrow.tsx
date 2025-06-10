@@ -1,7 +1,7 @@
 function Arrow() {
   return (
     <svg
-      width="55"
+      width="45"
       height="119"
       viewBox="0 0 55 119"
       className="fill-none"
