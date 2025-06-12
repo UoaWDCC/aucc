@@ -1,6 +1,6 @@
 export function CTAButton() {
   return (
-    <div className="ml-14 p-5">
+    <div className="pt-5">
       <a
         href="https://form.jotform.com/250418674375867"
         target="_blank"

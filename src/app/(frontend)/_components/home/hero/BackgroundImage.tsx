@@ -15,7 +15,7 @@ export function BackgroundImage({ alt }: BackgroundImageProps) {
         fill
         className="absolute inset-0 size-full object-cover brightness-90"
       />
-      <div className="absolute inset-0 z-1 h-full w-full bg-gradient-to-t from-black/60 to-white/15 opacity-90" />
+      <div className="absolute inset-0 z-1 h-full w-full bg-gradient-to-t from-black/35 to-white/15 opacity-90" />
     </div>
   )
 }
