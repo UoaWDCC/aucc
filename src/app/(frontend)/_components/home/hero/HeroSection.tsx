@@ -4,7 +4,7 @@ import { HeroContent } from './HeroContent'
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-screen flex-col justify-center md:items-center">
+    <section className="relative flex min-h-screen flex-col items-center justify-center">
       <div className="flex">
         <BackgroundImage alt="Kayaking in New Zealand" />
         <HeroContent />
