@@ -11,15 +11,32 @@ type Props = {
 }
 
 export default function GallerySlider({ gallery }: Props) {
-  const [sliderRef] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    mode: 'snap',
-    slides: {
-      perView: 1.1,
-      spacing: 12,
-      origin: 'center',
+  const [sliderRef] = useKeenSlider<HTMLDivElement>(
+    {
+      loop: true,
+      mode: 'snap',
+      slides: {
+        perView: 1.1,
+        spacing: 12,
+        origin: 'center',
+      },
     },
-  })
+    [
+      (slider) => {
+        let timeout: ReturnType<typeof setTimeout>
+
+        const nextTimeout = () => {
+          clearTimeout(timeout)
+          timeout = setTimeout(() => {
+            slider.next()
+          }, 6000)
+        }
+        slider.on('created', nextTimeout)
+        slider.on('dragStarted', () => clearTimeout(timeout))
+        slider.on('animationEnded', nextTimeout)
+      },
+    ],
+  )
 
   return (
     <div>
