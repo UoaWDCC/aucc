@@ -2,7 +2,10 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { NoNumber } from '@/lib/utils/util-types'
 import type { Event } from '@/payload-types'
+
+export type EventDTO = NoNumber<Event>
 
 // Get all events
 export const getEvents = unstable_cache(
@@ -25,7 +28,7 @@ export const getEvents = unstable_cache(
     })
 
     return {
-      events: docs as Event[],
+      events: docs as EventDTO[],
       hasNextPage,
       nextPage,
       totalDocs,
@@ -43,14 +46,14 @@ export const getEvents = unstable_cache(
  * @returns The event
  */
 export const getEventById = unstable_cache(
-  async function (id: string): Promise<Event | null> {
+  async function (id: string): Promise<EventDTO | null> {
     try {
       const payload = await getPayloadClient()
       const event = await payload.findByID({
         collection: 'events',
         id,
       })
-      return event as Event
+      return event as EventDTO
     } catch (error) {
       console.error('Failed to fetch event by ID:', error)
       return null

@@ -2,7 +2,10 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { NoNumber } from '@/lib/utils/util-types'
 import type { TripReport } from '@/payload-types'
+
+export type TripReportDTO = NoNumber<TripReport>
 
 /**
  * Get all trip reports
@@ -31,7 +34,7 @@ export const getTripReports = unstable_cache(
     })
 
     return {
-      tripReports: docs,
+      tripReports: docs as TripReportDTO[],
       hasNextPage,
       nextPage,
       totalDocs,
@@ -49,7 +52,7 @@ export const getTripReports = unstable_cache(
  * @returns The Trip Report
  */
 export const getTripReportBySlug = unstable_cache(
-  async function (slug: string): Promise<TripReport | null> {
+  async function (slug: string): Promise<TripReportDTO | null> {
     const payload = await getPayloadClient()
 
     const tripReport = await payload.find({
@@ -65,7 +68,7 @@ export const getTripReportBySlug = unstable_cache(
       return null
     }
 
-    return tripReport.docs[0]
+    return tripReport.docs[0] as TripReportDTO
   },
   ['getTripReportBySlug'],
   {

@@ -25,5 +25,73 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     adminThumbnail: 'thumbnail',
+    imageSizes: [
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'thumbnail',
+        width: 150,
+        height: 150,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'small',
+        width: 375,
+        height: undefined,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'medium',
+        width: 768,
+        height: undefined,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'large',
+        width: 1024,
+        height: undefined,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'extraLarge',
+        width: 1280,
+        height: undefined,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'doubleExtraLarge',
+        width: 1920,
+        height: undefined,
+      },
+    ],
   },
 }
