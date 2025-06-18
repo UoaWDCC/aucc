@@ -59,15 +59,27 @@ export const getTripReports = unstable_cache(
  * @returns The Trip Report
  */
 export const getTripReportBySlug = unstable_cache(
-  async function (slug: string): Promise<TripReportDTO | null> {
+  async function (
+    slug: string,
+    { status = 'published' }: { status?: 'published' | 'draft' } = {},
+  ): Promise<TripReportDTO | null> {
     const payload = await getPayloadClient()
 
     const tripReport = await payload.find({
       collection: 'trip-reports',
       where: {
-        slug: {
-          equals: slug,
-        },
+        and: [
+          {
+            slug: {
+              equals: slug,
+            },
+          },
+          {
+            status: {
+              equals: status,
+            },
+          },
+        ],
       },
     })
 
