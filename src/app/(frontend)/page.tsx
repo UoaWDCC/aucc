@@ -8,7 +8,7 @@ export default async function Page() {
     limit: 8,
     sort: '-tripDate',
   })
-  const latest = tripReports.filter((r) => r.status === 'published').slice(0, 3)
+  const latest = tripReports.slice(0, 3)
 
   return <HomePage latestReports={latest} />
 }
