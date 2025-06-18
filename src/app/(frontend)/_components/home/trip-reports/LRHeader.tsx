@@ -1,6 +1,6 @@
-export function LRHeader() {
+export function LatestReportsHeader() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-center">
       <svg
         width="27"
         height="80"
@@ -28,8 +28,8 @@ export function LRHeader() {
         />
       </svg>
 
-      <h2 className="text-cream font-(heading: --Rubik-Mono-One) mb-3 text-center text-3xl font-extrabold">
-        LATEST&nbsp;&nbsp;&nbsp;REPORTS
+      <h2 className="text-cream font-heading mb-3 text-center text-2xl">
+        LATEST REPORTS
       </h2>
     </div>
   )

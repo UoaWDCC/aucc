@@ -1,4 +1,3 @@
-import { getPlainText } from '@/lib/utils/get-plain-text'
 import type { TripReportDTO } from '@/queries/trip-reports'
 import { ContactUsSection } from './contact-us/ContactUsSection'
 import { GallerySection } from './gallery/GallerySection'
@@ -18,14 +17,7 @@ export function HomePage({ latestReports }: HomePageProps) {
       <IntroSection />
       <NextAdventureSection />
       <GallerySection />
-      <TripReportsSection
-        tripReports={latestReports.map((report) => ({
-          title: report.title,
-          tripDate: report.tripDate ?? '',
-          coverImageURL: report.coverImage?.url ?? '',
-          content: getPlainText(report.content),
-        }))}
-      />
+      <TripReportsSection latestReports={latestReports} />
       <ContactUsSection />
     </>
   )
