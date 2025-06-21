@@ -64,3 +64,24 @@ export const getEventById = unstable_cache(
     tags: cacheTags.events.relatedTags,
   },
 )
+
+export const getLatestEvent = unstable_cache(
+  async function (): Promise<Event | null> {
+    try {
+      const payload = await getPayloadClient()
+      const { docs } = await payload.find({
+        collection: 'events',
+        limit: 1,
+        sort: '-startTime',
+      })
+      return docs[0] as Event
+    } catch (error) {
+      console.error('Failed to fetch latest event', error)
+      return null
+    }
+  },
+  ['getLatestEvent'],
+  {
+    tags: cacheTags.events.relatedTags,
+  },
+)

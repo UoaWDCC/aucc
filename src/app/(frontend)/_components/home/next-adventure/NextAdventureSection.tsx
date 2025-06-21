@@ -1,9 +1,16 @@
+import { getLatestEvent } from '@/queries/events'
+import { NextAdventureCard } from './NextAdventureCard'
+import { NextAdventureHeader } from './NextAdventureHeader'
 import { NextAdventureSectionBackground } from './NextAdventureSectionBackground'
 
-export function NextAdventureSection() {
+export async function NextAdventureSection() {
+  const event = await getLatestEvent()
+  if (!event) return null
+
   return (
     <NextAdventureSectionBackground>
-      NextAdventureSection
+      <NextAdventureHeader />
+      <NextAdventureCard event={event} />
     </NextAdventureSectionBackground>
   )
 }
