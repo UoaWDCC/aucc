@@ -1,5 +1,4 @@
 import { CTAButton } from './CTAButton'
-import { ScrollCue } from './ScrollCue'
 
 export function HeroContent() {
   return (

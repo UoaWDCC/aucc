@@ -1,6 +1,7 @@
 import { BackgroundImage } from './BackgroundImage'
 import { HeroBottomCurve } from './HeroBottomCurve'
 import { HeroContent } from './HeroContent'
+import { ScrollCue } from './ScrollCue'
 
 export function HeroSection() {
   return (
@@ -9,6 +10,7 @@ export function HeroSection() {
         <BackgroundImage alt="Kayaking in New Zealand" />
         <HeroContent />
       </div>
+      <ScrollCue />
       <HeroBottomCurve />
     </section>
   )
