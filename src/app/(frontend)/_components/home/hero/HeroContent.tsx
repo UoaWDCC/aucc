@@ -10,8 +10,8 @@ export function HeroContent() {
           AUCC
         </span>
       </h1>
-      <div className="flex w-auto flex-col md:flex-row md:gap-8 lg:gap-11">
-        <h2 className="mt-1 flex h-auto flex-row text-base italic md:mt-4 md:ml-0 md:text-left md:text-[10px] lg:text-[16px]">
+      <div className="flex w-auto flex-col md:flex-row md:items-start md:justify-between md:gap-8">
+        <h2 className="mt-4 mb-2 ml-5 flex h-auto flex-row text-base leading-tight italic md:mt-0 md:ml-0 md:text-left md:text-[10px] lg:text-[16px]">
           Whitewater kayaking &amp; rafting <br />
           in New Zealand’s most beautiful places
         </h2>
