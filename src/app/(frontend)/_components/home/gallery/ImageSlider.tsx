@@ -4,6 +4,8 @@ import { useKeenSlider } from 'keen-slider/react'
 
 import 'keen-slider/keen-slider.min.css'
 
+import Image from 'next/image'
+
 import type { GalleryDTO } from '@/queries/gallery'
 
 type Props = {
@@ -48,11 +50,14 @@ export default function GallerySlider({ gallery }: Props) {
           return (
             <div key={item.id} className="keen-slider__slide">
               {src ? (
-                <img
-                  src={src}
-                  alt={media?.alt || ''}
-                  className="aspect-[4/3] w-full object-cover"
-                />
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src={src}
+                    alt={media?.alt || ''}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               ) : (
                 <div>Image not available</div>
               )}
