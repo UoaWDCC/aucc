@@ -1,11 +1,10 @@
 function Arrow() {
   return (
     <svg
-      width="55"
+      width="45"
       height="119"
       viewBox="0 0 55 119"
-      className="h-29 w-13 fill-none md:h-17 md:w-8 xl:h-29 xl:w-13"
-      preserveAspectRatio="none"
+      className="fill-none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -22,14 +21,16 @@ function Arrow() {
   )
 }
 
-export function AgendaArrow() {
+export function ContactArrow() {
   return (
-    <div className="relative mt-[min(92%,515px)] mr-auto ml-auto flex h-29 w-full max-w-130 flex-row tracking-tighter md:top-9 md:mt-70 md:ml-5 xl:top-65 xl:ml-25">
-      <div className="md: ml-12 rotate-15 md:rotate-0">
-        <Arrow />
-      </div>
-      <div className="font-handwritten text-cream absolute top-20 ml-20 rotate-10 text-[20px] tracking-tighter md:top-9 md:ml-17 md:-rotate-5 md:text-xs xl:top-15 xl:ml-19 xl:text-xl">
-        what&apos;s on the agenda?
+    <div className="absolute top-[25%] left-[48%] z-30">
+      <div className="relative">
+        <div className="absolute top-[10px] left-[10px] scale-x-[-1] rotate-[70deg]">
+          <Arrow />
+        </div>
+        <div className="font-handwritten text-algae absolute top-[10px] left-[60px] rotate-[18.2deg] text-lg text-[20px] whitespace-nowrap">
+          find us here!
+        </div>
       </div>
     </div>
   )
