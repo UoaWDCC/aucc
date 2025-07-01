@@ -28,6 +28,7 @@ export const Events: CollectionConfig = {
     afterDelete: [() => cacheTags.events.revalidate()],
   },
   fields: [
+    // TODO: Add sign-up form and river relation for grade
     {
       name: 'title',
       type: 'text',
