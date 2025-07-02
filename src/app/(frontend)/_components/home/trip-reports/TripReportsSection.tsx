@@ -44,12 +44,12 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
               </time>
 
               <div className="grid grid-cols-2 items-start gap-4">
-                <div className="relative mb-4 aspect-[4/3] w-full gap-4 overflow-hidden rounded-lg">
+                <div className="relative mb-4 aspect-[4/3] h-40 w-full gap-4 overflow-hidden rounded-lg">
                   <Image
                     src={reportA.coverImageURL ?? PLACEHOLDER}
                     alt={reportA.title}
                     fill
-                    className="h-37.5 w-32.5 object-cover"
+                    className="object-cover"
                   />
                 </div>
                 <p className="font-(body: --Rubik) line-clamp-4 flex-grow text-sm leading-5.5 text-gray-300 italic">
@@ -73,7 +73,7 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 from-10% to-transparent to-50%"></div>
                 <div className="text-cream absolute bottom-2 left-3 z-10">
                   <time className="text-xs italic">
                     {formatDate(reportB.tripDate)}
@@ -99,7 +99,7 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,_var(--abyss)_22%,_transparent_50%)]"></div>
                   <div className="text-cream absolute bottom-2 left-2 z-10">
                     <time className="text-xs italic">
                       {formatDate(reportC.tripDate)}

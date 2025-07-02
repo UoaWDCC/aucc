@@ -1,6 +1,6 @@
 export function LatestReportsHeader() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex min-w-80 items-center justify-center pr-1.75">
       <svg
         width="27"
         height="80"

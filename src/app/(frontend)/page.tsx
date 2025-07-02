@@ -5,10 +5,9 @@ export default async function Page() {
   // This will get the latest trip reports for the trip report section
   const { tripReports } = await getTripReports({
     page: 1,
-    limit: 8,
+    limit: 3,
     sort: '-tripDate',
   })
-  const latest = tripReports.slice(0, 3)
 
-  return <HomePage latestReports={latest} />
+  return <HomePage latestReports={tripReports} />
 }
