@@ -1,32 +1,27 @@
-'use client'
-
 import React from 'react'
 import Image from 'next/image'
 
 import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import type { TripReportDTO } from '@/queries/trip-reports'
-import { LatestReportsHeader } from './LRHeader'
+import { getTripReports, type TripReportDTO } from '@/queries/trip-reports'
+import { LatestReportsHeader } from './LatestReportsHeader'
 import { SARButton } from './SARButton'
 
 const PLACEHOLDER = '/hero_background_Image.jpg'
 
-interface TripReportsSectionProps {
-  latestReports: TripReportDTO[]
-}
+export async function TripReportsSection() {
+  const { tripReports } = await getTripReports({
+    page: 1,
+    limit: 3,
+    sort: '-tripDate',
+  })
 
-export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
-  const tripReports = latestReports.map((report) => ({
+  const [reportA, reportB, reportC] = tripReports.map((report) => ({
     title: report.title,
     tripDate: report.tripDate ?? '',
     coverImageURL: report.coverImage?.url ?? PLACEHOLDER,
     content: getPlainText(report.content),
   }))
-
-  const latestThree = tripReports.slice(0, 3)
-  const reportA = latestThree[0]
-  const reportB = latestThree[1]
-  const reportC = latestThree[2]
 
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
@@ -35,15 +30,15 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-2">
           {/*** BIG CARD (reportA) ***/}
           {reportA && (
-            <article className="col-span-2 flex h-70 flex-col rounded-2xl bg-[#0A0F0C]/90 p-4 sm:col-span-2 lg:col-span-2 lg:row-span-2">
-              <h3 className="text-cream font-(heading: --Rubik-Mono-One) mt-2 mb-1 text-2xl font-extrabold">
+            <article className="to-abyss flexflex-col col-span-2 rounded-2xl bg-gradient-to-t from-[#343E3B] to-30% p-4 sm:col-span-2 lg:col-span-2 lg:row-span-2">
+              <h3 className="text-cream font-heading mt-2 mb-1 line-clamp-2 text-2xl tracking-tighter">
                 {reportA.title}
               </h3>
               <time className="text-cream mb-4 text-sm italic">
                 {formatDate(reportA.tripDate)}
               </time>
 
-              <div className="grid grid-cols-2 items-start gap-4">
+              <div className="grid h-40 grid-cols-2 items-start gap-4">
                 <div className="relative mb-4 aspect-[4/3] h-40 w-full gap-4 overflow-hidden rounded-lg">
                   <Image
                     src={reportA.coverImageURL ?? PLACEHOLDER}
@@ -52,11 +47,8 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
                     className="object-cover"
                   />
                 </div>
-                <p className="font-(body: --Rubik) line-clamp-4 flex-grow text-sm leading-5.5 text-gray-300 italic">
-                  {(() => {
-                    const raw = getPlainText(reportA.content as any)
-                    return raw.length > 200 ? raw.slice(0, 200) + '…' : raw
-                  })()}
+                <p className="line-clamp-[7] flex-grow text-sm leading-5.5 text-gray-300 italic">
+                  {reportA.content}
                 </p>
               </div>
             </article>
@@ -64,7 +56,7 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
 
           {/*** SMALL CARD 1 (reportB) ***/}
           {reportB && (
-            <article className="col-span-1 row-span-1 flex flex-col rounded-2xl">
+            <article className="relative col-span-1 row-span-1 flex flex-col rounded-2xl">
               <div className="relative aspect-[16/9] h-48 w-full overflow-hidden rounded-lg">
                 <Image
                   src={reportB.coverImageURL ?? PLACEHOLDER}
@@ -73,16 +65,17 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 from-10% to-transparent to-50%"></div>
-                <div className="text-cream absolute bottom-2 left-3 z-10">
-                  <time className="text-xs italic">
-                    {formatDate(reportB.tripDate)}
-                  </time>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/50 via-60% to-transparent to-80%"></div>
+              </div>
 
-                  <h4 className="font-(heading: --Rubik-Mono-One) text-xl font-extrabold">
-                    {reportB.title}
-                  </h4>
-                </div>
+              <div className="text-cream z-10 px-3 py-2">
+                <time className="text-xs italic">
+                  {formatDate(reportB.tripDate)}
+                </time>
+
+                <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
+                  {reportB.title}
+                </h4>
               </div>
             </article>
           )}
@@ -99,13 +92,13 @@ export function TripReportsSection({ latestReports }: TripReportsSectionProps) {
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_top,_var(--abyss)_22%,_transparent_50%)]"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/20 via-60% to-transparent to-80%"></div>
                   <div className="text-cream absolute bottom-2 left-2 z-10">
                     <time className="text-xs italic">
                       {formatDate(reportC.tripDate)}
                     </time>
 
-                    <h4 className="font-(heading: --Rubik-Mono-One) text-xl font-extrabold">
+                    <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
                       {reportC.title}
                     </h4>
                   </div>

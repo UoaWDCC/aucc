@@ -6,18 +6,14 @@ import { IntroSection } from './intro/IntroSection'
 import { NextAdventureSection } from './next-adventure/NextAdventureSection'
 import { TripReportsSection } from './trip-reports/TripReportsSection'
 
-interface HomePageProps {
-  latestReports: TripReportDTO[]
-}
-
-export function HomePage({ latestReports }: HomePageProps) {
+export function HomePage() {
   return (
     <>
       <HeroSection />
       <IntroSection />
       <NextAdventureSection />
       <GallerySection />
-      <TripReportsSection latestReports={latestReports} />
+      <TripReportsSection />
       <ContactUsSection />
     </>
   )
