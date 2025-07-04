@@ -1,10 +1,10 @@
-import { getLatestEvent } from '@/queries/events'
+import { getNextEvent } from '@/queries/events'
 import { NextAdventureCard } from './NextAdventureCard'
 import { NextAdventureHeader } from './NextAdventureHeader'
 import { NextAdventureSectionBackground } from './NextAdventureSectionBackground'
 
 export async function NextAdventureSection() {
-  const event = await getLatestEvent()
+  const event = await getNextEvent()
   if (!event) return null
 
   return (
