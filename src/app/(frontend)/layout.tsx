@@ -4,6 +4,7 @@ import './styles.css'
 
 import { Footer } from './_components/layout/Footer'
 import { Header } from './_components/layout/Header'
+import { Navbar } from './_components/layout/Navbar'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -17,6 +18,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className="flex min-h-dvh flex-col">
         {/* <Header /> */}
+        <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>
