@@ -14,7 +14,7 @@ export function NavButton({ children, href, classname }: NavButtonProps) {
     <Link
       href={href}
       className={cn(
-        'font-unbounded flex items-center text-center align-middle text-[6px] text-white hover:underline xl:text-[10px]',
+        'font-unbounded flex items-center text-center align-middle text-sm text-white hover:underline',
         classname,
       )}
     >

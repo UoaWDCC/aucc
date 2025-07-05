@@ -9,7 +9,7 @@ function NavCurve() {
   return (
     <>
       <svg
-        viewBox="1 0 375 66"
+        viewBox="1 0 374 66"
         xmlns="http://www.w3.org/2000/svg"
         className="absolute h-full w-full md:hidden"
         preserveAspectRatio="none"
@@ -21,13 +21,13 @@ function NavCurve() {
         />
       </svg>
       <svg
-        viewBox="1 0 1280 80"
+        viewBox="1 0 1279 80"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute hidden h-full w-full md:block"
+        className="absolute hidden h-full w-320 md:block xl:w-full"
         preserveAspectRatio="none"
       >
         <path
-          d="M1280 79.666C1267.74 75.1402 1234.46 24.0407 991.902 47.4121C853.899 60.7091 1033.92 0.0675391 698.907 35.1768C350.177 71.7237 372.823 -4.90514 0 47.3125V0H1280V79.666Z"
+          d="M1280 64.6248C1198.04 53.8132 1079.11 38.9951 913.004 54.9998C807.004 65.2132 933.105 25.6348 703.601 47.4119C272.167 88.3494 370.418 18.0063 0 59.9333V-0.000244141H1280V64.6248Z"
           fill="#182821"
           className="fill-[#182821] stroke-white opacity-[0.3]"
         />
@@ -55,24 +55,24 @@ function HamburgerIcon() {
 export function Navbar() {
   return (
     <div className="fixed z-100 flex w-full justify-end">
-      <div className="absolute -z-10 h-21 w-full md:h-12 xl:h-21">
+      <div className="absolute -z-10 flex h-15 w-full justify-end overflow-hidden align-baseline md:h-25">
         <NavCurve />
       </div>
-      <div className="-z-9 mr-auto h-11 w-11 md:h-6 md:w-6 xl:h-10 xl:w-10">
+      <div className="w-13www -z-9 mr-auto h-14 w-14">
         <Logo />
       </div>
-      <div className="mt-1 mr-4 hidden gap-4 md:flex xl:mt-0 xl:mr-5 xl:gap-6">
+      <div className="mt-0 mr-6 hidden gap-5 md:flex xl:gap-7">
         <NavButton href="/">Home</NavButton>
         <NavButton href="/events">Events</NavButton>
         <NavButton href="/about">About</NavButton>
         <NavButton
           href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
-          classname="font-bold"
+          classname="font-semibold"
         >
           Sign Up
         </NavButton>
       </div>
-      <div className="mt-5 mr-4 h-8 w-8 md:mt-2 md:mr-3 md:h-4 md:w-4 xl:mr-4 xl:h-8 xl:w-8">
+      <div className="mt-3 mr-3 h-8 w-8">
         <HamburgerIcon />
       </div>
     </div>
