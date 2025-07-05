@@ -30,7 +30,7 @@ export async function TripReportsSection() {
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-2">
           {/*** BIG CARD (reportA) ***/}
           {reportA && (
-            <article className="to-abyss flexflex-col col-span-2 rounded-2xl bg-gradient-to-t from-[#343E3B] to-30% p-4 sm:col-span-2 lg:col-span-2 lg:row-span-2">
+            <article className="to-abyss col-span-2 flex flex-col rounded-2xl bg-gradient-to-t from-[#343E3B] to-30% p-4 lg:row-span-2">
               <h3 className="text-cream font-heading mt-2 mb-1 line-clamp-2 text-2xl tracking-tighter">
                 {reportA.title}
               </h3>
@@ -47,7 +47,7 @@ export async function TripReportsSection() {
                     className="object-cover"
                   />
                 </div>
-                <p className="line-clamp-[7] flex-grow text-sm leading-5.5 text-gray-300 italic">
+                <p className="text-cream/80 line-clamp-[7] flex-grow text-sm leading-5.5 italic">
                   {reportA.content}
                 </p>
               </div>
@@ -56,7 +56,7 @@ export async function TripReportsSection() {
 
           {/*** SMALL CARD 1 (reportB) ***/}
           {reportB && (
-            <article className="relative col-span-1 row-span-1 flex flex-col rounded-2xl">
+            <article className="relative flex flex-col rounded-2xl">
               <div className="relative aspect-[16/9] h-48 w-full overflow-hidden rounded-lg">
                 <Image
                   src={reportB.coverImageURL ?? PLACEHOLDER}
@@ -68,7 +68,7 @@ export async function TripReportsSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/50 via-60% to-transparent to-80%"></div>
               </div>
 
-              <div className="text-cream z-10 px-3 py-2">
+              <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
                 <time className="text-xs italic">
                   {formatDate(reportB.tripDate)}
                 </time>
@@ -83,7 +83,7 @@ export async function TripReportsSection() {
           <div>
             {/*** SMALL CARD 2 (reportC) ***/}
             {reportC && (
-              <article className="col-span-1 row-span-1 flex flex-col rounded-2xl">
+              <article className="relative flex flex-col rounded-2xl">
                 <div className="relative aspect-[16/9] h-31.5 w-full overflow-hidden rounded-lg">
                   <Image
                     src={reportC.coverImageURL ?? PLACEHOLDER}
@@ -93,15 +93,15 @@ export async function TripReportsSection() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/20 via-60% to-transparent to-80%"></div>
-                  <div className="text-cream absolute bottom-2 left-2 z-10">
-                    <time className="text-xs italic">
-                      {formatDate(reportC.tripDate)}
-                    </time>
+                </div>
+                <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
+                  <time className="text-xs italic">
+                    {formatDate(reportB.tripDate)}
+                  </time>
 
-                    <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
-                      {reportC.title}
-                    </h4>
-                  </div>
+                  <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
+                    {reportB.title}
+                  </h4>
                 </div>
               </article>
             )}
