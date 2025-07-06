@@ -1,6 +1,6 @@
 export function NextAdventureHeader() {
   return (
-    <div className="mb-3 flex flex-col items-center">
+    <div className="mt-8 mb-3 flex flex-col items-center">
       <div className="flex w-fit flex-col">
         <h1 className="font-heading text-cream text-center text-[28px]">
           Next Adventure

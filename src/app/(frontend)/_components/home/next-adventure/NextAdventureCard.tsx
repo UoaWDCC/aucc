@@ -18,13 +18,14 @@ export function NextAdventureCard({ event }: EventPageProps) {
         {event.featuredImage &&
           typeof event.featuredImage !== 'number' &&
           event.featuredImage.url && (
-            <Image
-              src={event.featuredImage.url}
-              alt={event.title || ''}
-              className="rounded-md"
-              width={302}
-              height={192}
-            />
+            <div className="relative aspect-[302/192] h-[192px] w-full overflow-hidden">
+              <Image
+                src={event.featuredImage.url}
+                alt={event.title || ''}
+                fill
+                className="rounded-md object-cover"
+              />
+            </div>
           )}
         <h2 className="font-heading truncate text-lg">{event?.title}</h2>
         <div className="flex w-full justify-between">
