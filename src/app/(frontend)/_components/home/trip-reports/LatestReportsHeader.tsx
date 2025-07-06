@@ -32,8 +32,8 @@ function FlareIcon({ className }: { className?: string }) {
 
 export function LatestReportsHeader() {
   return (
-    <div className="flex items-center justify-center whitespace-nowrap">
-      <h2 className="text-cream font-heading relative mb-3 text-center text-2xl tracking-tighter">
+    <div className="lg:jusstify-start flex items-center justify-center whitespace-nowrap md:justify-start">
+      <h2 className="text-cream font-heading relative mb-3 text-center text-2xl tracking-tighter md:text-3xl lg:text-5xl">
         LATEST REPORTS
         <FlareIcon className="absolute -top-4 -left-5" />
       </h2>

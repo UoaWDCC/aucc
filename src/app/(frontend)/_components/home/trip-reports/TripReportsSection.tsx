@@ -25,9 +25,9 @@ export async function TripReportsSection() {
 
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
-      <section className="px-4 pt-20 pb-12 md:px-16 lg:px-72">
+      <section className="px-4 pt-20 pb-12 md:mx-33 md:p-5 md:pt-30 lg:mx-40 lg:px-10 lg:pt-35">
         <LatestReportsHeader />
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-2">
           {/*** BIG CARD (reportA) ***/}
           {reportA && (
             <article className="to-abyss col-span-2 flex flex-col rounded-2xl bg-gradient-to-t from-[#343E3B] to-30% p-4 lg:row-span-2">
@@ -66,16 +66,15 @@ export async function TripReportsSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/50 via-60% to-transparent to-80%"></div>
-              </div>
+                <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
+                  <time className="text-xs italic">
+                    {formatDate(reportB.tripDate)}
+                  </time>
 
-              <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
-                <time className="text-xs italic">
-                  {formatDate(reportB.tripDate)}
-                </time>
-
-                <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
-                  {reportB.title}
-                </h4>
+                  <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
+                    {reportB.title}
+                  </h4>
+                </div>
               </div>
             </article>
           )}
@@ -96,11 +95,11 @@ export async function TripReportsSection() {
                 </div>
                 <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
                   <time className="text-xs italic">
-                    {formatDate(reportB.tripDate)}
+                    {formatDate(reportC.tripDate)}
                   </time>
 
                   <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
-                    {reportB.title}
+                    {reportC.title}
                   </h4>
                 </div>
               </article>
