@@ -5,7 +5,7 @@ interface HeroBottomCurveProps {
 }
 export function HeroBottomCurve({ className }: HeroBottomCurveProps) {
   return (
-    <div className="absolute bottom-0 z-100 w-full translate-y-0.5">
+    <div className="absolute bottom-0 z-1 w-full translate-y-0.5">
       <svg
         viewBox="0 0 1280 110"
         xmlns="http://www.w3.org/2000/svg"

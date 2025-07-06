@@ -1,10 +1,11 @@
 export function ScrollCue() {
   return (
-    <div className="absolute bottom-13 z-10 md:right-[15vw] md:bottom-[11vw]">
-      <div className="text-cream font-handwritten -rotate-21 text-[16px] leading-4 md:translate-y-4.5 md:-rotate-7 lg:translate-y-6 lg:text-[23px]">
-        scroll to<br className="block md:hidden"></br> explore!
+    <div className="absolute bottom-20 z-10 md:right-[15vw] md:bottom-[11vw]">
+      <div className="text-cream font-handwritten -rotate-21 leading-4 md:translate-y-6 md:-rotate-7 md:text-[23px]">
+        scroll to
+        <br className="block md:hidden" /> explore!
       </div>
-      <div className="relative translate-x-5 rotate-22 md:translate-x-22 md:rotate-0 lg:translate-x-32">
+      <div className="relative w-fit translate-x-5 rotate-22 md:translate-x-32 md:rotate-0">
         <svg
           width="37"
           height="47"

@@ -47,6 +47,6 @@
 
 @layer base {
   body {
-    @apply bg-cream text-abyss font-body;
+    @apply bg-abyss text-abyss font-body;
   }
 }
