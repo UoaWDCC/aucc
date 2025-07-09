@@ -12,11 +12,11 @@ export function RiverPage({ river }: RiverPageProps) {
       <h1 className="text-center text-3xl font-bold">{river.name}</h1>
       <div className="h-150 p-2">
         <div>
-          {river.image &&
-            typeof river.image !== 'number' &&
-            river.image.url && (
+          {river.featuredImage &&
+            typeof river.featuredImage !== 'number' &&
+            river.featuredImage.url && (
               <Image
-                src={river.image.url}
+                src={river.featuredImage.url}
                 alt={river.name || ''}
                 className="h-full w-full object-cover"
                 width={200}
