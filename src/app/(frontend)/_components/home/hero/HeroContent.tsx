@@ -1,22 +1,22 @@
 import { CTAButton } from './CTAButton'
-import { ScrollCue } from './ScrollCue'
 
 export function HeroContent() {
   return (
-    <div className="relative z-20 px-4 text-center text-white">
-      <h1 className="mb-2 text-2xl font-extrabold tracking-wide md:text-4xl">
+    <div className="text-cream relative z-1 inline-block -translate-y-20 text-center">
+      <h1 className="font-heading text-[30px] leading-none md:text-[40px]">
         WELCOME TO
         <br />
-        <span className="text-6xl font-black drop-shadow-xl md:text-9xl">
+        <span className="font-heading text-[90px] drop-shadow-xl md:text-[140px]">
           AUCC
         </span>
       </h1>
-      <p className="mt-4 text-base italic opacity-90 md:text-xl">
-        Whitewater kayaking &amp; rafting in New Zealand’s most beautiful
-        places.
-      </p>
-      <CTAButton />
-      <ScrollCue />
+      <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
+        <h2 className="leading-tighter text-base italic md:text-left">
+          Whitewater kayaking &amp; rafting <br />
+          in New Zealand’s most beautiful places
+        </h2>
+        <CTAButton />
+      </div>
     </div>
   )
 }

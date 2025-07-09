@@ -8,7 +8,7 @@ export function IntroSectionBackground({
   children,
 }: IntroSectionBackGroundProps) {
   return (
-    <div className="relative inset-0 w-full">
+    <div className="bg-cream relative inset-0 w-full">
       <div className="max-w-256 md:mr-auto md:ml-auto xl:max-w-360">
         {children}
       </div>
