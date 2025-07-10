@@ -2,10 +2,12 @@ import React from 'react'
 
 import { LatestReportsHeader } from './LatestReportsHeader'
 import {
-  MainReportCard,
-  MainReportCardHover,
-  SmallReportCard1,
-  SmallReportCard2,
+  DesktopTabletMainReport,
+  DesktopTabletSmallReport1,
+  DesktopTabletSmallReport2,
+  MobileMainReport,
+  MobileSmallReport1,
+  MobileSmallReport2,
 } from './ReportCards'
 import { SARButton } from './SARButton'
 
@@ -18,7 +20,7 @@ export function TripReportsSection() {
         </div>
 
         <div className="hidden md:block">
-          <DesktopTabletLayout />
+          <DeskTabletLayout />
         </div>
       </section>
     </div>
@@ -30,10 +32,10 @@ function PhoneLayout() {
     <div className="flex flex-col items-center justify-center">
       <LatestReportsHeader />
       <div className="grid grid-cols-2 grid-rows-2 gap-4">
-        <MainReportCard />
-        <SmallReportCard1 />
+        <MobileMainReport />
+        <MobileSmallReport1 />
         <div>
-          <SmallReportCard2 />
+          <MobileSmallReport2 />
           <SARButton />
         </div>
       </div>
@@ -41,17 +43,17 @@ function PhoneLayout() {
   )
 }
 
-function DesktopTabletLayout() {
+function DeskTabletLayout() {
   return (
     <div className="justify-start">
       <LatestReportsHeader />
       <div className="flex justify-center">
         <div className="flex w-[58%] pr-3.25">
-          <MainReportCard />
+          <DesktopTabletMainReport />
         </div>
         <div className="flex w-[42%] flex-col gap-2.25">
-          <SmallReportCard1 />
-          <SmallReportCard2 />
+          <DesktopTabletSmallReport1 />
+          <DesktopTabletSmallReport2 />
         </div>
       </div>
       <SARButton />
