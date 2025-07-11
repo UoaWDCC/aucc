@@ -1,9 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 
 import { Logo } from '@/assets/Logo'
 import { NavButton } from './NavButton'
+import { SideBar } from './SideBar'
 
 function NavCurve() {
   return (
@@ -53,28 +55,41 @@ function HamburgerIcon() {
 }
 
 export function Navbar() {
+  const [sideBarVisible, setSideBarVisible] = useState(false)
+
   return (
-    <div className="fixed z-100 flex w-full justify-end">
-      <div className="absolute -z-10 flex h-15 w-full justify-end overflow-hidden align-baseline md:h-25">
-        <NavCurve />
-      </div>
-      <div className="w-13www -z-9 mr-auto h-14 w-14">
-        <Logo />
-      </div>
-      <div className="mt-0 mr-6 hidden gap-5 md:flex xl:gap-7">
-        <NavButton href="/">Home</NavButton>
-        <NavButton href="/events">Events</NavButton>
-        <NavButton href="/about">About</NavButton>
-        <NavButton
-          href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
-          classname="font-semibold"
+    <>
+      <div className="fixed z-100 flex w-full justify-end">
+        <div className="absolute -z-10 flex h-15 w-full justify-end overflow-hidden align-baseline md:h-25">
+          <NavCurve />
+        </div>
+        <div className="w-13www -z-9 mr-auto h-14 w-14">
+          <Logo />
+        </div>
+        <div className="mt-0 mr-6 hidden gap-5 md:flex xl:gap-7">
+          <NavButton href="/">Home</NavButton>
+          <NavButton href="/events">Events</NavButton>
+          <NavButton href="/about">About</NavButton>
+          <NavButton
+            href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
+            classname="font-semibold"
+          >
+            Sign Up
+          </NavButton>
+        </div>
+        <div
+          className="mt-3 mr-3 h-8 w-8"
+          onClick={() => {
+            setSideBarVisible(true)
+          }}
         >
-          Sign Up
-        </NavButton>
+          <HamburgerIcon />
+        </div>
       </div>
-      <div className="mt-3 mr-3 h-8 w-8">
-        <HamburgerIcon />
-      </div>
-    </div>
+      <SideBar
+        setSideBarVisible={setSideBarVisible}
+        sideBarVisible={sideBarVisible}
+      />
+    </>
   )
 }
