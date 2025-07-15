@@ -65,28 +65,24 @@ export const getEventById = unstable_cache(
   },
 )
 
-export const getNextEvent = unstable_cache(
-  async function (): Promise<Event | null> {
-    try {
-      const payload = await getPayloadClient()
-      const { docs } = await payload.find({
-        collection: 'events',
-        limit: 1,
-        sort: 'startTime',
-        where: {
-          startTime: {
-            greater_than: new Date().toISOString(),
-          },
+export const getNextEvent = async function (): Promise<Event | null> {
+  try {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({
+      collection: 'events',
+      limit: 1,
+      sort: 'startTime',
+      depth: 1,
+      where: {
+        startTime: {
+          greater_than: new Date().toISOString(),
         },
-      })
-      return docs[0] as Event
-    } catch (error) {
-      console.error('Failed to fetch next event', error)
-      return null
-    }
-  },
-  ['getNextEvent'],
-  {
-    tags: cacheTags.events.relatedTags,
-  },
-)
+      },
+    })
+
+    return docs[0] as Event
+  } catch (error) {
+    console.error('Failed to fetch next event', error)
+    return null
+  }
+}
