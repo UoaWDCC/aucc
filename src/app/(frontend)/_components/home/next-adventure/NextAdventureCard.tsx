@@ -38,7 +38,9 @@ export function NextAdventureCard({ event }: EventPageProps) {
               {event?.title}
             </h2>
             <div className="flex w-full justify-between md:mb-5 md:w-fit md:gap-[17.4px] lg:gap-7">
-              <NextAdventureGrade>{riverGrade}</NextAdventureGrade>
+              {riverGrade && (
+                <NextAdventureGrade>{riverGrade}</NextAdventureGrade>
+              )}
               {event.startTime && event.endTime && (
                 <NextAdventureDate
                   startTime={event.startTime}
