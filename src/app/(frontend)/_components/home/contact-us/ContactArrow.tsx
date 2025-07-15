@@ -21,14 +21,20 @@ function Arrow() {
   )
 }
 
-export function ContactArrow() {
+export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
   return (
-    <div className="absolute top-[25%] left-[48%] z-30 md:top-[19%] md:left-[61%] lg:top-[19%] lg:left-[60%]">
+    <div
+      className={`absolute ${
+        mobile
+          ? 'top-[-30px] left-[240px] block md:hidden'
+          : '-right-[40px] bottom-[-10px] hidden md:block'
+      }`}
+    >
       <div className="relative">
-        <div className="h-[45]md:top-[10px] absolute top-[10px] left-[20px] w-[35] scale-x-[-1] rotate-[70deg] md:top-[20px] md:left-[52px] md:rotate-[50deg] lg:top-[15px] lg:left-[82px] lg:h-[130] lg:w-[50] lg:rotate-[60deg]">
+        <div className="absolute top-[-50px] right-[2px] h-[130px] w-[50px] scale-x-[-1] rotate-[60deg]">
           <Arrow />
         </div>
-        <div className="font-handwritten text-algae absolute top-[16px] left-[35px] rotate-[22.2deg] text-[20px] whitespace-nowrap md:top-[15px] md:left-[80px] md:rotate-[8deg] md:text-[14px] lg:top-[20px] lg:left-[120px] lg:rotate-[8deg] lg:text-[20px]">
+        <div className="font-handwritten text-algae absolute top-[-35px] right-[-75px] rotate-[8deg] text-[20px] whitespace-nowrap">
           find us here!
         </div>
       </div>
