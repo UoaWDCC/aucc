@@ -41,3 +41,4 @@ export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
     </div>
   )
 }
+

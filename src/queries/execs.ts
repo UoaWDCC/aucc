@@ -2,6 +2,10 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
+import { NoNumber } from '@/lib/utils/util-types'
+import { Exec } from '@/payload-types'
+
+export type ExecDTO = NoNumber<Exec>
 
 /**
  * Get all execs
@@ -30,7 +34,7 @@ export const getExecs = unstable_cache(
     })
 
     return {
-      execs: docs,
+      execs: docs as ExecDTO[],
       hasNextPage,
       nextPage,
       totalDocs,
