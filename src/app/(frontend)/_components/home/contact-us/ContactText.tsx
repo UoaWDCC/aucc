@@ -4,42 +4,35 @@ import { ContactArrow } from './ContactArrow'
 
 export function ContactText() {
   return (
-    <div className="relative flex w-full flex-col px-4 md:px-0 md:pl-[10%]">
-      {/* title + arrow container */}
-      <div className="relative mt-36 mb-6 w-full md:mt-64 md:w-fit">
-        <h1 className="font-heading text-cream xs:text-3xl s:text-4xl m:text-5xl text-center text-2xl tracking-tighter whitespace-nowrap md:text-left md:text-5xl">
+    <div className="flex size-full items-start justify-center md:items-center md:justify-start">
+      <div className="relative mx-4 w-fit md:ml-20 md:pr-80 xl:ml-40">
+        <h1 className="font-heading text-cream mt-40 mb-10 w-fit text-left text-3xl leading-11 tracking-tighter sm:text-4xl md:my-0 md:text-4xl xl:text-5xl">
           LOOKING FOR US?
         </h1>
-
-        {/* arrow: only show in md and up */}
-        <ContactArrow />
-      </div>
-
-      {/* social media */}
-      <div className="text-cream font-body xs:left-[24px] s:left-[36px] absolute top-[calc(100%+60px)] left-[16px] mt-4 flex flex-col items-start gap-3 text-[14px] italic md:static md:flex-row md:items-center md:gap-6 md:pl-0 md:text-[16px]">
-        <a
-          href="https://www.instagram.com/aucanoeclub"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-algae flex flex-row items-center gap-3 transition-colors"
-        >
-          <Instagram className="text-algae text-2xl" />
-          <span>aucanoeclub</span>
-        </a>
-        <a
-          href="https://www.facebook.com/AUCanoeClub"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-algae relative flex flex-row items-center gap-3 transition-colors"
-        >
-          <Facebook className="text-algae text-2xl" />
-          <span>AUCanoeClub</span>
-
-          {/* mobile-only arrow shown next to AUCCanoeClub */}
-          <ContactArrow mobile />
-        </a>
+        <div className="flex items-center gap-4 md:justify-between">
+          <div className="text-cream font-body flex flex-col gap-4 text-sm md:flex-row">
+            <a
+              href="https://www.instagram.com/aucanoeclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-algae flex items-center gap-3 transition-colors"
+            >
+              <Instagram className="text-algae size-6" />
+              <span>aucanoeclub</span>
+            </a>
+            <a
+              href="https://www.facebook.com/AUCanoeClub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-algae relative flex items-center gap-3 transition-colors"
+            >
+              <Facebook className="text-algae size-6" />
+              <span>AUCanoeClub</span>
+            </a>
+          </div>
+          <ContactArrow className="md:translate-x-10 md:-translate-y-5" />
+        </div>
       </div>
     </div>
   )
 }
-

@@ -1,44 +1,36 @@
-function Arrow() {
+import { cn } from '@/lib/utils/cn'
+
+function Arrow({ className }: { className?: string }) {
   return (
     <svg
-      width="45"
-      height="119"
-      viewBox="0 0 55 119"
-      className="h-full w-full fill-none"
+      width="104"
+      height="51"
+      viewBox="0 0 104 51"
+      fill="none"
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M43 116.507C45.1127 116.507 47.2253 116.507 49.338 116.507C49.9702 116.507 53.4794 117.029 52.8151 116.199C51.8539 114.997 51.7224 112.921 51.2306 111.445C50.9266 110.533 50.8538 107.362 50.1303 107"
-        className="stroke-cream stroke-3"
-        strokeLinecap="round"
+        d="M2.7654 43.9506C3.51403 45.9942 4.34775 47.1957 6.27904 48.4027C8.92468 50.0563 7.37177 47.2458 6.28782 45.9398C5.093 44.5003 3.5869 43.2271 2.43407 41.8856C2.02899 41.4142 3.92405 40.3557 4.25868 39.8203C4.54842 39.3568 8.25843 36.4724 6.30118 37.1894"
+        stroke="#EFEFE1"
+        stroke-linecap="round"
       />
       <path
-        d="M26 2C13.3023 9.5 4.5 18 2.00392 30.5C2.00326 36.7922 1.69822 49.1798 6.61158 53.884C18.4758 65.2434 50.6201 54.2452 29.0665 38.3143C19.1198 30.9624 15.5747 39.7572 11.6189 43.5563C4.38914 50.5 2.98354 77.5816 8.8023 86.8231C14.6211 96.0647 22.963 103.371 32.7438 108.261C36.9775 110.378 49.2235 112.428 51.0519 116.085"
-        className="stroke-cream stroke-3"
-        strokeLinecap="round"
+        d="M95.3096 1.49402C96.0599 1.50013 98.9104 8.24934 99.3205 9.29347C100.732 12.8871 101.974 17.2775 101.399 21.194C100.196 29.3797 92.41 38.4206 84.071 39.9817C80.9822 40.56 77.5119 41.2445 74.9401 38.9807C72.9787 37.2543 72.1124 32.5557 71.7765 30.0776C71.0388 24.635 71.9813 17.6522 78.3915 16.9039C82.608 16.4117 82.8636 22.3811 81.8105 25.2892C79.6926 31.1375 78.3915 33.3699 68 38.9807C55 46 46.2486 44.6941 34 46C26.3404 46.8166 11.3502 44.1523 4.27306 40.5414"
+        stroke="#EFEFE1"
+        stroke-linecap="round"
       />
     </svg>
   )
 }
 
-export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
+export function ContactArrow({ className }: { className?: string }) {
   return (
-    <div
-      className={`absolute ${
-        mobile
-          ? 'top-[-30px] left-[240px] block md:hidden'
-          : '-right-[40px] bottom-[-10px] hidden md:block'
-      }`}
-    >
-      <div className="relative">
-        <div className="absolute top-[-50px] right-[2px] h-[130px] w-[50px] scale-x-[-1] rotate-[60deg]">
-          <Arrow />
-        </div>
-        <div className="font-handwritten text-algae absolute top-[-35px] right-[-75px] rotate-[8deg] text-[20px] whitespace-nowrap">
-          find us here!
-        </div>
+    <div className={cn('relative', className)}>
+      <Arrow className="w-14 stroke-[5px] md:w-24 md:stroke-3" />
+      <div className="font-handwritten text-algae absolute -top-3 -right-14 rotate-[8deg] text-lg whitespace-nowrap md:-top-7">
+        find us here!
       </div>
     </div>
   )
 }
-

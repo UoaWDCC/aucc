@@ -9,23 +9,25 @@ export function ContactSectionBackground({
   children,
 }: ContactSectionBackGroundProps) {
   return (
-    <div className="relative w-full">
-      <div
-        className="absolute top-[220px] left-0 z-0 h-[40%] w-full overflow-hidden md:top-[50px] md:h-[48%] lg:top-[40px] lg:h-[48%]"
-        style={{
-          clipPath: 'polygon(0 0, 100% 30%, 100% 100%, 0 70%)',
-        }}
-      >
-        <Image
-          src={`${process.env.NEXT_PUBLIC_CF_URL}/static/homepage/looking-for-us-background.v1.webp`}
-          alt="Contact background"
-          fill
-          className="object-cover opacity-20"
-          priority
-        />
-      </div>
+    <div className="before:bg-abyss before:clip-path-[polygon(0_0,100%_0,100%_85%,0_100%)] relative h-[800px] w-full bg-[#121616] before:absolute before:inset-0 before:z-0">
+      <div className="relative w-full">
+        <div
+          className="absolute top-[220px] left-0 z-0 h-[40%] w-full overflow-hidden md:top-[50px] md:h-[48%] lg:top-[40px] lg:h-[48%]"
+          style={{
+            clipPath: 'polygon(0 0, 100% 30%, 100% 100%, 0 70%)',
+          }}
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_CF_URL}/static/homepage/looking-for-us-background.v1.webp`}
+            alt="Contact background"
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+        </div>
 
-      <div className="relative z-10">{children}</div>
+        <div className="relative z-10 h-[800px]">{children}</div>
+      </div>
     </div>
   )
 }
