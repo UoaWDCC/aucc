@@ -3,6 +3,11 @@ import type { Config } from 'tailwindcss'
 export default {
   theme: {
     extend: {
+      screens: {
+        xs: '400px', // For looking for us title
+        s: '500px',
+        m: '600px',
+      },
       typography: {
         DEFAULT: {
           css: {
