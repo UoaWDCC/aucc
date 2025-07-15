@@ -12,6 +12,11 @@ type Props = {
   gallery: GalleryDTO[]
 }
 
+const tailwindBreakpoints = {
+  md: '(min-width: 768px)',
+  lg: '(min-width: 1024px)',
+}
+
 export default function GallerySlider({ gallery }: Props) {
   const [sliderRef] = useKeenSlider<HTMLDivElement>(
     {
@@ -21,6 +26,15 @@ export default function GallerySlider({ gallery }: Props) {
         perView: 1.1,
         spacing: 12,
         origin: 'center',
+      },
+      breakpoints: {
+        [tailwindBreakpoints.md]: {
+          slides: {
+            perView: 2.1,
+            spacing: 48,
+            origin: 'center',
+          },
+        },
       },
     },
     [
