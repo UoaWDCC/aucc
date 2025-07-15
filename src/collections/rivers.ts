@@ -10,7 +10,7 @@ export const Rivers: CollectionConfig = {
   slug: 'rivers',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['image', 'name', 'grade', 'description'],
+    defaultColumns: ['featuredImage', 'name', 'grade', 'description'],
   },
   access: {
     create: authenticated,
@@ -43,11 +43,43 @@ export const Rivers: CollectionConfig = {
       type: 'number',
     },
     {
+      name: 'putIn',
+      type: 'group',
+      fields: [
+        {
+          name: 'latitude',
+          type: 'number',
+          required: true,
+        },
+        {
+          name: 'longitude',
+          type: 'number',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'takeOut',
+      type: 'group',
+      fields: [
+        {
+          name: 'latitude',
+          type: 'number',
+          required: true,
+        },
+        {
+          name: 'longitude',
+          type: 'number',
+          required: true,
+        },
+      ],
+    },
+    {
       name: 'description',
       type: 'text',
     },
     customUploadField({
-      name: 'image',
+      name: 'featuredImage',
       mimeType: 'image',
       admin: {
         className: 'hide-filename',

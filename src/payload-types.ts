@@ -221,8 +221,16 @@ export interface River {
   id: number;
   name?: string | null;
   grade?: number | null;
+  putIn: {
+    latitude: number;
+    longitude: number;
+  };
+  takeOut: {
+    latitude: number;
+    longitude: number;
+  };
   description?: string | null;
-  image?: (number | null) | Media;
+  featuredImage?: (number | null) | Media;
   /**
    * Automatically generated from name
    */
@@ -519,8 +527,20 @@ export interface MediaSelect<T extends boolean = true> {
 export interface RiversSelect<T extends boolean = true> {
   name?: T;
   grade?: T;
+  putIn?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  takeOut?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
   description?: T;
-  image?: T;
+  featuredImage?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
