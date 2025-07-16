@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Menu } from 'lucide-react'
 
 import { Logo } from '@/assets/Logo'
 import { NavButton } from './NavButton'
@@ -38,24 +40,9 @@ function NavCurve() {
   )
 }
 
-function HamburgerIcon() {
-  return (
-    <svg
-      viewBox="0 0 31 31"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-full w-full"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M3.875 23.25V20.6667H27.125V23.25H3.875ZM3.875 16.7917V14.2083H27.125V16.7917H3.875ZM3.875 10.3333V7.75H27.125V10.3333H3.875Z"
-        fill="white"
-      />
-    </svg>
-  )
-}
-
 export function Navbar() {
   const [sideBarVisible, setSideBarVisible] = useState(false)
+  const path = usePathname()
 
   return (
     <>
@@ -66,7 +53,7 @@ export function Navbar() {
         <div className="w-13www -z-9 mr-auto h-14 w-14">
           <Logo />
         </div>
-        <div className="mt-0 mr-6 hidden gap-5 md:flex xl:gap-7">
+        <div className="mt-0 mr-4 hidden gap-5 md:flex xl:gap-7">
           <NavButton href="/">Home</NavButton>
           <NavButton href="/events">Events</NavButton>
           <NavButton href="/about">About</NavButton>
@@ -77,16 +64,15 @@ export function Navbar() {
             Sign Up
           </NavButton>
         </div>
-        <div
-          className="mt-3 mr-3 h-8 w-8"
+        <Menu
+          className="mt-3 mr-3 h-8 w-8 cursor-pointer font-bold text-white"
           onClick={() => {
             setSideBarVisible(true)
           }}
-        >
-          <HamburgerIcon />
-        </div>
+        />
       </div>
       <SideBar
+        currentPath={path}
         setSideBarVisible={setSideBarVisible}
         sideBarVisible={sideBarVisible}
       />

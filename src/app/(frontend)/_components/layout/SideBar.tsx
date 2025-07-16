@@ -1,28 +1,53 @@
-import { cn } from '@/lib/utils/cn'
-import { SideButton } from './SideBarButton'
+import { X } from 'lucide-react'
 
-function CrossIcon() {
-  return (
-    <svg
-      viewBox="0 0 31 31"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-full w-full"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M25.5 8.75L8.5 26.25M8.5 8.75L25.5 26.25"
-        className="stroke-white stroke-4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
+import { cn } from '@/lib/utils/cn'
+import { SideBarButton } from './SideBarButton'
+
+const PAGES: { name: string; href: string }[] = [
+  {
+    name: 'HOME',
+    href: '/',
+  },
+  {
+    name: 'EVENTS',
+    href: '/events',
+  },
+  {
+    name: 'RIVERS',
+    href: '/rivers',
+  },
+  {
+    name: 'REPORTS',
+    href: '/trip-reports',
+  },
+  {
+    name: 'GALLERY',
+    href: '/gallery',
+  },
+  {
+    name: 'MERCH',
+    href: '/merchandise',
+  },
+  {
+    name: 'GEAR HIRE',
+    href: '/gear-hire',
+  },
+  {
+    name: 'RESOURCES',
+    href: '/resources',
+  },
+  {
+    name: 'ABOUT US',
+    href: '/about',
+  },
+]
 
 export function SideBar({
+  currentPath,
   sideBarVisible,
   setSideBarVisible,
 }: {
+  currentPath: string
   sideBarVisible: boolean
   setSideBarVisible: (value: boolean) => void
 }) {
@@ -41,48 +66,29 @@ export function SideBar({
         }}
       />
       <div
-        className="mt-4 mr-4 flex flex-row md:mt-6 md:mr-6 xl:mt-7"
+        className="group mt-4 mr-4 flex cursor-pointer flex-row md:mt-6 md:mr-6 xl:mt-7"
         onClick={() => {
           setSideBarVisible(false)
         }}
       >
-        <div className="font-unbounded mt-2 mr-2 text-end text-sm text-white">
+        <div className="font-unbounded mt-2 mr-2 text-end text-sm text-white group-hover:underline">
           CLOSE
         </div>
 
-        <div className="h-8 w-8">
-          <CrossIcon />
-        </div>
+        <X className="h-8 w-8 font-bold text-white" />
       </div>
 
       <div className="mt-15 flex w-full flex-col items-end gap-5 pr-4 md:mt-24 md:pr-6 xl:mt-22">
-        <SideButton href="/" setSideBarVisible={setSideBarVisible}>
-          HOME
-        </SideButton>
-        <SideButton href="/events" setSideBarVisible={setSideBarVisible}>
-          EVENTS
-        </SideButton>
-        <SideButton href="/rivers" setSideBarVisible={setSideBarVisible}>
-          RIVERS
-        </SideButton>
-        <SideButton href="/trip-reports" setSideBarVisible={setSideBarVisible}>
-          REPORTS
-        </SideButton>
-        <SideButton href="/gallery" setSideBarVisible={setSideBarVisible}>
-          GALLERY
-        </SideButton>
-        <SideButton href="/merchandise" setSideBarVisible={setSideBarVisible}>
-          MERCH
-        </SideButton>
-        <SideButton href="/gear-hire" setSideBarVisible={setSideBarVisible}>
-          GEAR HIRE
-        </SideButton>
-        <SideButton href="/resources" setSideBarVisible={setSideBarVisible}>
-          RESOURCES
-        </SideButton>
-        <SideButton href="/about" setSideBarVisible={setSideBarVisible}>
-          ABOUT US
-        </SideButton>
+        {PAGES.map((e, index) => (
+          <SideBarButton
+            key={index}
+            href={e.href}
+            onClick={() => setSideBarVisible(false)}
+            classname={e.href === currentPath ? 'text-algae' : 'text-white'}
+          >
+            {e.name}
+          </SideBarButton>
+        ))}
       </div>
     </div>
   )
