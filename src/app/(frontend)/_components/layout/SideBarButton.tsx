@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { cn } from '@/lib/utils/cn'
 
-type SideButtonProps = {
+type SideBarButtonProps = {
   children: ReactNode
   href: string
   classname?: string
@@ -15,7 +15,7 @@ export function SideBarButton({
   href,
   classname,
   onClick,
-}: SideButtonProps) {
+}: SideBarButtonProps) {
   return (
     <Link
       href={href}
