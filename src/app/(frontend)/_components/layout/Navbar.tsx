@@ -1,9 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Menu } from 'lucide-react'
 
 import { Logo } from '@/assets/Logo'
 import { NavButton } from './NavButton'
+import { SideBar } from './SideBar'
 
 function NavCurve() {
   return (
@@ -36,45 +40,42 @@ function NavCurve() {
   )
 }
 
-function HamburgerIcon() {
-  return (
-    <svg
-      viewBox="0 0 31 31"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-full w-full"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M3.875 23.25V20.6667H27.125V23.25H3.875ZM3.875 16.7917V14.2083H27.125V16.7917H3.875ZM3.875 10.3333V7.75H27.125V10.3333H3.875Z"
-        fill="white"
-      />
-    </svg>
-  )
-}
-
 export function Navbar() {
+  const [sideBarVisible, setSideBarVisible] = useState(false)
+  const path = usePathname()
+
   return (
-    <div className="fixed z-100 flex w-full justify-end">
-      <div className="absolute -z-10 flex h-15 w-full justify-end overflow-hidden align-baseline md:h-25">
-        <NavCurve />
+    <>
+      <div className="fixed z-100 flex w-full justify-end">
+        <div className="absolute -z-10 flex h-15 w-full justify-end overflow-hidden align-baseline md:h-25">
+          <NavCurve />
+        </div>
+        <div className="w-13www -z-9 mr-auto h-14 w-14">
+          <Logo />
+        </div>
+        <div className="mt-0 mr-4 hidden gap-5 md:flex xl:gap-7">
+          <NavButton href="/">Home</NavButton>
+          <NavButton href="/events">Events</NavButton>
+          <NavButton href="/about">About</NavButton>
+          <NavButton
+            href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
+            classname="font-semibold"
+          >
+            Sign Up
+          </NavButton>
+        </div>
+        <Menu
+          className="mt-3 mr-3 h-8 w-8 cursor-pointer font-bold text-white"
+          onClick={() => {
+            setSideBarVisible(true)
+          }}
+        />
       </div>
-      <div className="w-13www -z-9 mr-auto h-14 w-14">
-        <Logo />
-      </div>
-      <div className="mt-0 mr-6 hidden gap-5 md:flex xl:gap-7">
-        <NavButton href="/">Home</NavButton>
-        <NavButton href="/events">Events</NavButton>
-        <NavButton href="/about">About</NavButton>
-        <NavButton
-          href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
-          classname="font-semibold"
-        >
-          Sign Up
-        </NavButton>
-      </div>
-      <div className="mt-3 mr-3 h-8 w-8">
-        <HamburgerIcon />
-      </div>
-    </div>
+      <SideBar
+        currentPath={path}
+        setSideBarVisible={setSideBarVisible}
+        sideBarVisible={sideBarVisible}
+      />
+    </>
   )
 }
