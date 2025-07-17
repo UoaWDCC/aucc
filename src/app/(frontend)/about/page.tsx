@@ -13,7 +13,7 @@ export default async function Page() {
           text="Hello World!"
           size="w-25 h-10"
           className="bg-transparent"
-          variant="cream"
+          variant="algae"
         />
       </div>
     </>
