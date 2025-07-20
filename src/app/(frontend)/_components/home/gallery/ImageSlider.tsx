@@ -4,6 +4,7 @@ import { useKeenSlider } from 'keen-slider/react'
 
 import 'keen-slider/keen-slider.min.css'
 
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 import type { GalleryDTO } from '@/queries/gallery'
@@ -18,6 +19,8 @@ const tailwindBreakpoints = {
 }
 
 export default function GallerySlider({ gallery }: Props) {
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
+
   const [sliderRef] = useKeenSlider<HTMLDivElement>(
     {
       loop: true,
@@ -35,6 +38,31 @@ export default function GallerySlider({ gallery }: Props) {
             origin: 'center',
           },
         },
+      },
+      detailsChanged: (slider) => {
+        // Update opacity based on slide positions
+        if (slider.track.details?.slides) {
+          // Find the slide with the highest portion (most centered)
+          let maxPortion = 0
+          let centerSlideIdx = 0
+
+          slider.track.details.slides.forEach((slide, idx) => {
+            if (slide.portion > maxPortion) {
+              maxPortion = slide.portion
+              centerSlideIdx = idx
+            }
+          })
+
+          // Apply opacity to all slides
+          slider.track.details.slides.forEach((slide, idx) => {
+            const slideElement = slideRefs.current[idx]
+            if (slideElement) {
+              // Center slide gets full opacity, others get reduced opacity
+              const opacity = idx === centerSlideIdx ? 1 : 0.5
+              slideElement.style.opacity = opacity.toString()
+            }
+          })
+        }
       },
     },
     [
@@ -57,12 +85,18 @@ export default function GallerySlider({ gallery }: Props) {
   return (
     <div>
       <div ref={sliderRef} className="keen-slider">
-        {gallery.map((item) => {
+        {gallery.map((item, index) => {
           const media = item.image
           const src = media?.url || ''
 
           return (
-            <div key={item.id} className="keen-slider__slide">
+            <div
+              key={item.id}
+              className="keen-slider__slide transition-opacity duration-300 ease-out"
+              ref={(slideRef) => {
+                slideRefs.current[index] = slideRef
+              }}
+            >
               {src ? (
                 <div className="relative aspect-[4/3] w-full">
                   <Image
