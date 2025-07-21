@@ -6,7 +6,7 @@ import { LatestReportsHeader } from './LatestReportsHeader'
 import { PrimaryTripReportCard } from './report-cards.tsx/PrimaryTripReportCard'
 import { SecondaryTripReportCard } from './report-cards.tsx/SecondaryTripReportCard'
 import { TertiaryTripReportCard } from './report-cards.tsx/TertiaryTripReportCard'
-import { SARButton } from './SARButton'
+import { SeeAllReportsButton } from './SeeAllReportsButton'
 
 const PLACEHOLDER = '/hero_background_Image.jpg'
 export async function TripReportsSection() {
@@ -37,12 +37,12 @@ export async function TripReportsSection() {
               <div className="flex flex-col">
                 <TertiaryTripReportCard report={reportC} />
                 <div className="md:hidden">
-                  <SARButton />
+                  <SeeAllReportsButton />
                 </div>
               </div>
             </div>
             <div className="hidden md:block">
-              <SARButton />
+              <SeeAllReportsButton />
             </div>
           </div>
         </div>
