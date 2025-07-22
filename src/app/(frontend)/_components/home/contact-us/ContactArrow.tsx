@@ -24,11 +24,12 @@ function Arrow() {
 export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
   return (
     <div
-      className={`absolute ${
+      className={cn(
+        'absolute',
         mobile
           ? 'top-[-30px] left-[240px] block md:hidden'
-          : '-right-[40px] bottom-[-10px] hidden md:block'
-      }`}
+          : '-right-[40px] bottom-[-10px] hidden md:block',
+      )}
     >
       <div className="relative">
         <div className="absolute top-[-50px] right-[2px] h-[130px] w-[50px] scale-x-[-1] rotate-[60deg]">
@@ -41,4 +42,3 @@ export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
     </div>
   )
 }
-

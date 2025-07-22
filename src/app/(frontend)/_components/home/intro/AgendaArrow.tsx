@@ -4,7 +4,8 @@ function Arrow() {
       width="55"
       height="119"
       viewBox="0 0 55 119"
-      className="fill-none"
+      className="h-29 w-13 fill-none md:h-17 md:w-8 xl:h-29 xl:w-13"
+      preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -23,11 +24,11 @@ function Arrow() {
 
 export function AgendaArrow() {
   return (
-    <div className="relative mt-[min(92%,515px)] mr-auto ml-auto flex w-full max-w-130 flex-row tracking-tighter">
-      <div className="ml-12 rotate-15 md:rotate-0">
+    <div className="relative mt-[min(92%,515px)] mr-auto ml-auto flex h-29 w-full max-w-130 flex-row tracking-tighter md:top-9 md:mt-70 md:ml-5 xl:top-65 xl:ml-25">
+      <div className="md: ml-12 rotate-15 md:rotate-0">
         <Arrow />
       </div>
-      <div className="font-handwritten text-cream absolute top-20 ml-20 rotate-10 text-[20px]">
+      <div className="font-handwritten text-cream absolute top-20 ml-20 rotate-10 text-[20px] tracking-tighter md:top-9 md:ml-17 md:-rotate-5 md:text-xs xl:top-15 xl:ml-19 xl:text-xl">
         what&apos;s on the agenda?
       </div>
     </div>
