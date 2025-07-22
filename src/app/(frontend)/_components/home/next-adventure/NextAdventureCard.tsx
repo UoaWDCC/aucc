@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import type { Event } from '@/payload-types'
+import type { Event, River } from '@/payload-types'
 import { NextAdventureButtons } from './NextAdventureButtons'
 import { NextAdventureDate } from './NextAdventureDate'
 import { NextAdventureGrade } from './NextAdventureGrade'
@@ -12,8 +12,7 @@ interface EventPageProps {
 }
 
 export function NextAdventureCard({ event }: EventPageProps) {
-  const riverGrade =
-    event.river && typeof event.river === 'object' ? event.river.grade : null
+  const riverGrade = (event.river as River)?.grade || null
   return (
     <div className="p-4 pt-0 md:px-24">
       <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:pr-5 md:pb-7 md:pl-12 lg:pr-9 lg:pb-11 lg:pl-20 xl:mx-auto xl:max-w-[953px]">
