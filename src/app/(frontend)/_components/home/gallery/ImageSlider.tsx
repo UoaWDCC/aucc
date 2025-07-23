@@ -30,8 +30,8 @@ export default function GallerySlider({ gallery }: Props) {
       breakpoints: {
         [tailwindBreakpoints.md]: {
           slides: {
-            perView: 2.1,
-            spacing: 48,
+            perView: 2.9,
+            spacing: 24,
             origin: 'center',
           },
         },
@@ -50,6 +50,12 @@ export default function GallerySlider({ gallery }: Props) {
         slider.on('created', nextTimeout)
         slider.on('dragStarted', () => clearTimeout(timeout))
         slider.on('animationEnded', nextTimeout)
+        slider.on('detailsChanged', (s) => {
+          s.track.details.slides.forEach((slide, index) => {
+            const individualSlide = s.slides[index]
+            individualSlide.style.opacity = slide.portion > 0.99 ? '1' : '0.5'
+          })
+        })
       },
     ],
   )
@@ -62,7 +68,10 @@ export default function GallerySlider({ gallery }: Props) {
           const src = media?.url || ''
 
           return (
-            <div key={item.id} className="keen-slider__slide">
+            <div
+              key={item.id}
+              className="keen-slider__slide transition-opacity duration-500"
+            >
               {src ? (
                 <div className="relative aspect-[4/3] w-full">
                   <Image

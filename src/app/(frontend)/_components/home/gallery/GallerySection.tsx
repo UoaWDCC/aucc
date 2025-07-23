@@ -11,7 +11,7 @@ export async function GallerySection() {
       <GalleryTopCurve className="max-h-40 -translate-y-px" />
 
       <div>
-        <div className="mx-auto hidden w-full max-w-[47%] items-end justify-between pt-48 pb-4 md:flex">
+        <div className="mx-auto hidden w-full max-w-[37%] items-end justify-between pt-48 pb-4 md:flex">
           <h1 className="font-heading text-grass text-center text-5xl tracking-tighter">
             Gallery
           </h1>
@@ -21,7 +21,7 @@ export async function GallerySection() {
           Gallery
         </h1>
         <GallerySlider gallery={gallery} />
-        <p className="font-body text-abyss mx-auto hidden max-w-[25%] -translate-x-[42%] pt-4 pb-48 italic md:block">
+        <p className="font-body text-abyss mx-auto hidden max-w-[25%] -translate-x-[18%] pt-4 pb-48 italic md:block">
           The memories of our past events live in our gallery for future
           generations and club members to see and admire.
         </p>
