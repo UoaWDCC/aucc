@@ -10,7 +10,6 @@ export async function NextAdventureSection() {
   return (
     <NextAdventureSectionBackground>
       <NextAdventureHeader />
-      <NextAdventureFallback />
       {event ? <NextAdventureCard event={event} /> : <NextAdventureFallback />}
     </NextAdventureSectionBackground>
   )
