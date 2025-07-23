@@ -36,7 +36,7 @@ export function NextAdventureCard({ event }: EventPageProps) {
             <h2 className="font-heading truncate text-lg md:mb-2 md:text-xs lg:mb-4 lg:text-lg">
               {event?.title}
             </h2>
-            <div className="flex w-full justify-between md:mb-5 md:w-fit md:gap-[17.4px] lg:gap-7">
+            <div className="flex w-full justify-between md:mb-5 md:w-fit md:gap-4 lg:gap-7">
               {riverGrade && (
                 <NextAdventureGrade>{riverGrade}</NextAdventureGrade>
               )}
