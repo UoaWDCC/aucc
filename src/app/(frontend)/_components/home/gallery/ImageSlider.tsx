@@ -12,6 +12,11 @@ type Props = {
   gallery: GalleryDTO[]
 }
 
+const tailwindBreakpoints = {
+  md: '(min-width: 768px)',
+  lg: '(min-width: 1024px)',
+}
+
 export default function GallerySlider({ gallery }: Props) {
   const [sliderRef] = useKeenSlider<HTMLDivElement>(
     {
@@ -21,6 +26,15 @@ export default function GallerySlider({ gallery }: Props) {
         perView: 1.1,
         spacing: 12,
         origin: 'center',
+      },
+      breakpoints: {
+        [tailwindBreakpoints.md]: {
+          slides: {
+            perView: 2.9,
+            spacing: 24,
+            origin: 'center',
+          },
+        },
       },
     },
     [
@@ -36,6 +50,12 @@ export default function GallerySlider({ gallery }: Props) {
         slider.on('created', nextTimeout)
         slider.on('dragStarted', () => clearTimeout(timeout))
         slider.on('animationEnded', nextTimeout)
+        slider.on('detailsChanged', (s) => {
+          s.track.details.slides.forEach((slide, index) => {
+            const individualSlide = s.slides[index]
+            individualSlide.style.opacity = slide.portion > 0.99 ? '1' : '0.5'
+          })
+        })
       },
     ],
   )
@@ -48,7 +68,10 @@ export default function GallerySlider({ gallery }: Props) {
           const src = media?.url || ''
 
           return (
-            <div key={item.id} className="keen-slider__slide">
+            <div
+              key={item.id}
+              className="keen-slider__slide transition-opacity duration-500"
+            >
               {src ? (
                 <div className="relative aspect-[4/3] w-full">
                   <Image
