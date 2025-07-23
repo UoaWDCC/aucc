@@ -264,6 +264,8 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  eventType: 'trip' | 'other';
+  river?: (number | null) | River;
   featuredImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -556,6 +558,8 @@ export interface EventsSelect<T extends boolean = true> {
   endTime?: T;
   location?: T;
   description?: T;
+  eventType?: T;
+  river?: T;
   featuredImage?: T;
   updatedAt?: T;
   createdAt?: T;
