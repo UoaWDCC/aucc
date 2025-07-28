@@ -14,7 +14,7 @@ export function ContactText() {
           </h1>
 
           {/* Arrow inside title container */}
-          <div className="hidden md:absolute md:top-[100%] md:left-[calc(100%+20px)] md:block">
+          <div className="hidden md:absolute md:top-[100%] md:left-[calc(100%+13px)] md:block">
             <ContactArrow />
           </div>
         </div>

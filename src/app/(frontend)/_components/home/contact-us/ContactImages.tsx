@@ -6,40 +6,40 @@ import lookingForUs03 from '@/assets/looking-for-us-03.webp'
 
 export function ContactImages() {
   return (
-    <div className="relative mx-auto mt-31 mb-36 w-full max-w-140">
-      {/* Whole image container */}
-      <div className="relative mt-20 h-auto w-full">
-        {/* image 2 and 3 */}
-        <div className="relative mb-16 h-[min(500px,60vw)] w-full">
-          {/* image 2: right top */}
-          <div className="absolute top-0 right-0 aspect-[11/16] w-[38%] max-w-[230px] overflow-hidden rounded-2xl">
-            <Image
-              src={lookingForUs02}
-              alt="Looking picture 2"
-              fill
-              className="object-cover"
-            />
-          </div>
+    <div className="relative mt-18 mb-36 w-full md:mt-16 md:mb-28 lg:mt-[-20px] lg:mr-[2%] lg:mb-16 lg:ml-auto lg:w-[420px] xl:mt-[-20px] xl:mr-[2%] xl:w-[500px]">
+      <div className="relative mt-20 h-auto w-full md:mt-12 lg:mt-0">
+        <div className="relative mb-16 h-[min(500px,60vw)] w-full md:mb-12 lg:mb-10 xl:mb-10">
+          <div className="relative mr-[1%] ml-auto w-fit">
+            {/* image 2 */}
+            <div className="relative aspect-[11/16] w-[38vw] max-w-[230px] overflow-hidden rounded-2xl xl:w-[30vw] xl:max-w-[260px]">
+              <Image
+                src={lookingForUs02}
+                alt="Looking picture 2"
+                fill
+                className="object-cover"
+              />
+            </div>
 
-          {/* image 3: middle */}
-          <div className="absolute top-[55%] left-[60%] aspect-[2/3] w-[24%] max-w-[140px] -translate-x-1/2 overflow-hidden rounded-2xl md:top-[45%] md:left-[62%] xl:top-[35%] xl:left-[64%]">
-            <Image
-              src={lookingForUs03}
-              alt="Looking picture 3"
-              fill
-              className="object-cover"
-            />
+            {/* image 3 */}
+            <div className="absolute top-[55%] right-[80%] z-10 aspect-[2/3] w-[24vw] max-w-[140px] overflow-hidden rounded-2xl xl:w-[20vw] xl:max-w-[160px]">
+              <Image
+                src={lookingForUs03}
+                alt="Looking picture 3"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
 
-        {/* image 1: right bottom */}
-        <div className="relative mt-[6%] flex justify-end pr-[3%] md:mt-[4%] xl:mt-[2%]">
-          <div className="w-[30%] max-w-[160px] rounded-2xl">
+        {/* image 1 */}
+        <div className="relative mt-[6%] flex justify-end pr-[3%] md:mt-[4%] lg:mt-[1%]">
+          <div className="w-[30%] max-w-[160px] rounded-2xl xl:w-[36%] xl:max-w-[180px]">
             <Image
               src={lookingForUs01}
               alt="Looking picture 1"
-              width={160}
-              height={120}
+              width={180}
+              height={135}
               className="rounded-2xl object-cover"
             />
           </div>

@@ -13,7 +13,7 @@ export function ContactSectionBackground({
   return (
     <div className="relative w-full">
       <div
-        className="absolute top-[220px] left-0 z-0 h-[40%] w-full overflow-hidden md:top-[50px] md:h-[48%] lg:top-[40px] lg:h-[48%]"
+        className="absolute top-[160px] left-0 z-0 h-[50%] w-full overflow-hidden select-none md:top-[80px]"
         style={{
           clipPath: 'polygon(0 0, 100% 30%, 100% 100%, 0 70%)',
         }}

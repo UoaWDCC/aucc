@@ -29,15 +29,15 @@ export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
       className={cn(
         'absolute',
         mobile
-          ? 'top-[-30px] left-[240px] block md:hidden'
+          ? 'top-[-30px] left-[230px] block md:hidden'
           : '-right-[40px] bottom-[-10px] hidden md:block',
       )}
     >
       <div className="relative">
-        <div className="absolute top-[-50px] right-[2px] h-[130px] w-[50px] scale-x-[-1] rotate-[60deg]">
+        <div className="absolute top-[-50px] right-[2px] h-[130px] w-[50px] scale-x-[-1] rotate-[50deg]">
           <Arrow />
         </div>
-        <div className="font-handwritten text-algae absolute top-[-35px] right-[-75px] rotate-[8deg] text-[20px] whitespace-nowrap">
+        <div className="font-handwritten text-algae absolute top-[-45px] right-[-60px] rotate-[7deg] text-[20px] whitespace-nowrap">
           find us here!
         </div>
       </div>
