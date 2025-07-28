@@ -1,11 +1,9 @@
-import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 
 import { getEventById } from '@/queries/events'
 import { EventPage } from './_components/EventPage'
-import { EventPageFallback } from './_components/EventPageFallback'
 
-export default async function SpecificEventPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ id: string }>
@@ -17,13 +15,5 @@ export default async function SpecificEventPage({
     notFound()
   }
 
-  return (
-    <div>
-      <div>
-        <Suspense fallback={<EventPageFallback />}>
-          <EventPage event={event} />
-        </Suspense>
-      </div>
-    </div>
-  )
+  return <EventPage event={event} />
 }

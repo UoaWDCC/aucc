@@ -1,26 +1,8 @@
-import { Suspense } from 'react'
-
 import { getRivers } from '@/queries/rivers'
-import { RiversGrid } from './_components/RiversGrid'
-import { RiversGridFallback } from './_components/RiversGridFallback'
+import { RiversPage } from './_components/RiversPage'
 
-export default async function RiversPage() {
+export default async function Page() {
   const { rivers } = await getRivers()
 
-  return (
-    <div className="p-4">
-      <div>
-        <h1 className="text-2xl font-bold">Rivers</h1>
-        <h2 className="text-gray-600">
-          A list of all rivers available for paddling.
-        </h2>
-      </div>
-
-      <div className="mt-4">
-        <Suspense fallback={<RiversGridFallback />}>
-          <RiversGrid rivers={rivers} />
-        </Suspense>
-      </div>
-    </div>
-  )
+  return <RiversPage rivers={rivers} />
 }

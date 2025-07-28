@@ -37,7 +37,8 @@ RUN --mount=type=secret,id=DATABASE_URL \
     --mount=type=secret,id=S3_ACCESS_KEY_ID \
     --mount=type=secret,id=S3_SECRET_ACCESS_KEY \
     --mount=type=secret,id=S3_REGION \
-    --mount=type=secret,id=S3_CF_PUBLIC_ENDPOINT \
+    --mount=type=secret,id=NEXT_PUBLIC_CF_URL \
+    --mount=type=secret,id=API_KEY \
     DATABASE_URL="$(cat /run/secrets/DATABASE_URL)" \
     PAYLOAD_SECRET="$(cat /run/secrets/PAYLOAD_SECRET)" \
     SERVER_URL="$(cat /run/secrets/SERVER_URL)" \
@@ -45,7 +46,8 @@ RUN --mount=type=secret,id=DATABASE_URL \
     S3_ACCESS_KEY_ID="$(cat /run/secrets/S3_ACCESS_KEY_ID)" \
     S3_SECRET_ACCESS_KEY="$(cat /run/secrets/S3_SECRET_ACCESS_KEY)" \
     S3_REGION="$(cat /run/secrets/S3_REGION)" \
-    S3_CF_PUBLIC_ENDPOINT="$(cat /run/secrets/S3_CF_PUBLIC_ENDPOINT)" \
+    NEXT_PUBLIC_CF_URL="$(cat /run/secrets/NEXT_PUBLIC_CF_URL)" \
+    API_KEY="$(cat /run/secrets/API_KEY)" \
     pnpm build
 
 # Production image, copy all the files and run next

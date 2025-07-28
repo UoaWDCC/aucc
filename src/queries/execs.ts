@@ -1,4 +1,11 @@
+import { unstable_cache } from 'next/cache'
+
 import { getPayloadClient } from '@/lib/payload'
+import { cacheTags } from '@/lib/utils/revalidation'
+import { NoNumber } from '@/lib/utils/util-types'
+import { Exec } from '@/payload-types'
+
+export type ExecDTO = NoNumber<Exec>
 
 /**
  * Get all execs
@@ -7,28 +14,34 @@ import { getPayloadClient } from '@/lib/payload'
  * @param sort - The field to sort the execs by
  * @returns The execs and pagination information
  */
-export async function getExecs({
-  page = 1,
-  limit = 10,
-  sort = 'name',
-}: {
-  page?: number
-  limit?: number
-  sort?: string
-} = {}) {
-  const payload = await getPayloadClient()
+export const getExecs = unstable_cache(
+  async function ({
+    page = 1,
+    limit = 10,
+    sort = 'name',
+  }: {
+    page?: number
+    limit?: number
+    sort?: string
+  } = {}) {
+    const payload = await getPayloadClient()
 
-  const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-    collection: 'execs',
-    page,
-    limit,
-    sort,
-  })
+    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+      collection: 'execs',
+      page,
+      limit,
+      sort,
+    })
 
-  return {
-    execs: docs,
-    hasNextPage,
-    nextPage,
-    totalDocs,
-  }
-}
+    return {
+      execs: docs as ExecDTO[],
+      hasNextPage,
+      nextPage,
+      totalDocs,
+    }
+  },
+  ['getExecs'],
+  {
+    tags: cacheTags.execs.relatedTags,
+  },
+)

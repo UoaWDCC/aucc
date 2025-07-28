@@ -1,11 +1,24 @@
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { cacheTags } from '@/lib/utils/revalidation'
+import { anyone } from './_access/anyone'
+import { authenticated } from './_access/authenticated'
+import { customUploadField } from './_fields/custom-upload'
 
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: [
+      'coverImage',
+      'gallery',
+      'title',
+      'status',
+      'tripDate',
+      'location',
+    ],
+  },
   access: {
     create: authenticated,
     read: anyone,
@@ -24,6 +37,8 @@ export const TripReports: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [() => cacheTags.tripReports.revalidate()],
+    afterDelete: [() => cacheTags.tripReports.revalidate()],
   },
   fields: [
     {
@@ -73,13 +88,26 @@ export const TripReports: CollectionConfig = {
       relationTo: 'rivers',
       label: 'Related River',
     },
-    {
+    customUploadField({
       name: 'gallery',
-      type: 'upload',
-      hasMany: true,
-      relationTo: 'media',
       label: 'Trip Gallery',
-    },
+      hasMany: true,
+      required: true,
+      mimeType: 'image',
+      admin: {
+        className: 'hide-filename show-first',
+      },
+    }),
+    customUploadField({
+      name: 'coverImage',
+      label: 'Cover Image',
+      hasMany: false,
+      required: false,
+      mimeType: 'image',
+      admin: {
+        thumbnail: true,
+      },
+    }),
     {
       name: 'slug',
       type: 'text',

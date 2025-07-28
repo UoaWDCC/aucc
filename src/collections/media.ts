@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { cacheTags } from '@/lib/utils/revalidation'
+import { anyone } from './_access/anyone'
+import { authenticated } from './_access/authenticated'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -10,6 +11,10 @@ export const Media: CollectionConfig = {
     read: anyone,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [() => cacheTags.media.revalidate()],
+    afterDelete: [() => cacheTags.media.revalidate()],
   },
   fields: [
     {
@@ -20,28 +25,72 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     adminThumbnail: 'thumbnail',
-    // TODO(dyzhuu) confirm image sizes
     imageSizes: [
       {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
         name: 'thumbnail',
-        width: 300,
-        height: 300,
-        crop: 'center',
+        width: 150,
+        height: 150,
       },
       {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
         name: 'small',
-        width: 800,
-        height: 600,
+        width: 375,
+        height: undefined,
       },
       {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
         name: 'medium',
-        width: 1280,
-        height: 720,
+        width: 768,
+        height: undefined,
       },
       {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
         name: 'large',
+        width: 1024,
+        height: undefined,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'extraLarge',
+        width: 1280,
+        height: undefined,
+      },
+      {
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 60,
+          },
+        },
+        name: 'doubleExtraLarge',
         width: 1920,
-        height: 1080,
+        height: undefined,
       },
     ],
   },

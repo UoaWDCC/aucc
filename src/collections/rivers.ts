@@ -1,11 +1,17 @@
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
-import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { cacheTags } from '@/lib/utils/revalidation'
+import { anyone } from './_access/anyone'
+import { authenticated } from './_access/authenticated'
+import { customUploadField } from './_fields/custom-upload'
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
+  admin: {
+    useAsTitle: 'name',
+    defaultColumns: ['featuredImage', 'name', 'grade', 'description'],
+  },
   access: {
     create: authenticated,
     read: anyone,
@@ -24,6 +30,8 @@ export const Rivers: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [() => cacheTags.rivers.revalidate()],
+    afterDelete: [() => cacheTags.rivers.revalidate()],
   },
   fields: [
     {
@@ -35,14 +43,48 @@ export const Rivers: CollectionConfig = {
       type: 'number',
     },
     {
+      name: 'putIn',
+      type: 'group',
+      fields: [
+        {
+          name: 'latitude',
+          type: 'number',
+          required: true,
+        },
+        {
+          name: 'longitude',
+          type: 'number',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'takeOut',
+      type: 'group',
+      fields: [
+        {
+          name: 'latitude',
+          type: 'number',
+          required: true,
+        },
+        {
+          name: 'longitude',
+          type: 'number',
+          required: true,
+        },
+      ],
+    },
+    {
       name: 'description',
       type: 'text',
     },
-    {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-    },
+    customUploadField({
+      name: 'featuredImage',
+      mimeType: 'image',
+      admin: {
+        className: 'hide-filename',
+      },
+    }),
     {
       name: 'slug',
       type: 'text',

@@ -10,6 +10,13 @@ vi.mock('@/lib/payload', () => ({
   getPayloadClient: vi.fn(),
 }))
 
+// Mock the cache
+vi.mock('next/cache', async () => {
+  return {
+    unstable_cache: (fn: any) => fn,
+  }
+})
+
 describe('Trip Report queries', () => {
   const mockPayloadClient = {
     find: vi.fn(),
@@ -38,6 +45,11 @@ describe('Trip Report queries', () => {
         page: 1,
         limit: 10,
         sort: '-createdAt',
+        where: {
+          status: {
+            equals: 'published',
+          },
+        },
       })
       expect(result).toEqual({
         tripReports: mockResponse.docs,
@@ -64,6 +76,11 @@ describe('Trip Report queries', () => {
         page: 2,
         limit: 20,
         sort: 'name',
+        where: {
+          status: {
+            equals: 'published',
+          },
+        },
       })
       expect(result).toEqual({
         tripReports: mockResponse.docs,
@@ -98,10 +115,20 @@ describe('Trip Report queries', () => {
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
         where: {
-          slug: {
-            equals: 'non-existent',
-          },
+          and: [
+            {
+              slug: {
+                equals: 'non-existent',
+              },
+            },
+            {
+              status: {
+                equals: 'published',
+              },
+            },
+          ],
         },
+        limit: 1,
       })
       expect(result).toBeNull()
     })
@@ -112,16 +139,8 @@ describe('Trip Report queries', () => {
         title: 'Test Trip Report',
         slug: 'test-trip-report',
         status: 'published',
-        author: [
-          {
-            id: 1,
-            name: 'Test Exec',
-            role: 'Leader',
-            email: 'testexec@example.com',
-            updatedAt: '2025-03-10T00:00:00.000Z',
-            createdAt: '2025-03-01T00:00:00.000Z',
-          },
-        ],
+        author: [],
+        gallery: [],
         tripDate: '2025-03-15T00:00:00.000Z',
         location: 'Test river',
         updatedAt: '2025-03-20T00:00:00.000Z',
@@ -135,10 +154,20 @@ describe('Trip Report queries', () => {
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
         where: {
-          slug: {
-            equals: 'test-trip-report',
-          },
+          and: [
+            {
+              slug: {
+                equals: 'test-trip-report',
+              },
+            },
+            {
+              status: {
+                equals: 'published',
+              },
+            },
+          ],
         },
+        limit: 1,
       })
       expect(result).toEqual(mockTripReport)
     })

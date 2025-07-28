@@ -73,6 +73,8 @@ export interface Config {
     events: Event;
     'trip-reports': TripReport;
     execs: Exec;
+    gallery: Gallery;
+    tags: Tag;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +87,8 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;
     execs: ExecsSelect<false> | ExecsSelect<true>;
+    gallery: GallerySelect<false> | GallerySelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -191,6 +195,22 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
+    extraLarge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    doubleExtraLarge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
 }
 /**
@@ -201,8 +221,16 @@ export interface River {
   id: number;
   name?: string | null;
   grade?: number | null;
+  putIn: {
+    latitude: number;
+    longitude: number;
+  };
+  takeOut: {
+    latitude: number;
+    longitude: number;
+  };
   description?: string | null;
-  image?: (number | null) | Media;
+  featuredImage?: (number | null) | Media;
   /**
    * Automatically generated from name
    */
@@ -253,7 +281,8 @@ export interface TripReport {
   location?: string | null;
   relatedEvent?: (number | null) | Event;
   relatedRiver?: (number | null) | River;
-  gallery?: (number | Media)[] | null;
+  gallery: (number | Media)[];
+  coverImage?: (number | null) | Media;
   /**
    * Automatically generated from title
    */
@@ -286,7 +315,28 @@ export interface Exec {
   pronouns?: string | null;
   role: string;
   email: string;
-  image?: (number | null) | Media;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery".
+ */
+export interface Gallery {
+  id: number;
+  image: number | Media;
+  tag?: (number | Tag)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -320,6 +370,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'execs';
         value: number | Exec;
+      } | null)
+    | ({
+        relationTo: 'gallery';
+        value: number | Gallery;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -440,6 +498,26 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
+        extraLarge?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        doubleExtraLarge?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
       };
 }
 /**
@@ -449,8 +527,20 @@ export interface MediaSelect<T extends boolean = true> {
 export interface RiversSelect<T extends boolean = true> {
   name?: T;
   grade?: T;
+  putIn?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  takeOut?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
   description?: T;
-  image?: T;
+  featuredImage?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -483,6 +573,7 @@ export interface TripReportsSelect<T extends boolean = true> {
   relatedEvent?: T;
   relatedRiver?: T;
   gallery?: T;
+  coverImage?: T;
   slug?: T;
   content?: T;
   updatedAt?: T;
@@ -498,6 +589,25 @@ export interface ExecsSelect<T extends boolean = true> {
   role?: T;
   email?: T;
   image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery_select".
+ */
+export interface GallerySelect<T extends boolean = true> {
+  image?: T;
+  tag?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }

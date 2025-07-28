@@ -1,4 +1,4 @@
-import { EventsGridFallback } from './components/EventsGridFallback'
+import { EventsGridFallback } from './_components/EventsGridFallback'
 
 export default function Loading() {
   return (

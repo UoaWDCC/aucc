@@ -56,3 +56,4 @@ terraform/crash.log
 
 # Ignore generated plan files (optional)
 terraform/*.tfplan
+*storybook.log

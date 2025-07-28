@@ -4,13 +4,13 @@ import { TripReport } from '@/payload-types'
 import { TripReportCard } from './TripReportCard'
 
 interface TripReportsGridProps {
-  reportsList: TripReport[]
+  tripReports: TripReport[]
 }
 
-export function TripReportsGrid({ reportsList }: TripReportsGridProps) {
+export function TripReportsGrid({ tripReports }: TripReportsGridProps) {
   return (
     <div className="mt-2 grid grid-cols-2 gap-4">
-      {reportsList.map((report) => (
+      {tripReports.map((report) => (
         <TripReportCard key={report.id} report={report} />
       ))}
     </div>

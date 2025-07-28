@@ -1,12 +1,13 @@
-import React from 'react'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { RichText as PayloadRichText } from '@payloadcms/richtext-lexical/react'
 
-interface RichTextRendererProps {
+import { cn } from '@/lib/utils/cn'
+
+interface RichTextProps {
   data: SerializedEditorState
   className?: string
 }
 
-export function RichTextRenderer({ data, className }: RichTextRendererProps) {
-  return <RichText data={data} className={className} />
+export function RichText({ data, className }: RichTextProps) {
+  return <PayloadRichText data={data} className={cn('prose', className)} />
 }
