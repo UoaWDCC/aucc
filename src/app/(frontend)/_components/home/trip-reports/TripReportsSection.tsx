@@ -1,5 +1,7 @@
 import React from 'react'
 
+import PLACEHOLDER from '@/assets/hero.webp'
+import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { getTripReports } from '@/queries/trip-reports'
 import { LatestReportsHeader } from './LatestReportsHeader'
@@ -8,7 +10,6 @@ import { SecondaryTripReportCard } from './report-cards.tsx/SecondaryTripReportC
 import { TertiaryTripReportCard } from './report-cards.tsx/TertiaryTripReportCard'
 import { SeeAllReportsButton } from './SeeAllReportsButton'
 
-const PLACEHOLDER = '/hero_background_Image.jpg'
 export async function TripReportsSection() {
   const { tripReports } = await getTripReports({
     page: 1,
@@ -16,26 +17,71 @@ export async function TripReportsSection() {
     sort: '-tripDate',
   })
 
-  const [reportA, reportB, reportC] = tripReports.map((report) => ({
-    title: report.title,
-    tripDate: report.tripDate ?? '',
-    coverImageURL: report.coverImage?.url ?? PLACEHOLDER,
-    content: getPlainText(report.content),
-  }))
+  // Create default report structure
+  const defaultReport = {
+    title: 'No report available',
+    tripDate: undefined,
+    featuredImageURL: PLACEHOLDER.src,
+    content: 'No content available',
+  }
 
+  // Map trip reports or use defaults
+  const mappedReports =
+    tripReports?.slice(0, 3).map((report) => ({
+      title: report.title || 'No report available',
+      tripDate: report.tripDate || '',
+      featuredImageURL: report.featuredImage?.url || PLACEHOLDER.src,
+      content: report.content
+        ? getPlainText(report.content)
+        : 'No content available',
+    })) || []
+
+  // Ensure we always have 3 reports by filling with defaults
+  const [reportA, reportB, reportC] = [
+    mappedReports[0] || defaultReport,
+    mappedReports[1] || defaultReport,
+    mappedReports[2] || defaultReport,
+  ]
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
       <section className="px-4 pt-20 pb-12 md:mx-30 md:p-5 md:pt-35 lg:mx-35 lg:p-5 lg:pt-38">
         <LatestReportsHeader />
-        <div className="flex flex-col gap-4 md:flex-row md:justify-center md:gap-3">
+        <div className="flex flex-col gap-4 md:flex-row md:justify-center">
           <div className="w-full md:w-[58%]">
-            <PrimaryTripReportCard report={reportA} />
+            <PrimaryTripReportCard
+              title={reportA.title}
+              tripDate={
+                reportA.tripDate
+                  ? formatDate(reportA.tripDate)
+                  : 'No date available'
+              }
+              featuredImageURL={reportA.featuredImageURL}
+              content={reportA.content}
+            />
           </div>
           <div className="flex flex-col gap-4 md:w-[42%] md:gap-2.25">
             <div className="grid grid-cols-2 gap-4 md:grid-cols-1 md:gap-2.25">
-              <SecondaryTripReportCard report={reportB} />
+              <SecondaryTripReportCard
+                title={reportB.title}
+                tripDate={
+                  reportB.tripDate
+                    ? formatDate(reportB.tripDate)
+                    : 'No date available'
+                }
+                featuredImageURL={reportB.featuredImageURL}
+                content={reportB.content}
+              />
               <div className="flex flex-col">
-                <TertiaryTripReportCard report={reportC} />
+                <TertiaryTripReportCard
+                  title={reportC.title}
+                  tripDate={
+                    reportC.tripDate
+                      ? formatDate(reportC.tripDate)
+                      : 'No date available'
+                  }
+                  featuredImageURL={reportC.featuredImageURL}
+                  content={reportC.content}
+                />
                 <div className="md:hidden">
                   <SeeAllReportsButton />
                 </div>
