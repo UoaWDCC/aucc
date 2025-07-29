@@ -18,9 +18,9 @@ function isExec(a: number | Exec): a is Exec {
 
 export function TripReportCard({ report }: TripReportCardProps) {
   const postAuthors = report.author.filter(isExec)
-  const coverImage =
-    report.coverImage && typeof report.coverImage !== 'number'
-      ? report.coverImage.url
+  const featuredImage =
+    report.featuredImage && typeof report.featuredImage !== 'number'
+      ? report.featuredImage.url
       : PLACEHOLDER
 
   return (
@@ -28,10 +28,10 @@ export function TripReportCard({ report }: TripReportCardProps) {
       href={`/trip-reports/${report.slug}`}
       className="m-1 block border p-2 shadow transition duration-200 hover:shadow-lg"
     >
-      {coverImage && (
+      {featuredImage && (
         <div className="relative h-48 w-full">
           <Image
-            src={coverImage}
+            src={featuredImage}
             alt={report.title}
             fill
             sizes="(min-width: 640px) 50vw, 100vw"

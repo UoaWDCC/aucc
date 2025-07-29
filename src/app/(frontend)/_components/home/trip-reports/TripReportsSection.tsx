@@ -1,13 +1,14 @@
 import React from 'react'
-import Image from 'next/image'
 
+import PLACEHOLDER from '@/assets/hero.webp'
 import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import { getTripReports, type TripReportDTO } from '@/queries/trip-reports'
+import { getTripReports } from '@/queries/trip-reports'
 import { LatestReportsHeader } from './LatestReportsHeader'
-import { SARButton } from './SARButton'
-
-const PLACEHOLDER = '/hero_background_Image.jpg'
+import { PrimaryTripReportCard } from './report-cards.tsx/PrimaryTripReportCard'
+import { SecondaryTripReportCard } from './report-cards.tsx/SecondaryTripReportCard'
+import { TertiaryTripReportCard } from './report-cards.tsx/TertiaryTripReportCard'
+import { SeeAllReportsButton } from './SeeAllReportsButton'
 
 export async function TripReportsSection() {
   const { tripReports } = await getTripReports({
@@ -16,98 +17,79 @@ export async function TripReportsSection() {
     sort: '-tripDate',
   })
 
-  const [reportA, reportB, reportC] = tripReports.map((report) => ({
-    title: report.title,
-    tripDate: report.tripDate ?? '',
-    coverImageURL: report.coverImage?.url ?? PLACEHOLDER,
-    content: getPlainText(report.content),
-  }))
+  // Create default report structure
+  const defaultReport = {
+    title: 'No report available',
+    tripDate: undefined,
+    featuredImageURL: PLACEHOLDER.src,
+    content: 'No content available',
+  }
 
+  // Map trip reports or use defaults
+  const mappedReports =
+    tripReports?.slice(0, 3).map((report) => ({
+      title: report.title || 'No report available',
+      tripDate: report.tripDate || '',
+      featuredImageURL: report.featuredImage?.url || PLACEHOLDER.src,
+      content: report.content
+        ? getPlainText(report.content)
+        : 'No content available',
+    })) || []
+
+  // Ensure we always have 3 reports by filling with defaults
+  const [reportA, reportB, reportC] = [
+    mappedReports[0] || defaultReport,
+    mappedReports[1] || defaultReport,
+    mappedReports[2] || defaultReport,
+  ]
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
-      <section className="px-4 pt-20 pb-12 md:px-16 lg:px-72">
+      <section className="px-4 pt-20 pb-12 md:mx-30 md:p-5 md:pt-35 lg:mx-35 lg:p-5 lg:pt-38">
         <LatestReportsHeader />
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-3 lg:grid-rows-2">
-          {/*** BIG CARD (reportA) ***/}
-          {reportA && (
-            <article className="to-abyss col-span-2 flex flex-col rounded-2xl bg-gradient-to-t from-[#343E3B] to-30% p-4 lg:row-span-2">
-              <h3 className="text-cream font-heading mt-2 mb-1 line-clamp-2 text-2xl tracking-tighter">
-                {reportA.title}
-              </h3>
-              <time className="text-cream mb-4 text-sm italic">
-                {formatDate(reportA.tripDate)}
-              </time>
-
-              <div className="grid h-40 grid-cols-2 items-start gap-4">
-                <div className="relative mb-4 aspect-[4/3] h-40 w-full gap-4 overflow-hidden rounded-lg">
-                  <Image
-                    src={reportA.coverImageURL ?? PLACEHOLDER}
-                    alt={reportA.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="text-cream/80 line-clamp-[7] flex-grow text-sm leading-5.5 italic">
-                  {reportA.content}
-                </p>
-              </div>
-            </article>
-          )}
-
-          {/*** SMALL CARD 1 (reportB) ***/}
-          {reportB && (
-            <article className="relative flex flex-col rounded-2xl">
-              <div className="relative aspect-[16/9] h-48 w-full overflow-hidden rounded-lg">
-                <Image
-                  src={reportB.coverImageURL ?? PLACEHOLDER}
-                  alt={reportB.title ?? 'Trip cover image'}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+        <div className="flex flex-col gap-4 md:flex-row md:justify-center">
+          <div className="w-full md:w-[58%]">
+            <PrimaryTripReportCard
+              title={reportA.title}
+              tripDate={
+                reportA.tripDate
+                  ? formatDate(reportA.tripDate)
+                  : 'No date available'
+              }
+              featuredImageURL={reportA.featuredImageURL}
+              content={reportA.content}
+            />
+          </div>
+          <div className="flex flex-col gap-4 md:w-[42%] md:gap-2.25">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-1 md:gap-2.25">
+              <SecondaryTripReportCard
+                title={reportB.title}
+                tripDate={
+                  reportB.tripDate
+                    ? formatDate(reportB.tripDate)
+                    : 'No date available'
+                }
+                featuredImageURL={reportB.featuredImageURL}
+                content={reportB.content}
+              />
+              <div className="flex flex-col">
+                <TertiaryTripReportCard
+                  title={reportC.title}
+                  tripDate={
+                    reportC.tripDate
+                      ? formatDate(reportC.tripDate)
+                      : 'No date available'
+                  }
+                  featuredImageURL={reportC.featuredImageURL}
+                  content={reportC.content}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/50 via-60% to-transparent to-80%"></div>
-              </div>
-
-              <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
-                <time className="text-xs italic">
-                  {formatDate(reportB.tripDate)}
-                </time>
-
-                <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
-                  {reportB.title}
-                </h4>
-              </div>
-            </article>
-          )}
-
-          <div>
-            {/*** SMALL CARD 2 (reportC) ***/}
-            {reportC && (
-              <article className="relative flex flex-col rounded-2xl">
-                <div className="relative aspect-[16/9] h-31.5 w-full overflow-hidden rounded-lg">
-                  <Image
-                    src={reportC.coverImageURL ?? PLACEHOLDER}
-                    alt={reportC.title ?? 'Trip cover image'}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/20 via-60% to-transparent to-80%"></div>
+                <div className="md:hidden">
+                  <SeeAllReportsButton />
                 </div>
-                <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2">
-                  <time className="text-xs italic">
-                    {formatDate(reportB.tripDate)}
-                  </time>
-
-                  <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
-                    {reportB.title}
-                  </h4>
-                </div>
-              </article>
-            )}
-
-            {/* put the see more report button here */}
-            <SARButton />
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <SeeAllReportsButton />
+            </div>
           </div>
         </div>
       </section>
