@@ -9,7 +9,7 @@ export default async function Page() {
     <>
       <AboutPage execs={execs} />
       <div className="absolute left-200 z-100">
-        <Button intent="tertiary" size="md">
+        <Button intent="tertiary" size="md" href="/">
           River Details
         </Button>
       </div>
