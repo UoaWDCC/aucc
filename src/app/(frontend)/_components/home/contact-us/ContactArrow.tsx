@@ -1,10 +1,12 @@
+import { cn } from '@/lib/utils/cn'
+
 function Arrow() {
   return (
     <svg
       width="45"
       height="119"
       viewBox="0 0 55 119"
-      className="fill-none"
+      className="h-full w-full fill-none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -21,14 +23,21 @@ function Arrow() {
   )
 }
 
-export function ContactArrow() {
+export function ContactArrow({ mobile = false }: { mobile?: boolean }) {
   return (
-    <div className="absolute top-[25%] left-[48%] z-30">
+    <div
+      className={cn(
+        'absolute',
+        mobile
+          ? 'top-[-30px] left-[230px] block md:hidden'
+          : '-right-[40px] bottom-[-10px] hidden md:block',
+      )}
+    >
       <div className="relative">
-        <div className="absolute top-[10px] left-[10px] scale-x-[-1] rotate-[70deg]">
+        <div className="absolute top-[-50px] right-[2px] h-[130px] w-[50px] scale-x-[-1] rotate-[50deg]">
           <Arrow />
         </div>
-        <div className="font-handwritten text-algae absolute top-[10px] left-[60px] rotate-[18.2deg] text-lg text-[20px] whitespace-nowrap">
+        <div className="font-handwritten text-algae absolute top-[-45px] right-[-60px] rotate-[7deg] text-[20px] whitespace-nowrap">
           find us here!
         </div>
       </div>
