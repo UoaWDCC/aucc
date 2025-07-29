@@ -96,6 +96,7 @@ export const TripReports: CollectionConfig = {
       mimeType: 'image',
       admin: {
         thumbnail: true,
+        className: 'hide-filename',
       },
     }),
     {

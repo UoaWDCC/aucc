@@ -76,6 +76,7 @@ export const Events: CollectionConfig = {
     },
     customUploadField({
       name: 'featuredImage',
+      label: 'Featured Image',
       mimeType: 'image',
       admin: {
         className: 'hide-filename',
