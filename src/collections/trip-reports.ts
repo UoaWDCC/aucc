@@ -11,8 +11,7 @@ export const TripReports: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: [
-      'coverImage',
-      'gallery',
+      'featuredImage',
       'title',
       'status',
       'tripDate',
@@ -68,44 +67,51 @@ export const TripReports: CollectionConfig = {
       name: 'tripDate',
       type: 'date',
       label: 'Trip Date',
+      required: true,
     },
     {
       name: 'location',
       type: 'text',
       label: 'Trip Location',
+      required: true,
     },
     {
       name: 'relatedEvent',
       type: 'relationship',
       relationTo: 'events',
-      required: false,
+      required: true,
       label: 'Related Event',
     },
     {
       name: 'relatedRiver',
       type: 'relationship',
-      required: false,
+      required: true,
       relationTo: 'rivers',
       label: 'Related River',
+    },
+    customUploadField({
+      name: 'featuredImage',
+      label: 'Featured Image',
+      required: true,
+      mimeType: 'image',
+      admin: {
+        thumbnail: true,
+      },
+    }),
+    {
+      name: 'content',
+      type: 'richText',
+      label: 'Content',
+      required: true,
     },
     customUploadField({
       name: 'gallery',
       label: 'Trip Gallery',
       hasMany: true,
-      required: true,
-      mimeType: 'image',
-      admin: {
-        className: 'hide-filename show-first',
-      },
-    }),
-    customUploadField({
-      name: 'coverImage',
-      label: 'Cover Image',
-      hasMany: false,
       required: false,
       mimeType: 'image',
       admin: {
-        thumbnail: true,
+        className: 'hide-filename show-first',
       },
     }),
     {
@@ -119,11 +125,6 @@ export const TripReports: CollectionConfig = {
         description: 'Automatically generated from title',
         hidden: true,
       },
-    },
-    {
-      name: 'content',
-      type: 'richText',
-      label: 'Content',
     },
   ],
 }

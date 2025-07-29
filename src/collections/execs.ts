@@ -32,6 +32,7 @@ export const Execs: CollectionConfig = {
       name: 'pronouns',
       label: 'Pronouns',
       type: 'text',
+      required: true,
     },
     {
       name: 'role',

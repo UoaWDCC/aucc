@@ -219,8 +219,8 @@ export interface Media {
  */
 export interface River {
   id: number;
-  name?: string | null;
-  grade?: number | null;
+  name: string;
+  grade: number;
   putIn: {
     latitude: number;
     longitude: number;
@@ -229,8 +229,8 @@ export interface River {
     latitude: number;
     longitude: number;
   };
+  featuredImage: number | Media;
   description?: string | null;
-  featuredImage?: (number | null) | Media;
   /**
    * Automatically generated from name
    */
@@ -247,8 +247,8 @@ export interface Event {
   title: string;
   status: 'draft' | 'published' | 'archived';
   startTime: string;
-  endTime?: string | null;
-  location?: string | null;
+  endTime: string;
+  location: string;
   description?: {
     root: {
       type: string;
@@ -277,17 +277,12 @@ export interface TripReport {
   title: string;
   status: 'draft' | 'published';
   author: (number | Exec)[];
-  tripDate?: string | null;
-  location?: string | null;
-  relatedEvent?: (number | null) | Event;
-  relatedRiver?: (number | null) | River;
-  gallery: (number | Media)[];
-  coverImage?: (number | null) | Media;
-  /**
-   * Automatically generated from title
-   */
-  slug?: string | null;
-  content?: {
+  tripDate: string;
+  location: string;
+  relatedEvent: number | Event;
+  relatedRiver: number | River;
+  featuredImage: number | Media;
+  content: {
     root: {
       type: string;
       children: {
@@ -301,7 +296,12 @@ export interface TripReport {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
+  gallery?: (number | Media)[] | null;
+  /**
+   * Automatically generated from title
+   */
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -312,10 +312,10 @@ export interface TripReport {
 export interface Exec {
   id: number;
   name: string;
-  pronouns?: string | null;
+  pronouns: string;
   role: string;
   email: string;
-  image?: (number | null) | Media;
+  image: number | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -326,7 +326,7 @@ export interface Exec {
 export interface Gallery {
   id: number;
   image: number | Media;
-  tag?: (number | Tag)[] | null;
+  tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -539,8 +539,8 @@ export interface RiversSelect<T extends boolean = true> {
         latitude?: T;
         longitude?: T;
       };
-  description?: T;
   featuredImage?: T;
+  description?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -572,10 +572,10 @@ export interface TripReportsSelect<T extends boolean = true> {
   location?: T;
   relatedEvent?: T;
   relatedRiver?: T;
-  gallery?: T;
-  coverImage?: T;
-  slug?: T;
+  featuredImage?: T;
   content?: T;
+  gallery?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -598,7 +598,7 @@ export interface ExecsSelect<T extends boolean = true> {
  */
 export interface GallerySelect<T extends boolean = true> {
   image?: T;
-  tag?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }

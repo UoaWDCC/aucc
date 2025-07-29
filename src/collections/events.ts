@@ -63,10 +63,12 @@ export const Events: CollectionConfig = {
           pickerAppearance: 'dayAndTime',
         },
       },
+      required: true,
     },
     {
       name: 'location',
       type: 'text',
+      required: true,
     },
     {
       name: 'description',
