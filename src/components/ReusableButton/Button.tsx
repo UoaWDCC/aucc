@@ -56,20 +56,51 @@ const buttonVariants = cva('flex items-center justify-center text-center', {
   },
 })
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants> & { children?: React.ReactNode }
+type BaseProps = VariantProps<typeof buttonVariants> & {
+  className?: string
+  children?: React.ReactNode
+}
+
+// One type for buttons
+type ButtonAsButton = BaseProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    href?: undefined
+  }
+
+// Another type for links
+type ButtonAsLink = BaseProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string
+  }
+
+type ButtonProps = ButtonAsButton | ButtonAsLink
 
 export default function Button({
-  children,
+  href,
   intent,
   size,
   className,
+  children,
   ...props
 }: ButtonProps) {
+  const classes = cn(buttonVariants({ intent, size }), className)
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={classes}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
+        {children}
+      </Link>
+    )
+  }
+
   return (
     <button
-      className={cn(buttonVariants({ intent, size }), className)}
-      {...props}
+      className={classes}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {children}
     </button>
