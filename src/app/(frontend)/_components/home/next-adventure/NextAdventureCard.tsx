@@ -14,9 +14,9 @@ interface EventPageProps {
 export function NextAdventureCard({ event }: EventPageProps) {
   const riverGrade = (event.river as River)?.grade || null
   return (
-    <div className="p-4 pt-0 md:px-24">
-      <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:pr-5 md:pb-7 md:pl-12 lg:pr-9 lg:pb-11 lg:pl-20 xl:mx-auto xl:max-w-[953px]">
-        <div className="relative aspect-[302/192] h-[192px] min-w-[302px] overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:min-w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:min-w-[325px]">
+    <div className="p-4 pt-0 md:px-20 lg:px-28">
+      <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:px-9 md:pb-7 lg:px-14 lg:pb-11 xl:mx-auto xl:max-w-[953px]">
+        <div className="relative aspect-[302/192] h-[192px] w-[min(100%,302px)] flex-shrink-0 overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:w-[325px]">
           <div className="absolute inset-0 z-0 bg-gray-400" />
 
           {event.featuredImage &&
@@ -31,9 +31,9 @@ export function NextAdventureCard({ event }: EventPageProps) {
             )}
         </div>
 
-        <div className="flex flex-col gap-4 md:mb-1 md:gap-0">
+        <div className="flex flex-col gap-4 md:mb-1 md:min-w-0 md:gap-0">
           <div className="md:flex md:flex-col-reverse">
-            <h2 className="font-heading truncate text-lg md:mb-2 md:text-xs lg:mb-4 lg:text-lg">
+            <h2 className="font-heading text-center text-lg md:mb-2 md:truncate md:text-left md:text-lg lg:mb-4">
               {event?.title}
             </h2>
             <div className="flex w-full justify-between md:mb-5 md:w-fit md:gap-4 lg:gap-7">
@@ -48,7 +48,7 @@ export function NextAdventureCard({ event }: EventPageProps) {
               )}
             </div>
           </div>
-          <div className="font-body text-sm italic md:mb-2 md:text-[9px] lg:mb-5 lg:text-sm">
+          <div className="font-body text-sm italic md:mb-2 md:text-sm lg:mb-5">
             {event?.description && <RichText data={event.description} />}
           </div>
           <NextAdventureLocation>{event?.location}</NextAdventureLocation>
