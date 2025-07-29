@@ -9,8 +9,8 @@ export default async function Page() {
     <>
       <AboutPage execs={execs} />
       <div className="absolute left-200 z-100">
-        <Button intent="secondary" size="md">
-          Hello World
+        <Button intent="tertiary" size="md">
+          River Details
         </Button>
       </div>
     </>
