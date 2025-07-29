@@ -3,7 +3,7 @@ import { IntroImage } from './IntroImage'
 
 export function IntroSection() {
   return (
-    <div className="relative flex h-[100vh] flex-col items-center justify-center align-middle">
+    <div className="relative flex min-h-[calc(100dvh+56px)] flex-col items-center justify-center align-middle md:min-h-[calc(100dvh+0.09*100dvw)]">
       <IntroImage alt="IntroImage" />
       <div className="text-cream relative z-1 flex flex-col items-center md:items-start">
         <h1 className="font-heading flex justify-self-center text-center text-[60px] md:text-[140px]">
