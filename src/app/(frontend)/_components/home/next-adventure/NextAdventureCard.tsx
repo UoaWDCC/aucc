@@ -16,7 +16,7 @@ export function NextAdventureCard({ event }: EventPageProps) {
   return (
     <div className="p-4 pt-0 md:px-20 lg:px-28">
       <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:px-9 md:pb-7 lg:px-14 lg:pb-11 xl:mx-auto xl:max-w-[953px]">
-        <div className="relative aspect-[302/192] h-[192px] w-[min(100%,302px)] flex-shrink-0 overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:w-[325px]">
+        <div className="relative aspect-[302/192] h-[192px] w-full flex-shrink-0 overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:w-[325px]">
           <div className="absolute inset-0 z-0 bg-gray-400" />
 
           {event.featuredImage &&
@@ -32,11 +32,11 @@ export function NextAdventureCard({ event }: EventPageProps) {
         </div>
 
         <div className="flex flex-col gap-4 md:mb-1 md:min-w-0 md:gap-0">
-          <div className="md:flex md:flex-col-reverse">
-            <h2 className="font-heading text-center text-lg md:mb-2 md:truncate md:text-left md:text-lg lg:mb-4">
+          <div className="flex flex-col gap-4 md:flex-col-reverse">
+            <h2 className="font-heading text-lg md:mb-2 md:truncate md:text-left md:text-lg lg:mb-4">
               {event?.title}
             </h2>
-            <div className="flex w-full justify-between md:mb-5 md:w-fit md:gap-4 lg:gap-7">
+            <div className="flex w-full justify-between md:w-fit md:gap-4 lg:gap-7">
               {riverGrade && (
                 <NextAdventureGrade>{riverGrade}</NextAdventureGrade>
               )}
