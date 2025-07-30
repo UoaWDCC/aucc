@@ -12,6 +12,9 @@ interface PayloadImageProps {
   className?: string
 }
 
+/**
+ * Custom image component for Payload CMS that implements a custom loader.
+ */
 export function PayloadImage({
   media,
   className,
@@ -28,11 +31,11 @@ export function PayloadImage({
     )
 
   const validSizes: { width: number; url: string }[] = [
-    media.sizes?.doubleExtraLarge,
-    media.sizes?.extraLarge,
-    media.sizes?.large,
-    media.sizes?.medium,
     media.sizes?.small,
+    media.sizes?.medium,
+    media.sizes?.large,
+    media.sizes?.extraLarge,
+    media.sizes?.doubleExtraLarge,
   ].filter((size) => size?.width && size?.url) as {
     width: number
     url: string
@@ -45,13 +48,12 @@ export function PayloadImage({
     src: string
     width: number
     quality?: number
-  }): string => {
-    return (
-      validSizes.find((size) => size.width >= width)?.url ||
-      validSizes[0]?.url ||
-      src
-    )
-  }
+  }): string =>
+    // Find the first size that is greater than or equal to the requested width
+    validSizes.find((size) => size.width >= width)?.url ||
+    // If no size is found, use the largest size
+    validSizes.at(-1)?.url ||
+    src
 
   return (
     <Image
