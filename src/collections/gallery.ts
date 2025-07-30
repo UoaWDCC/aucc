@@ -3,9 +3,13 @@ import { CollectionConfig } from 'payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
+import { customUploadField } from './_fields/custom-upload'
 
 export const Gallery: CollectionConfig = {
   slug: 'gallery',
+  admin: {
+    defaultColumns: ['image', 'tags'],
+  },
   access: {
     create: authenticated,
     read: anyone,
@@ -21,14 +25,18 @@ export const Gallery: CollectionConfig = {
     plural: 'Gallery',
   },
   fields: [
-    {
+    customUploadField({
       name: 'image',
-      type: 'upload',
-      relationTo: 'media',
+      label: 'Image',
       required: true,
-    },
+      mimeType: 'image',
+      admin: {
+        thumbnail: true,
+        className: 'hide-filename',
+      },
+    }),
     {
-      name: 'tag',
+      name: 'tags',
       type: 'relationship',
       relationTo: 'tags',
       hasMany: true,
