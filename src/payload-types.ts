@@ -266,7 +266,7 @@ export interface Event {
   } | null;
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
-  featuredImage?: (number | null) | Media;
+  featuredImage: number | Media;
   updatedAt: string;
   createdAt: string;
 }

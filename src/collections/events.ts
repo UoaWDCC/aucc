@@ -24,6 +24,14 @@ export const Events: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
+    beforeChange: [
+      ({ data }) => {
+        if (data.eventType !== 'trip') {
+          data.river = null
+        }
+        return data
+      },
+    ],
     afterChange: [() => cacheTags.events.revalidate()],
     afterDelete: [() => cacheTags.events.revalidate()],
   },
@@ -97,6 +105,7 @@ export const Events: CollectionConfig = {
     customUploadField({
       name: 'featuredImage',
       label: 'Featured Image',
+      required: true,
       mimeType: 'image',
       admin: {
         className: 'hide-filename',

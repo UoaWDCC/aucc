@@ -1,10 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { formatDate } from '@/lib/utils/formatDate'
-
-const PLACEHOLDER = '/hero_background_Image.jpg'
-
 export interface TripReportCardProps {
   title: string
   tripDate: string
@@ -24,7 +20,7 @@ export const TertiaryTripReportCard = ({
         {content}
       </p>
       <Image
-        src={featuredImageURL ?? PLACEHOLDER}
+        src={featuredImageURL}
         alt={title ?? 'Trip cover image'}
         fill
         className="object-cover transition-opacity duration-400 lg:group-hover:opacity-0"

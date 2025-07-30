@@ -77,6 +77,9 @@ export const getNextTrip = unstable_cache(
           startTime: {
             greater_than: new Date().toISOString(),
           },
+          eventType: {
+            equals: 'trip',
+          },
         },
       })
       return docs.length > 0 ? (docs[0] as EventDTO) : null
@@ -87,9 +90,6 @@ export const getNextTrip = unstable_cache(
   },
   ['getNextTrip'],
   {
-    tags: [
-      ...cacheTags.events.relatedTags,
-      ...(cacheTags.rivers?.relatedTags ?? []),
-    ],
+    tags: [...cacheTags.events.relatedTags, cacheTags.rivers.tag],
   },
 )
