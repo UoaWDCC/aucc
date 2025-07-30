@@ -37,10 +37,12 @@ export const Rivers: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      required: true,
     },
     {
       name: 'grade',
       type: 'number',
+      required: true,
     },
     {
       name: 'putIn',
@@ -74,17 +76,19 @@ export const Rivers: CollectionConfig = {
         },
       ],
     },
-    {
-      name: 'description',
-      type: 'text',
-    },
     customUploadField({
       name: 'featuredImage',
+      label: 'Featured Image',
       mimeType: 'image',
       admin: {
         className: 'hide-filename',
       },
+      required: true,
     }),
+    {
+      name: 'description',
+      type: 'text',
+    },
     {
       name: 'slug',
       type: 'text',
