@@ -105,7 +105,7 @@ export default function GallerySlider({ gallery }: Props) {
           s.track.details.slides.forEach((slide, index) => {
             const individualSlide = s.slides[index]
             if (window.innerWidth > 768) {
-              individualSlide.style.opacity = slide.portion > 0.99 ? '1' : '0.5'
+              individualSlide.style.opacity = slide.portion > 0.99 ? '1' : '0.6'
             } else {
               individualSlide.style.opacity = '1'
             }
@@ -126,7 +126,7 @@ export default function GallerySlider({ gallery }: Props) {
           return (
             <div
               key={item.id}
-              className="keen-slider__slide transition-opacity duration-200"
+              className="keen-slider__slide cursor-grab transition-opacity duration-200"
             >
               {src ? (
                 <div className="relative aspect-[4/3] w-full">
