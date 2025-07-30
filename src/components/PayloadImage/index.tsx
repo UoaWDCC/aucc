@@ -1,10 +1,32 @@
 'use client'
 
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
+import PLACEHOLDER from '@/assets/hero.webp'
+import { cn } from '@/lib/utils/cn'
 import { Media } from '@/payload-types'
 
-export function PayloadImage({ media }: { media: Media }) {
+interface PayloadImageProps {
+  media: Media | undefined
+  placeholder?: StaticImageData | string
+  className?: string
+}
+
+export function PayloadImage({
+  media,
+  className,
+  placeholder,
+}: PayloadImageProps) {
+  if (!media)
+    return (
+      <Image
+        src={placeholder ?? PLACEHOLDER}
+        alt={'Placeholder image'}
+        fill
+        className={cn('object-cover', className)}
+      />
+    )
+
   const validSizes: { width: number; url: string }[] = [
     media.sizes?.doubleExtraLarge,
     media.sizes?.extraLarge,
@@ -37,7 +59,7 @@ export function PayloadImage({ media }: { media: Media }) {
       fill
       src={media.url ?? ''}
       alt={media.alt ?? ''}
-      className="object-cover"
+      className={cn('object-cover', className)}
     />
   )
 }
