@@ -1,7 +1,7 @@
-import Image from 'next/image' // Add this import
+import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import type { Event } from '@/payload-types'
+import type { Event, River } from '@/payload-types'
 import { NextAdventureButtons } from './NextAdventureButtons'
 import { NextAdventureDate } from './NextAdventureDate'
 import { NextAdventureGrade } from './NextAdventureGrade'
@@ -12,36 +12,48 @@ interface EventPageProps {
 }
 
 export function NextAdventureCard({ event }: EventPageProps) {
+  const riverGrade = (event.river as River)?.grade || null
   return (
-    <div className="p-4 pt-0">
-      <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 p-4">
-        {event.featuredImage &&
-          typeof event.featuredImage !== 'number' &&
-          event.featuredImage.url && (
-            <div className="relative aspect-[302/192] h-[192px] w-full overflow-hidden">
+    <div className="p-4 pt-0 md:px-20 lg:px-28">
+      <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:px-9 md:pb-7 lg:px-14 lg:pb-11 xl:mx-auto xl:max-w-[953px]">
+        <div className="relative aspect-[302/192] h-[192px] w-full flex-shrink-0 overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:w-[325px]">
+          <div className="absolute inset-0 z-0 bg-gray-400" />
+
+          {event.featuredImage &&
+            typeof event.featuredImage !== 'number' &&
+            event.featuredImage.url && (
               <Image
                 src={event.featuredImage.url}
                 alt={event.title || ''}
                 fill
-                className="rounded-md object-cover"
+                className="z-10 object-cover"
               />
+            )}
+        </div>
+
+        <div className="flex flex-col gap-4 md:mb-1 md:min-w-0 md:gap-0">
+          <div className="flex flex-col gap-4 md:flex-col-reverse">
+            <h2 className="font-heading text-lg md:mb-2 md:truncate md:text-left md:text-lg lg:mb-4">
+              {event?.title}
+            </h2>
+            <div className="flex w-full justify-between md:w-fit md:gap-4 lg:gap-7">
+              {riverGrade && (
+                <NextAdventureGrade>{riverGrade}</NextAdventureGrade>
+              )}
+              {event.startTime && event.endTime && (
+                <NextAdventureDate
+                  startTime={event.startTime}
+                  endTime={event.endTime}
+                />
+              )}
             </div>
-          )}
-        <h2 className="font-heading truncate text-lg">{event?.title}</h2>
-        <div className="flex w-full justify-between">
-          <NextAdventureGrade>3</NextAdventureGrade>
-          {event.startTime && event.endTime && (
-            <NextAdventureDate
-              startTime={event.startTime}
-              endTime={event.endTime}
-            />
-          )}
+          </div>
+          <div className="font-body text-sm italic md:mb-2 md:text-sm lg:mb-5">
+            {event?.description && <RichText data={event.description} />}
+          </div>
+          <NextAdventureLocation>{event?.location}</NextAdventureLocation>
+          <NextAdventureButtons eventId={event.id} />
         </div>
-        <div className="font-body text-sm italic">
-          {event?.description && <RichText data={event.description} />}
-        </div>
-        <NextAdventureLocation>{event?.location}</NextAdventureLocation>
-        <NextAdventureButtons eventId={event.id}></NextAdventureButtons>
       </div>
     </div>
   )

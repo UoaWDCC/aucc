@@ -74,6 +74,26 @@ export const Events: CollectionConfig = {
       name: 'description',
       type: 'richText',
     },
+    {
+      name: 'eventType',
+      type: 'select',
+      label: 'Event Type',
+      required: true,
+      options: [
+        { label: 'Trip', value: 'trip' },
+        { label: 'Other', value: 'other' },
+      ],
+      defaultValue: 'other',
+    },
+    {
+      name: 'river',
+      type: 'relationship',
+      relationTo: 'rivers',
+      required: true,
+      admin: {
+        condition: (data) => data?.eventType === 'trip',
+      },
+    },
     customUploadField({
       name: 'featuredImage',
       label: 'Featured Image',

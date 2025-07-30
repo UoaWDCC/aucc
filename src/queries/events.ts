@@ -65,8 +65,8 @@ export const getEventById = unstable_cache(
   },
 )
 
-export const getNextEvent = unstable_cache(
-  async function (): Promise<Event | null> {
+export const getNextTrip = unstable_cache(
+  async function (): Promise<EventDTO | null> {
     try {
       const payload = await getPayloadClient()
       const { docs } = await payload.find({
@@ -79,14 +79,17 @@ export const getNextEvent = unstable_cache(
           },
         },
       })
-      return docs[0] as Event
+      return docs.length > 0 ? (docs[0] as EventDTO) : null
     } catch (error) {
       console.error('Failed to fetch next event', error)
       return null
     }
   },
-  ['getNextEvent'],
+  ['getNextTrip'],
   {
-    tags: cacheTags.events.relatedTags,
+    tags: [
+      ...cacheTags.events.relatedTags,
+      ...(cacheTags.rivers?.relatedTags ?? []),
+    ],
   },
 )
