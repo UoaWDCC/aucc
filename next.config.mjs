@@ -6,7 +6,7 @@ const nextConfig = {
   output: process.env.STANDALONE_OUTPUT === 'true' ? 'standalone' : undefined,
   transpilePackages: ['@t3-oss/env-nextjs'],
   images: {
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: 'https',
