@@ -1,4 +1,3 @@
-// payload/globals/eventsGlobal.ts
 import type { GlobalConfig } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
