@@ -96,8 +96,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'events-global': EventsGlobal;
+  };
+  globalsSelect: {
+    'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -646,6 +650,42 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events-global".
+ */
+export interface EventsGlobal {
+  id: number;
+  featuredImage: number | Media;
+  petrolCosts: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events-global_select".
+ */
+export interface EventsGlobalSelect<T extends boolean = true> {
+  featuredImage?: T;
+  petrolCosts?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

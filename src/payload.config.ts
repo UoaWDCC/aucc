@@ -10,6 +10,7 @@ import { Media } from '@/collections/media'
 import { Users } from '@/collections/users'
 import { env } from '@/lib/env'
 import { Events } from './collections/events'
+import { EventsGlobal } from './collections/events-global'
 import { Execs } from './collections/execs'
 import { Gallery } from './collections/gallery'
 import { Rivers } from './collections/rivers'
@@ -36,6 +37,7 @@ export default buildConfig({
     Gallery,
     Tags,
   ],
+  globals: [EventsGlobal],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,
