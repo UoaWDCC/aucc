@@ -42,7 +42,7 @@ export async function TripReportsSection() {
 
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
-      <section className="mx-4 pt-20 pb-12 md:mx-20 lg:mx-28 lg:pt-35">
+      <section className="mx-4 pt-20 pb-12 md:mx-20 lg:mx-28 lg:pt-35 xl:mx-auto xl:max-w-[1000px]">
         <LatestReportsHeader />
         <div className="flex flex-col gap-4 md:flex-row md:justify-center">
           <div className="w-full md:w-[58%]">
