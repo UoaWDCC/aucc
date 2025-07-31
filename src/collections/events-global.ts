@@ -26,7 +26,7 @@ export const EventsGlobal: GlobalConfig = {
     {
       name: 'petrolCosts',
       type: 'richText',
-      label: 'Petrol Costs Details',
+      label: 'Petrol Costs Information',
       required: true,
     },
   ],
