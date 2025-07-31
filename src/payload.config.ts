@@ -15,6 +15,7 @@ import { Gallery } from './collections/gallery'
 import { Rivers } from './collections/rivers'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
+import { EventsGlobal } from './globals/events-global'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,6 +37,7 @@ export default buildConfig({
     Gallery,
     Tags,
   ],
+  globals: [EventsGlobal],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,
