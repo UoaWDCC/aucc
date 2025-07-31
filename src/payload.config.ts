@@ -10,12 +10,12 @@ import { Media } from '@/collections/media'
 import { Users } from '@/collections/users'
 import { env } from '@/lib/env'
 import { Events } from './collections/events'
-import { EventsGlobal } from './collections/events-global'
 import { Execs } from './collections/execs'
 import { Gallery } from './collections/gallery'
 import { Rivers } from './collections/rivers'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
+import { EventsGlobal } from './globals/events-global'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
