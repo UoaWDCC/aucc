@@ -187,6 +187,9 @@ describe('getNextTrip', () => {
         startTime: {
           greater_than: expect.any(String),
         },
+        eventType: {
+          equals: 'trip',
+        },
       },
     })
 
