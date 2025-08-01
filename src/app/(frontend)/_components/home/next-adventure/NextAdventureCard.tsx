@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { PayloadImage } from '@/components/PayloadImage'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { EventDTO } from '@/queries/events'
@@ -16,18 +17,10 @@ export function NextAdventureCard({ event }: EventPageProps) {
   const riverGrade = event.river?.grade || null
   return (
     <div className="mx-4 md:mx-20 lg:mx-28">
-      <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:px-9 md:pb-7 lg:px-14 lg:pb-11 xl:mx-auto xl:max-w-[1000px]">
-        <div className="relative aspect-[302/192] h-[192px] w-[min(100%,302px)] flex-shrink-0 overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:w-[325px]">
+      <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:items-stretch md:px-9 md:pb-7 lg:px-14 lg:pb-11 xl:mx-auto xl:max-w-[1000px]">
+        <div className="relative h-48 w-full overflow-hidden rounded-md md:h-auto md:w-2/5 md:flex-shrink-0">
           <Skeleton className="absolute inset-0 z-0" />
-
-          {event.featuredImage.url && (
-            <Image
-              src={event.featuredImage.url}
-              alt={event.title || ''}
-              fill
-              className="z-10 object-cover"
-            />
-          )}
+          <PayloadImage media={event.featuredImage} />
         </div>
 
         <div className="flex flex-col gap-4 md:mb-1 md:min-w-0 md:gap-0">

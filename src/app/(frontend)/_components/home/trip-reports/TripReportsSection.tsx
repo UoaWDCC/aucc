@@ -19,19 +19,17 @@ export async function TripReportsSection() {
 
   const defaultReport = {
     title: 'No report available',
-    tripDate: undefined,
-    featuredImageURL: PLACEHOLDER.src,
+    tripDate: 'No date available',
+    featuredImage: undefined,
     content: 'No content available',
   }
 
   const mappedReports =
     tripReports?.slice(0, 3).map((report) => ({
-      title: report.title || 'No report available',
-      tripDate: report.tripDate || '',
-      featuredImageURL: report.featuredImage?.url || PLACEHOLDER.src,
-      content: report.content
-        ? getPlainText(report.content)
-        : 'No content available',
+      title: report.title,
+      tripDate: formatDate(report.tripDate),
+      featuredImage: report.featuredImage,
+      content: getPlainText(report.content),
     })) || []
 
   const [reportA, reportB, reportC] = [
@@ -48,12 +46,8 @@ export async function TripReportsSection() {
           <div className="w-full md:w-[58%]">
             <PrimaryTripReportCard
               title={reportA.title}
-              tripDate={
-                reportA.tripDate
-                  ? formatDate(reportA.tripDate)
-                  : 'No date available'
-              }
-              featuredImageURL={reportA.featuredImageURL}
+              tripDate={reportA.tripDate}
+              featuredImage={reportA.featuredImage}
               content={reportA.content}
             />
           </div>
@@ -61,23 +55,15 @@ export async function TripReportsSection() {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-1 md:gap-2.25">
               <SecondaryTripReportCard
                 title={reportB.title}
-                tripDate={
-                  reportB.tripDate
-                    ? formatDate(reportB.tripDate)
-                    : 'No date available'
-                }
-                featuredImageURL={reportB.featuredImageURL}
+                tripDate={reportB.tripDate}
+                featuredImage={reportB.featuredImage}
                 content={reportB.content}
               />
               <div className="flex flex-col">
                 <TertiaryTripReportCard
                   title={reportC.title}
-                  tripDate={
-                    reportC.tripDate
-                      ? formatDate(reportC.tripDate)
-                      : 'No date available'
-                  }
-                  featuredImageURL={reportC.featuredImageURL}
+                  tripDate={reportC.tripDate}
+                  featuredImage={reportC.featuredImage}
                   content={reportC.content}
                 />
                 <div className="md:hidden">
