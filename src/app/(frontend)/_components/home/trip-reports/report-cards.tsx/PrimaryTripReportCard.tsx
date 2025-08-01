@@ -1,10 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { formatDate } from '@/lib/utils/formatDate'
-
-const PLACEHOLDER = '/hero_background_Image.jpg'
-
 export interface TripReportCardProps {
   title: string
   tripDate: string
@@ -21,7 +17,7 @@ export const PrimaryTripReportCard = ({
   return (
     <div className="group relative col-span-2 flex cursor-pointer flex-col overflow-hidden rounded-2xl p-4 md:h-93">
       <Image
-        src={featuredImageURL ?? PLACEHOLDER}
+        src={featuredImageURL}
         alt={title ?? 'Trip cover image'}
         fill
         className="absolute inset-0 z-0 object-cover"
@@ -38,7 +34,7 @@ export const PrimaryTripReportCard = ({
         <div className="grid h-40 grid-cols-2 items-start gap-4 transition-opacity duration-400 md:grid-cols-1 lg:group-hover:opacity-0">
           <div className="relative mb-4 aspect-[4/3] h-40 w-full overflow-hidden rounded-lg md:hidden">
             <Image
-              src={featuredImageURL ?? PLACEHOLDER}
+              src={featuredImageURL}
               alt={title}
               fill
               className="object-cover"

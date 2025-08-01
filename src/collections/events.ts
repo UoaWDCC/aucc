@@ -24,6 +24,14 @@ export const Events: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
+    beforeChange: [
+      ({ data }) => {
+        if (data.eventType !== 'trip') {
+          data.river = null
+        }
+        return data
+      },
+    ],
     afterChange: [() => cacheTags.events.revalidate()],
     afterDelete: [() => cacheTags.events.revalidate()],
   },
@@ -74,9 +82,30 @@ export const Events: CollectionConfig = {
       name: 'description',
       type: 'richText',
     },
+    {
+      name: 'eventType',
+      type: 'select',
+      label: 'Event Type',
+      required: true,
+      options: [
+        { label: 'Trip', value: 'trip' },
+        { label: 'Other', value: 'other' },
+      ],
+      defaultValue: 'other',
+    },
+    {
+      name: 'river',
+      type: 'relationship',
+      relationTo: 'rivers',
+      required: true,
+      admin: {
+        condition: (data) => data?.eventType === 'trip',
+      },
+    },
     customUploadField({
       name: 'featuredImage',
       label: 'Featured Image',
+      required: true,
       mimeType: 'image',
       admin: {
         className: 'hide-filename',

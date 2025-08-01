@@ -154,3 +154,74 @@ describe('getEventById', () => {
     consoleSpy.mockRestore()
   })
 })
+
+describe('getNextTrip', () => {
+  const mockPayloadClient = {
+    find: vi.fn(),
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    ;(getPayloadClient as any).mockResolvedValue(mockPayloadClient)
+  })
+
+  it('should return the next upcoming event', async () => {
+    const mockEvent = {
+      id: '1',
+      title: 'Next Adventure',
+      startTime: '2030-01-01T00:00:00Z',
+    }
+
+    mockPayloadClient.find.mockResolvedValue({
+      docs: [mockEvent],
+    })
+
+    const { getNextTrip } = await import('@/queries/events')
+    const result = await getNextTrip()
+
+    expect(mockPayloadClient.find).toHaveBeenCalledWith({
+      collection: 'events',
+      limit: 1,
+      sort: 'startTime',
+      where: {
+        startTime: {
+          greater_than: expect.any(String),
+        },
+        eventType: {
+          equals: 'trip',
+        },
+      },
+    })
+
+    expect(result).toEqual(mockEvent)
+  })
+
+  it('should return null if no upcoming events are found', async () => {
+    mockPayloadClient.find.mockResolvedValue({
+      docs: [],
+    })
+
+    const { getNextTrip } = await import('@/queries/events')
+    const result = await getNextTrip()
+
+    expect(result).toBeNull()
+  })
+
+  it('should return null and log error if find throws', async () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    mockPayloadClient.find.mockRejectedValue(
+      new Error('Error fetching next event'),
+    )
+
+    const { getNextTrip } = await import('@/queries/events')
+    const result = await getNextTrip()
+
+    expect(result).toBeNull()
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Failed to fetch next event',
+      expect.any(Error),
+    )
+
+    consoleSpy.mockRestore()
+  })
+})

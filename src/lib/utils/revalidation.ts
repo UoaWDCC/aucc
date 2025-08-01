@@ -25,6 +25,7 @@ const tagRelations = {
   tripReports: ['media'],
   gallery: ['media'],
   tags: ['gallery'],
+  eventsGlobal: ['media'],
 } as const
 
 /** 
@@ -43,37 +44,50 @@ const tagRelations = {
 export const cacheTags: Record<
   CacheTag,
   {
+    tag: CacheTag
     relatedTags: CacheTag[]
     revalidate: () => void
   }
 > = {
   events: {
+    tag: 'events',
     relatedTags: getRevalidationTags('events'),
     revalidate: () => revalidateTag('events'),
   },
   execs: {
+    tag: 'execs',
     relatedTags: getRevalidationTags('execs'),
     revalidate: () => revalidateTag('execs'),
   },
   media: {
+    tag: 'media',
     relatedTags: getRevalidationTags('media'),
     revalidate: () => revalidateTag('media'),
   },
   rivers: {
+    tag: 'rivers',
     relatedTags: getRevalidationTags('rivers'),
     revalidate: () => revalidateTag('rivers'),
   },
   tripReports: {
+    tag: 'tripReports',
     relatedTags: getRevalidationTags('tripReports'),
     revalidate: () => revalidateTag('tripReports'),
   },
   gallery: {
+    tag: 'gallery',
     relatedTags: getRevalidationTags('gallery'),
     revalidate: () => revalidateTag('gallery'),
   },
   tags: {
+    tag: 'tags',
     relatedTags: getRevalidationTags('tags'),
     revalidate: () => revalidateTag('tags'),
+  },
+  eventsGlobal: {
+    tag: 'eventsGlobal',
+    relatedTags: getRevalidationTags('eventsGlobal'),
+    revalidate: () => revalidateTag('eventsGlobal'),
   },
 }
 

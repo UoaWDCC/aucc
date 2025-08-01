@@ -38,6 +38,8 @@
   --color-water: var(--water);
   --color-algae: var(--algae);
 
+  --color-skeleton: oklch(0.97 0 0);
+
   /* Radius */
   --radius-sm: calc(var(--radius) - 4px); /* 4px */
   --radius-md: var(--radius); /* 8px */
