@@ -1,17 +1,16 @@
 export function NextAdventureHeader() {
   return (
-    <div className="mt-8 mb-3 flex flex-col items-center">
+    <div className="mt-8 mb-3 flex flex-col items-center md:mb-2 lg:mb-3">
       <div className="flex w-fit flex-col">
-        <h1 className="font-heading text-cream text-center text-[28px]">
+        <h1 className="font-heading text-cream -mb-2 text-center text-[28px] md:mb-0 md:text-3xl lg:text-5xl">
           Next Adventure
         </h1>
         <div className="flex justify-end">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="209"
-            height="13"
             viewBox="0 0 209 13"
             fill="none"
+            className="h-auto w-[209px] md:w-[215px] lg:w-[359px]"
           >
             <line
               y1="-1"
