@@ -9,9 +9,7 @@ export function UpcomingBackground({
 }: UpcomingEventsBackGroundProps) {
   return (
     <div className="bg-cream relative inset-0 w-full">
-      <div className="max-w-256 md:mr-auto md:ml-auto xl:max-w-360">
-        {children}
-      </div>
+      <div className="w-full max-w-256 md:mx-auto xl:max-w-360">{children}</div>
     </div>
   )
 }
