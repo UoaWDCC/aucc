@@ -9,5 +9,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "prettier.requireConfig": true,
   "files.autoSave": "onFocusChange",
-  "typescript.preferences.importModuleSpecifier": "shortest"
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "tailwindCSS.classFunctions": ["cva", "cx"]
 }
