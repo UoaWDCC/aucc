@@ -1,4 +1,4 @@
-import Button from '@/components/ReusableButton/Button'
+import Button from '@/components/ReusableButton'
 import { getExecs } from '@/queries/execs'
 import { AboutPage } from './_components/AboutPage'
 
@@ -8,11 +8,6 @@ export default async function Page() {
   return (
     <>
       <AboutPage execs={execs} />
-      <div className="absolute left-200 z-100">
-        <Button intent="tertiary" size="md" href="/">
-          River Details
-        </Button>
-      </div>
     </>
   )
 }
