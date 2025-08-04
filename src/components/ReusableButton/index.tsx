@@ -21,7 +21,6 @@ const buttonVariants = cva(
         ],
         tertiary: ['border-2', 'rounded-4xl', 'font-unbounded', 'uppercase'],
         ghost: [
-          'font-extrabold',
           'font-unbounded',
           'hover:bg-abyss/15',
           'transition',
@@ -31,7 +30,7 @@ const buttonVariants = cva(
       },
       size: {
         // md is default size
-        sm: ['text-xs', 'py-1', 'px-2'],
+        sm: ['text-sm', 'py-1', 'px-2', 'tracking-tighter'],
         md: ['text-base', 'py-2', 'px-4'],
         lg: ['text-2xl', 'py-3', 'px-6'],
       },

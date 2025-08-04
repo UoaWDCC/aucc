@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 import Button from '@/components/ReusableButton'
@@ -11,7 +12,7 @@ export function SEGButton() {
     //   </button>
     // </Link>
 
-    <Button intent="ghost" color="abyss" size="md">
+    <Button intent="ghost" color="abyss" size="sm">
       SEE ENTIRE GALLERY <ArrowRight />
     </Button>
   )
