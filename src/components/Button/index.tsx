@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       intent: {
         primary: ['border-2', 'rounded-4xl'], // Default styled button
-        secondary: [
+        outline: [
           'bg-transparent',
           'border-2',
           'italic',
@@ -19,10 +19,9 @@ const buttonVariants = cva(
           'hover:bg-black/15',
           'rounded-4xl',
         ],
-        tertiary: ['border-2', 'rounded-4xl', 'font-unbounded', 'uppercase'],
+        secondary: ['border-2', 'rounded-4xl', 'font-unbounded', 'uppercase'],
         ghost: [
           'font-unbounded',
-          // 'hover:bg-abyss/15',
           'transition',
           'bg-transparent',
           'rounded-4xl',
@@ -33,7 +32,6 @@ const buttonVariants = cva(
         sm: ['text-sm', 'py-1', 'px-2', 'tracking-tighter'],
         md: ['text-base', 'py-2', 'px-4'],
         lg: ['text-2xl', 'py-3', 'px-6'],
-        custom: [''],
       },
       color: {
         cream: ['text-cream', 'border-cream'],
@@ -44,7 +42,7 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       { intent: 'primary', size: 'lg', class: 'border-3' },
-      { intent: 'secondary', size: 'lg', class: 'border-3' },
+      { intent: 'outline', size: 'lg', class: 'border-3' },
     ],
     defaultVariants: {
       intent: 'primary',

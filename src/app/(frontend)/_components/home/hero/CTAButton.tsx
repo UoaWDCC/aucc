@@ -5,7 +5,7 @@ export function CTAButton() {
     <div>
       <Button
         href="https://form.jotform.com/250418674375867"
-        intent="secondary"
+        intent="outline"
         size="md"
         target="_blank"
         color="cream"
