@@ -8,6 +8,7 @@ export function CTAButton() {
         intent="secondary"
         size="md"
         target="_blank"
+        color="cream"
       >
         Become a member
       </Button>

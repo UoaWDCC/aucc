@@ -4,57 +4,55 @@ import { cva, VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils/cn'
 
-const buttonVariants = cva('flex items-center justify-center text-center', {
-  variants: {
-    intent: {
-      primary: ['text-algae', 'cursor-pointer', 'border-2', 'rounded-4xl'], // Default styled button
-      secondary: [
-        'text-cream',
-        'border-cream',
-        'bg-transparent',
-        'border-2',
-        'cursor-pointer',
-        'italic',
-        'shadow-lg',
-        'transition',
-        'hover:bg-black/15',
-        'rounded-4xl',
-      ],
-      tertiary: [
-        'text-grass',
-        'border-grass',
-        'border-2',
-        'rounded-4xl',
-        'cursor-pointer',
-        'font-unbounded',
-        'uppercase',
-      ],
-      ghost: [
-        'text-cream',
-        'font-extrabold',
-        'hover:bg-cream/15',
-        'transition',
-        'bg-transparent',
-        'cursor-pointer',
-        'rounded-4xl',
-      ],
+const buttonVariants = cva(
+  'flex items-center justify-center text-center cursor-pointer',
+  {
+    variants: {
+      intent: {
+        primary: ['border-2', 'rounded-4xl'], // Default styled button
+        secondary: [
+          'bg-transparent',
+          'border-2',
+          'italic',
+          'shadow-lg',
+          'transition',
+          'hover:bg-black/15',
+          'rounded-4xl',
+        ],
+        tertiary: ['border-2', 'rounded-4xl', 'font-unbounded', 'uppercase'],
+        ghost: [
+          'font-extrabold',
+          'font-unbounded',
+          'hover:bg-abyss/15',
+          'transition',
+          'bg-transparent',
+          'rounded-4xl',
+        ],
+      },
+      size: {
+        // md is default size
+        sm: ['text-xs', 'py-1', 'px-2'],
+        md: ['text-base', 'py-2', 'px-4'],
+        lg: ['text-2xl', 'py-3', 'px-6'],
+      },
+      color: {
+        cream: ['text-cream', 'border-cream'],
+        abyss: ['text-abyss', 'border-abyss'],
+        algae: ['text-algae', 'border-algae'],
+        grass: ['text-grass', 'border-grass'],
+      },
     },
-    size: {
-      // md is default size
-      sm: ['text-xs', 'py-1', 'px-2'],
-      md: ['text-base', 'py-2', 'px-4'],
-      lg: ['text-2xl', 'py-3', 'px-6'],
+    compoundVariants: [
+      { intent: 'primary', size: 'lg', class: 'border-3' },
+      { intent: 'secondary', size: 'lg', class: 'border-3' },
+    ],
+    defaultVariants: {
+      intent: 'primary',
+      size: 'md',
+      color: 'cream',
     },
   },
-  compoundVariants: [
-    { intent: 'primary', size: 'lg', class: 'border-3' },
-    { intent: 'secondary', size: 'lg', class: 'border-3' },
-  ],
-  defaultVariants: {
-    intent: 'primary',
-    size: 'md',
-  },
-})
+)
 
 type BaseProps = VariantProps<typeof buttonVariants> & {
   className?: string
@@ -81,9 +79,10 @@ export default function Button({
   size,
   className,
   children,
+  color,
   ...props
 }: ButtonProps) {
-  const classes = cn(buttonVariants({ intent, size }), className)
+  const classes = cn(buttonVariants({ intent, size, color }), className)
 
   if (href) {
     return (
