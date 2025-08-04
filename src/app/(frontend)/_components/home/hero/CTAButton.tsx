@@ -1,4 +1,4 @@
-import Button from '@/components/ReusableButton'
+import Button from '@/components/Button'
 
 export function CTAButton() {
   return (
