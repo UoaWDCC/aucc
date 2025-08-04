@@ -12,7 +12,7 @@ export function SEGButton() {
     //   </button>
     // </Link>
 
-    <Button intent="ghost" color="abyss" size="sm">
+    <Button intent="ghost" color="abyss" size="sm" href="/gallery">
       SEE ENTIRE GALLERY <ArrowRight />
     </Button>
   )
