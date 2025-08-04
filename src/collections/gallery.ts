@@ -9,6 +9,9 @@ export const Gallery: CollectionConfig = {
   slug: 'gallery',
   admin: {
     defaultColumns: ['image', 'tags'],
+    // components: {
+    //   afterListTable: ['/collections/components/CustomUploadButton'],
+    // },
   },
   access: {
     create: authenticated,
@@ -17,7 +20,31 @@ export const Gallery: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [() => cacheTags.gallery.revalidate()],
+    afterChange: [
+      ({ doc, req }) => {
+        if (doc['more-images'].length > 0) {
+          if (req.payload) {
+            doc['more-images'].forEach((item: any) => {
+              req.payload.create({
+                collection: 'gallery',
+                data: {
+                  image: item,
+                  tags: doc.tags,
+                },
+              })
+            })
+          }
+          req.payload.update({
+            collection: 'gallery',
+            id: doc.id,
+            data: {
+              'more-images': [],
+            },
+          })
+        }
+        cacheTags.gallery.revalidate()
+      },
+    ],
     afterDelete: [() => cacheTags.gallery.revalidate()],
   },
   labels: {
@@ -34,6 +61,17 @@ export const Gallery: CollectionConfig = {
         thumbnail: true,
         className: 'hide-filename',
       },
+    }),
+    customUploadField({
+      name: 'more-images',
+      label: 'Image',
+      required: false,
+      mimeType: 'image',
+      admin: {
+        thumbnail: true,
+        className: 'hide-filename',
+      },
+      hasMany: true,
     }),
     {
       name: 'tags',
