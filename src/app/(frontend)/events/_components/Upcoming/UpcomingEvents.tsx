@@ -1,12 +1,15 @@
 import { UpcomingBackground } from './UpcomingEventsBackground'
-//import { UpcomingBox } from './UpcomingEventsBox'
+import { UpcomingEventsBox } from './UpcomingEventsBox'
 import { UpcomingText } from './UpcomingEventsText'
 
 export function UpcomingSection() {
   return (
     <UpcomingBackground>
-      <div className="relative z-2 h-auto xl:h-195">
-        <UpcomingText />
+      <div className="flex w-full flex-col items-start md:flex-row md:items-start xl:gap-20">
+        <div className="flex flex-col md:flex-row md:items-start md:gap-8">
+          <UpcomingText />
+          <UpcomingEventsBox />
+        </div>
       </div>
     </UpcomingBackground>
   )

@@ -32,26 +32,23 @@ function FlareIcon({ className }: { className?: string }) {
 
 export function UpcomingText() {
   return (
-    <div className="flex w-full flex-col items-start px-12 pt-20 md:pt-20 md:pl-[10%] xl:pt-32 xl:pl-28">
-      <div className="flex flex-col gap-6">
-        {/* Title Container (Flare 기준 anchor) */}
-        <div className="relative w-fit">
-          <FlareIcon className="text-grass absolute -top-3 right-[-20px] z-10 scale-x-[-1] md:-top-4 md:-right-4" />
-          <h1 className="font-heading text-grass text-left text-3xl tracking-tighter md:text-4xl xl:text-5xl">
-            UPCOMING TRIPS
-          </h1>
-        </div>
+    <div className="flex w-full flex-col items-start px-4 pt-20 md:px-12 md:pl-[10%] xl:pl-28">
+      {/* Title Container */}
+      <div className="relative w-fit">
+        <FlareIcon className="text-grass absolute -top-3 left-[-16px] z-10 md:-top-4 md:-right-6 md:left-auto md:scale-x-[-1]" />
+        <h1 className="font-heading text-grass text-left text-3xl tracking-tighter md:text-4xl xl:text-5xl">
+          UPCOMING TRIPS
+        </h1>
+      </div>
 
-        {/* Info */}
-        <p className="font-body max-w-sm text-sm leading-6 text-gray-800 italic">
+      {/* Info Container */}
+      <div className="mt-6 w-full max-w-[502px]">
+        <p className="font-body text-bold text-sm leading-6 text-gray-800 italic">
           Here you&apos;ll find information on our major events for the year
           ranging from action-packed trips to small kayak training sessions.
           Updated information on upcoming trips will be circulated on the email
           list and our social media pages. Check out previous events on our{' '}
-          <Link
-            href="/trip-reports"
-            className="text-grass underline hover:text-[#475A30]"
-          >
+          <Link href="/trip-reports" className="underline hover:text-[#475A30]">
             Trip Reports
           </Link>{' '}
           page.
