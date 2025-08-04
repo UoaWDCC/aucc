@@ -63,10 +63,12 @@ export const Events: CollectionConfig = {
           pickerAppearance: 'dayAndTime',
         },
       },
+      required: true,
     },
     {
       name: 'location',
       type: 'text',
+      required: true,
     },
     {
       name: 'description',
@@ -74,6 +76,7 @@ export const Events: CollectionConfig = {
     },
     customUploadField({
       name: 'featuredImage',
+      label: 'Featured Image',
       mimeType: 'image',
       admin: {
         className: 'hide-filename',
