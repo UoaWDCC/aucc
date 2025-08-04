@@ -32,17 +32,17 @@ function FlareIcon({ className }: { className?: string }) {
 
 export function UpcomingText() {
   return (
-    <div className="flex w-full flex-col items-start px-4 pt-20 md:px-12 md:pl-[10%] xl:pl-28">
+    <div className="flex w-full flex-col items-center px-4 pt-20 text-center md:items-start md:px-12 md:pl-[10%] md:text-left xl:pl-28">
       {/* Title Container */}
       <div className="relative w-fit">
         <FlareIcon className="text-grass absolute -top-3 left-[-16px] z-10 md:-top-4 md:-right-6 md:left-auto md:scale-x-[-1]" />
-        <h1 className="font-heading text-grass text-left text-3xl tracking-tighter md:text-4xl xl:text-5xl">
+        <h1 className="font-heading text-grass text-3xl tracking-tighter md:text-4xl xl:text-5xl">
           UPCOMING TRIPS
         </h1>
       </div>
 
-      {/* Info Container */}
-      <div className="mt-6 w-full max-w-[502px]">
+      {/* Info */}
+      <div className="mt-6 w-full max-w-[95%] md:max-w-[502px]">
         <p className="font-body text-bold text-sm leading-6 text-gray-800 italic">
           Here you&apos;ll find information on our major events for the year
           ranging from action-packed trips to small kayak training sessions.

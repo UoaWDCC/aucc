@@ -1,6 +1,6 @@
 export function UpcomingEventsBox() {
   return (
-    <div className="w-full max-w-[320px] rounded-lg border border-[#9AA687] bg-transparent p-6 text-left text-sm text-gray-700 md:mt-2">
+    <div className="mx-auto w-full max-w-[320px] rounded-lg border border-[#9AA687] bg-transparent p-6 text-left md:mx-0 md:mt-2">
       <h3 className="font-heading text-grass mb-4 text-center text-base text-lg tracking-tighter">
         PETROL COSTS
       </h3>
