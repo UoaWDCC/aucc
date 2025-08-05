@@ -20,7 +20,7 @@ export function ContactText() {
         </div>
 
         {/* Social Media */}
-        <div className="text-cream font-body mt-12 flex w-fit flex-col items-start gap-3 text-[14px] italic md:mt-4 md:flex-row md:items-center md:gap-6 md:text-left md:text-[16px]">
+        <div className="text-cream font-body mt-12 flex w-fit flex-col items-start gap-3 text-sm italic md:mt-4 md:flex-row md:items-center md:gap-6 md:text-left md:text-[16px]">
           <a
             href="https://www.instagram.com/aucanoeclub"
             target="_blank"

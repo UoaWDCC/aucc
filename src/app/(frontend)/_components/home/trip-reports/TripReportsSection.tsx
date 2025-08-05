@@ -17,45 +17,37 @@ export async function TripReportsSection() {
     sort: '-tripDate',
   })
 
-  // Create default report structure
   const defaultReport = {
     title: 'No report available',
-    tripDate: undefined,
-    featuredImageURL: PLACEHOLDER.src,
+    tripDate: 'No date available',
+    featuredImage: undefined,
     content: 'No content available',
   }
 
-  // Map trip reports or use defaults
   const mappedReports =
     tripReports?.slice(0, 3).map((report) => ({
-      title: report.title || 'No report available',
-      tripDate: report.tripDate || '',
-      featuredImageURL: report.featuredImage?.url || PLACEHOLDER.src,
-      content: report.content
-        ? getPlainText(report.content)
-        : 'No content available',
+      title: report.title,
+      tripDate: formatDate(report.tripDate),
+      featuredImage: report.featuredImage,
+      content: getPlainText(report.content),
     })) || []
 
-  // Ensure we always have 3 reports by filling with defaults
   const [reportA, reportB, reportC] = [
     mappedReports[0] || defaultReport,
     mappedReports[1] || defaultReport,
     mappedReports[2] || defaultReport,
   ]
+
   return (
     <div className="h-188 min-h-96 bg-[conic-gradient(from_-100deg,#424B44_0deg,#78ACAD_55.3116deg,#BED66D_204.231deg,#3E433D_355.905deg,#424B44_360deg)]">
-      <section className="px-4 pt-20 pb-12 md:mx-30 md:p-5 md:pt-35 lg:mx-35 lg:p-5 lg:pt-38">
+      <section className="mx-4 pt-20 pb-12 md:mx-20 lg:mx-28 lg:pt-35 xl:mx-auto xl:max-w-[1000px]">
         <LatestReportsHeader />
         <div className="flex flex-col gap-4 md:flex-row md:justify-center">
           <div className="w-full md:w-[58%]">
             <PrimaryTripReportCard
               title={reportA.title}
-              tripDate={
-                reportA.tripDate
-                  ? formatDate(reportA.tripDate)
-                  : 'No date available'
-              }
-              featuredImageURL={reportA.featuredImageURL}
+              tripDate={reportA.tripDate}
+              featuredImage={reportA.featuredImage}
               content={reportA.content}
             />
           </div>
@@ -63,23 +55,15 @@ export async function TripReportsSection() {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-1 md:gap-2.25">
               <SecondaryTripReportCard
                 title={reportB.title}
-                tripDate={
-                  reportB.tripDate
-                    ? formatDate(reportB.tripDate)
-                    : 'No date available'
-                }
-                featuredImageURL={reportB.featuredImageURL}
+                tripDate={reportB.tripDate}
+                featuredImage={reportB.featuredImage}
                 content={reportB.content}
               />
               <div className="flex flex-col">
                 <TertiaryTripReportCard
                   title={reportC.title}
-                  tripDate={
-                    reportC.tripDate
-                      ? formatDate(reportC.tripDate)
-                      : 'No date available'
-                  }
-                  featuredImageURL={reportC.featuredImageURL}
+                  tripDate={reportC.tripDate}
+                  featuredImage={reportC.featuredImage}
                   content={reportC.content}
                 />
                 <div className="md:hidden">
