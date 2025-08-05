@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import type { Event } from '@/payload-types'
+import { EventGallerySection } from './EventGallery/EventGallerySection'
 
 interface EventPageProps {
   event: Event
@@ -38,6 +39,7 @@ export function EventPage({ event }: EventPageProps) {
           </div>
         </div>
       </div>
+      <EventGallerySection />
     </div>
   )
 }
