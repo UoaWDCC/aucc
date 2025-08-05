@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-/** icon on the title */
 function FlareIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -33,12 +32,12 @@ function FlareIcon({ className }: { className?: string }) {
 export function UpcomingText() {
   return (
     <div className="flex w-full flex-col items-center px-4 pt-20 text-center md:items-start md:px-12 md:pl-[10%] md:text-left xl:pl-28">
-      {/* Title Container */}
-      <div className="relative w-fit">
-        <FlareIcon className="text-grass absolute -top-3 left-[-16px] z-10 md:-top-4 md:-right-6 md:left-auto md:scale-x-[-1]" />
-        <h1 className="font-heading text-grass text-3xl tracking-tighter md:text-4xl xl:text-5xl">
+      {/* Title */}
+      <div className="relative flex items-center justify-center md:justify-start">
+        <h1 className="font-heading text-grass text-2xl tracking-tighter whitespace-nowrap md:text-4xl xl:text-5xl">
           UPCOMING TRIPS
         </h1>
+        <FlareIcon className="text-grass absolute -top-4 -right-6 scale-x-[-1] md:left-auto" />
       </div>
 
       {/* Info */}

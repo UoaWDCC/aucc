@@ -49,7 +49,7 @@ export const Execs: CollectionConfig = {
     customUploadField({
       name: 'image',
       label: 'Profile Image',
-      required: false, //fir my personal db. Change to true
+      required: true,
       mimeType: 'image',
       admin: {
         className: 'hide-filename',

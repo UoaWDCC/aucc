@@ -5,12 +5,12 @@ import { UpcomingText } from './UpcomingEventsText'
 export function UpcomingSection() {
   return (
     <UpcomingBackground>
-      <div className="flex w-full flex-col items-center px-4 md:items-start md:px-8 xl:px-20">
-        <div className="flex w-full flex-col items-center gap-y-10 md:flex-row md:items-start md:gap-x-12">
-          <div className="w-full max-w-[80%] md:w-[60%] md:max-w-none">
+      <div className="w-full px-4 md:px-8 xl:px-20">
+        <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center gap-y-10 md:flex-row md:items-start md:gap-x-12">
+          <div className="w-full md:w-[60%]">
             <UpcomingText />
           </div>
-          <div className="w-full max-w-md md:w-[40%] md:max-w-none">
+          <div className="w-full md:w-[40%]">
             <UpcomingEventsBox />
           </div>
         </div>
