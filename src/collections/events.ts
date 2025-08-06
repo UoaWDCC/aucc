@@ -83,6 +83,10 @@ export const Events: CollectionConfig = {
       type: 'richText',
     },
     {
+      name: 'ticketsInformation',
+      type: 'richText',
+    },
+    {
       name: 'eventType',
       type: 'select',
       label: 'Event Type',

@@ -246,6 +246,22 @@ export interface River {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
+interface RichTextContent {
+  root: {
+    type: string;
+    children: {
+      type: string;
+      version: number;
+      [k: string]: unknown;
+    }[];
+    direction: 'ltr' | 'rtl' | null;
+    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+    indent: number;
+    version: number;
+  };
+  [k: string]: unknown;
+}
+
 export interface Event {
   id: number;
   title: string;
@@ -253,27 +269,15 @@ export interface Event {
   startTime: string;
   endTime: string;
   location: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  description?: RichTextContent | null;
+  ticketsInformation?: RichTextContent | null;
   eventType: 'trip' | 'other';
-  river?: (number | null) | River;
+  river?: number | River | null;
   featuredImage: number | Media;
   updatedAt: string;
   createdAt: string;
 }
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "trip-reports".
@@ -562,6 +566,7 @@ export interface EventsSelect<T extends boolean = true> {
   endTime?: T;
   location?: T;
   description?: T;
+  ticketsInformation?: T;
   eventType?: T;
   river?: T;
   featuredImage?: T;
