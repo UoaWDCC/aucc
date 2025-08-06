@@ -120,7 +120,7 @@ export default function GallerySlider({ gallery }: Props) {
     <div className="relative">
       <div ref={sliderRef} className="keen-slider">
         {gallery.map((item) => {
-          const media = item.image
+          const media = item.image[0]
           const src = media?.url || ''
 
           return (

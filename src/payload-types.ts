@@ -331,8 +331,7 @@ export interface Exec {
  */
 export interface Gallery {
   id: number;
-  image: number | Media;
-  'more-images'?: (number | Media)[] | null;
+  image: (number | Media)[];
   tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -607,7 +606,6 @@ export interface ExecsSelect<T extends boolean = true> {
  */
 export interface GallerySelect<T extends boolean = true> {
   image?: T;
-  'more-images'?: T;
   tags?: T;
   updatedAt?: T;
   createdAt?: T;

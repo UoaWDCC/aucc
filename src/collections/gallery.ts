@@ -22,9 +22,9 @@ export const Gallery: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc, req }) => {
-        if (doc['more-images'].length > 0) {
+        if (doc['image'].length > 1) {
           if (req.payload) {
-            doc['more-images'].forEach((item: any) => {
+            doc['image'].slice(1).forEach((item: any) => {
               req.payload.create({
                 collection: 'gallery',
                 data: {
@@ -38,7 +38,7 @@ export const Gallery: CollectionConfig = {
             collection: 'gallery',
             id: doc.id,
             data: {
-              'more-images': [],
+              image: doc['image'][0],
             },
           })
         }
@@ -56,16 +56,6 @@ export const Gallery: CollectionConfig = {
       name: 'image',
       label: 'Image',
       required: true,
-      mimeType: 'image',
-      admin: {
-        thumbnail: true,
-        className: 'hide-filename',
-      },
-    }),
-    customUploadField({
-      name: 'more-images',
-      label: 'Image',
-      required: false,
       mimeType: 'image',
       admin: {
         thumbnail: true,
