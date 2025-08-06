@@ -129,7 +129,7 @@ export default function GallerySlider({ gallery }: Props) {
               className="keen-slider__slide cursor-grab transition-opacity duration-200"
             >
               <div className="relative aspect-[4/3] w-full">
-                <PayloadImage media={item.image} />
+                <PayloadImage media={item.image[0]} />
               </div>
             </div>
           )
