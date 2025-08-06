@@ -1,13 +1,17 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
+import Button from '@/components/Button'
+
 export function SeeAllReportsButton() {
   return (
-    <Link href="/trip-reports">
-      <button className="text-cream border-cream font-unbounded text-md flex items-center px-2 pt-3 pb-2 text-left md:place-self-end md:pt-6 md:text-sm">
-        SEE ALL REPORTS
-        <ArrowRight />
-      </button>
-    </Link>
+    <Button
+      href="/trip-reports"
+      intent="ghost"
+      color="cream"
+      className="text-md flex px-2 pt-3 pb-2 text-left md:place-self-end md:pt-6 md:text-sm"
+    >
+      SEE ALL REPORTS <ArrowRight />
+    </Button>
   )
 }
