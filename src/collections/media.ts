@@ -30,7 +30,7 @@ export const Media: CollectionConfig = {
         formatOptions: {
           format: 'webp',
           options: {
-            quality: 60,
+            quality: 75,
           },
         },
         name: 'thumbnail',
@@ -41,7 +41,7 @@ export const Media: CollectionConfig = {
         formatOptions: {
           format: 'webp',
           options: {
-            quality: 60,
+            quality: 75,
           },
         },
         name: 'small',
@@ -52,7 +52,7 @@ export const Media: CollectionConfig = {
         formatOptions: {
           format: 'webp',
           options: {
-            quality: 60,
+            quality: 75,
           },
         },
         name: 'medium',
@@ -63,7 +63,7 @@ export const Media: CollectionConfig = {
         formatOptions: {
           format: 'webp',
           options: {
-            quality: 60,
+            quality: 75,
           },
         },
         name: 'large',
@@ -74,7 +74,7 @@ export const Media: CollectionConfig = {
         formatOptions: {
           format: 'webp',
           options: {
-            quality: 60,
+            quality: 75,
           },
         },
         name: 'extraLarge',
@@ -85,7 +85,7 @@ export const Media: CollectionConfig = {
         formatOptions: {
           format: 'webp',
           options: {
-            quality: 60,
+            quality: 75,
           },
         },
         name: 'doubleExtraLarge',

@@ -321,7 +321,7 @@ export interface Exec {
   pronouns: string;
   role: string;
   email: string;
-  image: number | Media;
+  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }

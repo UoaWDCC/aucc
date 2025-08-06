@@ -1,16 +1,17 @@
+import Button from '@/components/Button'
+
 export function CTAButton() {
   return (
     <div>
-      <a
+      <Button
         href="https://form.jotform.com/250418674375867"
+        intent="outline"
+        size="md"
         target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block"
+        color="cream"
       >
-        <button className="text-cream border-cream h-10 w-43 cursor-pointer rounded-4xl border-2 italic shadow-lg transition hover:bg-black/15">
-          Become a member
-        </button>
-      </a>
+        Become a member
+      </Button>
     </div>
   )
 }
