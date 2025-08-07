@@ -4,7 +4,7 @@ import React, { Suspense } from 'react'
 
 import { Event } from '@/payload-types'
 import { EventsIntroSection } from './EventsIntro/EventsIntroSection'
-import { TripsSection } from './Trips/UpcomingTripsSection'
+import { UpcomingTripsSection } from './Trips/UpcomingTripsSection'
 import { UpcomingSection } from './Upcoming/UpcomingEvents'
 
 interface EventsPageProps {
@@ -16,7 +16,7 @@ export function EventsPage({ events }: EventsPageProps) {
     <>
       <EventsIntroSection />
       <UpcomingSection />
-      <TripsSection events={events} />
+      <UpcomingTripsSection events={events} />
     </>
   )
 }

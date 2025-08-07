@@ -4,7 +4,7 @@ interface TripsSectionBackgroundProps {
   children: ReactNode
 }
 
-export function TripsSectionBackground({
+export function UpcomingTripsSectionBackground({
   children,
 }: TripsSectionBackgroundProps) {
   return (
