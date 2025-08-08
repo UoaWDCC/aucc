@@ -121,7 +121,7 @@ export default function GallerySlider({ gallery }: Props) {
     <div className="relative">
       <div ref={sliderRef} className="keen-slider">
         {gallery.map((item) => {
-          const media = item.image[0]
+          const media = item.image ?? undefined
           const src = media?.url || ''
           return (
             <div
@@ -129,7 +129,7 @@ export default function GallerySlider({ gallery }: Props) {
               className="keen-slider__slide cursor-grab transition-opacity duration-200"
             >
               <div className="relative aspect-[4/3] w-full">
-                <PayloadImage media={item.image[0]} />
+                <PayloadImage media={media} />
               </div>
             </div>
           )

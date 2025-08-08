@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload'
+import { CollectionConfig, ValidationError } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
@@ -20,25 +20,41 @@ export const Gallery: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
+    beforeChange: [
+      ({ data, operation }) => {
+        if (!data.image && (!data.images || data.images.length === 0)) {
+          throw new ValidationError({
+            errors: [
+              {
+                message: 'At least one image must be provided.',
+                path: operation == 'update' ? 'image' : 'images',
+              },
+            ],
+          })
+        }
+      },
+    ],
     afterChange: [
       ({ doc, req }) => {
-        if (doc['image'].length > 1) {
-          if (req.payload) {
-            doc['image'].slice(1).forEach((item: any) => {
-              req.payload.create({
-                collection: 'gallery',
-                data: {
-                  image: item,
-                  tags: doc.tags,
-                },
-              })
+        if (doc['images'] && doc['images'].length > 0 && req.payload) {
+          doc['images'].slice(1).forEach((item: any) => {
+            req.payload.create({
+              collection: 'gallery',
+              data: {
+                image: item,
+                images: [],
+                tags: doc.tags,
+              },
             })
-          }
+          })
+
           req.payload.update({
             collection: 'gallery',
             id: doc.id,
             data: {
-              image: doc['image'][0],
+              image: doc.images[0],
+              images: [],
+              tags: doc.tags,
             },
           })
         }
@@ -55,11 +71,39 @@ export const Gallery: CollectionConfig = {
     customUploadField({
       name: 'image',
       label: 'Image',
-      required: true,
+      required: false,
       mimeType: 'image',
       admin: {
         thumbnail: true,
         className: 'hide-filename',
+      },
+      access: {
+        create: () => false,
+        read: ({ id }) => {
+          if (id) {
+            return true
+          }
+          return false
+        },
+      },
+    }),
+    customUploadField({
+      name: 'images',
+      label: 'Images',
+      required: false,
+      mimeType: 'image',
+      admin: {
+        thumbnail: true,
+        className: 'hide-filename',
+      },
+      access: {
+        read: ({ id }) => {
+          if (id) {
+            return false
+          }
+          return true
+        },
+        update: () => false,
       },
       hasMany: true,
     }),
