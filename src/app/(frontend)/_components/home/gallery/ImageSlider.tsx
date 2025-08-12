@@ -8,6 +8,7 @@ import 'keen-slider/keen-slider.min.css'
 import next from 'next'
 import Image from 'next/image'
 
+import { PayloadImage } from '@/components/PayloadImage'
 import type { GalleryDTO } from '@/queries/gallery'
 import NavArrow from './NavArrow'
 
@@ -120,26 +121,14 @@ export default function GallerySlider({ gallery }: Props) {
     <div className="relative">
       <div ref={sliderRef} className="keen-slider">
         {gallery.map((item) => {
-          const media = item.image
-          const src = media?.url || ''
-
           return (
             <div
               key={item.id}
               className="keen-slider__slide cursor-grab transition-opacity duration-200"
             >
-              {src ? (
-                <div className="relative aspect-[4/3] w-full">
-                  <Image
-                    src={src}
-                    alt={media?.alt || ''}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ) : (
-                <div>Image not available</div>
-              )}
+              <div className="relative aspect-[4/3] w-full">
+                <PayloadImage media={item.image} />
+              </div>
             </div>
           )
         })}
