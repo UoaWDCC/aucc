@@ -10,11 +10,6 @@ type CustomUploadFieldArgs = {
     className?: string
     [key: string]: any
   }
-  access?: {
-    read?: FieldAccess
-    create?: FieldAccess
-    update?: FieldAccess
-  }
 }
 
 export const customUploadField = ({
@@ -24,11 +19,6 @@ export const customUploadField = ({
   hasMany = false,
   mimeType,
   admin,
-  access = {
-    read: () => true,
-    create: () => true,
-    update: () => true,
-  },
 }: CustomUploadFieldArgs): Field => ({
   name,
   label,
@@ -40,7 +30,6 @@ export const customUploadField = ({
   filterOptions: {
     mimeType: { contains: mimeType },
   },
-  access: access,
   hooks: {
     beforeChange: [
       async ({ value, req }) => {

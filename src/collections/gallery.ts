@@ -1,3 +1,4 @@
+import { flushAllTraces } from 'next/dist/trace'
 import { CollectionConfig, ValidationError } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
@@ -9,9 +10,6 @@ export const Gallery: CollectionConfig = {
   slug: 'gallery',
   admin: {
     defaultColumns: ['image', 'tags'],
-    // components: {
-    //   afterListTable: ['/collections/components/CustomUploadButton'],
-    // },
   },
   access: {
     create: authenticated,
@@ -22,12 +20,15 @@ export const Gallery: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data, operation }) => {
-        if (!data.image && (!data.images || data.images.length === 0)) {
+        if (operation == 'create' && data.images && data.images.length > 0) {
+          data.image = data.images[0]
+        }
+        if (!data.image) {
           throw new ValidationError({
             errors: [
               {
                 message: 'At least one image must be provided.',
-                path: operation == 'update' ? 'image' : 'images',
+                path: 'images',
               },
             ],
           })
@@ -52,7 +53,7 @@ export const Gallery: CollectionConfig = {
             collection: 'gallery',
             id: doc.id,
             data: {
-              image: doc.images[0],
+              image: doc.image,
               images: [],
               tags: doc.tags,
             },
@@ -76,16 +77,22 @@ export const Gallery: CollectionConfig = {
       admin: {
         thumbnail: true,
         className: 'hide-filename',
-      },
-      access: {
-        create: () => false,
-        read: ({ id }) => {
-          if (id) {
+        condition: (data: any) => {
+          if (data && data.image) {
             return true
           }
           return false
         },
       },
+      // access: {
+      //   create: () => false,
+      //   read: ({ id }) => {
+      //     if (id) {
+      //       return true
+      //     }
+      //     return false
+      //   },
+      // },
     }),
     customUploadField({
       name: 'images',
@@ -95,15 +102,12 @@ export const Gallery: CollectionConfig = {
       admin: {
         thumbnail: true,
         className: 'hide-filename',
-      },
-      access: {
-        read: ({ id }) => {
-          if (id) {
+        condition: (data: any) => {
+          if (data && data.image) {
             return false
           }
           return true
         },
-        update: () => false,
       },
       hasMany: true,
     }),
