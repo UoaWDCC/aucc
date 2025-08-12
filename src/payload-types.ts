@@ -348,7 +348,11 @@ export interface Exec {
  */
 export interface Gallery {
   id: number;
-  image: number | Media;
+  image?: (number | null) | Media;
+  /**
+   * Allows bulk upload, the tag will be applied to all images.
+   */
+  images?: (number | Media)[] | null;
   tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -624,6 +628,7 @@ export interface ExecsSelect<T extends boolean = true> {
  */
 export interface GallerySelect<T extends boolean = true> {
   image?: T;
+  images?: T;
   tags?: T;
   updatedAt?: T;
   createdAt?: T;
