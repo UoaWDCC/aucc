@@ -84,15 +84,6 @@ export const Gallery: CollectionConfig = {
           return false
         },
       },
-      // access: {
-      //   create: () => false,
-      //   read: ({ id }) => {
-      //     if (id) {
-      //       return true
-      //     }
-      //     return false
-      //   },
-      // },
     }),
     customUploadField({
       name: 'images',
@@ -108,6 +99,8 @@ export const Gallery: CollectionConfig = {
           }
           return true
         },
+        description:
+          'Allows bulk upload, the tag will be applied to all images.',
       },
       hasMany: true,
     }),

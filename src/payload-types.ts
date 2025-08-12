@@ -332,6 +332,9 @@ export interface Exec {
 export interface Gallery {
   id: number;
   image?: (number | null) | Media;
+  /**
+   * Allows bulk upload, the tag will be applied to all images.
+   */
   images?: (number | Media)[] | null;
   tags?: (number | Tag)[] | null;
   updatedAt: string;

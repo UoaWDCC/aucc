@@ -1,4 +1,4 @@
-import type { Field, FieldAccess } from 'payload'
+import type { Field } from 'payload'
 
 type CustomUploadFieldArgs = {
   name: string
