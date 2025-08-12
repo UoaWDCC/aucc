@@ -246,21 +246,6 @@ export interface River {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
-interface RichTextContent {
-  root: {
-    type: string;
-    children: {
-      type: string;
-      version: number;
-      [k: string]: unknown;
-    }[];
-    direction: 'ltr' | 'rtl' | null;
-    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-    indent: number;
-    version: number;
-  };
-  [k: string]: unknown;
-}
 
 export interface Event {
   id: number;
@@ -269,8 +254,36 @@ export interface Event {
   startTime: string;
   endTime: string;
   location: string;
-  description?: RichTextContent | null;
-  ticketsInformation?: RichTextContent | null;
+  description?: {
+  root: {
+    type: string;
+    children: {
+      type: string;
+      version: number;
+      [k: string]: unknown;
+    }[];
+    direction: ('ltr' | 'rtl') | null;
+    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+    indent: number;
+    version: number;
+  };
+  [k: string]: unknown;
+} | null;
+  ticketsInformation?: {
+  root: {
+    type: string;
+    children: {
+      type: string;
+      version: number;
+      [k: string]: unknown;
+    }[];
+    direction: ('ltr' | 'rtl') | null;
+    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+    indent: number;
+    version: number;
+  };
+  [k: string]: unknown;
+} | null;
   eventType: 'trip' | 'other';
   river?: number | River | null;
   featuredImage: number | Media;
