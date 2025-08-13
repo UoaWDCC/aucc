@@ -2,13 +2,13 @@
 
 import React from 'react'
 
-import { Event } from '@/payload-types'
+import { EventDTO } from '@/queries/events'
 import { EventsIntroSection } from './EventsIntro/EventsIntroSection'
 import { UpcomingTripsSection } from './Trips/UpcomingTripsSection'
 import { UpcomingSection } from './Upcoming/UpcomingEvents'
 
 interface EventsPageProps {
-  events: Event[]
+  events: EventDTO[]
 }
 
 export function EventsPage({ events }: EventsPageProps) {
@@ -17,11 +17,16 @@ export function EventsPage({ events }: EventsPageProps) {
     const currentDate = new Date()
     return eventDate >= currentDate
   })
+
+  const upcomingTrips = upcomingEvents.filter(
+    (event) => event.eventType.toLowerCase() === 'trip',
+  )
+
   return (
     <>
       <EventsIntroSection />
       <UpcomingSection />
-      <UpcomingTripsSection events={upcomingEvents} />
+      <UpcomingTripsSection events={upcomingTrips} />
     </>
   )
 }
