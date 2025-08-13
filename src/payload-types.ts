@@ -268,6 +268,21 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  ticketsInformation: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
   featuredImage: number | Media;
@@ -283,8 +298,6 @@ export interface TripReport {
   title: string;
   status: 'draft' | 'published';
   author: (number | Exec)[];
-  tripDate: string;
-  location: string;
   relatedEvent: number | Event;
   relatedRiver: number | River;
   featuredImage: number | Media;
@@ -566,6 +579,7 @@ export interface EventsSelect<T extends boolean = true> {
   endTime?: T;
   location?: T;
   description?: T;
+  ticketsInformation?: T;
   eventType?: T;
   river?: T;
   featuredImage?: T;
@@ -580,8 +594,6 @@ export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
   author?: T;
-  tripDate?: T;
-  location?: T;
   relatedEvent?: T;
   relatedRiver?: T;
   featuredImage?: T;
