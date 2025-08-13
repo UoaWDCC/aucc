@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense } from 'react'
+import React from 'react'
 
 import { Event } from '@/payload-types'
 import { EventsIntroSection } from './EventsIntro/EventsIntroSection'
@@ -12,11 +12,16 @@ interface EventsPageProps {
 }
 
 export function EventsPage({ events }: EventsPageProps) {
+  const upcomingEvents = events.filter((event) => {
+    const eventDate = new Date(event.startTime)
+    const currentDate = new Date()
+    return eventDate >= currentDate
+  })
   return (
     <>
       <EventsIntroSection />
       <UpcomingSection />
-      <UpcomingTripsSection events={events} />
+      <UpcomingTripsSection events={upcomingEvents} />
     </>
   )
 }
