@@ -33,7 +33,7 @@ export const PrimaryTripReportCard = ({
           <div className="relative mb-4 aspect-[4/3] h-40 w-full overflow-hidden rounded-lg md:hidden">
             <PayloadImage media={featuredImage} className="object-cover" />
           </div>
-          <p className="text-cream/80 line-clamp-7 flex-grow text-sm leading-5.5 italic md:line-clamp-8 md:px-6 md:pt-6">
+          <p className="text-cream/80 line-clamp-7 flex-grow text-sm leading-5.5 whitespace-pre-line italic md:line-clamp-8 md:px-6 md:pt-6">
             {content}
           </p>
         </div>
