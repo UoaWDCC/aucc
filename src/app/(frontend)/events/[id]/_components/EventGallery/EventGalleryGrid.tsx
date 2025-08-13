@@ -1,7 +1,13 @@
 import { getGallery } from '@/queries/gallery'
 
 export async function EventGalleryGrid() {
-  const { gallery } = await getGallery({ limit: 8 })
+  const { gallery: allGallery } = await getGallery({ limit: 50 })
+
+  const gallery = allGallery.filter((item) =>
+    item.tags?.some(
+      (tag) => typeof tag === 'object' && tag?.name === 'Fulljames',
+    ),
+  )
 
   type GalleryItem = (typeof gallery)[0]
 
