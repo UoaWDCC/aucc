@@ -8,6 +8,7 @@ import { PayloadImage, selectOptimalImageSize } from './index'
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
   default: vi.fn(({ src, alt, className, loader, ...props }) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={typeof src === 'string' ? src : src.src}
       alt={alt}

@@ -268,6 +268,21 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  ticketsInformation: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
   featuredImage: number | Media;
@@ -282,9 +297,7 @@ export interface TripReport {
   id: number;
   title: string;
   status: 'draft' | 'published';
-  author: (number | Exec)[];
-  tripDate: string;
-  location: string;
+  authors: (number | Exec)[];
   relatedEvent: number | Event;
   relatedRiver: number | River;
   featuredImage: number | Media;
@@ -331,7 +344,11 @@ export interface Exec {
  */
 export interface Gallery {
   id: number;
-  image: number | Media;
+  image?: (number | null) | Media;
+  /**
+   * Allows bulk upload, the tag will be applied to all images.
+   */
+  images?: (number | Media)[] | null;
   tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -562,6 +579,7 @@ export interface EventsSelect<T extends boolean = true> {
   endTime?: T;
   location?: T;
   description?: T;
+  ticketsInformation?: T;
   eventType?: T;
   river?: T;
   featuredImage?: T;
@@ -575,9 +593,7 @@ export interface EventsSelect<T extends boolean = true> {
 export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
-  author?: T;
-  tripDate?: T;
-  location?: T;
+  authors?: T;
   relatedEvent?: T;
   relatedRiver?: T;
   featuredImage?: T;
@@ -606,6 +622,7 @@ export interface ExecsSelect<T extends boolean = true> {
  */
 export interface GallerySelect<T extends boolean = true> {
   image?: T;
+  images?: T;
   tags?: T;
   updatedAt?: T;
   createdAt?: T;

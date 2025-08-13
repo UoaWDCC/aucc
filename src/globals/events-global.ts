@@ -7,7 +7,7 @@ import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const EventsGlobal: GlobalConfig = {
   slug: 'events-global',
-  label: 'Main events page',
+  label: 'Events Page',
   access: {
     read: anyone,
     update: authenticated,
@@ -17,8 +17,8 @@ export const EventsGlobal: GlobalConfig = {
   },
   fields: [
     customUploadField({
-      name: 'featuredImage',
-      label: 'Featured Image',
+      name: 'headerImage',
+      label: 'Header Image',
       required: true,
       mimeType: 'image',
       admin: { thumbnail: true, className: 'hide-filename' },
@@ -27,6 +27,12 @@ export const EventsGlobal: GlobalConfig = {
       name: 'petrolCosts',
       type: 'richText',
       label: 'Petrol Costs Information',
+      required: true,
+    },
+    {
+      name: 'introText',
+      type: 'richText',
+      label: 'Intro Text',
       required: true,
     },
   ],
