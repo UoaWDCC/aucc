@@ -297,7 +297,7 @@ export interface TripReport {
   id: number;
   title: string;
   status: 'draft' | 'published';
-  author: (number | Exec)[];
+  authors: (number | Exec)[];
   relatedEvent: number | Event;
   relatedRiver: number | River;
   featuredImage: number | Media;
@@ -593,7 +593,7 @@ export interface EventsSelect<T extends boolean = true> {
 export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
-  author?: T;
+  authors?: T;
   relatedEvent?: T;
   relatedRiver?: T;
   featuredImage?: T;

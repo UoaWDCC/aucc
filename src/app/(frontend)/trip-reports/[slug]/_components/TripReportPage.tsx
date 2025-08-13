@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { ChevronLeft } from 'lucide-react'
 
+import { PayloadImage } from '@/components/PayloadImage'
 import { TripReportDTO } from '@/queries/trip-reports'
 import { TripReportsPageBackground } from './TripReportPageBackground'
 
 type TripReportPage = { tripReport: TripReportDTO }
 
 export function TripReportPage({ tripReport }: TripReportPage) {
-  const authors =
-    (tripReport.author ?? []).filter((a: any) => typeof a !== 'number') ?? []
+  const authors = tripReport.authors.map((a) => a.name)
   const date = tripReport.relatedEvent.startTime
     ? new Date(tripReport.relatedEvent.startTime).toLocaleDateString('en-NZ', {
         day: 'numeric',
@@ -18,13 +18,6 @@ export function TripReportPage({ tripReport }: TripReportPage) {
         year: 'numeric',
       })
     : null
-
-  const featuredImage =
-    tripReport?.featuredImage &&
-    typeof tripReport.featuredImage !== 'number' &&
-    tripReport.featuredImage.url
-      ? tripReport.featuredImage.url
-      : null
 
   const location = tripReport.relatedEvent.location
 
@@ -41,7 +34,7 @@ export function TripReportPage({ tripReport }: TripReportPage) {
             Back
           </Link>
         </div>
-        <h1 className="font-heading text-cream mb-6 text-3xl leading-tight tracking-wider uppercase md:text-5xl lg:text-6xl">
+        <h1 className="font-heading text-cream mb-6 text-3xl leading-tight tracking-tighter uppercase md:text-5xl lg:text-6xl">
           {tripReport.title}
         </h1>
         <article className="bg-cream rounded-none p-8 shadow md:p-14 lg:p-16">
@@ -58,18 +51,15 @@ export function TripReportPage({ tripReport }: TripReportPage) {
 
             {authors.length > 0 && (
               <div className="text-abyss/70 mt-2 text-sm md:text-base">
-                By {authors.map((a: any) => a.name).join(', ')}
+                By {authors.join(', ')}
               </div>
             )}
           </header>
 
-          {featuredImage && (
+          {tripReport.featuredImage && (
             <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden">
-              <Image
-                src={featuredImage}
-                alt={tripReport.title}
-                fill
-                sizes="100vw"
+              <PayloadImage
+                media={tripReport.featuredImage}
                 className="object-cover"
               />
             </div>

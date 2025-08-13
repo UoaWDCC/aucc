@@ -57,7 +57,7 @@ export const TripReports: CollectionConfig = {
       ],
     },
     {
-      name: 'author',
+      name: 'authors',
       type: 'relationship',
       required: true,
       hasMany: true,
