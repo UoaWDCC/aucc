@@ -674,23 +674,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface EventsGlobal {
   id: number;
-  headerImage: number | Media;
+  featuredImage: number | Media;
   petrolCosts: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  introText: {
     root: {
       type: string;
       children: {
@@ -713,9 +698,8 @@ export interface EventsGlobal {
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
-  headerImage?: T;
+  featuredImage?: T;
   petrolCosts?: T;
-  introText?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
