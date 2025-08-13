@@ -246,7 +246,6 @@ export interface River {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
-
 export interface Event {
   id: number;
   title: string;
@@ -255,42 +254,41 @@ export interface Event {
   endTime: string;
   location: string;
   description?: {
-  root: {
-    type: string;
-    children: {
+    root: {
       type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
       version: number;
-      [k: string]: unknown;
-    }[];
-    direction: ('ltr' | 'rtl') | null;
-    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-    indent: number;
-    version: number;
-  };
-  [k: string]: unknown;
-} | null;
-  ticketsInformation?: {
-  root: {
-    type: string;
-    children: {
+    };
+    [k: string]: unknown;
+  } | null;
+  ticketsInformation: {
+    root: {
       type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
       version: number;
-      [k: string]: unknown;
-    }[];
-    direction: ('ltr' | 'rtl') | null;
-    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-    indent: number;
-    version: number;
+    };
+    [k: string]: unknown;
   };
-  [k: string]: unknown;
-} | null;
   eventType: 'trip' | 'other';
-  river?: number | River | null;
+  river?: (number | null) | River;
   featuredImage: number | Media;
   updatedAt: string;
   createdAt: string;
 }
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "trip-reports".
@@ -300,8 +298,6 @@ export interface TripReport {
   title: string;
   status: 'draft' | 'published';
   author: (number | Exec)[];
-  tripDate: string;
-  location: string;
   relatedEvent: number | Event;
   relatedRiver: number | River;
   featuredImage: number | Media;
@@ -598,8 +594,6 @@ export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
   author?: T;
-  tripDate?: T;
-  location?: T;
   relatedEvent?: T;
   relatedRiver?: T;
   featuredImage?: T;
