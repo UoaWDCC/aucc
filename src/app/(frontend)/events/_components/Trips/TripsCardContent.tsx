@@ -1,21 +1,22 @@
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import { Event } from '@/payload-types'
+import { EventDTO } from '@/queries/events'
 import { TripsCardButtons } from './TripsCardButtons'
 import { TripsCardDate } from './TripsCardDate'
 import { TripsCardGrade } from './TripsCardGrade'
 import { TripsCardLocation } from './TripsCardLocation'
 
 type TripsCardContentProps = {
-  event: Event
+  event: EventDTO
 }
 
 export function TripsCardContent({ event }: TripsCardContentProps) {
+  const riverGrade = event.river?.grade || null
   return (
     <div>
       <div className="flex flex-col-reverse gap-6">
         <h2 className="font-heading mb-4 text-xl">{event.title}</h2>
         <div className="flex flex-row gap-7">
-          <TripsCardGrade grade={3} />
+          {riverGrade && <TripsCardGrade grade={riverGrade} />}
           <TripsCardDate startTime={event.startTime} endTime={event.endTime} />
         </div>
       </div>

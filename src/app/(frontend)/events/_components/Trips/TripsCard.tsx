@@ -1,9 +1,9 @@
-import { Event } from '@/payload-types'
+import { EventDTO } from '@/queries/events'
 import { TripsCardContent } from './TripsCardContent'
 import { TripsCardImage } from './TripsCardImage'
 
 type TripsCardProps = {
-  event: Event
+  event: EventDTO
 }
 
 export function TripsCard({ event }: TripsCardProps) {
