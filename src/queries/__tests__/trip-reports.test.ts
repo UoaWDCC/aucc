@@ -131,6 +131,7 @@ describe('Trip Report queries', () => {
           ],
         },
         limit: 1,
+        depth: 1,
       })
       expect(result).toBeNull()
     })
@@ -181,6 +182,7 @@ describe('Trip Report queries', () => {
           ],
         },
         limit: 1,
+        depth: 1,
       })
       expect(result).toEqual(mockTripReport)
     })

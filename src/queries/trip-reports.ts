@@ -85,6 +85,7 @@ export const getTripReportBySlug = unstable_cache(
         ],
       },
       limit: 1,
+      depth: 1,
     })
 
     if (tripReport.docs.length === 0) {
