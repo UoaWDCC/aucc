@@ -1,7 +1,7 @@
-import { flushAllTraces } from 'next/dist/trace'
 import { CollectionConfig, ValidationError } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
+import { Gallery as GalleryType, Media } from '@/payload-types'
 import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
@@ -38,7 +38,7 @@ export const Gallery: CollectionConfig = {
     afterChange: [
       ({ doc, req }) => {
         if (doc['images'] && doc['images'].length > 0 && req.payload) {
-          doc['images'].slice(1).forEach((item: any) => {
+          doc['images'].slice(1).forEach((item: Media) => {
             req.payload.create({
               collection: 'gallery',
               data: {
@@ -77,7 +77,7 @@ export const Gallery: CollectionConfig = {
       admin: {
         thumbnail: true,
         className: 'hide-filename',
-        condition: (data: any) => {
+        condition: (data: GalleryType) => {
           if (data && data.image) {
             return true
           }
@@ -93,7 +93,7 @@ export const Gallery: CollectionConfig = {
       admin: {
         thumbnail: true,
         className: 'hide-filename',
-        condition: (data: any) => {
+        condition: (data: GalleryType) => {
           if (data && data.image) {
             return false
           }

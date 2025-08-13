@@ -1,6 +1,5 @@
 import React from 'react'
 
-import PLACEHOLDER from '@/assets/hero.webp'
 import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { getTripReports } from '@/queries/trip-reports'

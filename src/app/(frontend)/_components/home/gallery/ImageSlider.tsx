@@ -1,16 +1,13 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { KeenSliderPlugin, useKeenSlider } from 'keen-slider/react'
 
 import 'keen-slider/keen-slider.min.css'
 
-import next from 'next'
-import Image from 'next/image'
-
 import { PayloadImage } from '@/components/PayloadImage'
 import type { GalleryDTO } from '@/queries/gallery'
-import NavArrow from './NavArrow'
+import { NavArrow } from './NavArrow'
 
 type Props = {
   gallery: GalleryDTO[]
@@ -63,8 +60,8 @@ const WindowScrollToDrag: KeenSliderPlugin = (slider) => {
   })
 }
 
-export default function GallerySlider({ gallery }: Props) {
-  const [currentSlide, setCurrentSlide] = React.useState(0)
+export function GallerySlider({ gallery }: Props) {
+  const [_, setCurrentSlide] = React.useState(0)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
       slideChanged(slider) {
@@ -122,7 +119,6 @@ export default function GallerySlider({ gallery }: Props) {
       <div ref={sliderRef} className="keen-slider">
         {gallery.map((item) => {
           const media = item.image ?? undefined
-          const src = media?.url || ''
           return (
             <div
               key={item.id}
