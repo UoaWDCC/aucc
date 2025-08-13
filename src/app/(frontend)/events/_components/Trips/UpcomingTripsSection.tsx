@@ -1,9 +1,9 @@
-import { EventDTO } from '@/queries/events'
+import { Event } from '@/payload-types'
 import { TripsCard } from './TripsCard'
 import { UpcomingTripsSectionBackground } from './UpcomingTripsSectionBackground'
 
 type TripsSectionProps = {
-  events: EventDTO[]
+  events: Event[]
 }
 
 export function UpcomingTripsSection({ events }: TripsSectionProps) {

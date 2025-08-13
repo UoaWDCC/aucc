@@ -2,13 +2,13 @@
 
 import React from 'react'
 
-import { EventDTO } from '@/queries/events'
+import { Event } from '@/payload-types'
 import { EventsIntroSection } from './EventsIntro/EventsIntroSection'
 import { UpcomingTripsSection } from './Trips/UpcomingTripsSection'
 import { UpcomingSection } from './Upcoming/UpcomingEvents'
 
 interface EventsPageProps {
-  events: EventDTO[]
+  events: Event[]
 }
 
 export function EventsPage({ events }: EventsPageProps) {

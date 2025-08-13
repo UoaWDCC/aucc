@@ -1,16 +1,16 @@
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import { EventDTO } from '@/queries/events'
+import { Event } from '@/payload-types'
 import { TripsCardButtons } from './TripsCardButtons'
 import { TripsCardDate } from './TripsCardDate'
 import { TripsCardGrade } from './TripsCardGrade'
 import { TripsCardLocation } from './TripsCardLocation'
 
 type TripsCardContentProps = {
-  event: EventDTO
+  event: Event
 }
 
 export function TripsCardContent({ event }: TripsCardContentProps) {
-  const riverGrade = event.river?.grade || null
+  const riverGrade = typeof event.river === 'object' ? event.river?.grade : null
   return (
     <div>
       <div className="flex flex-col-reverse gap-6">
