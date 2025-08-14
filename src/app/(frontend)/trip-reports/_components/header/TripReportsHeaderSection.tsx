@@ -7,7 +7,7 @@ type TripReportsHeaderSectionProps = {
   headerImage: Media
 }
 
-export async function TripreportsHeaderSection({
+export async function TripReportsHeaderSection({
   headerImage,
 }: TripReportsHeaderSectionProps) {
   return (

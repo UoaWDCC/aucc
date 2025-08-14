@@ -4,7 +4,7 @@ import { Media } from '@/payload-types'
 import type { TripReportDTO } from '@/queries/trip-reports'
 import TripReportsGrid from './grid/TripReportsGrid'
 import TripReportsGridBackground from './grid/TripReportsGridBackground'
-import { TripreportsHeaderSection } from './header/TripReportsHeaderSection'
+import { TripReportsHeaderSection } from './header/TripReportsHeaderSection'
 import { TripReportsIntroSection } from './TripReportsIntroSection'
 
 type TripReportsPageProps = {
@@ -20,9 +20,9 @@ export function TripReportsPage({
 }: TripReportsPageProps) {
   return (
     <>
-      <TripreportsHeaderSection headerImage={headerImage} />
+      <TripReportsHeaderSection headerImage={headerImage} />
       <TripReportsIntroSection introText={introText} />
-      <TripReportsGridBackground>
+      <TripReportsGridBackground className="px-8">
         <TripReportsGrid tripReports={tripReports} />
       </TripReportsGridBackground>
     </>

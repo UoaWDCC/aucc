@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils/cn'
 import { TripReportDTO } from '@/queries/trip-reports'
 import TripReportGridCard from './TripReportGridCard'
 
@@ -22,10 +23,16 @@ export default function TripReportsGrid({ tripReports }: TripReportsGridProps) {
   }
 
   return (
-    <div className="flex justify-center py-30">
-      <div className="grid w-210 grid-cols-2 gap-8">
-        {tripReports.map((tripReport) => (
-          <TripReportGridCard key={tripReport.id} tripReport={tripReport} />
+    <div className="mx-8 max-w-200 py-20 md:mx-auto">
+      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
+        {tripReports.map((tripReport, index) => (
+          <TripReportGridCard
+            key={index}
+            tripReport={tripReport}
+            className={cn(
+              tripReports[index + 1] === undefined && 'md:col-span-2',
+            )}
+          />
         ))}
       </div>
     </div>
