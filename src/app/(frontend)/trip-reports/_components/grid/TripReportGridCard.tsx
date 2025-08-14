@@ -23,17 +23,14 @@ export default function TripReportGridCard({
     <Link
       href={`/trip-reports/${tripReport.slug}`}
       className={cn(
-        'group relative flex h-auto w-full cursor-pointer overflow-hidden rounded-2xl bg-gradient-to-b from-[#1E2A29] from-80% to-[#38433d] transition-transform duration-300 hover:scale-[1.02] md:flex-col md:p-6',
+        'relative flex h-auto w-full cursor-pointer overflow-hidden rounded-2xl bg-gradient-to-b from-[#1E2A29] from-80% to-[#38433d] md:flex-col md:p-6',
         className,
       )}
     >
       {/* Mobile: Horizontal layout */}
       <div className="flex w-full flex-row gap-4 md:hidden">
         <div className="relative aspect-[4/3] w-32 flex-shrink-0 overflow-hidden rounded-l-lg">
-          <PayloadImage
-            media={tripReport.featuredImage}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <PayloadImage media={tripReport.featuredImage} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-between p-4 pl-0">
           <time className="text-cream mb-2 block text-xs font-light italic opacity-90">
@@ -57,10 +54,7 @@ export default function TripReportGridCard({
         </div>
 
         <div className="relative mb-4 h-50 w-full overflow-hidden rounded-lg sm:mb-6">
-          <PayloadImage
-            media={tripReport.featuredImage}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <PayloadImage media={tripReport.featuredImage} />
         </div>
 
         <div className="flex flex-1 flex-col">
