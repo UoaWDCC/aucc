@@ -98,9 +98,11 @@ export interface Config {
   };
   globals: {
     'events-global': EventsGlobal;
+    'trip-reports-global': TripReportsGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
+    'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
   };
   locale: null;
   user: User & {
@@ -674,8 +676,48 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface EventsGlobal {
   id: number;
-  featuredImage: number | Media;
+  headerImage: number | Media;
   petrolCosts: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports-global".
+ */
+export interface TripReportsGlobal {
+  id: number;
+  headerImage: number | Media;
+  introText: {
     root: {
       type: string;
       children: {
@@ -698,8 +740,20 @@ export interface EventsGlobal {
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
-  featuredImage?: T;
+  headerImage?: T;
   petrolCosts?: T;
+  introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports-global_select".
+ */
+export interface TripReportsGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  introText?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
