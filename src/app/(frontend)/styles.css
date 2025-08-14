@@ -19,6 +19,7 @@
   --cream: oklch(94.49% 0.013 97.45);
   --water: oklch(79.98% 0.038 187.93);
   --algae: oklch(74.26% 0.113 127.26);
+  --seafoam: oklch(89.92% 0.0193 162.89);
 
   /* Radius */
   --radius: 0.5rem;
@@ -36,6 +37,7 @@
   --color-grass: var(--grass);
   --color-cream: var(--cream);
   --color-water: var(--water);
+  --color-seafoam: var(--seafoam);
   --color-algae: var(--algae);
 
   --color-skeleton: oklch(0.97 0 0);
