@@ -2,8 +2,10 @@ import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
 import { Media } from '@/payload-types'
 import type { TripReportDTO } from '@/queries/trip-reports'
+import TripReportsGrid from './grid/TripReportsGrid'
+import TripReportsGridBackground from './grid/TripReportsGridBackground'
 import { TripreportsHeaderSection } from './header/TripReportsHeaderSection'
-import { TripReportsIntroSection } from './intro/TripReportsIntroSection'
+import { TripReportsIntroSection } from './TripReportsIntroSection'
 
 type TripReportsPageProps = {
   tripReports: TripReportDTO[]
@@ -20,7 +22,9 @@ export function TripReportsPage({
     <>
       <TripreportsHeaderSection headerImage={headerImage} />
       <TripReportsIntroSection introText={introText} />
-      {/* <TripReportsGrid tripReports={tripReports} /> */}
+      <TripReportsGridBackground>
+        <TripReportsGrid tripReports={tripReports} />
+      </TripReportsGridBackground>
     </>
   )
 }
