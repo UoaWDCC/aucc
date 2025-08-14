@@ -22,7 +22,7 @@ export function TripReportsPage({
     <>
       <TripReportsHeaderSection headerImage={headerImage} />
       <TripReportsIntroSection introText={introText} />
-      <TripReportsGridBackground className="px-8">
+      <TripReportsGridBackground className="px-4 md:px-8">
         <TripReportsGrid tripReports={tripReports} />
       </TripReportsGridBackground>
     </>
