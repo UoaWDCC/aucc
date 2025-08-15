@@ -33,7 +33,7 @@ export async function EventGalleryGrid({ tagName }: EventGalleryGridProps) {
           {col.map((item, i) => (
             <img
               key={`${item.id}-${idx}-${i}`}
-              src={item.image.url ?? ''}
+              src={item.image?.url ?? ''}
               alt=""
               className={`h-auto w-full object-cover ${i >= 3 ? 'hidden lg:block' : ''}`}
             />
