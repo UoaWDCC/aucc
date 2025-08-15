@@ -271,6 +271,17 @@ export interface Event {
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
   featuredImage: number | Media;
+  tag?: (number | null) | Tag;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -333,16 +344,6 @@ export interface Gallery {
   id: number;
   image: number | Media;
   tags?: (number | Tag)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: number;
-  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -565,6 +566,7 @@ export interface EventsSelect<T extends boolean = true> {
   eventType?: T;
   river?: T;
   featuredImage?: T;
+  tag?: T;
   updatedAt?: T;
   createdAt?: T;
 }

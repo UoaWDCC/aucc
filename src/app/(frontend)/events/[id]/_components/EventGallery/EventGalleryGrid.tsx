@@ -1,13 +1,13 @@
-import { getGallery } from '@/queries/gallery'
+import { getGalleryByTag } from '@/queries/gallery'
 
-export async function EventGalleryGrid() {
-  const { gallery: allGallery } = await getGallery({ limit: 50 })
+interface EventGalleryGridProps {
+  tagName: string
+}
 
-  const gallery = allGallery.filter((item) =>
-    item.tags?.some(
-      (tag) => typeof tag === 'object' && tag?.name === 'Fulljames',
-    ),
-  )
+export async function EventGalleryGrid({ tagName }: EventGalleryGridProps) {
+  const { gallery } = await getGalleryByTag(tagName, {
+    limit: 8,
+  })
 
   type GalleryItem = (typeof gallery)[0]
 
@@ -24,18 +24,18 @@ export async function EventGalleryGrid() {
   })
 
   return (
-    <div className="grid grid-cols-4 gap-2 p-4">
+    <div className="grid grid-cols-2 gap-2 p-4 lg:grid-cols-4">
       {columns.map((col, idx) => (
         <div
           key={idx}
-          className={`flex flex-col gap-2 ${idx % 2 === 0 ? 'justify-start' : 'justify-end'}`}
+          className={`${idx >= 4 ? 'hidden lg:flex' : 'flex'} flex-col gap-2 ${idx % 2 === 0 ? 'justify-start' : 'justify-end'}`}
         >
           {col.map((item, i) => (
             <img
               key={`${item.id}-${idx}-${i}`}
               src={item.image.url ?? ''}
               alt=""
-              className="h-auto w-full object-cover"
+              className={`h-auto w-full object-cover ${i >= 3 ? 'hidden lg:block' : ''}`}
             />
           ))}
         </div>
