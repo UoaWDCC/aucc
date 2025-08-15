@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
@@ -42,6 +43,7 @@ describe('Trip Report queries', () => {
 
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
+        depth: 0,
         page: 1,
         limit: 10,
         sort: '-createdAt',
@@ -73,6 +75,7 @@ describe('Trip Report queries', () => {
 
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
+        depth: 0,
         page: 2,
         limit: 20,
         sort: 'name',
@@ -129,6 +132,7 @@ describe('Trip Report queries', () => {
           ],
         },
         limit: 1,
+        depth: 1,
       })
       expect(result).toBeNull()
     })
@@ -140,9 +144,20 @@ describe('Trip Report queries', () => {
         slug: 'test-trip-report',
         status: 'published',
         author: [],
-        gallery: [],
-        tripDate: '2025-03-15T00:00:00.000Z',
-        location: 'Test river',
+        relatedEvent: 1,
+        relatedRiver: 1,
+        featuredImage: 1,
+        content: {
+          root: {
+            type: 'doc',
+            children: [],
+            direction: null,
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        gallery: undefined,
         updatedAt: '2025-03-20T00:00:00.000Z',
         createdAt: '2025-03-01T00:00:00.000Z',
       }
@@ -168,6 +183,7 @@ describe('Trip Report queries', () => {
           ],
         },
         limit: 1,
+        depth: 1,
       })
       expect(result).toEqual(mockTripReport)
     })

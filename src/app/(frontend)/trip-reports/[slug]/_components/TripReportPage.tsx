@@ -1,30 +1,75 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { ChevronLeft } from 'lucide-react'
 
-import { TripReport } from '@/payload-types'
+import { PayloadImage } from '@/components/PayloadImage'
+import { TripReportDTO } from '@/queries/trip-reports'
+import { TripReportsPageBackground } from './TripReportPageBackground'
 
-export function TripReportPage({ tripReport }: { tripReport: TripReport }) {
-  const date = tripReport?.tripDate
-    ? new Date(tripReport.tripDate).toLocaleDateString()
-    : ''
+type TripReportPage = { tripReport: TripReportDTO }
+
+export function TripReportPage({ tripReport }: TripReportPage) {
+  const authors = tripReport.authors.map((a) => a.name)
+  const date = tripReport.relatedEvent.startTime
+    ? new Date(tripReport.relatedEvent.startTime).toLocaleDateString('en-NZ', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : null
+
+  const location = tripReport.relatedEvent.location
+
   return (
-    <div className="m-25 mt-0 flex h-full w-auto flex-col bg-gray-100 p-15 pt-0">
-      <div>
-        <div>
-          <h1 className="p-10 pb-5 pl-0 text-4xl font-bold">
-            {tripReport.title}
-          </h1>
-          <div>
-            <p className="text-2xl">Date: {date}</p>
-            <p className="pt-2 text-2xl">
-              Authors:{' '}
-              {tripReport.author.map((author: any) => author.name).join(', ')}
-            </p>
+    <section className="relative min-h-screen pt-20 pb-20 md:pt-28">
+      <TripReportsPageBackground />
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="mb-3 md:mb-4">
+          <Link
+            href="/trip-reports"
+            className="text-cream/90 inline-flex items-center gap-1 hover:text-white"
+          >
+            <ChevronLeft className="h-5 w-5" />
+            Back
+          </Link>
+        </div>
+        <h1 className="font-heading text-cream mb-6 text-3xl leading-tight tracking-tighter uppercase md:text-5xl lg:text-6xl">
+          {tripReport.title}
+        </h1>
+        <article className="bg-cream rounded-none p-8 shadow md:p-14 lg:p-16">
+          <header className="text-abyss mb-8 md:mb-10">
+            <div className="font-heading text-sm tracking-[0.01em] text-[#8FC7BF] uppercase md:text-base md:tracking-[0.015em] lg:text-lg">
+              {date && <span>{date}</span>}
+              {location && (
+                <>
+                  {' - '}
+                  <span>{location}</span>
+                </>
+              )}
+            </div>
+
+            {authors.length > 0 && (
+              <div className="text-abyss/70 mt-2 text-sm md:text-base">
+                By {authors.join(', ')}
+              </div>
+            )}
+          </header>
+
+          {tripReport.featuredImage && (
+            <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden">
+              <PayloadImage
+                media={tripReport.featuredImage}
+                className="object-cover"
+              />
+            </div>
+          )}
+
+          <div className="prose prose-lg prose-headings:font-heading prose-headings:text-abyss prose-p:text-abyss/90 prose-li:marker:text-abyss/70 prose-p:my-4 md:prose-p:my-5 prose-headings:mt-8 prose-headings:mb-3 max-w-none">
+            {tripReport.content && <RichText data={tripReport.content} />}
           </div>
-        </div>
-        <div className="w-full bg-white p-5">
-          {tripReport.content && <RichText data={tripReport.content} />}
-        </div>
+        </article>
       </div>
-    </div>
+    </section>
   )
 }

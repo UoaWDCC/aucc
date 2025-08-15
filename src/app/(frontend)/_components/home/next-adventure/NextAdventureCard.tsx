@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { PayloadImage } from '@/components/PayloadImage'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getPlainText } from '@/lib/utils/get-plain-text'
