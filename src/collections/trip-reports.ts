@@ -57,23 +57,11 @@ export const TripReports: CollectionConfig = {
       ],
     },
     {
-      name: 'author',
+      name: 'authors',
       type: 'relationship',
       required: true,
       hasMany: true,
       relationTo: 'execs',
-    },
-    {
-      name: 'tripDate',
-      type: 'date',
-      label: 'Trip Date',
-      required: true,
-    },
-    {
-      name: 'location',
-      type: 'text',
-      label: 'Trip Location',
-      required: true,
     },
     {
       name: 'relatedEvent',
