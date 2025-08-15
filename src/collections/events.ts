@@ -121,7 +121,6 @@ export const Events: CollectionConfig = {
       name: 'tag',
       type: 'relationship',
       relationTo: 'tags',
-      hasMany: false,
     },
   ],
 }
