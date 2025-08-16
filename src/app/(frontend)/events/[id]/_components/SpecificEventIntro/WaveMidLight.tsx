@@ -6,7 +6,7 @@ interface WaveMidLightProps {
 
 export function WaveMidLight({ className }: WaveMidLightProps) {
   return (
-    <div className="absolute top-[405px] -z-30 w-full overflow-hidden">
+    <div className="absolute top-[285px] -z-30 w-full overflow-hidden">
       <svg
         width="1280"
         height="496"
