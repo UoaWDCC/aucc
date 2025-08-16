@@ -6,7 +6,7 @@ type TripsCardImageProps = {
 
 export function TripsCardImage({ url }: TripsCardImageProps) {
   return (
-    <div className="relative h-[251px] w-[300px] flex-shrink-0 overflow-hidden rounded-2xl">
+    <div className="relative flex h-[251px] w-full flex-shrink-0 justify-center overflow-hidden rounded-2xl md:w-[300px]">
       <Image src={url} alt="image" fill className="object-cover" />
     </div>
   )
