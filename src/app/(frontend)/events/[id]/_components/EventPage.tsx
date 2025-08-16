@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import type { Event } from '@/payload-types'
+import type { Event, Tag } from '@/payload-types'
+import { EventGallerySection } from './EventGallery/EventGallerySection'
 import { TicketInformationSection } from './SpecificEventTicketInfo/TicketInfo'
 
 interface EventPageProps {
@@ -9,6 +10,10 @@ interface EventPageProps {
 }
 
 export function EventPage({ event }: EventPageProps) {
+  const tagName =
+    event.tag && typeof event.tag === 'object'
+      ? (event.tag as Tag).name
+      : undefined
   return (
     <div>
       <section className="p-4">
@@ -44,6 +49,7 @@ export function EventPage({ event }: EventPageProps) {
         </div>
       </section>
       <TicketInformationSection event={event} />
+      {tagName && <EventGallerySection tagName={tagName} />}
     </div>
   )
 }
