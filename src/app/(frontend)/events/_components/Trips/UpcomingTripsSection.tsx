@@ -9,7 +9,7 @@ type TripsSectionProps = {
 export function UpcomingTripsSection({ events }: TripsSectionProps) {
   return (
     <UpcomingTripsSectionBackground>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 px-5">
         <div className="flex flex-col items-center justify-center gap-5">
           {events.map((event, index) => (
             <TripsCard key={event.id || index} event={event} />

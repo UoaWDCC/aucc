@@ -15,7 +15,7 @@ export function TripsCardDate({ startTime, endTime }: DateProps) {
     <div className="flex items-center gap-1">
       <Calendar className="text-cream size-5" />
       <div>
-        <p className="font-unbounded text-sm capitalize">
+        <p className="font-unbounded truncate text-sm capitalize">
           {`${startDate.toLocaleDateString('en-NZ', {
             day: 'numeric',
             ...(sameMonth ? {} : { month: 'short' }),
