@@ -1,4 +1,3 @@
-import type { TripReportDTO } from '@/queries/trip-reports'
 import { ContactUsSection } from './contact-us/ContactUsSection'
 import { GallerySection } from './gallery/GallerySection'
 import { HeroSection } from './hero/HeroSection'
