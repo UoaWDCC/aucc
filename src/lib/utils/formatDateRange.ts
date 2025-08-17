@@ -15,6 +15,7 @@ export function formatDateRange(start?: string, end?: string): string {
     day: 'numeric',
     ...(sameMonth ? {} : { month: 'short' }),
     ...(sameYear ? {} : { year: 'numeric' }),
+    timeZone: 'Pacific/Auckland',
   })
 
   const endText = endDate
@@ -22,6 +23,7 @@ export function formatDateRange(start?: string, end?: string): string {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
+        timeZone: 'Pacific/Auckland',
       })
     : ''
 
