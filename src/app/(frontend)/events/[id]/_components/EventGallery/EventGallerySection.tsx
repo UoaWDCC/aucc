@@ -6,7 +6,7 @@ interface EventGallerySectionProps {
 
 export function EventGallerySection({ tagName }: EventGallerySectionProps) {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center">
       <EventGalleryGrid tagName={tagName} />
     </div>
   )

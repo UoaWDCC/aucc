@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { getTripReports } from '@/queries/trip-reports'
 import { LatestReportsHeader } from './LatestReportsHeader'
@@ -20,7 +19,7 @@ export async function TripReportsSection() {
 
   const defaultReport = {
     title: 'No report available',
-    tripDate: 'No date available',
+    // tripDate: 'No date available',
     featuredImage: undefined,
     content: 'No content available',
   }
@@ -28,7 +27,7 @@ export async function TripReportsSection() {
   const mappedReports =
     tripReports?.slice(0, 3).map((report) => ({
       title: report.title,
-      tripDate: formatDate(report.relatedEvent.startTime),
+      // tripDate: formatDate(report.relatedEvent.startTime),
       featuredImage: report.featuredImage,
       content: getPlainText(report.content),
       slug: report.slug,
@@ -49,7 +48,7 @@ export async function TripReportsSection() {
             <Link href={`/trip-reports/${reportA.slug}`}>
               <PrimaryTripReportCard
                 title={reportA.title}
-                tripDate={reportA.tripDate}
+                // tripDate={reportA.tripDate}
                 featuredImage={reportA.featuredImage}
                 content={reportA.content}
               />
@@ -60,7 +59,7 @@ export async function TripReportsSection() {
               <Link href={`/trip-reports/${reportB.slug}`}>
                 <SecondaryTripReportCard
                   title={reportB.title}
-                  tripDate={reportB.tripDate}
+                  // tripDate={reportB.tripDate}
                   featuredImage={reportB.featuredImage}
                   content={reportB.content}
                 />
@@ -69,7 +68,7 @@ export async function TripReportsSection() {
                 <Link href={`/trip-reports/${reportC.slug}`}>
                   <TertiaryTripReportCard
                     title={reportC.title}
-                    tripDate={reportC.tripDate}
+                    // tripDate={reportC.tripDate}
                     featuredImage={reportC.featuredImage}
                     content={reportC.content}
                   />

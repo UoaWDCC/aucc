@@ -311,8 +311,7 @@ export interface TripReport {
   title: string;
   status: 'draft' | 'published';
   authors: (number | Exec)[];
-  relatedEvent: number | Event;
-  relatedRiver: number | River;
+  relatedEvent?: (number | null) | Event;
   featuredImage: number | Media;
   content: {
     root: {
@@ -599,7 +598,6 @@ export interface TripReportsSelect<T extends boolean = true> {
   status?: T;
   authors?: T;
   relatedEvent?: T;
-  relatedRiver?: T;
   featuredImage?: T;
   content?: T;
   gallery?: T;

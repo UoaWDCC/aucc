@@ -23,11 +23,6 @@ export function SpecificEventIntroSection({
   event,
   className,
 }: SpecificEventIntroSectionProps) {
-  const year =
-    (event.startTime && new Date(event.startTime).getUTCFullYear()) ||
-    (event.endTime && new Date(event.endTime).getUTCFullYear()) ||
-    null
-
   return (
     <div className="relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -48,7 +43,7 @@ export function SpecificEventIntroSection({
           {/* Title */}
           <div className="z-30 flex h-[65px] items-center">
             <h1 className="font-heading text-cream text-xl tracking-tight sm:text-2xl lg:text-3xl xl:text-4xl">
-              {event.title} {year && <span>{year}</span>}
+              {event.title}
             </h1>
           </div>
 

@@ -11,10 +11,10 @@ export default function TripReportsGrid({ tripReports }: TripReportsGridProps) {
     return (
       <div className="mx-4 pb-20 md:mx-20 lg:mx-28 xl:mx-auto xl:max-w-[1200px]">
         <div className="py-20 text-center">
-          <h3 className="text-cream font-heading mb-4 text-2xl">
+          <h3 className="text-abyss font-heading mb-4 text-2xl">
             No trip reports yet
           </h3>
-          <p className="text-cream/80 text-lg">
+          <p className="text-abyss/80 text-lg">
             Check back soon for exciting adventure stories!
           </p>
         </div>
@@ -30,7 +30,9 @@ export default function TripReportsGrid({ tripReports }: TripReportsGridProps) {
             key={index}
             tripReport={tripReport}
             className={cn(
-              tripReports[index + 1] === undefined && 'md:col-span-2',
+              index % 2 === 0 &&
+                tripReports[index + 1] === undefined &&
+                'md:col-span-2',
             )}
           />
         ))}
