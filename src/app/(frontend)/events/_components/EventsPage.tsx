@@ -18,11 +18,17 @@ export function EventsPage({ events }: EventsPageProps) {
     const currentDate = new Date()
     return eventDate >= currentDate
   })
-  const pastEvents = events.filter((event) => {
-    const eventDate = new Date(event.startTime)
-    const currentDate = new Date()
-    return eventDate < currentDate
-  })
+
+  const pastEvents = events
+    .filter((event) => {
+      const eventDate = new Date(event.startTime)
+      const currentDate = new Date()
+      return eventDate < currentDate
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.startTime).getTime() - new Date(a.startTime).getTime(),
+    )
 
   const upcomingTrips = upcomingEvents.filter(
     (event) => event.eventType.toLowerCase() === 'trip',
