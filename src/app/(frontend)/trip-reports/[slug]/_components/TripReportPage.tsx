@@ -10,16 +10,17 @@ import { TripReportsPageBackground } from './TripReportPageBackground'
 type TripReportPage = { tripReport: TripReportDTO }
 
 export function TripReportPage({ tripReport }: TripReportPage) {
-  const authors = tripReport.authors.map((a) => a.name)
-  const date = tripReport.relatedEvent.startTime
-    ? new Date(tripReport.relatedEvent.startTime).toLocaleDateString('en-NZ', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    : null
+  // Comments out authors and date for now to have more flexibility.
+  // const authors = tripReport.authors.map((a) => a.name)
+  // const date = tripReport.relatedEvent.startTime
+  //   ? new Date(tripReport.relatedEvent.startTime).toLocaleDateString('en-NZ', {
+  //       day: 'numeric',
+  //       month: 'long',
+  //       year: 'numeric',
+  //     })
+  //   : null
 
-  const location = tripReport.relatedEvent.location
+  // const location = tripReport.relatedEvent.location
 
   return (
     <section className="relative min-h-screen pt-20 pb-20 md:pt-28">
@@ -38,7 +39,7 @@ export function TripReportPage({ tripReport }: TripReportPage) {
           {tripReport.title}
         </h1>
         <article className="bg-cream rounded-none p-8 shadow md:p-14 lg:p-16">
-          <header className="text-abyss mb-8 md:mb-10">
+          {/* <header className="text-abyss mb-8 md:mb-10">
             <div className="font-heading text-sm tracking-[0.01em] text-[#8FC7BF] uppercase md:text-base md:tracking-[0.015em] lg:text-lg">
               {date && <span>{date}</span>}
               {location && (
@@ -54,7 +55,7 @@ export function TripReportPage({ tripReport }: TripReportPage) {
                 By {authors.join(', ')}
               </div>
             )}
-          </header>
+          </header> */}
 
           {tripReport.featuredImage && (
             <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden">

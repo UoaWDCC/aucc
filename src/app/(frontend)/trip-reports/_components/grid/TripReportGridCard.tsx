@@ -16,7 +16,6 @@ export default function TripReportGridCard({
   tripReport,
   className,
 }: TripReportGridCardProps) {
-  const formattedDate = formatDate(tripReport.relatedEvent.startTime)
   const content = getPlainText(tripReport.content)
 
   return (
@@ -33,9 +32,6 @@ export default function TripReportGridCard({
           <PayloadImage media={tripReport.featuredImage} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-between p-4 pl-0">
-          <time className="text-cream mb-2 block text-xs font-light italic opacity-90">
-            {formattedDate}
-          </time>
           <h3 className="text-cream font-heading mb-2 line-clamp-2 text-sm font-bold tracking-wide uppercase">
             {tripReport.title}
           </h3>
@@ -47,12 +43,6 @@ export default function TripReportGridCard({
 
       {/* Desktop: Vertical layout */}
       <div className="hidden md:flex md:flex-col">
-        <div className="mb-4">
-          <time className="text-cream text-sm font-light italic opacity-90">
-            {formattedDate}
-          </time>
-        </div>
-
         <div className="relative mb-4 h-50 w-full overflow-hidden rounded-lg sm:mb-6">
           <PayloadImage media={tripReport.featuredImage} />
         </div>
