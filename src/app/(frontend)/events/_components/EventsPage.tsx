@@ -4,6 +4,7 @@ import React from 'react'
 
 import { EventDTO } from '@/queries/events'
 import { EventsIntroSection } from './EventsIntro/EventsIntroSection'
+import { PastAdventuresSection } from './PastAdventures/PastAdventuresSection'
 import { UpcomingTripsSection } from './Trips/UpcomingTripsSection'
 import { UpcomingSection } from './Upcoming/UpcomingEvents'
 
@@ -17,8 +18,16 @@ export function EventsPage({ events }: EventsPageProps) {
     const currentDate = new Date()
     return eventDate >= currentDate
   })
+  const pastEvents = events.filter((event) => {
+    const eventDate = new Date(event.startTime)
+    const currentDate = new Date()
+    return eventDate < currentDate
+  })
 
   const upcomingTrips = upcomingEvents.filter(
+    (event) => event.eventType.toLowerCase() === 'trip',
+  )
+  const pastTrips = pastEvents.filter(
     (event) => event.eventType.toLowerCase() === 'trip',
   )
 
@@ -27,6 +36,7 @@ export function EventsPage({ events }: EventsPageProps) {
       <EventsIntroSection />
       <UpcomingSection />
       <UpcomingTripsSection events={upcomingTrips} />
+      <PastAdventuresSection events={pastTrips} />
     </>
   )
 }

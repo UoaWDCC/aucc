@@ -1,22 +1,19 @@
-import Image from 'next/image'
+import { EventDTO } from '@/queries/events'
+import { PastAdventuresHeader } from './PastAdventuresHeader'
+import { PastTripsCard } from './PastTripsCard'
 
-import image from '@/assets/kayak.webp'
+type TripsSectionProps = {
+  events: EventDTO[]
+}
 
-export function PastAdventuresSection() {
+export function PastAdventuresSection({ events }: TripsSectionProps) {
   return (
     <div className="bg-abyss mt-31 h-auto w-full">
-      <div className="flex w-full items-center">
-        <div className="bg-cream hidden h-[1.3px] flex-grow md:block xl:pl-[339px]"></div>
-
-        <h1 className="text-cream font-heading px-6 text-5xl tracking-tighter whitespace-nowrap">
-          Past Adventures
-        </h1>
-        <div className="bg-cream hidden h-[1.3px] flex-grow xl:block"></div>
-        <Image
-          src={image}
-          alt="Kayak Image"
-          className="hidden h-auto w-auto md:block"
-        />
+      <PastAdventuresHeader />
+      <div className="flex flex-col items-center justify-center gap-5">
+        {events.map((event, index) => (
+          <PastTripsCard key={event.id || index} event={event} />
+        ))}
       </div>
     </div>
   )
