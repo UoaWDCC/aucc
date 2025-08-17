@@ -6,7 +6,7 @@ interface WaveBottomBlueProps {
 
 export function WaveBottomBlue({ className }: WaveBottomBlueProps) {
   return (
-    <div className="absolute bottom-0 z-20 w-full overflow-hidden">
+    <div className="pointer-events-none absolute bottom-0 -z-20 w-full overflow-hidden">
       <svg
         width="1280"
         height="723"

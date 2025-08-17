@@ -6,7 +6,7 @@ interface WaveTopDarkProps {
 
 export function WaveTopDark({ className }: WaveTopDarkProps) {
   return (
-    <div className="absolute -z-40 overflow-hidden">
+    <div className="pointer-events-none absolute -z-40 overflow-hidden">
       <svg
         width="1280"
         height="495"
