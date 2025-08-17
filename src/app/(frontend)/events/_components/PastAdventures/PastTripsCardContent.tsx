@@ -25,7 +25,6 @@ export function PastTripsCardContent({ event }: TripsCardContentProps) {
           {getPlainText(event.description)}
         </p>
         <TripsCardLocation>{event.location}</TripsCardLocation>
-        <TripsCardButtons eventId={event.id}></TripsCardButtons>
       </div>
     </div>
   )
