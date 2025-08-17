@@ -11,19 +11,19 @@ interface Props {
 
 export function TripReportsPageBackground({
   className,
-  seafoam = '#CFE4E1',
-  sage = '#8FA874',
   headerHeightClasses = 'h-[360px] md:h-[420px] lg:h-[720px]',
 }: Props) {
   return (
     <div
       className={cn('pointer-events-none absolute inset-0 -z-10', className)}
     >
-      <div className="absolute inset-0" style={{ backgroundColor: seafoam }} />
+      <div className="bg-seafoam absolute inset-0" />
 
       <TripReportPageTopCurve
-        className={cn('absolute top-0 left-0 w-full', headerHeightClasses)}
-        fill={sage}
+        className={cn(
+          'fill-grass absolute top-0 left-0 w-full',
+          headerHeightClasses,
+        )}
       />
 
       <div className="bg-water absolute bottom-0 left-0 h-[40%] w-full">
