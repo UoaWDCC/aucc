@@ -8,9 +8,9 @@ interface EventPageProps {
 }
 export function TicketInformationSection({ event }: EventPageProps) {
   return (
-    <section className="h-190 min-h-96 bg-[conic-gradient(from_253.4deg,#78ADAE_-12.12deg,#3F443D_31.15deg,#BED76D_185.19deg,#78ADAE_347.88deg,#3F443D_391.15deg)] md:h-220">
-      <div className="ml-13 flex w-2/3 flex-col md:ml-24 lg:ml-33">
-        <div className="mt-25 h-100 bg-[#EFEDE3] py-8 pr-8 pl-7 md:mt-34 md:h-110 md:pt-12 md:pr-16 md:pb-18 md:pl-14 lg:mt-39 lg:h-120 lg:pt-16 lg:pr-30 lg:pb-22 lg:pl-25">
+    <section className="min-h-96 bg-[conic-gradient(from_253.4deg,#78ADAE_-12.12deg,#3F443D_31.15deg,#BED76D_185.19deg,#78ADAE_347.88deg,#3F443D_391.15deg)] py-8 md:py-12 lg:py-16">
+      <div className="mr-4 ml-4 flex flex-col md:mr-8 md:ml-24 lg:mr-16 lg:ml-33">
+        <div className="mt-17 bg-[#EFEDE3] py-8 pr-8 pl-7 md:mt-22 md:py-12 md:pr-16 md:pl-14 lg:mt-23 lg:py-16 lg:pr-30 lg:pl-25">
           <h2 className="font-heading pb-8 text-[#7F9F66]">Tickets</h2>
           <div className="line-clamp-13 text-sm text-[#1E2A29] italic">
             {event.ticketsInformation && (
@@ -18,12 +18,14 @@ export function TicketInformationSection({ event }: EventPageProps) {
             )}
           </div>
         </div>
-        <div className="mt-5 flex flex-row justify-between gap-3 md:mt-8">
-          <p className="w-[48%] text-sm leading-5 text-white italic md:text-lg md:leading-6">
+        <div className="mt-5 flex flex-col gap-4 md:mt-8 md:flex-row md:justify-between md:gap-3">
+          <p className="text-sm leading-5 text-white italic md:w-[48%] md:text-lg md:leading-6">
             {`If you're not already a member, you'll need to sign up to join trips
             like this one.`}
           </p>
-          <SignUpToJoin />
+          <div className="flex justify-center md:justify-end">
+            <SignUpToJoin />
+          </div>
         </div>
       </div>
     </section>

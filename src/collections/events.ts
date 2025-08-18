@@ -115,5 +115,10 @@ export const Events: CollectionConfig = {
         className: 'hide-filename',
       },
     }),
+    {
+      name: 'tag',
+      type: 'relationship',
+      relationTo: 'tags',
+    },
   ],
 }

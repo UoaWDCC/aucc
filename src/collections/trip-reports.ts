@@ -44,20 +44,20 @@ export const TripReports: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
-      label: 'Trip Name',
+      label: 'Report Title',
     },
     {
       name: 'status',
       type: 'select',
       required: true,
-      label: 'Trip Status',
+      label: 'Report Status',
       options: [
         { label: 'Draft', value: 'draft' },
         { label: 'Published', value: 'published' },
       ],
     },
     {
-      name: 'author',
+      name: 'authors',
       type: 'relationship',
       required: true,
       hasMany: true,
@@ -79,15 +79,7 @@ export const TripReports: CollectionConfig = {
       name: 'relatedEvent',
       type: 'relationship',
       relationTo: 'events',
-      required: true,
       label: 'Related Event',
-    },
-    {
-      name: 'relatedRiver',
-      type: 'relationship',
-      required: true,
-      relationTo: 'rivers',
-      label: 'Related River',
     },
     customUploadField({
       name: 'featuredImage',
@@ -107,7 +99,7 @@ export const TripReports: CollectionConfig = {
     },
     customUploadField({
       name: 'gallery',
-      label: 'Trip Gallery',
+      label: 'Report Gallery',
       hasMany: true,
       required: false,
       mimeType: 'image',

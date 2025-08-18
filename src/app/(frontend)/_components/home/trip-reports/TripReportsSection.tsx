@@ -1,7 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
 
-import PLACEHOLDER from '@/assets/hero.webp'
-import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { getTripReports } from '@/queries/trip-reports'
 import { LatestReportsHeader } from './LatestReportsHeader'
@@ -19,7 +18,7 @@ export async function TripReportsSection() {
 
   const defaultReport = {
     title: 'No report available',
-    tripDate: 'No date available',
+    // tripDate: 'No date available',
     featuredImage: undefined,
     content: 'No content available',
   }
@@ -27,9 +26,10 @@ export async function TripReportsSection() {
   const mappedReports =
     tripReports?.slice(0, 3).map((report) => ({
       title: report.title,
-      tripDate: formatDate(report.tripDate),
+      // tripDate: formatDate(report.relatedEvent.startTime),
       featuredImage: report.featuredImage,
       content: getPlainText(report.content),
+      slug: report.slug,
     })) || []
 
   const [reportA, reportB, reportC] = [
@@ -44,28 +44,34 @@ export async function TripReportsSection() {
         <LatestReportsHeader />
         <div className="flex flex-col gap-4 md:flex-row md:justify-center">
           <div className="w-full md:w-[58%]">
-            <PrimaryTripReportCard
-              title={reportA.title}
-              tripDate={reportA.tripDate}
-              featuredImage={reportA.featuredImage}
-              content={reportA.content}
-            />
+            <Link href={`/trip-reports/${reportA.slug}`}>
+              <PrimaryTripReportCard
+                title={reportA.title}
+                // tripDate={reportA.tripDate}
+                featuredImage={reportA.featuredImage}
+                content={reportA.content}
+              />
+            </Link>
           </div>
           <div className="flex flex-col gap-4 md:w-[42%] md:gap-2.25">
             <div className="grid grid-cols-2 gap-4 md:grid-cols-1 md:gap-2.25">
-              <SecondaryTripReportCard
-                title={reportB.title}
-                tripDate={reportB.tripDate}
-                featuredImage={reportB.featuredImage}
-                content={reportB.content}
-              />
-              <div className="flex flex-col">
-                <TertiaryTripReportCard
-                  title={reportC.title}
-                  tripDate={reportC.tripDate}
-                  featuredImage={reportC.featuredImage}
-                  content={reportC.content}
+              <Link href={`/trip-reports/${reportB.slug}`}>
+                <SecondaryTripReportCard
+                  title={reportB.title}
+                  // tripDate={reportB.tripDate}
+                  featuredImage={reportB.featuredImage}
+                  content={reportB.content}
                 />
+              </Link>
+              <div className="flex flex-col">
+                <Link href={`/trip-reports/${reportC.slug}`}>
+                  <TertiaryTripReportCard
+                    title={reportC.title}
+                    // tripDate={reportC.tripDate}
+                    featuredImage={reportC.featuredImage}
+                    content={reportC.content}
+                  />
+                </Link>
                 <div className="md:hidden">
                   <SeeAllReportsButton />
                 </div>
