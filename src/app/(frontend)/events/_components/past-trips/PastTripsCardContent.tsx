@@ -1,9 +1,9 @@
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { EventDTO } from '@/queries/events'
-import { TripsCardButtons } from '../Trips/TripsCardButtons'
-import { TripsCardDate } from '../Trips/TripsCardDate'
-import { TripsCardGrade } from '../Trips/TripsCardGrade'
-import { TripsCardLocation } from '../Trips/TripsCardLocation'
+import { TripsCardButtons } from '../upcoming-trips/TripsCardButtons'
+import { TripsCardDate } from '../upcoming-trips/TripsCardDate'
+import { TripsCardGrade } from '../upcoming-trips/TripsCardGrade'
+import { TripsCardLocation } from '../upcoming-trips/TripsCardLocation'
 
 type TripsCardContentProps = {
   event: EventDTO

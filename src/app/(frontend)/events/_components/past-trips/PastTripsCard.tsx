@@ -1,5 +1,5 @@
 import { EventDTO } from '@/queries/events'
-import { TripsCardImage } from '../Trips/TripsCardImage'
+import { TripsCardImage } from '../upcoming-trips/TripsCardImage'
 import { PastTripsCardContent } from './PastTripsCardContent'
 
 type TripsCardProps = {

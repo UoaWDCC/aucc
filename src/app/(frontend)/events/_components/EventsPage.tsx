@@ -3,46 +3,29 @@
 import React from 'react'
 
 import { EventDTO } from '@/queries/events'
-import { EventsIntroSection } from './EventsIntro/EventsIntroSection'
-import { PastAdventuresSection } from './PastAdventures/PastAdventuresSection'
-import { UpcomingTripsSection } from './Trips/UpcomingTripsSection'
-import { UpcomingSection } from './Upcoming/UpcomingEvents'
+import { EventsHeaderSection } from './header/EventsHeaderSection'
+import { UpcomingSection } from './intro/UpcomingEvents'
+import { PastTripsSection } from './past-trips/PastTripsSection'
+import { UpcomingTripsSection } from './upcoming-trips/UpcomingTripsSection'
 
 interface EventsPageProps {
   events: EventDTO[]
 }
 
 export function EventsPage({ events }: EventsPageProps) {
-  const upcomingEvents = events.filter((event) => {
-    const eventDate = new Date(event.startTime)
-    const currentDate = new Date()
-    return eventDate >= currentDate
-  })
-
-  const pastEvents = events
-    .filter((event) => {
-      const eventDate = new Date(event.startTime)
-      const currentDate = new Date()
-      return eventDate < currentDate
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.startTime).getTime() - new Date(a.startTime).getTime(),
-    )
-
-  const upcomingTrips = upcomingEvents.filter(
-    (event) => event.eventType.toLowerCase() === 'trip',
+  const now = new Date()
+  const upcomingTrips = events.filter(
+    (event) => new Date(event.startTime) >= now,
   )
-  const pastTrips = pastEvents.filter(
-    (event) => event.eventType.toLowerCase() === 'trip',
-  )
+
+  const pastTrips = events.filter((event) => new Date(event.startTime) < now)
 
   return (
     <>
-      <EventsIntroSection />
+      <EventsHeaderSection />
       <UpcomingSection />
       <UpcomingTripsSection events={upcomingTrips} />
-      <PastAdventuresSection events={pastTrips} />
+      <PastTripsSection events={pastTrips} />
     </>
   )
 }

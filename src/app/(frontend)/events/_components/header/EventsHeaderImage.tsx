@@ -3,11 +3,11 @@ import Image from 'next/image'
 // Temp image
 import image from '@/assets/looking-for-us-02.webp'
 
-interface EventsIntroImageProps {
+interface EventsHeaderImageProps {
   alt: string
 }
 
-export function EventsIntroImage({ alt }: EventsIntroImageProps) {
+export function EventsHeaderImage({ alt }: EventsHeaderImageProps) {
   return (
     <div className="absolute inset-0 size-full overflow-hidden select-none">
       <Image src={image} alt={alt} fill className="object-cover" />
