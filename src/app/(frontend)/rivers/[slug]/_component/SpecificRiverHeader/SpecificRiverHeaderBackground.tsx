@@ -10,8 +10,8 @@ export function SpecificRiverHeaderBackground({
   children,
 }: SpecificRiverHeaderBackgroundProps) {
   return (
-    <div className="relative w-full bg-[#d3e2da]">
-      <SpecificRiverHeaderTopCurve />
+    <div className="relative h-248 w-full bg-[#d3e2da]">
+      <SpecificRiverHeaderTopCurve className="relative top-0 h-115 w-full" />
       {children}
     </div>
   )
