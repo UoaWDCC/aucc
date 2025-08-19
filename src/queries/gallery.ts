@@ -23,7 +23,12 @@ export const getGallery = unstable_cache(
     page?: number
     limit?: number
     sort?: string
-  } = {}) {
+  } = {}): Promise<{
+    gallery: GalleryDTO[]
+    hasNextPage: boolean
+    nextPage: number | null
+    totalDocs: number
+  }> {
     const payload = await getPayloadClient()
 
     const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
@@ -32,12 +37,18 @@ export const getGallery = unstable_cache(
       limit,
       sort,
       depth: 1,
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        tags: true,
+      },
     })
 
     return {
       gallery: docs as GalleryDTO[],
       hasNextPage,
-      nextPage,
+      nextPage: nextPage ?? null,
       totalDocs,
     }
   },
@@ -47,6 +58,9 @@ export const getGallery = unstable_cache(
   },
 )
 
+/**
+ * Get gallery items by tag name
+ */
 export const getGalleryByTag = unstable_cache(
   async function (
     tagName: string,
@@ -59,7 +73,12 @@ export const getGalleryByTag = unstable_cache(
       limit?: number
       sort?: string
     } = {},
-  ) {
+  ): Promise<{
+    gallery: GalleryDTO[]
+    hasNextPage: boolean
+    nextPage: number | null
+    totalDocs: number
+  }> {
     const payload = await getPayloadClient()
 
     const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
@@ -73,12 +92,18 @@ export const getGalleryByTag = unstable_cache(
       limit,
       sort,
       depth: 1,
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        tags: true,
+      },
     })
 
     return {
       gallery: docs as GalleryDTO[],
       hasNextPage,
-      nextPage,
+      nextPage: nextPage ?? null,
       totalDocs,
     }
   },
