@@ -287,7 +287,7 @@ export interface Event {
   };
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
-  featuredImage?: (number | null) | Media;
+  featuredImage: number | Media;
   tag?: (number | null) | Tag;
   updatedAt: string;
   createdAt: string;
