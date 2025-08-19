@@ -18,7 +18,11 @@ export function NextAdventureCard({ event }: EventPageProps) {
       <div className="bg-cream/5 text-cream flex flex-col items-center gap-4 overflow-hidden rounded-2xl p-4 md:flex-row-reverse md:items-stretch md:px-9 md:pb-7 lg:px-14 lg:pb-11 xl:mx-auto xl:max-w-[1000px]">
         <div className="relative h-48 w-full overflow-hidden rounded-md md:h-auto md:w-2/5 md:flex-shrink-0">
           <Skeleton className="absolute inset-0 z-0" />
-          <PayloadImage media={event.featuredImage} />
+          {event.featuredImage ? (
+            <PayloadImage media={event.featuredImage} />
+          ) : (
+            <div className="h-full w-full bg-neutral-200" />
+          )}
         </div>
 
         <div className="flex flex-col gap-4 md:mb-1 md:min-w-0 md:gap-0">

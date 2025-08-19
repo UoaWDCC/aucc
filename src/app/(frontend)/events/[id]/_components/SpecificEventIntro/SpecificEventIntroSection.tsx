@@ -50,7 +50,7 @@ export function SpecificEventIntroSection({
           {/* Specific Event's Image */}
           <div className="relative right-0 z-20 mt-2 aspect-[16/9] h-auto w-full overflow-hidden sm:mt-0 md:absolute md:z-0 md:h-[667px]">
             <PayloadImage
-              media={event.featuredImage}
+              media={event.featuredImage ?? undefined}
               className="object-cover"
             />
           </div>
