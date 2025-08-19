@@ -270,7 +270,7 @@ export interface Event {
   } | null;
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
-  featuredImage: number | Media;
+  featuredImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -321,7 +321,7 @@ export interface Exec {
   pronouns: string;
   role: string;
   email: string;
-  image?: (number | null) | Media;
+  image: number | Media;
   updatedAt: string;
   createdAt: string;
 }

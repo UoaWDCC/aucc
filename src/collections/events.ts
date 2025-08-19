@@ -105,7 +105,7 @@ export const Events: CollectionConfig = {
     customUploadField({
       name: 'featuredImage',
       label: 'Featured Image',
-      required: true,
+      required: false, //make false just for testing
       mimeType: 'image',
       admin: {
         className: 'hide-filename',
