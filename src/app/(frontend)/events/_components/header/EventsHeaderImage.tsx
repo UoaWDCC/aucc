@@ -1,19 +1,14 @@
-// src/app/(frontend)/events/_components/EventsIntro/EventsIntroImage.tsx
-import Image, { type StaticImageData } from 'next/image'
+import { PayloadImage } from '@/components/PayloadImage'
+import { Media } from '@/payload-types'
 
-// Fallback image
-import fallbackImage from '@/assets/looking-for-us-02.webp'
-
-interface EventsHeaderImageProps {
-  alt: string
-  /** Use fall back if there is no global image**/
-  src?: string | StaticImageData
+type EventsHeaderImageProps = {
+  media: Media
 }
 
-export function EventsHeaderImage({ alt }: EventsHeaderImageProps) {
+export function EventsHeaderImage({ media }: EventsHeaderImageProps) {
   return (
     <div className="absolute inset-0 size-full overflow-hidden select-none">
-      <Image src={bg} alt={alt} fill className="object-cover" />
+      <PayloadImage media={media} className="object-cover" />
       <div className="absolute inset-0 z-1 size-full bg-gradient-to-t from-[#26342c] from-10% to-[#90A1A5]/0 opacity-80 brightness-90" />
     </div>
   )
