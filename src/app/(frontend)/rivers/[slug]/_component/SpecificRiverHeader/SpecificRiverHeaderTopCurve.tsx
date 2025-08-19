@@ -11,6 +11,7 @@ export function SpecificRiverHeaderTopCurve({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      preserveAspectRatio="none"
     >
       <path
         d="M1280 462.271C1268.84 447.951 1256.86 433.908 1243.98 420.308C1037.85 202.666 525.835 531.27 340.117 293.931C325.222 274.895 310.213 258.845 295.157 245.441C282.021 235.96 268.319 226.882 254.021 218.338C179.307 173.692 92.0909 180.622 0 208.512V0H1280V462.271Z"
