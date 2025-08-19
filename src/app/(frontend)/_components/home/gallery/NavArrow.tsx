@@ -1,4 +1,4 @@
-export default function NavArrow(props: {
+export function NavArrow(props: {
   left?: boolean
   onClick: (e: React.MouseEvent) => void
 }) {

@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { cva, VariantProps } from 'class-variance-authority'
 

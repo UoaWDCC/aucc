@@ -20,11 +20,13 @@ export const getTripReports = unstable_cache(
     limit = 10,
     sort = '-createdAt',
     status = 'published',
+    depth = 0,
   }: {
     page?: number
     limit?: number
     sort?: string
     status?: 'published' | 'draft'
+    depth?: number
   } = {}) {
     const payload = await getPayloadClient()
 
@@ -38,6 +40,7 @@ export const getTripReports = unstable_cache(
           equals: status,
         },
       },
+      depth,
     })
 
     return {
@@ -82,6 +85,7 @@ export const getTripReportBySlug = unstable_cache(
         ],
       },
       limit: 1,
+      depth: 1,
     })
 
     if (tripReport.docs.length === 0) {

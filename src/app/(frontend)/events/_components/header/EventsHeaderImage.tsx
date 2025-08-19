@@ -4,15 +4,13 @@ import Image, { type StaticImageData } from 'next/image'
 // Fallback image
 import fallbackImage from '@/assets/looking-for-us-02.webp'
 
-interface EventsIntroImageProps {
+interface EventsHeaderImageProps {
   alt: string
   /** Use fall back if there is no global image**/
   src?: string | StaticImageData
 }
 
-export function EventsIntroImage({ alt, src }: EventsIntroImageProps) {
-  const bg = src ?? fallbackImage
-
+export function EventsHeaderImage({ alt }: EventsHeaderImageProps) {
   return (
     <div className="absolute inset-0 size-full overflow-hidden select-none">
       <Image src={bg} alt={alt} fill className="object-cover" />

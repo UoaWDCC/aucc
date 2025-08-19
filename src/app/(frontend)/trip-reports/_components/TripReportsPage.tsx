@@ -1,23 +1,30 @@
-import { Suspense } from 'react'
+import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-import { TripReport } from '@/payload-types'
-import { TripReportsGrid } from './TripReportsGrid'
-import { TripReportsGridFallback } from './TripReportsGridFallback'
+import { Media } from '@/payload-types'
+import type { TripReportDTO } from '@/queries/trip-reports'
+import TripReportsGrid from './grid/TripReportsGrid'
+import TripReportsGridBackground from './grid/TripReportsGridBackground'
+import { TripReportsHeaderSection } from './header/TripReportsHeaderSection'
+import { TripReportsIntroSection } from './TripReportsIntroSection'
 
-interface TripReportsPageProps {
-  tripReports: TripReport[]
+type TripReportsPageProps = {
+  tripReports: TripReportDTO[]
+  headerImage: Media
+  introText: SerializedEditorState
 }
 
-export function TripReportsPage({ tripReports }: TripReportsPageProps) {
+export function TripReportsPage({
+  tripReports,
+  headerImage,
+  introText,
+}: TripReportsPageProps) {
   return (
-    <div className="p-4">
-      <div className="text-left">
-        <h1 className="text-2xl font-bold">Trip Reports</h1>
-        <h2 className="text-gray-600">A list of all trip reports available.</h2>
-      </div>
-      <Suspense fallback={<TripReportsGridFallback />}>
+    <>
+      <TripReportsHeaderSection headerImage={headerImage} />
+      <TripReportsIntroSection introText={introText} />
+      <TripReportsGridBackground className="px-4 md:px-8">
         <TripReportsGrid tripReports={tripReports} />
-      </Suspense>
-    </div>
+      </TripReportsGridBackground>
+    </>
   )
 }
