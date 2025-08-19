@@ -22,19 +22,18 @@ export const getEvents = unstable_cache(
   } = {}) {
     const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-      collection: 'events',
-      page,
-      limit,
-      sort,
-      where: {
-        ...(tripsOnly && {
-          eventType: {
-            equals: 'trip',
-          },
-        }),
-      },
-    })
+    // build where only when needed
+    const where: Record<string, any> = {}
+    if (tripsOnly) {
+      where.eventType = { equals: 'trip' }
+    }
+
+    const args: any = { collection: 'events', page, limit, sort }
+    if (Object.keys(where).length > 0) {
+      args.where = where
+    }
+
+    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find(args)
 
     return {
       events: docs as EventDTO[],
@@ -44,9 +43,7 @@ export const getEvents = unstable_cache(
     }
   },
   ['getAllEvents'],
-  {
-    tags: cacheTags.events.relatedTags,
-  },
+  { tags: cacheTags.events.relatedTags },
 )
 
 /**
