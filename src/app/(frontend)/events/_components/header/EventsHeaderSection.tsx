@@ -1,10 +1,10 @@
-import { EventsIntroBottomCurve } from './EventsIntroBottomCurve'
-import { EventsIntroImage } from './EventsIntroImage'
+import { EventsHeaderBottomCurve } from './EventsHeaderBottomCurve'
+import { EventsHeaderImage } from './EventsHeaderImage'
 
-export function EventsIntroSection() {
+export function EventsHeaderSection() {
   return (
     <div className="relative flex h-60 w-full flex-col items-center justify-center align-middle md:h-115">
-      <EventsIntroImage alt="IntroImage" />
+      <EventsHeaderImage alt="IntroImage" />
       <div className="text-cream relative z-1 flex flex-col items-center md:items-start">
         <h1 className="font-heading flex justify-self-center text-center text-[60px] md:text-[140px]">
           Events
@@ -14,7 +14,7 @@ export function EventsIntroSection() {
           major events here.
         </h2>
       </div>
-      <EventsIntroBottomCurve />
+      <EventsHeaderBottomCurve />
     </div>
   )
 }

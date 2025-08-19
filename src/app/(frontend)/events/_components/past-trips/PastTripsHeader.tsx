@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import image from '@/assets/kayak.webp'
 
-export function PastAdventuresHeader() {
+export function PastTripsHeader() {
   return (
     <div className="mb-8 flex w-full items-center">
       <div className="bg-cream hidden h-[1.3px] flex-grow md:block xl:pl-[339px]"></div>
