@@ -1,8 +1,8 @@
+import { GradeBadge } from '@/components/GradeBadge'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { EventDTO } from '@/queries/events'
 import { TripsCardButtons } from '../upcoming-trips/TripsCardButtons'
 import { TripsCardDate } from '../upcoming-trips/TripsCardDate'
-import { TripsCardGrade } from '../upcoming-trips/TripsCardGrade'
 import { TripsCardLocation } from '../upcoming-trips/TripsCardLocation'
 
 type TripsCardContentProps = {
@@ -16,7 +16,7 @@ export function PastTripsCardContent({ event }: TripsCardContentProps) {
       <div className="flex flex-col-reverse gap-6">
         <h2 className="font-heading mb-4 text-xl">{event.title}</h2>
         <div className="flex flex-row gap-7">
-          {riverGrade && <TripsCardGrade grade={riverGrade} />}
+          {riverGrade && <GradeBadge grade={riverGrade} />}
           <TripsCardDate startTime={event.startTime} endTime={event.endTime} />
         </div>
       </div>
