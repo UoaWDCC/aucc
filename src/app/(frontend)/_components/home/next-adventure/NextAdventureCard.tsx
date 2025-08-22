@@ -1,12 +1,10 @@
-import Image from 'next/image'
-
+import { GradeBadge } from '@/components/GradeBadge'
 import { PayloadImage } from '@/components/PayloadImage'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { EventDTO } from '@/queries/events'
 import { NextAdventureButtons } from './NextAdventureButtons'
 import { NextAdventureDate } from './NextAdventureDate'
-import { NextAdventureGrade } from './NextAdventureGrade'
 import { NextAdventureLocation } from './NextAdventureLocation'
 
 interface EventPageProps {
@@ -29,7 +27,7 @@ export function NextAdventureCard({ event }: EventPageProps) {
               {event?.title}
             </h2>
             <div className="flex w-full flex-wrap justify-between gap-4 md:w-fit lg:gap-7">
-              {riverGrade && <NextAdventureGrade grade={riverGrade} />}
+              {riverGrade && <GradeBadge grade={riverGrade} />}
               <NextAdventureDate
                 startTime={event.startTime}
                 endTime={event.endTime}
