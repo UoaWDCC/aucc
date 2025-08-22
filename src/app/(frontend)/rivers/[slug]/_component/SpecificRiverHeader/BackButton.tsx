@@ -8,7 +8,7 @@ export function BackButton() {
       href="/rivers"
       intent="ghost"
       color="cream"
-      className="absolute mt-20 ml-20 flex cursor-pointer justify-start"
+      className="absolute mt-24 ml-20 flex cursor-pointer justify-start"
     >
       <ArrowLeft />
       BACK

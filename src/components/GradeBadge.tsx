@@ -1,5 +1,8 @@
+import { cn } from '@/lib/utils/cn'
+
 type GradeProps = {
   grade: number
+  className?: string
 }
 
 const GRADE_COLOURS = [
@@ -11,7 +14,7 @@ const GRADE_COLOURS = [
   'bg-[#c98541]',
 ]
 
-export function GradeBadge({ grade }: GradeProps) {
+export function GradeBadge({ grade, className }: GradeProps) {
   let colour: string
   // If grade is less than 1 or more than 6, use colour 1 or 6
   if (grade < 1) {
@@ -24,7 +27,10 @@ export function GradeBadge({ grade }: GradeProps) {
 
   return (
     <div
-      className={`text-cream ${colour} flex h-6 items-center justify-center rounded-2xl px-3 text-sm font-medium`}
+      className={cn(
+        `text-cream ${colour} flex h-6 items-center justify-center rounded-2xl px-3 text-sm font-medium`,
+        className,
+      )}
     >
       Grade {grade}
     </div>
