@@ -1,4 +1,5 @@
 import { getEvents } from '@/queries/events'
+import { getEventsGlobal } from '@/queries/events-global'
 import { EventsPage } from './_components/EventsPage'
 
 export default async function Page() {
@@ -7,5 +8,13 @@ export default async function Page() {
     tripsOnly: true,
   })
 
-  return <EventsPage events={events} />
+  const { headerImage, petrolCosts } = await getEventsGlobal()
+
+  return (
+    <EventsPage
+      events={events}
+      headerImage={headerImage}
+      petrolCosts={petrolCosts}
+    />
+  )
 }

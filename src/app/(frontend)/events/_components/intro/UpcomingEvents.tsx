@@ -1,8 +1,17 @@
+// src/app/(frontend)/events/_components/intro/UpcomingEvents.tsx
+'use client'
+
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+
 import { UpcomingBackground } from './UpcomingEventsBackground'
 import { UpcomingEventsBox } from './UpcomingEventsBox'
 import { UpcomingText } from './UpcomingEventsText'
 
-export function UpcomingSection() {
+type UpcomingSectionProps = {
+  petrolCosts: SerializedEditorState
+}
+
+export function UpcomingSection({ petrolCosts }: UpcomingSectionProps) {
   return (
     <UpcomingBackground>
       <div className="w-full px-4 md:px-8 xl:px-20">
@@ -11,7 +20,7 @@ export function UpcomingSection() {
             <UpcomingText />
           </div>
           <div className="w-full md:w-[40%]">
-            <UpcomingEventsBox />
+            <UpcomingEventsBox petrolCosts={petrolCosts} />
           </div>
         </div>
       </div>

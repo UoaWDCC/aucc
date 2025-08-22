@@ -7,12 +7,22 @@ import { Gallery } from '@/payload-types'
 
 export type GalleryDTO = NoNumber<Gallery>
 
+// Only swallow "schema not ready" errors in CI/build (fresh DB).
+function isSchemaMissing(err: unknown) {
+  const e = err as any
+  const msg = String(e?.message ?? e)
+  const code = e?.code
+  // Postgres error codes:
+  // 42P01: undefined_table, 42703: undefined_column
+  return (
+    msg.includes('does not exist') ||
+    msg.includes('gallery__rels') ||
+    code === '42P01' ||
+    code === '42703'
+  )
+}
 /**
  * Get all gallery items
- * @param page - The page number to get
- * @param limit - The number of items to get per page
- * @param sort - The field to sort the items by
- * @returns The gallery items and pagination information
  */
 export const getGallery = unstable_cache(
   async function ({
@@ -23,22 +33,45 @@ export const getGallery = unstable_cache(
     page?: number
     limit?: number
     sort?: string
-  } = {}) {
+  } = {}): Promise<{
+    gallery: GalleryDTO[]
+    hasNextPage: boolean
+    nextPage: number | null
+    totalDocs: number
+  }> {
     const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-      collection: 'gallery',
-      page,
-      limit,
-      sort,
-      depth: 1,
-    })
+    try {
+      const res = await payload.find({
+        collection: 'gallery',
+        page,
+        limit,
+        sort,
+        depth: 1,
+        select: {
+          id: true,
+          createdAt: true,
+          image: true,
+          tags: true,
+        },
+      })
 
-    return {
-      gallery: docs as GalleryDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
+      const { docs, hasNextPage, nextPage, totalDocs } = res
+
+      return {
+        gallery: docs as GalleryDTO[],
+        hasNextPage: !!hasNextPage,
+        nextPage: nextPage ?? null,
+        totalDocs: totalDocs ?? 0,
+      }
+    } catch (err) {
+      if (
+        (process.env.CI || process.env.NODE_ENV === 'production') &&
+        isSchemaMissing(err)
+      ) {
+        return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
+      }
+      throw err
     }
   },
   ['getGallery'],
@@ -47,6 +80,9 @@ export const getGallery = unstable_cache(
   },
 )
 
+/**
+ * Get gallery items by tag name
+ */
 export const getGalleryByTag = unstable_cache(
   async function (
     tagName: string,
@@ -59,27 +95,48 @@ export const getGalleryByTag = unstable_cache(
       limit?: number
       sort?: string
     } = {},
-  ) {
+  ): Promise<{
+    gallery: GalleryDTO[]
+    hasNextPage: boolean
+    nextPage: number | null
+    totalDocs: number
+  }> {
     const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-      collection: 'gallery',
-      where: {
-        'tags.name': {
-          equals: tagName,
+    try {
+      const res = await payload.find({
+        collection: 'gallery',
+        where: {
+          'tags.name': { equals: tagName },
         },
-      },
-      page,
-      limit,
-      sort,
-      depth: 1,
-    })
+        page,
+        limit,
+        sort,
+        depth: 1,
+        select: {
+          id: true,
+          createdAt: true,
+          image: true,
+          tags: true,
+        },
+      })
 
-    return {
-      gallery: docs as GalleryDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
+      const { docs, hasNextPage, nextPage, totalDocs } = res
+
+      return {
+        gallery: docs as GalleryDTO[],
+        hasNextPage: !!hasNextPage,
+        nextPage: nextPage ?? null,
+        totalDocs: totalDocs ?? 0,
+      }
+    } catch (err) {
+      if (
+        (process.env.CI || process.env.NODE_ENV === 'production') &&
+        isSchemaMissing(err)
+      ) {
+        return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
+      }
+      throw err
     }
   },
   ['getGalleryByTag'],
