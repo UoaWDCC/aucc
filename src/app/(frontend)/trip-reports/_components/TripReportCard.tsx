@@ -17,7 +17,7 @@ function isExec(a: number | Exec): a is Exec {
 }
 
 export function TripReportCard({ report }: TripReportCardProps) {
-  const postAuthors = report.author.filter(isExec)
+  const postAuthors = report.authors.filter(isExec)
   const featuredImage =
     report.featuredImage && typeof report.featuredImage !== 'number'
       ? report.featuredImage.url
