@@ -10,7 +10,7 @@ interface RiverPageProps {
 export function RiverPage({ river }: RiverPageProps) {
   return (
     <>
-      <SpecificRiverHeader />
+      <SpecificRiverHeader river={river} />
       <div className="p-4">
         <h1 className="text-center text-3xl font-bold">{river.name}</h1>
         <div className="h-150 p-2">
