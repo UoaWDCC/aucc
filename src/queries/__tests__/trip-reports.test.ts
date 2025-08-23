@@ -42,6 +42,7 @@ describe('Trip Report queries', () => {
 
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
+        depth: 0,
         page: 1,
         limit: 10,
         sort: '-createdAt',
@@ -73,6 +74,7 @@ describe('Trip Report queries', () => {
 
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
+        depth: 0,
         page: 2,
         limit: 20,
         sort: 'name',
