@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
-import type { River } from '@/payload-types'
+import { RiverDTO } from '@/queries/rivers'
 import { SpecificRiverHeader } from './SpecificRiverHeader/SpecificRiverHeader'
 
 interface RiverPageProps {
-  river: River
+  river: RiverDTO
 }
 
 export function RiverPage({ river }: RiverPageProps) {
