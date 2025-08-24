@@ -1,6 +1,11 @@
 import type { Config } from 'tailwindcss'
 
 export default {
+  content: [
+    './app/**/*.{ts,tsx,js,jsx,mdx}', // Next.js app dir
+    './src/**/*.{ts,tsx,js,jsx,mdx}', // Your source code
+    './components/**/*.{ts,tsx,js,jsx,mdx}', // If you keep components here
+  ],
   theme: {
     extend: {
       typography: {
