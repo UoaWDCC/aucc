@@ -17,7 +17,6 @@ export function ContactImages() {
     window.addEventListener('resize', checkScreen)
     return () => window.removeEventListener('resize', checkScreen)
   }, [])
-
   return (
     <div className="relative mt-18 mb-36 w-full md:mt-16 md:mb-28 lg:mt-[-20px] lg:mr-[2%] lg:mb-16 lg:ml-auto lg:w-[420px] xl:mt-[-20px] xl:mr-[2%] xl:w-[500px]">
       <div className="relative mt-20 h-auto w-full md:mt-12 lg:mt-0">

@@ -3,6 +3,7 @@ import React from 'react'
 import './styles.css'
 
 import { Footer } from './_components/layout/Footer'
+import { Header } from './_components/layout/Header'
 import { Navbar } from './_components/layout/Navbar'
 
 export const metadata = {

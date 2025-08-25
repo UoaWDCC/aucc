@@ -99,10 +99,12 @@ export interface Config {
   globals: {
     'events-global': EventsGlobal;
     'trip-reports-global': TripReportsGlobal;
+    'rivers-global': RiversGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
     'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
+    'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
   };
   locale: null;
   user: User & {
@@ -270,7 +272,7 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
-  ticketsInformation: {
+  ticketsInformation?: {
     root: {
       type: string;
       children: {
@@ -284,7 +286,7 @@ export interface Event {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
   featuredImage: number | Media;
@@ -311,6 +313,8 @@ export interface TripReport {
   title: string;
   status: 'draft' | 'published';
   authors: (number | Exec)[];
+  tripDate: string;
+  location: string;
   relatedEvent?: (number | null) | Event;
   featuredImage: number | Media;
   content: {
@@ -356,11 +360,7 @@ export interface Exec {
  */
 export interface Gallery {
   id: number;
-  image?: (number | null) | Media;
-  /**
-   * Allows bulk upload, the tag will be applied to all images.
-   */
-  images?: (number | Media)[] | null;
+  image: number | Media;
   tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -597,6 +597,8 @@ export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
   authors?: T;
+  tripDate?: T;
+  location?: T;
   relatedEvent?: T;
   featuredImage?: T;
   content?: T;
@@ -624,7 +626,6 @@ export interface ExecsSelect<T extends boolean = true> {
  */
 export interface GallerySelect<T extends boolean = true> {
   image?: T;
-  images?: T;
   tags?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -737,6 +738,31 @@ export interface TripReportsGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers-global".
+ */
+export interface RiversGlobal {
+  id: number;
+  headerImage: number | Media;
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
@@ -752,6 +778,17 @@ export interface EventsGlobalSelect<T extends boolean = true> {
  * via the `definition` "trip-reports-global_select".
  */
 export interface TripReportsGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers-global_select".
+ */
+export interface RiversGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
   updatedAt?: T;

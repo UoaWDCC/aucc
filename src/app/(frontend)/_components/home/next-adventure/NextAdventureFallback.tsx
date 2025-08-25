@@ -1,4 +1,4 @@
-import { Image as ImageIcon } from 'lucide-react'
+import { Image } from 'lucide-react'
 
 export function NextAdventureFallback() {
   return (
@@ -7,7 +7,7 @@ export function NextAdventureFallback() {
         <div className="relative aspect-[302/192] h-[192px] w-[min(100%,302px)] flex-shrink-0 overflow-hidden rounded-md md:aspect-[195/164] md:h-[164px] md:w-[195px] lg:aspect-[325/274] lg:h-[274px] lg:w-[325px]">
           <div className="bg-cream/10 flex h-full w-full items-center justify-center">
             <div className="text-cream/50 flex flex-col items-center gap-2">
-              <ImageIcon className="h-8 w-8" />
+              <Image className="h-8 w-8" />
               <p className="text-xs">No Image</p>
             </div>
           </div>

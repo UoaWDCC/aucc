@@ -14,7 +14,6 @@ export async function TripReportsSection() {
     page: 1,
     limit: 3,
     sort: '-tripDate',
-    depth: 1,
   })
 
   const defaultReport = {

@@ -50,12 +50,9 @@ export function Navbar() {
         <div className="absolute -z-10 flex h-15 w-full justify-end overflow-hidden align-baseline md:h-25">
           <NavCurve />
         </div>
-        <Link
-          href="/"
-          className="w-13www -z-9 mr-auto h-14 w-14 cursor-pointer"
-        >
+        <div className="w-13www -z-9 mr-auto h-14 w-14">
           <Logo />
-        </Link>
+        </div>
         <div className="mt-0 mr-4 hidden gap-5 md:flex xl:gap-7">
           <NavButton href="/">Home</NavButton>
           <NavButton href="/events">Events</NavButton>

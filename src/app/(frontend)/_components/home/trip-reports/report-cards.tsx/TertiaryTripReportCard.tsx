@@ -1,5 +1,7 @@
 import React from 'react'
+import Image from 'next/image'
 
+import PLACEHOLDER from '@/assets/hero.webp'
 import { PayloadImage } from '@/components/PayloadImage'
 import { Media } from '@/payload-types'
 
