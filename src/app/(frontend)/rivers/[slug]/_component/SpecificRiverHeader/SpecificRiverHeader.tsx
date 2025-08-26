@@ -22,9 +22,9 @@ export function SpecificRiverHeader({ river }: RiverPageProps) {
         <BackButton />
         <SpecificRiverHeaderName name={name} />
       </section>
-      <section className="flex">
+      <section className="flex w-full">
         <SpecificRiverHeaderText description={description} />
-        <div className="mt-16 ml-20 flex h-107 w-full flex-col gap-11">
+        <div className="mt-16 ml-[max(40px,10%)] flex h-107 w-[50%] min-w-100 flex-col gap-11">
           <GradeBadge
             grade={river.grade}
             className="h-15 w-46 rounded-[100px] text-[28px]"

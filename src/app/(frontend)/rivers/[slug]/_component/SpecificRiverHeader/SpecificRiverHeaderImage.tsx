@@ -8,7 +8,7 @@ export function SpecificRiverHeaderImage({
   url,
 }: SpecificRiverHeaderImageProp) {
   return (
-    <div className="relative h-full w-auto overflow-hidden">
+    <div className="relative h-full w-auto max-w-200 overflow-hidden">
       <Image
         src={url}
         alt="Specific river header image"
