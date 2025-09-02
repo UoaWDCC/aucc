@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
+import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { getTripReports } from '@/queries/trip-reports'
 import { LatestReportsHeader } from './LatestReportsHeader'
@@ -13,12 +14,12 @@ export async function TripReportsSection() {
   const { tripReports } = await getTripReports({
     page: 1,
     limit: 3,
-    sort: '-tripDate',
+    sort: '-datePublished',
   })
 
   const defaultReport = {
     title: 'No report available',
-    // tripDate: 'No date available',
+    datePublished: 'No date available',
     featuredImage: undefined,
     content: 'No content available',
   }
@@ -26,7 +27,7 @@ export async function TripReportsSection() {
   const mappedReports =
     tripReports?.slice(0, 3).map((report) => ({
       title: report.title,
-      // tripDate: formatDate(report.relatedEvent.startTime),
+      datePublished: formatDate(report.datePublished),
       featuredImage: report.featuredImage,
       content: getPlainText(report.content),
       slug: report.slug,
@@ -47,7 +48,7 @@ export async function TripReportsSection() {
             <Link href={`/trip-reports/${reportA.slug}`}>
               <PrimaryTripReportCard
                 title={reportA.title}
-                // tripDate={reportA.tripDate}
+                datePublished={reportA.datePublished}
                 featuredImage={reportA.featuredImage}
                 content={reportA.content}
               />
@@ -58,7 +59,7 @@ export async function TripReportsSection() {
               <Link href={`/trip-reports/${reportB.slug}`}>
                 <SecondaryTripReportCard
                   title={reportB.title}
-                  // tripDate={reportB.tripDate}
+                  datePublished={reportB.datePublished}
                   featuredImage={reportB.featuredImage}
                   content={reportB.content}
                 />
@@ -67,7 +68,7 @@ export async function TripReportsSection() {
                 <Link href={`/trip-reports/${reportC.slug}`}>
                   <TertiaryTripReportCard
                     title={reportC.title}
-                    // tripDate={reportC.tripDate}
+                    datePublished={reportC.datePublished}
                     featuredImage={reportC.featuredImage}
                     content={reportC.content}
                   />
