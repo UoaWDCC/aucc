@@ -1,5 +1,5 @@
+import { TripsCard } from '@/components/TripsCard/TripsCard'
 import { getNextTrip } from '@/queries/events'
-import { NextAdventureCard } from './NextAdventureCard'
 import { NextAdventureFallback } from './NextAdventureFallback'
 import { NextAdventureHeader } from './NextAdventureHeader'
 import { NextAdventureSectionBackground } from './NextAdventureSectionBackground'
@@ -10,7 +10,11 @@ export async function NextAdventureSection() {
   return (
     <NextAdventureSectionBackground>
       <NextAdventureHeader />
-      {event ? <NextAdventureCard event={event} /> : <NextAdventureFallback />}
+      {event ? (
+        <TripsCard event={event} mode="upcoming" bg="cream" />
+      ) : (
+        <NextAdventureFallback />
+      )}
     </NextAdventureSectionBackground>
   )
 }

@@ -1,5 +1,5 @@
+import { TripsCard } from '@/components/TripsCard/TripsCard'
 import { EventDTO } from '@/queries/events'
-import { PastTripsCard } from './PastTripsCard'
 import { PastTripsHeader } from './PastTripsHeader'
 
 type PastTripsSectionProps = {
@@ -12,7 +12,12 @@ export function PastTripsSection({ events }: PastTripsSectionProps) {
       <PastTripsHeader />
       <div className="mb-45 flex flex-col items-center justify-center gap-5">
         {events.map((event, index) => (
-          <PastTripsCard key={event.id || index} event={event} />
+          <TripsCard
+            key={event.id || index}
+            event={event}
+            mode="past"
+            bg="cream"
+          />
         ))}
       </div>
     </div>
