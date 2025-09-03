@@ -313,8 +313,7 @@ export interface TripReport {
   title: string;
   status: 'draft' | 'published';
   authors: (number | Exec)[];
-  tripDate: string;
-  location: string;
+  datePublished: string;
   relatedEvent?: (number | null) | Event;
   featuredImage: number | Media;
   content: {
@@ -597,8 +596,7 @@ export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
   authors?: T;
-  tripDate?: T;
-  location?: T;
+  datePublished?: T;
   relatedEvent?: T;
   featuredImage?: T;
   content?: T;
