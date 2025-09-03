@@ -101,7 +101,7 @@ describe('PayloadImage', () => {
       render(<PayloadImage media={mediaWithoutUrl} />)
 
       const image = screen.getByTestId('next-image')
-      expect(image.getAttribute('src')).toBe(null)
+      expect(image.getAttribute('src')).toBe('mocked-placeholder.webp')
     })
   })
 
