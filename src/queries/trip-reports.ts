@@ -20,7 +20,7 @@ export const getTripReports = unstable_cache(
     limit = 10,
     sort = '-createdAt',
     status = 'published',
-    depth = 0,
+    depth = 1,
   }: {
     page?: number
     limit?: number
@@ -35,12 +35,12 @@ export const getTripReports = unstable_cache(
       page,
       limit,
       sort,
+      depth,
       where: {
         status: {
           equals: status,
         },
       },
-      depth,
     })
 
     return {
@@ -85,7 +85,6 @@ export const getTripReportBySlug = unstable_cache(
         ],
       },
       limit: 1,
-      depth: 1,
     })
 
     if (tripReport.docs.length === 0) {

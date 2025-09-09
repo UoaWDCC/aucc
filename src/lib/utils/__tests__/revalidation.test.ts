@@ -30,9 +30,6 @@ describe('Revalidation requests', () => {
         media: [],
         rivers: ['media'],
         tripReports: ['events', 'execs', 'rivers'],
-        gallery: [],
-        tags: [],
-        eventsGlobal: [],
       } as const
 
       expect(getRevalidationTags('tripReports', mockRelations).sort()).toEqual(

@@ -8,7 +8,7 @@ type CustomUploadFieldArgs = {
   mimeType: string
   admin?: {
     className?: string
-    [key: string]: unknown
+    [key: string]: any
   }
 }
 

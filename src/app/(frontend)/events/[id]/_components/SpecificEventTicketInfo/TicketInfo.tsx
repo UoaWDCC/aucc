@@ -12,7 +12,7 @@ export function TicketInformationSection({ event }: EventPageProps) {
       <div className="mr-4 ml-4 flex flex-col md:mr-8 md:ml-24 lg:mr-16 lg:ml-33">
         <div className="mt-17 bg-[#EFEDE3] py-8 pr-8 pl-7 md:mt-22 md:py-12 md:pr-16 md:pl-14 lg:mt-23 lg:py-16 lg:pr-30 lg:pl-25">
           <h2 className="font-heading pb-8 text-[#7F9F66]">Tickets</h2>
-          <div className="text-sm text-[#1E2A29] italic">
+          <div className="line-clamp-13 text-sm text-[#1E2A29] italic">
             {event.ticketsInformation && (
               <RichText data={event.ticketsInformation} />
             )}

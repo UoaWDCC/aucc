@@ -1,6 +1,6 @@
 import { getGallery } from '@/queries/gallery'
 import { GalleryTopCurve } from './GalleryTopCurve'
-import { GallerySlider } from './ImageSlider'
+import GallerySlider from './ImageSlider'
 import { SEGButton } from './SEGButton'
 
 export async function GallerySection() {
