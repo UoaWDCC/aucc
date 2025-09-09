@@ -83,7 +83,7 @@ export function PayloadImage({
     <Image
       loader={loader}
       fill
-      src={media.url ?? ''}
+      src={media.url ?? PLACEHOLDER}
       alt={media.alt ?? ''}
       className={cn('object-cover', className)}
     />

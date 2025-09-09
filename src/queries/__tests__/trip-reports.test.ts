@@ -30,7 +30,7 @@ describe('Trip Report queries', () => {
   describe('getTripReports', () => {
     it('should fetch trip reports with default parameters', async () => {
       const mockResponse = {
-        docs: [{ id: '1', title: 'Test Trip', location: 'Imaginary Land' }],
+        docs: [{ id: '1', title: 'Test Trip' }],
         hasNextPage: false,
         nextPage: null,
         totalDocs: 1,
@@ -42,6 +42,7 @@ describe('Trip Report queries', () => {
 
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
+        depth: 1,
         page: 1,
         limit: 10,
         sort: '-createdAt',
@@ -73,6 +74,7 @@ describe('Trip Report queries', () => {
 
       expect(mockPayloadClient.find).toHaveBeenCalledWith({
         collection: 'trip-reports',
+        depth: 1,
         page: 2,
         limit: 20,
         sort: 'name',
@@ -139,10 +141,20 @@ describe('Trip Report queries', () => {
         title: 'Test Trip Report',
         slug: 'test-trip-report',
         status: 'published',
-        author: [],
+        authors: [],
         gallery: [],
-        tripDate: '2025-03-15T00:00:00.000Z',
-        location: 'Test river',
+        datePublished: '2025-03-15T00:00:00.000Z',
+        featuredImage: 1,
+        content: {
+          root: {
+            type: 'paragraph',
+            children: [{ text: 'Test content', type: 'paragraph', version: 1 }],
+            direction: 'ltr',
+            format: 'left',
+            indent: 0,
+            version: 1,
+          },
+        },
         updatedAt: '2025-03-20T00:00:00.000Z',
         createdAt: '2025-03-01T00:00:00.000Z',
       }

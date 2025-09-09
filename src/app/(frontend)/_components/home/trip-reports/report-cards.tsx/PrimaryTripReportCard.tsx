@@ -7,14 +7,14 @@ import { Media } from '@/payload-types'
 
 export interface TripReportCardProps {
   title: string
-  tripDate: string
+  datePublished: string
   featuredImage: Media | undefined
   content: string
 }
 
 export const PrimaryTripReportCard = ({
   content,
-  tripDate,
+  datePublished,
   title,
   featuredImage,
 }: TripReportCardProps) => {
@@ -29,13 +29,13 @@ export const PrimaryTripReportCard = ({
           {title}
         </h3>
         <span className="text-cream mb-4 text-sm italic md:mb-7 md:px-6 md:pt-2">
-          {tripDate}
+          {datePublished}
         </span>
         <div className="grid h-40 grid-cols-2 items-start gap-4 transition-opacity duration-400 md:grid-cols-1 lg:group-hover:opacity-0">
           <div className="relative mb-4 aspect-[4/3] h-40 w-full overflow-hidden rounded-lg md:hidden">
             <PayloadImage media={featuredImage} className="object-cover" />
           </div>
-          <p className="text-cream/80 line-clamp-7 flex-grow text-sm leading-5.5 italic md:line-clamp-8 md:px-6 md:pt-6">
+          <p className="text-cream/80 line-clamp-7 flex-grow text-sm leading-5.5 whitespace-pre-line italic md:line-clamp-8 md:px-6 md:pt-6">
             {content}
           </p>
         </div>

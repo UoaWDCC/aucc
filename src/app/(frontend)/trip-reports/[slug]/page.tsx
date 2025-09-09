@@ -14,6 +14,5 @@ export default async function SpecificTripReportPage({
   if (!tripReport) {
     return notFound()
   }
-
   return <TripReportPage tripReport={tripReport} />
 }

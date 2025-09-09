@@ -46,3 +46,44 @@ export const getGallery = unstable_cache(
     tags: cacheTags.gallery.relatedTags,
   },
 )
+
+export const getGalleryByTag = unstable_cache(
+  async function (
+    tagName: string,
+    {
+      page = 1,
+      limit = 10,
+      sort = '-createdAt',
+    }: {
+      page?: number
+      limit?: number
+      sort?: string
+    } = {},
+  ) {
+    const payload = await getPayloadClient()
+
+    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+      collection: 'gallery',
+      where: {
+        'tags.name': {
+          equals: tagName,
+        },
+      },
+      page,
+      limit,
+      sort,
+      depth: 1,
+    })
+
+    return {
+      gallery: docs as GalleryDTO[],
+      hasNextPage,
+      nextPage,
+      totalDocs,
+    }
+  },
+  ['getGalleryByTag'],
+  {
+    tags: cacheTags.gallery.relatedTags,
+  },
+)

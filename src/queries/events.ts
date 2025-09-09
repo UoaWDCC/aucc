@@ -3,7 +3,7 @@ import { unstable_cache } from 'next/cache'
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { NoNumber } from '@/lib/utils/util-types'
-import type { Event } from '@/payload-types'
+import { Event } from '@/payload-types'
 
 export type EventDTO = NoNumber<Event>
 
@@ -13,10 +13,12 @@ export const getEvents = unstable_cache(
     page = 1,
     limit = 10,
     sort = '-startTime',
+    tripsOnly = false,
   }: {
     page?: number
     limit?: number
     sort?: string
+    tripsOnly?: boolean
   } = {}) {
     const payload = await getPayloadClient()
 
@@ -25,6 +27,13 @@ export const getEvents = unstable_cache(
       page,
       limit,
       sort,
+      where: {
+        ...(tripsOnly && {
+          eventType: {
+            equals: 'trip',
+          },
+        }),
+      },
     })
 
     return {

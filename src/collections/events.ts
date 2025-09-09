@@ -83,6 +83,10 @@ export const Events: CollectionConfig = {
       type: 'richText',
     },
     {
+      name: 'ticketsInformation',
+      type: 'richText',
+    },
+    {
       name: 'eventType',
       type: 'select',
       label: 'Event Type',
@@ -111,5 +115,10 @@ export const Events: CollectionConfig = {
         className: 'hide-filename',
       },
     }),
+    {
+      name: 'tag',
+      type: 'relationship',
+      relationTo: 'tags',
+    },
   ],
 }

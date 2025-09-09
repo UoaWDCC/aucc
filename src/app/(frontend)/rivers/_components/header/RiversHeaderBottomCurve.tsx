@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils/cn'
 
-interface EventsIntroBottomCurveProps {
+interface RiversHeaderBottomCurveProps {
   className?: string
 }
-export function EventsIntroBottomCurve({
+export function RiversHeaderBottomCurve({
   className,
-}: EventsIntroBottomCurveProps) {
+}: RiversHeaderBottomCurveProps) {
   return (
     <div className="absolute bottom-0 z-1 w-full translate-y-0.5">
       <svg

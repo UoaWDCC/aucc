@@ -98,9 +98,13 @@ export interface Config {
   };
   globals: {
     'events-global': EventsGlobal;
+    'trip-reports-global': TripReportsGlobal;
+    'rivers-global': RiversGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
+    'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
+    'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
   };
   locale: null;
   user: User & {
@@ -268,9 +272,35 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  ticketsInformation?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   eventType: 'trip' | 'other';
   river?: (number | null) | River;
   featuredImage: number | Media;
+  tag?: (number | null) | Tag;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -282,11 +312,9 @@ export interface TripReport {
   id: number;
   title: string;
   status: 'draft' | 'published';
-  author: (number | Exec)[];
-  tripDate: string;
-  location: string;
-  relatedEvent: number | Event;
-  relatedRiver: number | River;
+  authors: (number | Exec)[];
+  datePublished: string;
+  relatedEvent?: (number | null) | Event;
   featuredImage: number | Media;
   content: {
     root: {
@@ -321,7 +349,7 @@ export interface Exec {
   pronouns: string;
   role: string;
   email: string;
-  image?: (number | null) | Media;
+  image: number | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -333,16 +361,6 @@ export interface Gallery {
   id: number;
   image: number | Media;
   tags?: (number | Tag)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: number;
-  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -562,9 +580,11 @@ export interface EventsSelect<T extends boolean = true> {
   endTime?: T;
   location?: T;
   description?: T;
+  ticketsInformation?: T;
   eventType?: T;
   river?: T;
   featuredImage?: T;
+  tag?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -575,11 +595,9 @@ export interface EventsSelect<T extends boolean = true> {
 export interface TripReportsSelect<T extends boolean = true> {
   title?: T;
   status?: T;
-  author?: T;
-  tripDate?: T;
-  location?: T;
+  authors?: T;
+  datePublished?: T;
   relatedEvent?: T;
-  relatedRiver?: T;
   featuredImage?: T;
   content?: T;
   gallery?: T;
@@ -657,8 +675,73 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface EventsGlobal {
   id: number;
-  featuredImage: number | Media;
+  headerImage: number | Media;
   petrolCosts: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports-global".
+ */
+export interface TripReportsGlobal {
+  id: number;
+  headerImage: number | Media;
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers-global".
+ */
+export interface RiversGlobal {
+  id: number;
+  headerImage: number | Media;
+  introText: {
     root: {
       type: string;
       children: {
@@ -681,8 +764,31 @@ export interface EventsGlobal {
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
-  featuredImage?: T;
+  headerImage?: T;
   petrolCosts?: T;
+  introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports-global_select".
+ */
+export interface TripReportsGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers-global_select".
+ */
+export interface RiversGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  introText?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -17,7 +17,7 @@ function isExec(a: number | Exec): a is Exec {
 }
 
 export function TripReportCard({ report }: TripReportCardProps) {
-  const postAuthors = report.author.filter(isExec)
+  const postAuthors = report.authors.filter(isExec)
   const featuredImage =
     report.featuredImage && typeof report.featuredImage !== 'number'
       ? report.featuredImage.url
@@ -40,13 +40,10 @@ export function TripReportCard({ report }: TripReportCardProps) {
         </div>
       )}
       <h3 className="mb-1 text-lg font-semibold">{report.title}</h3>
-      {report.tripDate && (
+      {report.datePublished && (
         <p className="mb-1 text-sm text-gray-500">
-          {new Date(report.tripDate).toLocaleDateString()}
+          {new Date(report.datePublished).toLocaleDateString()}
         </p>
-      )}
-      {report.location && (
-        <p className="text-sm text-gray-700">{report.location}</p>
       )}
       {postAuthors.length > 0 && (
         <p className="mt-1 text-sm text-gray-500">

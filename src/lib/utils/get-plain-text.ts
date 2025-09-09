@@ -16,6 +16,8 @@ function walk(nodes: Node[]): string {
   for (const n of nodes) {
     if (n.type === 'text' && n.text) {
       out += n.text
+    } else if (n.type === 'linebreak') {
+      out += '\n'
     } else if (n.children) {
       out += walk(n.children)
     }
