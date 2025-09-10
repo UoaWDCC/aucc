@@ -52,7 +52,7 @@ export const getRivers = unstable_cache(
  * @returns The river
  */
 export const getRiverBySlug = unstable_cache(
-  async function (slug: string): Promise<River | null> {
+  async function (slug: string): Promise<RiverDTO | null> {
     const payload = await getPayloadClient()
 
     const river = await payload.find({
