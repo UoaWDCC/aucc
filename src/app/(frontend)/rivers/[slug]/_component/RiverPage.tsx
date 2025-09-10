@@ -1,34 +1,11 @@
-import Image from 'next/image'
-
 import type { River } from '@/payload-types'
+import { RiverGallerySection } from './SpecificRiverGallery/RiverGallerySection'
 
 interface RiverPageProps {
   river: River
 }
 
 export function RiverPage({ river }: RiverPageProps) {
-  return (
-    <div className="p-4">
-      <h1 className="text-center text-3xl font-bold">{river.name}</h1>
-      <div className="h-150 p-2">
-        <div>
-          {river.featuredImage &&
-            typeof river.featuredImage !== 'number' &&
-            river.featuredImage.url && (
-              <Image
-                src={river.featuredImage.url}
-                alt={river.name || ''}
-                className="h-full w-full object-cover"
-                width={200}
-                height={150}
-              />
-            )}
-        </div>
-        <div className="p-2">
-          <div>{river.grade && <p>Grade: {river.grade}</p>}</div>
-          <div>{river.description && <p>{river.description}</p>}</div>
-        </div>
-      </div>
-    </div>
-  )
+  const slug = typeof river.slug === 'string' ? river.slug : ''
+  return <>{slug && <RiverGallerySection slug={slug} />}</>
 }

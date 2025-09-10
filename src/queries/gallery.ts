@@ -48,42 +48,37 @@ export const getGallery = unstable_cache(
 )
 
 export const getGalleryByTag = unstable_cache(
-  async function (
+  async function getGalleryByTag(
     tagName: string,
     {
       page = 1,
       limit = 10,
       sort = '-createdAt',
-    }: {
-      page?: number
-      limit?: number
-      sort?: string
-    } = {},
+    }: { page?: number; limit?: number; sort?: string } = {},
   ) {
     const payload = await getPayloadClient()
+    const q = String(tagName ?? '').trim()
+
+    const tagRes = await payload.find({
+      collection: 'tags',
+      where: { name: { equals: q } },
+      limit: 1,
+    })
+    const tagId = tagRes?.docs?.[0]?.id
+    if (!tagId)
+      return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
 
     const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
       collection: 'gallery',
-      where: {
-        'tags.name': {
-          equals: tagName,
-        },
-      },
+      where: { tags: { in: [tagId] } },
       page,
       limit,
       sort,
       depth: 1,
     })
 
-    return {
-      gallery: docs as GalleryDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
-    }
+    return { gallery: docs as GalleryDTO[], hasNextPage, nextPage, totalDocs }
   },
-  ['getGalleryByTag'],
-  {
-    tags: cacheTags.gallery.relatedTags,
-  },
+  ['getGalleryByTag:v3'],
+  { tags: cacheTags.gallery.relatedTags },
 )

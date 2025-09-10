@@ -55,23 +55,15 @@ export const getRiverBySlug = unstable_cache(
   async function (slug: string): Promise<River | null> {
     const payload = await getPayloadClient()
 
-    const river = await payload.find({
+    const { docs } = await payload.find({
       collection: 'rivers',
-      where: {
-        slug: {
-          equals: slug,
-        },
-      },
+      where: { slug: { equals: slug } },
+      depth: 1,
+      limit: 1,
     })
 
-    if (river.docs.length === 0) {
-      return null
-    }
-
-    return river.docs[0] as RiverDTO
+    return docs.length ? (docs[0] as River) : null
   },
   ['getRiverBySlug'],
-  {
-    tags: cacheTags.rivers.relatedTags,
-  },
+  { tags: cacheTags.rivers.relatedTags },
 )
