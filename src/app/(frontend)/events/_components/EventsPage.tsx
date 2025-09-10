@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import React, { Suspense } from 'react'
+
 
 import type { Media } from '@/payload-types'
 import type { EventDTO } from '@/queries/events'

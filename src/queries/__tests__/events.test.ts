@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
@@ -45,6 +44,7 @@ describe('getAllEvents', () => {
       page: 1,
       limit: 10,
       sort: '-startTime',
+      where: {},
     })
 
     expect(result).toEqual({
@@ -67,13 +67,19 @@ describe('getAllEvents', () => {
 
     mockPayloadClient.find.mockResolvedValue(mockResponse)
 
-    const result = await getEvents({ page: 2, limit: 20, sort: 'title' })
+    const result = await getEvents({
+      page: 2,
+      limit: 20,
+      sort: 'title',
+      tripsOnly: false,
+    })
 
     expect(mockPayloadClient.find).toHaveBeenCalledWith({
       collection: 'events',
       page: 2,
       limit: 20,
       sort: 'title',
+      where: {},
     })
 
     expect(result).toEqual({
