@@ -32,7 +32,7 @@ export default function Map({ coordinates, className }: MapProps) {
       const bounds = coordinates.map(
         (c) => [c.latitude, c.longitude] as [number, number],
       )
-      map.fitBounds(bounds)
+      map.fitBounds(bounds, { padding: [80, 80] })
     }, [coordinates, map])
 
     return null

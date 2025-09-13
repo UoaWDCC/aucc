@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import { RiverDTO } from '@/queries/rivers'
 import { SpecificRiverHeader } from './SpecificRiverHeader/SpecificRiverHeader'
+import { SpecificRiverInfo } from './SpecificRiverInfo/SpecificRiverInfo'
 
 interface RiverPageProps {
   river: RiverDTO
@@ -13,25 +14,7 @@ export function RiverPage({ river }: RiverPageProps) {
       <SpecificRiverHeader river={river} />
       <div className="p-4">
         <h1 className="text-center text-3xl font-bold">{river.name}</h1>
-        <div className="h-150 p-2">
-          <div>
-            {river.featuredImage &&
-              typeof river.featuredImage !== 'number' &&
-              river.featuredImage.url && (
-                <Image
-                  src={river.featuredImage.url}
-                  alt={river.name || ''}
-                  className="h-full w-full object-cover"
-                  width={200}
-                  height={150}
-                />
-              )}
-          </div>
-          <div className="p-2">
-            <div>{river.grade && <p>Grade: {river.grade}</p>}</div>
-            <div>{river.description && <p>{river.description}</p>}</div>
-          </div>
-        </div>
+        <SpecificRiverInfo river={river} />
       </div>
     </>
   )
