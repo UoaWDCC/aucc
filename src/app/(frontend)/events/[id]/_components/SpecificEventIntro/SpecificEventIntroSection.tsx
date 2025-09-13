@@ -1,13 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-// Update the path below to the correct location of Logo.tsx in your project
 import { Logo } from '@/assets/Logo'
 import { PayloadImage } from '@/components/PayloadImage'
-import { cn } from '@/lib/utils/cn'
 import { formatDateRange } from '@/lib/utils/formatDateRange'
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import type { Event } from '@/payload-types'
 import { EventDTO } from '@/queries/events'
 import { BackButton } from './BackButton'
 import { WaveBottomBlue } from './WaveBottomBlue'
@@ -21,7 +18,6 @@ interface SpecificEventIntroSectionProps {
 
 export function SpecificEventIntroSection({
   event,
-  className,
 }: SpecificEventIntroSectionProps) {
   return (
     <div className="relative">
@@ -84,8 +80,9 @@ export function SpecificEventIntroSection({
               </div>
               <div>
                 <div className="text-sm italic">
-                  <div>{event?.river?.name ?? 'unknown'}</div>
-                  <div>Grade {event?.river?.grade ?? 'Grade 3'}</div>
+                  <div>
+                    {`${event?.river?.name} - Grade ${event?.river?.grade}`}
+                  </div>
                 </div>
                 <Link href={`/river/${event?.river?.id}`}>
                   <button className="font-unbounded text-algae mt-2 -ml-1 h-[33px] w-fit cursor-pointer rounded-3xl border-2 px-3 py-1.5 text-[10px]">

@@ -7,10 +7,12 @@ type PastTripsSectionProps = {
 }
 
 export function PastTripsSection({ events }: PastTripsSectionProps) {
+  if (!events || events.length === 0) return null
+
   return (
-    <div className="bg-abyss mt-31 h-auto w-full">
+    <div className="bg-abyss my-31 h-auto w-full">
       <PastTripsHeader />
-      <div className="mb-45 flex flex-col items-center justify-center gap-5">
+      <div className="mb-45 flex flex-col gap-10">
         {events.map((event, index) => (
           <PastTripsCard key={event.id || index} event={event} />
         ))}

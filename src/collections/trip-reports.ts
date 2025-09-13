@@ -64,6 +64,12 @@ export const TripReports: CollectionConfig = {
       relationTo: 'execs',
     },
     {
+      name: 'datePublished',
+      type: 'date',
+      label: 'Date Published',
+      required: true,
+    },
+    {
       name: 'relatedEvent',
       type: 'relationship',
       relationTo: 'events',

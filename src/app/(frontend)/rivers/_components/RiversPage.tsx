@@ -1,28 +1,19 @@
-import React, { Suspense } from 'react'
+import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-import { River } from '@/payload-types'
-import { RiversGrid } from './RiversGrid'
-import { RiversGridFallback } from './RiversGridFallback'
+import { Media, River } from '@/payload-types'
+import { RiversHeaderSection } from './header/RiversHeaderSection'
+import { OurRivers } from './intro/OurRivers'
 
-interface RiversPageProps {
-  rivers: River[]
+type RiversPageProps = {
+  headerImage: Media
+  introText: SerializedEditorState
 }
 
-export function RiversPage({ rivers }: RiversPageProps) {
+export function RiversPage({ headerImage, introText }: RiversPageProps) {
   return (
-    <div className="p-4">
-      <div>
-        <h1 className="text-2xl font-bold">Rivers</h1>
-        <h2 className="text-gray-600">
-          A list of all rivers available for paddling.
-        </h2>
-      </div>
-
-      <div className="mt-4">
-        <Suspense fallback={<RiversGridFallback />}>
-          <RiversGrid rivers={rivers} />
-        </Suspense>
-      </div>
-    </div>
+    <>
+      <RiversHeaderSection headerImage={headerImage} />
+      <OurRivers introText={introText} />
+    </>
   )
 }

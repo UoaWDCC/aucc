@@ -1,5 +1,6 @@
 import { getEvents } from '@/queries/events'
 import { getTripReports } from '@/queries/trip-reports'
+import { Event, TripReport } from '../payload-types'
 
 export async function RecentContent() {
   const { events } = await getEvents({

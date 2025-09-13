@@ -8,7 +8,6 @@ import { PayloadImage, selectOptimalImageSize } from './index'
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
   default: vi.fn(({ src, alt, className, loader, ...props }) => (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={typeof src === 'string' ? src : src.src}
       alt={alt}
@@ -102,7 +101,7 @@ describe('PayloadImage', () => {
       render(<PayloadImage media={mediaWithoutUrl} />)
 
       const image = screen.getByTestId('next-image')
-      expect(image.getAttribute('src')).toBe(null)
+      expect(image.getAttribute('src')).toBe('mocked-placeholder.webp')
     })
   })
 

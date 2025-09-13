@@ -84,9 +84,7 @@ export const Events: CollectionConfig = {
     },
     {
       name: 'ticketsInformation',
-      label: 'Tickets Information',
       type: 'richText',
-      required: true,
     },
     {
       name: 'eventType',
