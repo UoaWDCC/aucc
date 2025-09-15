@@ -7,6 +7,8 @@ type TripsSectionProps = {
 }
 
 export function UpcomingTripsSection({ events }: TripsSectionProps) {
+  if (!events || events.length === 0) return null
+
   return (
     <UpcomingTripsSectionBackground>
       <div className="flex flex-col gap-5 px-5">

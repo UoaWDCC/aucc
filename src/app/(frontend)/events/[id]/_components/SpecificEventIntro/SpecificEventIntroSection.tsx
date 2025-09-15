@@ -1,13 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-// Update the path below to the correct location of Logo.tsx in your project
 import { Logo } from '@/assets/Logo'
 import { PayloadImage } from '@/components/PayloadImage'
-import { cn } from '@/lib/utils/cn'
 import { formatDateRange } from '@/lib/utils/formatDateRange'
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import type { Event } from '@/payload-types'
 import { EventDTO } from '@/queries/events'
 import { BackButton } from './BackButton'
 import { WaveBottomBlue } from './WaveBottomBlue'
@@ -21,7 +18,6 @@ interface SpecificEventIntroSectionProps {
 
 export function SpecificEventIntroSection({
   event,
-  className,
 }: SpecificEventIntroSectionProps) {
   return (
     <div className="relative">
@@ -34,7 +30,7 @@ export function SpecificEventIntroSection({
         </div>
       </div>
 
-      <section className="xs:w-[300px] relative z-10 mx-auto mt-[125px] h-[1116px] w-full px-8 sm:px-12 md:px-20 lg:w-[1150px] xl:w-[1300px] 2xl:w-[1350px]">
+      <section className="xs:w-[300px] relative z-10 mx-auto mt-[125px] h-[1180px] w-full px-8 sm:px-12 md:h-[1116px] md:px-20 lg:w-[1150px] xl:w-[1300px] 2xl:w-[1350px]">
         <div className="relative left-0 mb-2 flex justify-start md:absolute md:-top-[2%] md:mb-0">
           <BackButton />
         </div>
@@ -84,8 +80,9 @@ export function SpecificEventIntroSection({
               </div>
               <div>
                 <div className="text-sm italic">
-                  <div>{event?.river?.name ?? 'unknown'}</div>
-                  <div>Grade {event?.river?.grade ?? 'Grade 3'}</div>
+                  <div>
+                    {`${event?.river?.name} - Grade ${event?.river?.grade}`}
+                  </div>
                 </div>
                 <Link href={`/river/${event?.river?.id}`}>
                   <button className="font-unbounded text-algae mt-2 -ml-1 h-[33px] w-fit cursor-pointer rounded-3xl border-2 px-3 py-1.5 text-[10px]">

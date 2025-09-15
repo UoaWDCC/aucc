@@ -64,15 +64,9 @@ export const TripReports: CollectionConfig = {
       relationTo: 'execs',
     },
     {
-      name: 'tripDate',
+      name: 'datePublished',
       type: 'date',
-      label: 'Trip Date',
-      required: true,
-    },
-    {
-      name: 'location',
-      type: 'text',
-      label: 'Trip Location',
+      label: 'Date Published',
       required: true,
     },
     {

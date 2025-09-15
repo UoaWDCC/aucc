@@ -7,14 +7,14 @@ import { Media } from '@/payload-types'
 
 export interface TripReportCardProps {
   title: string
-  // tripDate: string
+  datePublished: string
   featuredImage: Media | undefined
   content: string
 }
 
 export const SecondaryTripReportCard = ({
   content,
-  // tripDate,
+  datePublished,
   title,
   featuredImage,
 }: TripReportCardProps) => {
@@ -29,7 +29,7 @@ export const SecondaryTripReportCard = ({
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#242724]/80 from-10% via-[#578F8B]/20 via-60% to-transparent to-80%" />
       <div className="text-cream absolute inset-0 z-1 flex flex-col justify-end px-3 py-2 md:px-7 md:py-6">
-        {/* <span className="text-xs italic">{tripDate}</span> */}
+        <span className="text-xs italic">{datePublished}</span>
         <h4 className="font-heading line-clamp-2 text-xl tracking-tighter">
           {title}
         </h4>
