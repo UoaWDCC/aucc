@@ -7,20 +7,6 @@ import { Gallery } from '@/payload-types'
 
 export type GalleryDTO = NoNumber<Gallery>
 
-// Only swallow "schema not ready" errors in CI/build (fresh DB).
-function isSchemaMissing(err: unknown) {
-  const e = err as any
-  const msg = String(e?.message ?? e)
-  const code = e?.code
-  // Postgres error codes:
-  // 42P01: undefined_table, 42703: undefined_column
-  return (
-    msg.includes('does not exist') ||
-    msg.includes('gallery__rels') ||
-    code === '42P01' ||
-    code === '42703'
-  )
-}
 /**
  * Get all gallery items
  */
@@ -41,37 +27,27 @@ export const getGallery = unstable_cache(
   }> {
     const payload = await getPayloadClient()
 
-    try {
-      const res = await payload.find({
-        collection: 'gallery',
-        page,
-        limit,
-        sort,
-        depth: 1,
-        select: {
-          id: true,
-          createdAt: true,
-          image: true,
-          tags: true,
-        },
-      })
+    const res = await payload.find({
+      collection: 'gallery',
+      page,
+      limit,
+      sort,
+      depth: 1,
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        tags: true,
+      },
+    })
 
-      const { docs, hasNextPage, nextPage, totalDocs } = res
+    const { docs, hasNextPage, nextPage, totalDocs } = res
 
-      return {
-        gallery: docs as GalleryDTO[],
-        hasNextPage: !!hasNextPage,
-        nextPage: nextPage ?? null,
-        totalDocs: totalDocs ?? 0,
-      }
-    } catch (err) {
-      if (
-        (process.env.CI || process.env.NODE_ENV === 'production') &&
-        isSchemaMissing(err)
-      ) {
-        return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
-      }
-      throw err
+    return {
+      gallery: docs as GalleryDTO[],
+      hasNextPage: !!hasNextPage,
+      nextPage: nextPage ?? null,
+      totalDocs: totalDocs ?? 0,
     }
   },
   ['getGallery'],
@@ -103,40 +79,30 @@ export const getGalleryByTag = unstable_cache(
   }> {
     const payload = await getPayloadClient()
 
-    try {
-      const res = await payload.find({
-        collection: 'gallery',
-        where: {
-          'tags.name': { equals: tagName },
-        },
-        page,
-        limit,
-        sort,
-        depth: 1,
-        select: {
-          id: true,
-          createdAt: true,
-          image: true,
-          tags: true,
-        },
-      })
+    const res = await payload.find({
+      collection: 'gallery',
+      where: {
+        'tags.name': { equals: tagName },
+      },
+      page,
+      limit,
+      sort,
+      depth: 1,
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        tags: true,
+      },
+    })
 
-      const { docs, hasNextPage, nextPage, totalDocs } = res
+    const { docs, hasNextPage, nextPage, totalDocs } = res
 
-      return {
-        gallery: docs as GalleryDTO[],
-        hasNextPage: !!hasNextPage,
-        nextPage: nextPage ?? null,
-        totalDocs: totalDocs ?? 0,
-      }
-    } catch (err) {
-      if (
-        (process.env.CI || process.env.NODE_ENV === 'production') &&
-        isSchemaMissing(err)
-      ) {
-        return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
-      }
-      throw err
+    return {
+      gallery: docs as GalleryDTO[],
+      hasNextPage: !!hasNextPage,
+      nextPage: nextPage ?? null,
+      totalDocs: totalDocs ?? 0,
     }
   },
   ['getGalleryByTag'],
