@@ -27,7 +27,7 @@ export function SpecificRiverInfoMap({ river }: { river: RiverDTO }) {
   if (!coords.length) return null
 
   return (
-    <section className="mx-auto w-full max-w-3xl px-4 py-8">
+    <section className="mx-auto w-full max-w-3xl -translate-x-100 px-4 py-8">
       <div className="bg-abyss rounded-2xl p-4 shadow-xl">
         <div className="mb-3 text-center">
           <h2 className="text-lg font-extrabold tracking-widest text-white">
