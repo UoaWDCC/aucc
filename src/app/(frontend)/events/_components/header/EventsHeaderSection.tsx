@@ -1,10 +1,15 @@
+import { Media } from '@/payload-types'
 import { EventsHeaderBottomCurve } from './EventsHeaderBottomCurve'
 import { EventsHeaderImage } from './EventsHeaderImage'
 
-export function EventsHeaderSection() {
+type EventsHeaderSectionProps = {
+  headerImage: Media
+}
+
+export function EventsHeaderSection({ headerImage }: EventsHeaderSectionProps) {
   return (
     <div className="relative flex h-60 w-full flex-col items-center justify-center align-middle md:h-115">
-      <EventsHeaderImage alt="IntroImage" />
+      <EventsHeaderImage media={headerImage} />
       <div className="text-cream relative z-1 flex flex-col items-center md:items-start">
         <h1 className="font-heading flex justify-self-center text-center text-[60px] md:text-[100px] lg:text-[140px]">
           Events
