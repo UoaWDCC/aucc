@@ -3,6 +3,7 @@ primary_region = 'syd'
 
 [build]
   dockerfile = "Dockerfile"
+  swap_size_mb = 256
 
 [http_service]
   internal_port = 3000
@@ -14,4 +15,4 @@ primary_region = 'syd'
 [[vm]]
   cpu_kind = 'shared'
   cpus = 1
-  memory = '1gb'
+  memory = '256mb'
