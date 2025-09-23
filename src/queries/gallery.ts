@@ -9,10 +9,6 @@ export type GalleryDTO = NoNumber<Gallery>
 
 /**
  * Get all gallery items
- * @param page - The page number to get
- * @param limit - The number of items to get per page
- * @param sort - The field to sort the items by
- * @returns The gallery items and pagination information
  */
 export const getGallery = unstable_cache(
   async function ({
@@ -23,22 +19,35 @@ export const getGallery = unstable_cache(
     page?: number
     limit?: number
     sort?: string
-  } = {}) {
+  } = {}): Promise<{
+    gallery: GalleryDTO[]
+    hasNextPage: boolean
+    nextPage: number | null
+    totalDocs: number
+  }> {
     const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+    const res = await payload.find({
       collection: 'gallery',
       page,
       limit,
       sort,
       depth: 1,
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        tags: true,
+      },
     })
+
+    const { docs, hasNextPage, nextPage, totalDocs } = res
 
     return {
       gallery: docs as GalleryDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
+      hasNextPage: !!hasNextPage,
+      nextPage: nextPage ?? null,
+      totalDocs: totalDocs ?? 0,
     }
   },
   ['getGallery'],
@@ -47,6 +56,13 @@ export const getGallery = unstable_cache(
   },
 )
 
+/**
+ * Get gallery items by tag name
+ * - Uses robust two-step lookup:
+ *   1) find tag id by name
+ *   2) query gallery where tags include that id
+ * - Keeps main’s return shape (hasNextPage, nextPage, totalDocs)
+ */
 export const getGalleryByTag = unstable_cache(
   async function getGalleryByTag(
     tagName: string,
@@ -54,31 +70,58 @@ export const getGalleryByTag = unstable_cache(
       page = 1,
       limit = 10,
       sort = '-createdAt',
-    }: { page?: number; limit?: number; sort?: string } = {},
-  ) {
+    }: {
+      page?: number
+      limit?: number
+      sort?: string
+    } = {},
+  ): Promise<{
+    gallery: GalleryDTO[]
+    hasNextPage: boolean
+    nextPage: number | null
+    totalDocs: number
+  }> {
     const payload = await getPayloadClient()
     const q = String(tagName ?? '').trim()
 
+    // 1) find the tag id by name
     const tagRes = await payload.find({
       collection: 'tags',
       where: { name: { equals: q } },
       limit: 1,
     })
     const tagId = tagRes?.docs?.[0]?.id
-    if (!tagId)
+    if (!tagId) {
       return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
+    }
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+    // 2) query gallery by tag id
+    const res = await payload.find({
       collection: 'gallery',
       where: { tags: { in: [tagId] } },
       page,
       limit,
       sort,
       depth: 1,
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        tags: true,
+      },
     })
 
-    return { gallery: docs as GalleryDTO[], hasNextPage, nextPage, totalDocs }
+    const { docs, hasNextPage, nextPage, totalDocs } = res
+
+    return {
+      gallery: docs as GalleryDTO[],
+      hasNextPage: !!hasNextPage,
+      nextPage: nextPage ?? null,
+      totalDocs: totalDocs ?? 0,
+    }
   },
+  // bump the cache key to your v3 to keep your branch behavior stable
   ['getGalleryByTag:v3'],
   { tags: cacheTags.gallery.relatedTags },
 )
+
