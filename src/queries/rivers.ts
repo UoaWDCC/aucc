@@ -31,6 +31,7 @@ export const getRivers = unstable_cache(
       page,
       limit,
       sort,
+      depth: 2,
     })
 
     return {
@@ -58,11 +59,11 @@ export const getRiverBySlug = unstable_cache(
     const { docs } = await payload.find({
       collection: 'rivers',
       where: { slug: { equals: slug } },
-      depth: 1,
+      depth: 2,
       limit: 1,
     })
 
-    return docs.length ? (docs[0] as River) : null
+    return docs.length ? (docs[0] as RiverDTO) : null
   },
   ['getRiverBySlug'],
   { tags: cacheTags.rivers.relatedTags },
