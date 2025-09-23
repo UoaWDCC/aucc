@@ -1,8 +1,8 @@
 import { RiverDTO } from '@/queries/rivers'
-import { SpecificRiverHeader } from './SpecificRiverHeader/SpecificRiverHeader'
-
-import { SpecificRiverInfo } from './SpecificRiverInfo/SpecificRiverInfo'
 import { RiverGallerySection } from './SpecificRiverGallery/RiverGallerySection'
+import { SpecificRiverFooter } from './SpecificRiverGallery/SpecificRiverFooter'
+import { SpecificRiverHeader } from './SpecificRiverHeader/SpecificRiverHeader'
+import { SpecificRiverInfo } from './SpecificRiverInfo/SpecificRiverInfo'
 
 interface RiverPageProps {
   river: RiverDTO
@@ -13,8 +13,16 @@ export function RiverPage({ river }: RiverPageProps) {
   return (
     <>
       <SpecificRiverHeader river={river} />
-      <SpecificRiverInfo river={river} />
-      {slug && <RiverGallerySection slug={slug} />}
+      <div className="p-4">
+        <h1 className="text-center text-3xl font-bold">{river.name}</h1>
+        <div className="h-150 p-2">
+          <div className="p-2">
+            <div>{river.grade && <p>Grade: {river.grade}</p>}</div>
+            <div>{river.description && <p>{river.description}</p>}</div>
+          </div>
+        </div>
+      </div>
+      <SpecificRiverFooter name={river.name} />
     </>
   )
 }
