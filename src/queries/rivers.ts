@@ -1,3 +1,4 @@
+// src/queries/rivers.ts
 import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
@@ -31,7 +32,7 @@ export const getRivers = unstable_cache(
       page,
       limit,
       sort,
-      depth: 2,
+      depth: 2, // hydrate relations so RiverDTO matches
     })
 
     return {
@@ -42,15 +43,13 @@ export const getRivers = unstable_cache(
     }
   },
   ['getRivers'],
-  {
-    tags: cacheTags.rivers.relatedTags,
-  },
+  { tags: cacheTags.rivers.relatedTags },
 )
 
 /**
- * Get a river by its ID
- * @param id - The ID of the river to get
- * @returns The river
+ * Get a river by its slug
+ * @param slug - The slug of the river to get
+ * @returns The river (DTO) or null
  */
 export const getRiverBySlug = unstable_cache(
   async function (slug: string): Promise<RiverDTO | null> {
@@ -59,7 +58,7 @@ export const getRiverBySlug = unstable_cache(
     const { docs } = await payload.find({
       collection: 'rivers',
       where: { slug: { equals: slug } },
-      depth: 2,
+      depth: 2, // ensure featuredImage et al. are objects, not ids
       limit: 1,
     })
 
