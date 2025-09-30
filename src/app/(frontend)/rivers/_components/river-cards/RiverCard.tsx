@@ -40,7 +40,9 @@ export function RiverCard({ river }: RiverCardProps) {
                 {river.description}
               </p>
 
-              <RiverCardLocation>{river.location}</RiverCardLocation>
+              <RiverCardLocation>
+                {river.location ?? 'Unknown location'}
+              </RiverCardLocation>
             </div>
           </div>
         </div>
