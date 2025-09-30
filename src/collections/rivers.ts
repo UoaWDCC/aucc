@@ -98,8 +98,6 @@ export const Rivers: CollectionConfig = {
     {
       name: 'location',
       type: 'text',
-      required: true,
-      label: 'Location',
     },
     {
       name: 'slug',
