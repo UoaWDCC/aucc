@@ -4,29 +4,28 @@ import { RiverCard } from './RiverCard'
 import { RiverCardBackground } from './RiverCardBackground'
 
 export async function RiverCardSection() {
-  // Fetch 2 rivers for medium/large screens
   const { rivers } = await getRivers({ page: 1, limit: 2 })
 
   if (!rivers || rivers.length === 0) return null
 
+  const riversWithDefaults = rivers.map((r) => ({
+    ...r,
+    slug: r.slug ?? '',
+    location: r.location ?? 'Unknown location',
+    featuredImage: r.featuredImage ?? undefined,
+  }))
+
   return (
     <RiverCardBackground>
       <div className="mx-5 -mt-130 flex flex-col items-center justify-center md:gap-20 lg:-mt-150">
-        {/*Show only first river on small screen*/}
+        {/*Show 1 river for small screen*/}
         <div className="block md:hidden">
-          <RiverCard
-            key={rivers[0].slug ?? ''}
-            river={{ ...rivers[0], slug: rivers[0].slug ?? '' }}
-          />
+          <RiverCard river={riversWithDefaults[0]!} />
         </div>
-
-        {/*Show two rivers on medium and large screens*/}
+        {/*Show 2 rivers for medium and larger screens*/}
         <div className="hidden w-full md:flex md:flex-col md:gap-20">
-          {rivers.map((river) => (
-            <RiverCard
-              key={river.slug ?? ''}
-              river={{ ...river, slug: river.slug ?? '' }}
-            />
+          {riversWithDefaults.map((river) => (
+            <RiverCard key={river.slug} river={river} />
           ))}
         </div>
       </div>
