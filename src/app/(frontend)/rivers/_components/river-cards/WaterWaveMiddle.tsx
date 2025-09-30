@@ -1,3 +1,4 @@
+import { Logo } from '@/assets/Logo'
 import { cn } from '@/lib/utils/cn'
 
 interface WaterWaveMiddleProps {

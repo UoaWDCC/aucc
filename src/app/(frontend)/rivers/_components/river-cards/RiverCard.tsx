@@ -26,7 +26,7 @@ export function RiverCard({ river }: RiverCardProps) {
               river.featuredImage.url && (
                 <Image
                   src={river.featuredImage.url}
-                  alt={river.name || ''}
+                  alt={river.name}
                   className="h-65 w-full rounded-2xl object-cover md:h-full"
                   width={200}
                   height={200}

@@ -4,8 +4,6 @@ import { Media } from '@/payload-types'
 import { RiverDTO } from '@/queries/rivers'
 import { RiversHeaderSection } from './header/RiversHeaderSection'
 import { OurRivers } from './intro/OurRivers'
-import { RiverCard } from './river-cards/RiverCard'
-import { RiverCardBackground } from './river-cards/RiverCardBackground'
 import { RiverCardSection } from './river-cards/RiverCardSection'
 
 type RiversPageProps = {
