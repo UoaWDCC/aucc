@@ -1,19 +1,24 @@
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-import { Media, River } from '@/payload-types'
+import { Media } from '@/payload-types'
+import { RiverDTO } from '@/queries/rivers'
 import { RiversHeaderSection } from './header/RiversHeaderSection'
 import { OurRivers } from './intro/OurRivers'
+import { RiverCard } from './river-cards/RiverCard'
+import { RiverCardBackground } from './river-cards/RiverCardBackground'
+import { RiverCardSection } from './river-cards/RiverCardSection'
 
 type RiversPageProps = {
   headerImage: Media
   introText: SerializedEditorState
+  rivers: RiverDTO[]
 }
-
 export function RiversPage({ headerImage, introText }: RiversPageProps) {
   return (
     <>
       <RiversHeaderSection headerImage={headerImage} />
       <OurRivers introText={introText} />
+      <RiverCardSection />
     </>
   )
 }

@@ -239,6 +239,7 @@ export interface River {
   };
   featuredImage: number | Media;
   description?: string | null;
+  location: string;
   /**
    * Automatically generated from name
    */
@@ -565,6 +566,7 @@ export interface RiversSelect<T extends boolean = true> {
       };
   featuredImage?: T;
   description?: T;
+  location?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
