@@ -1,4 +1,3 @@
-// src/queries/rivers.ts
 import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'

@@ -6,6 +6,20 @@ function hashSeed(s: string) {
     h = Math.imul(h ^ s.charCodeAt(i), 16777619)
   return h >>> 0
 }
+
+function seededShuffle<T extends { id?: unknown }>(
+  arr: T[],
+  seed: string,
+): T[] {
+  return [...arr]
+    .map((v, i) => ({
+      v,
+      k: hashSeed(`${seed}:${String((v as any).id ?? i)}`),
+    }))
+    .sort((a, b) => a.k - b.k)
+    .map((o) => o.v)
+}
+
 function pickAspect(id: string, idx: number) {
   const pool = [
     [1, 1], // 1:1
@@ -22,10 +36,12 @@ type Rounded = 'none' | 'sm' | 'md'
 
 export function RiverGalleryGrid({
   items,
+  seed = 'aucc',
   rounded = 'sm',
   colHeights = [62, 54, 66, 58],
 }: {
   items: GalleryDTO[]
+  seed?: string
   rounded?: Rounded
   colHeights?: number[]
 }) {
@@ -45,9 +61,10 @@ export function RiverGalleryGrid({
     const ar = img?.width && img?.height ? img.height / img.width : 1.2
     ;(ar > 1 ? portrait : landscape).push(it)
   })
+
   const mixed = [
-    ...portrait.sort(() => Math.random() - 0.5),
-    ...landscape.sort(() => Math.random() - 0.5),
+    ...seededShuffle(portrait, `${seed}:p`),
+    ...seededShuffle(landscape, `${seed}:l`),
   ]
 
   const COLS = 4
@@ -62,14 +79,14 @@ export function RiverGalleryGrid({
         : 'rounded'
 
   return (
-    <div className="grid grid-cols-2 gap-3 p-4 lg:grid-cols-4">
+    <div className="grid w-full max-w-screen grid-cols-2 gap-3 overflow-x-hidden p-4 lg:grid-cols-4">
       {columns.map((col, i) => {
-        const h = colHeights[i] ?? colHeights[colHeights.length - 1] ?? 60
+        const vh = colHeights[i] ?? colHeights[colHeights.length - 1] ?? 60
         return (
           <div
             key={i}
-            className={`${i >= 2 ? 'hidden lg:flex' : 'flex'} flex-col justify-end gap-3`}
-            style={{ height: `${h}vh` }}
+            className={`${i >= 2 ? 'hidden lg:flex' : 'flex'} min-w-0 flex-col justify-end gap-3`}
+            style={{ height: `${vh}vh` }}
           >
             {col.map((item, idx) => {
               const img = (item as any)?.image as {
@@ -83,13 +100,13 @@ export function RiverGalleryGrid({
               return (
                 <figure
                   key={`${item.id}-${idx}`}
-                  className={`overflow-hidden ${roundedClass}`}
+                  className={`overflow-hidden ${roundedClass} block w-full`}
                   style={{ aspectRatio: `${w} / ${h}` }}
                 >
                   <img
                     src={img.url}
                     alt={img.alt || `Gallery image ${idx + 1}`}
-                    className="h-full w-full object-cover"
+                    className="block h-full w-full object-cover"
                     loading="lazy"
                   />
                 </figure>
