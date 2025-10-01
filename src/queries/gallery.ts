@@ -58,9 +58,13 @@ export const getGallery = unstable_cache(
 
 /**
  * Get gallery items by tag name
+ * - Uses robust two-step lookup:
+ *   1) find tag id by name
+ *   2) query gallery where tags include that id
+ * - Keeps main’s return shape (hasNextPage, nextPage, totalDocs)
  */
 export const getGalleryByTag = unstable_cache(
-  async function (
+  async function getGalleryByTag(
     tagName: string,
     {
       page = 1,
@@ -78,12 +82,23 @@ export const getGalleryByTag = unstable_cache(
     totalDocs: number
   }> {
     const payload = await getPayloadClient()
+    const q = String(tagName ?? '').trim()
 
+    // 1) find the tag id by name
+    const tagRes = await payload.find({
+      collection: 'tags',
+      where: { name: { equals: q } },
+      limit: 1,
+    })
+    const tagId = tagRes?.docs?.[0]?.id
+    if (!tagId) {
+      return { gallery: [], hasNextPage: false, nextPage: null, totalDocs: 0 }
+    }
+
+    // 2) query gallery by tag id
     const res = await payload.find({
       collection: 'gallery',
-      where: {
-        'tags.name': { equals: tagName },
-      },
+      where: { tags: { in: [tagId] } },
       page,
       limit,
       sort,
@@ -105,8 +120,8 @@ export const getGalleryByTag = unstable_cache(
       totalDocs: totalDocs ?? 0,
     }
   },
-  ['getGalleryByTag'],
-  {
-    tags: cacheTags.gallery.relatedTags,
-  },
+  // bump the cache key to your v3 to keep your branch behavior stable
+  ['getGalleryByTag:v3'],
+  { tags: cacheTags.gallery.relatedTags },
 )
+
