@@ -237,10 +237,9 @@ export interface River {
     latitude: number;
     longitude: number;
   };
-  location: string;
   featuredImage: number | Media;
   description?: string | null;
-  
+  location?: string | null;
   /**
    * Automatically generated from name
    */
@@ -565,9 +564,9 @@ export interface RiversSelect<T extends boolean = true> {
         latitude?: T;
         longitude?: T;
       };
-  location?: T;
   featuredImage?: T;
   description?: T;
+  location?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
