@@ -34,17 +34,19 @@ describe('River queries', () => {
         totalDocs: 1,
       }
 
-      // When the mockPayloadClient's `find` method is called, it should return the mockResponse
       mockPayloadClient.find.mockResolvedValue(mockResponse)
 
       const result = await getRivers()
 
-      expect(mockPayloadClient.find).toHaveBeenCalledWith({
-        collection: 'rivers',
-        page: 1,
-        limit: 10,
-        sort: 'grade',
-      })
+      expect(mockPayloadClient.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          collection: 'rivers',
+          page: 1,
+          limit: 10,
+          sort: 'grade',
+          depth: 2,
+        }),
+      )
       expect(result).toEqual({
         rivers: mockResponse.docs,
         hasNextPage: mockResponse.hasNextPage,
@@ -65,12 +67,15 @@ describe('River queries', () => {
 
       const result = await getRivers({ page: 2, limit: 20, sort: 'name' })
 
-      expect(mockPayloadClient.find).toHaveBeenCalledWith({
-        collection: 'rivers',
-        page: 2,
-        limit: 20,
-        sort: 'name',
-      })
+      expect(mockPayloadClient.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          collection: 'rivers',
+          page: 2,
+          limit: 20,
+          sort: 'name',
+          depth: 2,
+        }),
+      )
       expect(result).toEqual({
         rivers: mockResponse.docs,
         hasNextPage: mockResponse.hasNextPage,
@@ -102,14 +107,14 @@ describe('River queries', () => {
 
       const result = await getRiverBySlug('non-existent')
 
-      expect(mockPayloadClient.find).toHaveBeenCalledWith({
-        collection: 'rivers',
-        where: {
-          slug: {
-            equals: 'non-existent',
-          },
-        },
-      })
+      expect(mockPayloadClient.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          collection: 'rivers',
+          where: { slug: { equals: 'non-existent' } },
+          depth: 2,
+          limit: 1,
+        }),
+      )
       expect(result).toBeNull()
     })
 
@@ -124,14 +129,14 @@ describe('River queries', () => {
 
       const result = await getRiverBySlug('test-river')
 
-      expect(mockPayloadClient.find).toHaveBeenCalledWith({
-        collection: 'rivers',
-        where: {
-          slug: {
-            equals: 'test-river',
-          },
-        },
-      })
+      expect(mockPayloadClient.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          collection: 'rivers',
+          where: { slug: { equals: 'test-river' } },
+          depth: 2,
+          limit: 1,
+        }),
+      )
       expect(result).toEqual(mockRiver)
     })
   })

@@ -10,7 +10,13 @@ export const Rivers: CollectionConfig = {
   slug: 'rivers',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['featuredImage', 'name', 'grade', 'description'],
+    defaultColumns: [
+      'featuredImage',
+      'name',
+      'grade',
+      'description',
+      'location',
+    ],
   },
   access: {
     create: authenticated,
@@ -87,6 +93,10 @@ export const Rivers: CollectionConfig = {
     }),
     {
       name: 'description',
+      type: 'text',
+    },
+    {
+      name: 'location',
       type: 'text',
     },
     {
