@@ -16,6 +16,7 @@ import { Rivers } from './collections/rivers'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
 import { EventsGlobal } from './globals/events-global'
+import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
 import { TripReportsGlobal } from './globals/trip-reports-global'
 
@@ -39,7 +40,7 @@ export default buildConfig({
     Gallery,
     Tags,
   ],
-  globals: [EventsGlobal, TripReportsGlobal, RiversGlobal],
+  globals: [EventsGlobal, TripReportsGlobal, RiversGlobal, ResourcesGlobal],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
   secret: env.PAYLOAD_SECRET,
