@@ -9,13 +9,34 @@ export type RiversGlobalDTO = NoNumber<RiversGlobal>
 
 export const getRiversGlobal = unstable_cache(
   async function () {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const result = await payload.findGlobal({
-      slug: 'rivers-global',
-    })
+      const result = await payload.findGlobal({
+        slug: 'rivers-global',
+      })
 
-    return result as RiversGlobalDTO
+      return result as RiversGlobalDTO
+    } catch (error) {
+      console.error('Error fetching rivers global data:', error)
+      // Return a fallback object with required properties
+      // Return a fallback object with required properties
+      return {
+        headerImage: null as any,
+        introText: {
+          root: {
+            type: 'root',
+            children: [],
+            direction: null,
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      } as unknown as RiversGlobalDTO
+    }
   },
   ['getRiversGlobal'],
   {

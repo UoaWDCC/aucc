@@ -9,13 +9,43 @@ export type EventsGlobalDTO = NoNumber<EventsGlobalType>
 
 export const getEventsGlobal = unstable_cache(
   async function () {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const result = await payload.findGlobal({
-      slug: 'events-global',
-    })
+      const result = await payload.findGlobal({
+        slug: 'events-global',
+      })
 
-    return result as EventsGlobalDTO
+      return result as EventsGlobalDTO
+    } catch (error) {
+      console.error('Error fetching events global data:', error)
+      // Return a fallback object with required properties
+      return {
+        headerImage: null as any,
+        petrolCosts: {
+          root: {
+            type: 'root',
+            children: [],
+            direction: null,
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        introText: {
+          root: {
+            type: 'root',
+            children: [],
+            direction: null,
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      } as unknown as EventsGlobalDTO
+    }
   },
   ['getEventsGlobal'],
   {

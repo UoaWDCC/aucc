@@ -1,5 +1,4 @@
 import { Media } from '@/payload-types'
-import { getTripReportsGlobal } from '@/queries/trip-reports-global'
 import { TripReportsHeaderBottomCurve } from './TripReportsHeaderBottomCurve'
 import { TripReportsHeaderImage } from './TripReportsHeaderImage'
 
