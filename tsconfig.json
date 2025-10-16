@@ -32,7 +32,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".prettierrc.ts"
-  ],
+, "src/app/(frontend)/gear-hire/_components/hiring-procedure"  ],
   "exclude": [
     "node_modules",
     ".next",
