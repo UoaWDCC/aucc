@@ -179,11 +179,19 @@ aucc/
 │   ├── 📁 app/                      # Next.js 13+ App Router
 │   │   ├── 📁 (frontend)/          # Public website routes
 │   │   │   ├── 📁 _components/      # Shared frontend components
+│   │   │   │   └── 📁 layout/       # Layout components (Navbar, Footer, etc.)
 │   │   │   ├── 📁 about/           # About page
+│   │   │   │   └── 📁 _components/  # About page components
 │   │   │   ├── 📁 events/          # Events listing & detail
+│   │   │   │   └── 📁 _components/  # Events page components
+│   │   │   ├── 📁 home/            # Home page
+│   │   │   │   └── 📁 _components/  # Home page components
 │   │   │   ├── 📁 rivers/          # Rivers guide
+│   │   │   │   └── 📁 _components/  # Rivers page components
 │   │   │   ├── 📁 trip-reports/    # Trip reports
+│   │   │   │   └── 📁 _components/  # Trip reports page components
 │   │   │   └── 📁 gallery/         # Photo gallery
+│   │   │       └── 📁 _components/  # Gallery page components
 │   │   ├── 📁 (payload)/           # CMS admin routes
 │   │   └── 📁 api/                 # API endpoints
 │   ├── 📁 collections/             # Payload CMS collections
@@ -213,6 +221,19 @@ aucc/
 ---
 
 ## 🧠 **Design Principles & Conventions**
+
+### **Component Organization Pattern**
+
+The project follows a consistent pattern for organizing components:
+
+- **Global/shared components**: Located in `app/(frontend)/_components/`
+  - Layout components (`Navbar`, `Footer`, etc.) in `_components/layout/`
+  - Other shared components used across multiple pages
+- **Page-specific components**: Located in `app/(frontend)/[page-name]/_components/`
+  - Each page has its own `_components/` subfolder
+  - Example: `app/(frontend)/home/_components/` contains all home page components
+
+This structure provides clear separation between shared and page-specific components while maintaining consistency across the application.
 
 ### **File Naming Conventions**
 
@@ -365,6 +386,47 @@ type CreateUserInput = Pick<User, 'name' | 'email' | 'role'>
    ```tsx
    // src/app/(frontend)/_components/layout/Navbar.tsx
    <NavButton href="/new-page">New Page</NavButton>
+   ```
+
+### **Adding a New Page Component**
+
+1. **Create the component in the appropriate page folder**
+
+   ```bash
+   # For page-specific components
+   mkdir -p src/app/(frontend)/[page-name]/_components/new-component
+   touch src/app/(frontend)/[page-name]/_components/new-component/index.tsx
+
+   # For shared components
+   mkdir -p src/app/(frontend)/_components/new-component
+   touch src/app/(frontend)/_components/new-component/index.tsx
+   ```
+
+2. **Implement component**
+
+   ```tsx
+   // src/app/(frontend)/[page-name]/_components/new-component/index.tsx
+   import { cn } from '@/lib/utils/cn'
+
+   interface NewComponentProps {
+     title: string
+     className?: string
+   }
+
+   export function NewComponent({ title, className }: NewComponentProps) {
+     return <div className={cn('default-styles', className)}>{title}</div>
+   }
+   ```
+
+3. **Import and use in page**
+
+   ```tsx
+   // src/app/(frontend)/[page-name]/page.tsx
+   import { NewComponent } from './_components/new-component'
+
+   export default function Page() {
+     return <NewComponent title="Example" />
+   }
    ```
 
 ### **Adding a New Payload Collection**
@@ -698,7 +760,89 @@ pnpm build-storybook        # Build Storybook for production
 
 ---
 
-## 📝 **Final Notes**
+## � **Recent Refactoring & Changes**
+
+### **Component Structure Reorganization (Oct 2025)**
+
+The codebase recently underwent a significant reorganization to standardize component structure:
+
+**Before:**
+
+```
+app/(frontend)/
+  _components/
+    home/         # Home page components
+    layout/       # Layout components
+  about/
+    _components/  # About page components
+  events/
+    _components/  # Events page components
+```
+
+**After:**
+
+```
+app/(frontend)/
+  _components/    # Shared components
+    layout/       # Layout components
+  home/
+    _components/  # Home page components
+  about/
+    _components/  # About page components
+  events/
+    _components/  # Events page components
+```
+
+This change ensures all page-specific components follow the same pattern: `[page-name]/_components/`.
+Layout components remain in the shared `_components/layout/` directory since they're used across the entire application.
+
+### **Import Path Updates**
+
+If you encounter any build errors related to missing modules, check that imports reference the new paths:
+
+- **Old paths:**
+
+  - `@/app/(frontend)/_components/home/...`
+  - `@/app/(frontend)/_components/layout/...`
+
+- **New paths:**
+  - `@/app/(frontend)/home/_components/...`
+  - `@/app/(frontend)/_components/layout/...`
+
+---
+
+## 🖼️ **Key Components Documentation**
+
+### **PayloadImage Component**
+
+The `PayloadImage` component is a custom implementation that optimizes images from Payload CMS:
+
+```tsx
+<PayloadImage
+  media={mediaObject}
+  className="aspect-video w-full"
+  placeholder="/fallback-image.jpg"
+/>
+```
+
+**Features:**
+
+- Automatic selection of optimal image size based on viewport
+- Built-in placeholder support
+- Uses Next.js Image component under the hood
+- Responsive handling of different image formats
+
+**Props:**
+
+- `media`: Media object from Payload CMS
+- `placeholder`: Optional fallback image
+- `className`: Optional CSS classes
+
+**Location:** [`src/components/PayloadImage/index.tsx`](src/components/PayloadImage/index.tsx)
+
+---
+
+## �📝 **Final Notes**
 
 This AUCC website represents a solid foundation for the club's digital presence. The technology choices prioritize:
 
@@ -715,5 +859,5 @@ Good luck, and feel free to contribute your own improvements to this documentati
 
 ---
 
-_Last updated: October 8, 2025_  
+_Last updated: October 15, 2025_  
 _Handover prepared by: Senior Full-Stack Development Team_

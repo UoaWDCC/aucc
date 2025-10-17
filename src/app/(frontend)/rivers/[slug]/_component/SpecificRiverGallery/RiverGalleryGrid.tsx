@@ -1,4 +1,5 @@
-import type { GalleryDTO } from '@/queries/river-gallery'
+import { PayloadImage } from '@/components/PayloadImage'
+import type { RiverGalleryImageDTO } from '@/queries/river-gallery'
 
 function hashSeed(s: string) {
   let h = 2166136261 >>> 0
@@ -40,7 +41,7 @@ export function RiverGalleryGrid({
   rounded = 'sm',
   colHeights = [62, 54, 66, 58],
 }: {
-  items: GalleryDTO[]
+  items: RiverGalleryImageDTO[]
   seed?: string
   rounded?: Rounded
   colHeights?: number[]
@@ -54,10 +55,10 @@ export function RiverGalleryGrid({
     (_, i) => items[i % base],
   )
 
-  const portrait: GalleryDTO[] = []
-  const landscape: GalleryDTO[] = []
+  const portrait: RiverGalleryImageDTO[] = []
+  const landscape: RiverGalleryImageDTO[] = []
   repeated.forEach((it) => {
-    const img = it.image as { width?: number; height?: number }
+    const img = it.image // Now it's a full Media object
     const ar = img?.width && img?.height ? img.height / img.width : 1.2
     ;(ar > 1 ? portrait : landscape).push(it)
   })
@@ -68,7 +69,10 @@ export function RiverGalleryGrid({
   ]
 
   const COLS = 4
-  const columns: GalleryDTO[][] = Array.from({ length: COLS }, () => [])
+  const columns: RiverGalleryImageDTO[][] = Array.from(
+    { length: COLS },
+    () => [],
+  )
   mixed.forEach((it, idx) => columns[idx % COLS].push(it))
 
   const roundedClass =
@@ -89,12 +93,7 @@ export function RiverGalleryGrid({
             style={{ height: `${vh}vh` }}
           >
             {col.map((item, idx) => {
-              const img = (item as any)?.image as {
-                url?: string
-                alt?: string
-                width?: number
-                height?: number
-              }
+              const img = item.image // Simple image object
               if (!img?.url) return null
               const [w, h] = pickAspect(String(item.id), idx)
               return (
@@ -103,11 +102,9 @@ export function RiverGalleryGrid({
                   className={`overflow-hidden ${roundedClass} block w-full`}
                   style={{ aspectRatio: `${w} / ${h}` }}
                 >
-                  <img
-                    src={img.url}
-                    alt={img.alt || `Gallery image ${idx + 1}`}
+                  <PayloadImage
+                    media={img}
                     className="block h-full w-full object-cover"
-                    loading="lazy"
                   />
                 </figure>
               )
