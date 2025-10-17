@@ -27,13 +27,11 @@ export function SpecificRiverInfoMap({ river }: { river: RiverDTO }) {
   if (!coords.length) return null
 
   return (
-    <section className="mx-auto w-full max-w-3xl -translate-x-100 px-4 py-8">
-      <div className="bg-abyss rounded-2xl p-4 shadow-xl">
+    <section className="mx-auto max-w-4xl -translate-x-[20%] py-24">
+      <div className="bg-abyss rounded-xl px-16 pt-8 pb-12 shadow-xl">
         <div className="mb-3 text-center">
-          <h2 className="text-lg font-extrabold tracking-widest text-white">
-            MAP
-          </h2>
-          <p className="text-sm text-white">
+          <h2 className="text-cream text-2xl font-extrabold">MAP</h2>
+          <p className="text-water text-sm italic">
             Explore river locations on the map.
           </p>
         </div>

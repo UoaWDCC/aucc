@@ -1,52 +1,35 @@
+// app/(site)/rivers/[slug]/_component/SpecificRiverInfo/SpecificRiverInfoBackground.tsx
+import { ReactNode } from 'react'
+
 import { Logo } from '@/assets/Logo'
-import { cn } from '@/lib/utils/cn'
 
 interface SpecificRiverInfoBackgroundProps {
-  className?: string
+  children?: ReactNode
 }
 
 export function SpecificRiverInfoBackground({
-  className,
+  children,
 }: SpecificRiverInfoBackgroundProps) {
   return (
-    <div
-      className={cn(
-        'pointer-events-none absolute inset-0 -z-40 w-full overflow-hidden',
-        className,
-      )}
-    >
-      <svg
-        width="1280"
-        height="1111"
-        viewBox="0 0 1593 1111"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute top-0 w-full"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M-241 20C-241 8.9543 -232.046 0 -221 0H1573C1584.05 0 1593 8.95431 1593 20V1091C1593 1102.05 1584.05 1111 1573 1111H-221C-232.046 1111 -241 1102.05 -241 1091V20Z"
-          fill="#A3C6C2"
-        />
-      </svg>
-
-      <div className="absolute top-[4vh] right-[1%] w-[600px] max-w-[38vw] rotate-[25deg] opacity-10">
-        <Logo />
+    <div>
+      <div className="absolute -z-20 h-full w-full overflow-hidden bg-[#A3C6C2]">
+        <div className="absolute top-[4vh] -right-[10%] z-10 w-[800px] max-w-[38vw] rotate-[25deg] opacity-10">
+          <Logo />
+        </div>
+        <svg
+          className="absolute top-200 z-1 w-full md:h-200"
+          viewBox="0 0 1280 1831"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 238.52C456.159 622.347 919.044 -41.0294 1280 2.34424V1831H0V238.52Z"
+            fill="#7F9F66"
+          />
+        </svg>
+        <div className="z-2 flex w-full flex-col">{children}</div>
       </div>
-      <svg
-        width="1280"
-        height="800"
-        viewBox="0 0 1442 1998"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute top-[560px] w-full"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M-98.0893 139.022C454.183 798.906 1027.9 -272.331 1428.27 69.4181L1441.76 1986.62L-85.0113 1997.36L-98.0893 139.022Z"
-          fill="#7F9F66"
-        />
-      </svg>
+      <div className=""></div>
     </div>
   )
 }

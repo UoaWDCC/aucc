@@ -4,19 +4,27 @@ import { SeeAllButton } from './SpecificRiverButton'
 import { SpecificRiverInfoBackground } from './SpecificRiverInfoBackground'
 import { SpecificRiverInfoMap } from './SpecificRiverInfoMap'
 import { SpecificRiverTripReports } from './SpecificRiverInfoReports'
+import { SpecificRiverInfoReportsTitle } from './SpecificRiverInfoReportsTitle'
 
 export function SpecificRiverInfo({ river }: { river: RiverDTO }) {
   return (
-    <section className="relative isolate -mx-[calc(50vw-50%)] overflow-hidden">
-      <SpecificRiverInfoBackground />
-
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-8">
+    <div>
+      <section className="relative isolate">
+        <SpecificRiverInfoBackground />
+        <div className="relative z-2 w-full">
           <SpecificRiverInfoMap river={river} />
-          <SpecificRiverTripReports river={river} />
-          <SeeAllButton />
+          <div className="flex items-center justify-center md:justify-end md:pr-24">
+            <div className="flex flex-col items-end">
+              <SpecificRiverTripReports river={river} />
+              <SeeAllButton />
+            </div>
+            <div className="flex w-24 justify-center">
+              <SpecificRiverInfoReportsTitle />
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <div className="h-[240px] w-full bg-[#7F9F66]" />
+    </div>
   )
 }

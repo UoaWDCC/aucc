@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
 
 import Button from '@/components/Button'
 import { getTripEventsForRiverId } from '@/queries/events'
@@ -22,13 +23,7 @@ export async function SpecificRiverTripReports({ river }: { river: RiverDTO }) {
   if (!reports.length) return null
 
   return (
-    <section className="relative mx-auto w-full max-w-6xl px-4 py-8 md:pr-24">
-      <div className="pointer-events-none absolute inset-y-0 -right-200 hidden w-full items-center justify-center md:flex">
-        <span className="font-heading text-cream/90 origin-center -rotate-90 text-xl uppercase select-none">
-          Relevant Trip Reports
-        </span>
-      </div>
-
+    <section className="relative max-w-4xl py-6">
       <div className="space-y-6">
         {reports.map((r) => (
           <TripReportCard key={r.id} report={r} />
@@ -51,19 +46,19 @@ function TripReportCard({ report }: { report: TripReportDTO }) {
   const imageUrl = (report as any)?.featuredImage?.url as string | undefined
 
   return (
-    <div className="bg-abyss text-cream relative translate-x-100 rounded-2xl px-5 py-9 md:grid md:min-h-[224px] md:grid-cols-[1fr_360px] md:items-center md:gap-16 lg:mx-30">
+    <div className="bg-abyss text-cream relative grid h-[280px] w-[500px] grid-cols-[1fr_280px] items-center rounded-2xl px-5 md:w-[900px]">
       <div className="space-y-6">
+        {when && <p className="font-body text-sm italic">{when}</p>}
         <h2 className="font-heading text-xl">{title}</h2>
-        {when && <p className="font-body text-sm italic opacity-80">{when}</p>}
 
         <Button
           href={href}
-          intent="primary"
+          intent="secondary"
           size="sm"
-          color="algae"
-          className="bg-algae text-abyss w-fit rounded-4xl border-transparent px-4 py-1 text-xs font-semibold tracking-wider uppercase"
+          color="abyss"
+          className="bg-algae w-fit px-8 py-3 text-xs"
         >
-          DETAILS →
+          DETAILS <ArrowRight />
         </Button>
       </div>
 
@@ -72,12 +67,12 @@ function TripReportCard({ report }: { report: TripReportDTO }) {
           <Image
             src={imageUrl}
             alt={title}
-            width={360}
-            height={224}
-            className="h-56 w-[360px] rounded-xl object-cover"
+            width={240}
+            height={240}
+            className="h-[240px] w-[240px] rounded-2xl object-cover p-2"
           />
         ) : (
-          <div className="h-56 w-[360px] rounded-xl bg-black/20" />
+          <div className="h-[240px] w-[240px] rounded-xl bg-black/20" />
         )}
       </div>
     </div>

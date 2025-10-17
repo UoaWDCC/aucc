@@ -12,10 +12,7 @@ export function RiverPage({ river }: RiverPageProps) {
   return (
     <>
       <SpecificRiverHeader river={river} />
-      <div>
-        <h1 className="text-center text-3xl font-bold">{river.name}</h1>
-        <SpecificRiverInfo river={river} />
-      </div>
+      <SpecificRiverInfo river={river} />
     </>
   )
 }
