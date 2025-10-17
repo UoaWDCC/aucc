@@ -46,7 +46,7 @@ function TripReportCard({ report }: { report: TripReportDTO }) {
   const imageUrl = (report as any)?.featuredImage?.url as string | undefined
 
   return (
-    <div className="bg-abyss text-cream relative grid h-[280px] w-[500px] grid-cols-[1fr_280px] items-center rounded-2xl px-5 md:w-[900px]">
+    <div className="bg-abyss text-cream relative grid h-[280px] w-[80vw] grid-cols-[1fr_280px] items-center rounded-2xl px-5 md:w-[45vw]">
       <div className="space-y-6">
         {when && <p className="font-body text-sm italic">{when}</p>}
         <h2 className="font-heading text-xl">{title}</h2>

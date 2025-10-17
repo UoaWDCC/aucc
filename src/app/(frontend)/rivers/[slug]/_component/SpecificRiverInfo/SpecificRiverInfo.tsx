@@ -12,7 +12,9 @@ export function SpecificRiverInfo({ river }: { river: RiverDTO }) {
       <section className="relative isolate">
         <SpecificRiverInfoBackground />
         <div className="relative z-2 w-full">
-          <SpecificRiverInfoMap river={river} />
+          <div className="flex items-center justify-start">
+            <SpecificRiverInfoMap river={river} />
+          </div>
           <div className="flex items-center justify-center md:justify-end md:pr-24">
             <div className="flex flex-col items-end">
               <SpecificRiverTripReports river={river} />
