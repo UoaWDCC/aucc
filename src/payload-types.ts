@@ -100,11 +100,13 @@ export interface Config {
     'events-global': EventsGlobal;
     'trip-reports-global': TripReportsGlobal;
     'rivers-global': RiversGlobal;
+    'gear-hire-global': GearHireGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
     'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
+    'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
   };
   locale: null;
   user: User & {
@@ -237,10 +239,9 @@ export interface River {
     latitude: number;
     longitude: number;
   };
-  location: string;
   featuredImage: number | Media;
   description?: string | null;
-  
+  location?: string | null;
   /**
    * Automatically generated from name
    */
@@ -565,9 +566,9 @@ export interface RiversSelect<T extends boolean = true> {
         latitude?: T;
         longitude?: T;
       };
-  location?: T;
   featuredImage?: T;
   description?: T;
+  location?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -764,6 +765,31 @@ export interface RiversGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gear-hire-global".
+ */
+export interface GearHireGlobal {
+  id: number;
+  headerImage: number | Media;
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
@@ -790,6 +816,17 @@ export interface TripReportsGlobalSelect<T extends boolean = true> {
  * via the `definition` "rivers-global_select".
  */
 export interface RiversGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gear-hire-global_select".
+ */
+export interface GearHireGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
   updatedAt?: T;
