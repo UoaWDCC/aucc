@@ -1,4 +1,14 @@
-export function ExecsSection() {
+import { Suspense } from 'react'
+
+import { Exec } from '@/payload-types'
+import { ExecsGrid } from './ExecsGrid'
+import { ExecsGridFallback } from './ExecsGridFallback'
+
+interface ExecsSectionProps {
+  execs: Exec[]
+}
+
+export async function ExecsSection({ execs }: ExecsSectionProps) {
   return (
     <div className="relative w-full">
       <div className="relative z-10 -mt-[18vw] w-full">
@@ -15,7 +25,14 @@ export function ExecsSection() {
           />
         </svg>
       </div>
-      <div className="bg-cream relative z-30 -mt-150 h-250"></div>
+
+      <div className="bg-cream h-fill relative z-30 -mt-220 pb-20">
+        <div className="px-50">
+          <Suspense fallback={<ExecsGridFallback />}>
+            <ExecsGrid execs={execs} />
+          </Suspense>
+        </div>
+      </div>
     </div>
   )
 }
