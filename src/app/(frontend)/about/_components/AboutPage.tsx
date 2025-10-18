@@ -3,6 +3,7 @@ import React, { Suspense } from 'react'
 import { ExecsGrid } from '@/app/(frontend)/about/_components/ExecsGrid'
 import { ExecsGridFallback } from '@/app/(frontend)/about/_components/ExecsGridFallback'
 import { Exec } from '@/payload-types'
+import { ContactUsSection } from './contact-us/ContactUsSection'
 import { AboutHeaderSection } from './header/AboutHeaderSection'
 
 interface AboutPageProps {
@@ -15,6 +16,7 @@ export function AboutPage({ execs }: AboutPageProps) {
       <div className="z-10 flex w-full justify-center align-middle">
         <AboutHeaderSection />
       </div>
+      <div className="relative z-10 flex w-full justify-center align-middle"></div>
       <br></br>
       <div className="text-left">
         <h1 className="text-2xl font-bold">Execs</h1>
