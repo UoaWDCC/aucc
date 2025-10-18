@@ -4,7 +4,9 @@ import { ExecsGrid } from '@/app/(frontend)/about/_components/ExecsGrid'
 import { ExecsGridFallback } from '@/app/(frontend)/about/_components/ExecsGridFallback'
 import { Exec } from '@/payload-types'
 import { ContactUsSection } from './contact-us/ContactUsSection'
+import { ExecsSection } from './Execs/ExecsSection'
 import { AboutHeaderSection } from './header/AboutHeaderSection'
+import { HeaderSubSection } from './header/HeaderSubSection'
 
 interface AboutPageProps {
   execs: Exec[]
@@ -13,10 +15,14 @@ interface AboutPageProps {
 export function AboutPage({ execs }: AboutPageProps) {
   return (
     <>
-      <div className="z-10 flex w-full justify-center align-middle">
-        <AboutHeaderSection />
-      </div>
-      <div className="relative z-10 flex w-full justify-center align-middle"></div>
+      <AboutHeaderSection />
+
+      <HeaderSubSection />
+
+      <ContactUsSection />
+
+      <ExecsSection />
+
       <br></br>
       <div className="text-left">
         <h1 className="text-2xl font-bold">Execs</h1>
