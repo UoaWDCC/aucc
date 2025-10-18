@@ -8,14 +8,11 @@ function hashSeed(s: string) {
   return h >>> 0
 }
 
-function seededShuffle<T extends { id?: unknown }>(
-  arr: T[],
-  seed: string,
-): T[] {
+function seededShuffle<T extends { id?: string }>(arr: T[], seed: string): T[] {
   return [...arr]
     .map((v, i) => ({
       v,
-      k: hashSeed(`${seed}:${String((v as any).id ?? i)}`),
+      k: hashSeed(`${seed}:${String(v.id ?? i)}`),
     }))
     .sort((a, b) => a.k - b.k)
     .map((o) => o.v)

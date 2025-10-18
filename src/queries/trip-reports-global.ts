@@ -2,10 +2,13 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
-import { NoNumber } from '@/lib/utils/util-types'
-import { TripReportsGlobal } from '@/payload-types'
+import type { NoNumber } from '@/lib/utils/util-types'
+import type {
+  Media,
+  TripReportsGlobal as TripReportsGlobalType,
+} from '@/payload-types'
 
-export type TripReportsGlobalDTO = NoNumber<TripReportsGlobal>
+export type TripReportsGlobalDTO = NoNumber<TripReportsGlobalType>
 
 export const getTripReportsGlobal = unstable_cache(
   async function () {
@@ -21,7 +24,7 @@ export const getTripReportsGlobal = unstable_cache(
       console.error('Error fetching trip reports global data:', error)
       // Return a fallback object with required properties
       return {
-        headerImage: null as any,
+        headerImage: null as Media | null,
         introText: {
           root: {
             type: 'root',

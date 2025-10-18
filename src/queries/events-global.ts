@@ -3,7 +3,7 @@ import { unstable_cache } from 'next/cache'
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import type { NoNumber } from '@/lib/utils/util-types'
-import type { EventsGlobal as EventsGlobalType } from '@/payload-types'
+import type { EventsGlobal as EventsGlobalType, Media } from '@/payload-types'
 
 export type EventsGlobalDTO = NoNumber<EventsGlobalType>
 
@@ -21,7 +21,7 @@ export const getEventsGlobal = unstable_cache(
       console.error('Error fetching events global data:', error)
       // Return a fallback object with required properties
       return {
-        headerImage: null as any,
+        headerImage: null as Media | null,
         petrolCosts: {
           root: {
             type: 'root',

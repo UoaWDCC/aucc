@@ -10,7 +10,30 @@ export type RiverGalleryImageDTO = {
   image: Media
 }
 
-const toDTO = (u: any, id: string, alt = ''): RiverGalleryImageDTO | null =>
+// Interface for objects that can be converted to media DTOs
+interface MediaLikeObject {
+  id?: string | number
+  url?: string | null
+  alt?: string | null
+  width?: number | null
+  height?: number | null
+  updatedAt?: string
+  createdAt?: string
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  thumbnailURL?: string | null
+  focalX?: number | null
+  focalY?: number | null
+  prefix?: string | null
+  sizes?: Record<string, unknown>
+}
+
+const toDTO = (
+  u: MediaLikeObject | null | undefined,
+  id: string,
+  alt = '',
+): RiverGalleryImageDTO | null =>
   u?.url
     ? ({
         id,
@@ -69,7 +92,7 @@ export async function getRiverGallerySimple(
       depth: 1,
       limit: 1,
     })
-  ).docs?.[0] as any
+  ).docs?.[0]
   if (!river) return []
 
   // 2) events
@@ -85,7 +108,9 @@ export async function getRiverGallerySimple(
     sort: '-startTime',
   })
   const fromEvents = evRes.docs
-    ?.map((d: any) => toDTO(d?.featuredImage, `ev-${d.id}`, d?.title))
+    ?.map((d) =>
+      toDTO(d?.featuredImage as MediaLikeObject, `ev-${d.id}`, d?.title),
+    )
     .filter(Boolean) as RiverGalleryImageDTO[]
 
   // 3) gallery
@@ -94,8 +119,14 @@ export async function getRiverGallerySimple(
   for (const name of candidates) {
     const { gallery } = await getGalleryByTag(name, { limit: totalLimit })
     if (gallery?.length) {
-      fromTag = (gallery as any[])
-        .map((g, i) => toDTO(g?.image, `gal-${g.id}-${i}`, g?.image?.alt ?? ''))
+      fromTag = gallery
+        .map((g, i) =>
+          toDTO(
+            g?.image as MediaLikeObject,
+            `gal-${g.id}-${i}`,
+            g?.image?.alt ?? '',
+          ),
+        )
         .filter(Boolean) as RiverGalleryImageDTO[]
       break
     }
@@ -103,7 +134,13 @@ export async function getRiverGallerySimple(
 
   // 4) river featured
   const fromRiver = river?.featuredImage
-    ? [toDTO(river.featuredImage, `rv-${river.id}`, river.name)!]
+    ? [
+        toDTO(
+          river.featuredImage as MediaLikeObject,
+          `rv-${river.id}`,
+          river.name,
+        )!,
+      ]
     : []
 
   // 5) Merge

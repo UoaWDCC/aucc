@@ -2,10 +2,10 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
-import { NoNumber } from '@/lib/utils/util-types'
-import { RiversGlobal } from '@/payload-types'
+import type { NoNumber } from '@/lib/utils/util-types'
+import type { Media, RiversGlobal as RiversGlobalType } from '@/payload-types'
 
-export type RiversGlobalDTO = NoNumber<RiversGlobal>
+export type RiversGlobalDTO = NoNumber<RiversGlobalType>
 
 export const getRiversGlobal = unstable_cache(
   async function () {
@@ -22,7 +22,7 @@ export const getRiversGlobal = unstable_cache(
       // Return a fallback object with required properties
       // Return a fallback object with required properties
       return {
-        headerImage: null as any,
+        headerImage: null as Media | null,
         introText: {
           root: {
             type: 'root',
