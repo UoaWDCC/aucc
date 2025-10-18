@@ -24,21 +24,32 @@ export const getRivers = unstable_cache(
     limit?: number
     sort?: string
   } = {}) {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-      collection: 'rivers',
-      page,
-      limit,
-      sort,
-      depth: 2, // hydrate relations so RiverDTO matches
-    })
+      const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+        collection: 'rivers',
+        page,
+        limit,
+        sort,
+        depth: 2, // hydrate relations so RiverDTO matches
+      })
 
-    return {
-      rivers: docs as RiverDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
+      return {
+        rivers: docs as RiverDTO[],
+        hasNextPage,
+        nextPage,
+        totalDocs,
+      }
+    } catch (error) {
+      console.error('Error fetching rivers:', error)
+      // Return empty results as fallback
+      return {
+        rivers: [] as RiverDTO[],
+        hasNextPage: false,
+        nextPage: null,
+        totalDocs: 0,
+      }
     }
   },
   ['getRivers'],
@@ -52,16 +63,21 @@ export const getRivers = unstable_cache(
  */
 export const getRiverBySlug = unstable_cache(
   async function (slug: string): Promise<RiverDTO | null> {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const { docs } = await payload.find({
-      collection: 'rivers',
-      where: { slug: { equals: slug } },
-      depth: 2, // ensure featuredImage et al. are objects, not ids
-      limit: 1,
-    })
+      const { docs } = await payload.find({
+        collection: 'rivers',
+        where: { slug: { equals: slug } },
+        depth: 2, // ensure featuredImage et al. are objects, not ids
+        limit: 1,
+      })
 
-    return docs.length ? (docs[0] as RiverDTO) : null
+      return docs.length ? (docs[0] as RiverDTO) : null
+    } catch (error) {
+      console.error('Error fetching river by slug:', slug, error)
+      return null
+    }
   },
   ['getRiverBySlug'],
   { tags: cacheTags.rivers.relatedTags },

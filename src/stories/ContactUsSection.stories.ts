@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
-import { ContactUsSection } from '@/app/(frontend)/_components/home/contact-us/ContactUsSection'
+import { ContactUsSection } from '@/app/(frontend)/home/_components/contact-us/ContactUsSection'
 
 const meta = {
   title: 'LookingForUsSection',

@@ -1,5 +1,3 @@
-import { env } from '@/lib/env'
-
 export function IntroText() {
   return (
     <div className="flex w-full flex-col items-center px-4 md:items-end md:pt-12 md:pr-[14%] xl:pt-31">

@@ -1,11 +1,12 @@
-import { getRivers } from '@/queries/rivers'
 import type { RiverDTO } from '@/queries/rivers'
 import { RiverCard } from './RiverCard'
 import { RiverCardBackground } from './RiverCardBackground'
 
-export async function RiverCardSection() {
-  const { rivers } = await getRivers({ page: 1, limit: 2 })
+interface RiverCardSectionProps {
+  rivers: RiverDTO[]
+}
 
+export function RiverCardSection({ rivers }: RiverCardSectionProps) {
   if (!rivers || rivers.length === 0) return null
 
   const riversWithDefaults = rivers.map((r) => ({
@@ -20,11 +21,11 @@ export async function RiverCardSection() {
       <div className="mx-5 -mt-130 flex flex-col items-center justify-center md:gap-20 lg:-mt-150">
         {/*Show 1 river for small screen*/}
         <div className="block md:hidden">
-          <RiverCard river={riversWithDefaults[0]!} />
+          {riversWithDefaults[0] && <RiverCard river={riversWithDefaults[0]} />}
         </div>
         {/*Show 2 rivers for medium and larger screens*/}
         <div className="hidden w-full md:flex md:flex-col md:gap-20">
-          {riversWithDefaults.map((river) => (
+          {riversWithDefaults.slice(0, 2).map((river) => (
             <RiverCard key={river.slug} river={river} />
           ))}
         </div>

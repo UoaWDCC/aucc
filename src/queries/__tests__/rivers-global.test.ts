@@ -143,9 +143,24 @@ describe('Rivers Global queries', () => {
       const error = new Error('Failed to fetch global data')
       mockPayloadClient.findGlobal.mockRejectedValue(error)
 
-      await expect(getRiversGlobal()).rejects.toThrow(
-        'Failed to fetch global data',
-      )
+      const result = await getRiversGlobal()
+
+      // Should return fallback data instead of throwing
+      expect(result).toEqual({
+        headerImage: null,
+        introText: {
+          root: {
+            type: 'root',
+            children: [],
+            direction: null,
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        updatedAt: expect.any(String),
+        createdAt: expect.any(String),
+      })
       expect(mockPayloadClient.findGlobal).toHaveBeenCalledWith({
         slug: 'rivers-global',
       })

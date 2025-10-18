@@ -7,16 +7,21 @@ import { OurRivers } from './intro/OurRivers'
 import { RiverCardSection } from './river-cards/RiverCardSection'
 
 type RiversPageProps = {
-  headerImage: Media
-  introText: SerializedEditorState
+  headerImage: Media | null
+  introText: SerializedEditorState | null
   rivers: RiverDTO[]
 }
-export function RiversPage({ headerImage, introText }: RiversPageProps) {
+
+export function RiversPage({
+  headerImage,
+  introText,
+  rivers,
+}: RiversPageProps) {
   return (
     <>
       <RiversHeaderSection headerImage={headerImage} />
       <OurRivers introText={introText} />
-      <RiverCardSection />
+      <RiverCardSection rivers={rivers} />
     </>
   )
 }

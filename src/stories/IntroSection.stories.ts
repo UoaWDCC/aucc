@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
-import { IntroSection } from '@/app/(frontend)/_components/home/intro/IntroSection'
+import { IntroSection } from '@/app/(frontend)/home/_components/intro/IntroSection'
 
 const meta = {
   title: 'IntroSection',

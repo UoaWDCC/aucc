@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 
 import { ExecsGrid } from '@/app/(frontend)/about/_components/ExecsGrid'
 import { ExecsGridFallback } from '@/app/(frontend)/about/_components/ExecsGridFallback'

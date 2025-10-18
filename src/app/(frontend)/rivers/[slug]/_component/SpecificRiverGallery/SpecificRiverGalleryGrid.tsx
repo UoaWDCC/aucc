@@ -1,12 +1,14 @@
 import { PayloadImage } from '@/components/PayloadImage'
 import { GalleryDTO, getGalleryByTag } from '@/queries/gallery'
 
-interface EventGalleryGridProps {
-  tagName: string
+interface SpecificRiverGalleryGridProps {
+  name: string
 }
 
-export async function EventGalleryGrid({ tagName }: EventGalleryGridProps) {
-  const { gallery } = await getGalleryByTag(tagName, { limit: 10 })
+export async function SpecificRiverGalleryGrid({
+  name,
+}: SpecificRiverGalleryGridProps) {
+  const { gallery } = await getGalleryByTag(name, { limit: 10 })
 
   if (gallery.length === 0) {
     return null
@@ -43,8 +45,14 @@ export async function EventGalleryGrid({ tagName }: EventGalleryGridProps) {
 
   const columns: GalleryDTO[][] = [[], [], [], []]
 
-  orderedGallery.forEach((item, idx) => {
-    columns[idx % 4].push(item)
+  const minItemsPerColumn = 4
+
+  columns.forEach((col) => {
+    while (col.length < minItemsPerColumn) {
+      col.push(
+        orderedGallery[Math.floor(Math.random() * orderedGallery.length)],
+      )
+    }
   })
 
   columns.sort(() => Math.random() - 0.5)
@@ -53,24 +61,34 @@ export async function EventGalleryGrid({ tagName }: EventGalleryGridProps) {
   })
 
   return (
-    <div className="grid grid-cols-2 gap-2 p-4 lg:grid-cols-4">
-      {columns.map((col, idx) => (
-        <div
-          key={idx}
-          className={`${idx >= 2 ? 'hidden lg:flex' : 'flex'} flex-col gap-2 ${idx % 2 === 0 ? 'justify-start' : 'justify-end'}`}
-        >
-          {col.map((item, i) => {
-            return (
-              <div
-                key={`${item.id}-${idx}-${i}`}
-                className={`relative h-auto w-full ${i >= 2 ? 'hidden lg:block' : ''}`}
-              >
-                <PayloadImage media={item.image} className="object-cover" />
-              </div>
-            )
-          })}
-        </div>
-      ))}
+    <div className="relative overflow-hidden">
+      <div className="grid grid-cols-2 gap-2 p-4 lg:grid-cols-4">
+        {columns.map((col, idx) => {
+          const base = idx * 300
+          const bounce = Math.floor(Math.random() * 120) - 40
+
+          return (
+            <div
+              key={idx}
+              className="flex flex-col gap-2"
+              style={{
+                marginTop: `${base + bounce}px`,
+              }}
+            >
+              {col.map((item, i) => {
+                return (
+                  <div
+                    key={`${item.id}-${idx}-${i}`}
+                    className="relative h-auto w-full"
+                  >
+                    <PayloadImage media={item.image} className="object-cover" />
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

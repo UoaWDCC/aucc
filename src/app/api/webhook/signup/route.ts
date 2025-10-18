@@ -20,9 +20,11 @@ export async function POST(req: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(validation.error.format(), { status: 400 })
     }
-    console.log(body)
+
+    // Process the validated signup data
+    // TODO: Add signup processing logic here
   } catch (error) {
-    console.error(error)
+    console.error('Signup webhook error:', error)
     return NextResponse.json({ message: 'Error' }, { status: 500 })
   }
   return NextResponse.json({ message: 'Success' }, { status: 200 })
