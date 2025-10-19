@@ -2,7 +2,7 @@ import { HeaderBackground } from './HeaderBackground'
 
 export function AboutHeaderSection() {
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-start align-middle">
+    <div className="relative flex h-screen w-full flex-col items-center justify-start overflow-hidden align-middle">
       <HeaderBackground />
       <div className="absolute flex h-full w-full flex-col items-center justify-start">
         <div className="mt-[11vw] flex w-fit flex-col items-center justify-center">

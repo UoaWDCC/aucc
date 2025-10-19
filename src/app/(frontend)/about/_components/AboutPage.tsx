@@ -3,6 +3,7 @@ import { ContactUsSection } from './contact-us/ContactUsSection'
 import { ExecsSection } from './Execs/ExecsSection'
 import { AboutHeaderSection } from './header/AboutHeaderSection'
 import { HeaderSubSection } from './header/HeaderSubSection'
+import { SocialsSection } from './socials/SocialsSection'
 
 interface AboutPageProps {
   execs: Exec[]
@@ -10,7 +11,7 @@ interface AboutPageProps {
 
 export function AboutPage({ execs }: AboutPageProps) {
   return (
-    <>
+    <div className="w-full overflow-hidden">
       <AboutHeaderSection />
 
       <HeaderSubSection />
@@ -19,11 +20,7 @@ export function AboutPage({ execs }: AboutPageProps) {
 
       <ExecsSection execs={execs} />
 
-      <br></br>
-      <div className="text-left">
-        <h1 className="text-2xl font-bold">Execs</h1>
-        <h2 className="text-gray-600">A list of all execs available</h2>
-      </div>
-    </>
+      <SocialsSection />
+    </div>
   )
 }

@@ -3,15 +3,7 @@ import Image from 'next/image'
 import whoAreWeImage from '@/assets/who-are-we.webp'
 import { HeaderSubSectionBackground } from './HeaderSubSectionBackground'
 
-interface HeaderSubSectionProps {
-  title?: string
-  subtitle?: string
-}
-
-export function HeaderSubSection({
-  title = 'About Us',
-  subtitle,
-}: HeaderSubSectionProps) {
+export function HeaderSubSection() {
   return (
     <div className="relative w-full">
       <HeaderSubSectionBackground />
