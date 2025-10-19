@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react'
-
+import { Exec } from '@/payload-types'
 import { ContactUsSection } from './contact-us/ContactUsSection'
 import { ExecsSection } from './Execs/ExecsSection'
 import { AboutHeaderSection } from './header/AboutHeaderSection'
@@ -19,6 +18,12 @@ export function AboutPage({ execs }: AboutPageProps) {
       <ContactUsSection />
 
       <ExecsSection execs={execs} />
+
+      <br></br>
+      <div className="text-left">
+        <h1 className="text-2xl font-bold">Execs</h1>
+        <h2 className="text-gray-600">A list of all execs available</h2>
+      </div>
     </>
   )
 }

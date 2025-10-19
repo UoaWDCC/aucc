@@ -26,7 +26,21 @@ export async function ExecsSection({ execs }: ExecsSectionProps) {
         </svg>
       </div>
 
-      <div className="bg-cream h-fill relative z-30 -mt-220 pb-20">
+      <div className="absolute -top-40 left-40 z-110 flex h-120 w-120 items-center justify-center rounded-[650px] bg-[#D3E2DA]">
+        <div className="text-abyss text-heading w-90 px-8 text-center text-[16px] italic">
+          For general enquiries, please email the President/ Secretary (see
+          below). For all emails, add aucc.org.nz to the <br />
+          end. <br />
+          i.e. Email: sample@ = sample@aucc.org.nz.
+          <br />
+          <br />
+          For a potentially speedier response to general enquiries with all of
+          our executive&apos;s contribution, leave a message on our Facebook
+          page.
+        </div>
+      </div>
+
+      <div className="bg-cream h-fill relative z-30 -mt-[44vw] pb-20">
         <div className="px-50">
           <Suspense fallback={<ExecsGridFallback />}>
             <ExecsGrid execs={execs} />
