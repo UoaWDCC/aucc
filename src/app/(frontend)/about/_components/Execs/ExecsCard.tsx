@@ -22,12 +22,15 @@ export function ExecCard({ exec }: ExecCardProps) {
         )}
       </div>
       <div className="w-60 text-left">
-        <h3 className="font-medium">{exec.name}</h3>
-        {exec.pronouns && (
-          <p className="break-all text-gray-600">({exec.pronouns})</p>
-        )}
-        {exec.role && <p className="break-all text-gray-600">{exec.role}</p>}
-        {exec.email && <p className="break-all text-gray-600">{exec.email}</p>}
+        <div className="flex w-full flex-row items-center justify-between">
+          <h3 className="text-algae text-[18px] font-bold">{exec.name}</h3>
+          {exec.pronouns && (
+            <p className="text-algae text-[14px]">({exec.pronouns})</p>
+          )}
+        </div>
+
+        {exec.role && <p className="italic">{exec.role}</p>}
+        {exec.email && <p className="italic">Email: {exec.email}</p>}
       </div>
     </div>
   )
