@@ -25,6 +25,19 @@ export async function ExecsSection({ execs }: ExecsSectionProps) {
           />
         </svg>
       </div>
+      <div className="absolute top-56 right-34 z-100 flex h-fit w-fit flex-row">
+        <div className="font-heading font-regular text-algae flex h-fit w-fit flex-col items-end text-6xl font-bold">
+          Executive Team
+          <div className="text-abyss font-body mt-4 w-100 text-right text-[16px] font-normal italic">
+            Each member plays a key role ensuring the long term success for the
+            club and its members. We&apos;ll be at all club events so come say
+            hi and get amongst!
+          </div>
+        </div>
+        <div className="font-handwritten text-algae ml-4 -translate-y-4 text-8xl">
+          !
+        </div>
+      </div>
 
       <div className="absolute -top-40 left-40 z-110 flex h-120 w-120 items-center justify-center rounded-[650px] bg-[#D3E2DA]">
         <div className="text-abyss text-heading w-90 px-8 text-center text-[16px] italic">
@@ -40,7 +53,7 @@ export async function ExecsSection({ execs }: ExecsSectionProps) {
         </div>
       </div>
 
-      <div className="bg-cream h-fill relative z-30 -mt-[44vw] pb-20">
+      <div className="bg-cream h-fill relative z-30 -mt-[44vw] min-h-200 pb-20">
         <div className="px-50">
           <Suspense fallback={<ExecsGridFallback />}>
             <ExecsGrid execs={execs} />
