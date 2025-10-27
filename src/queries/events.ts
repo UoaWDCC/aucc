@@ -27,13 +27,13 @@ export const getEvents = unstable_cache(
       page,
       limit,
       sort,
-      where: {
-        ...(tripsOnly && {
-          eventType: {
-            equals: 'trip',
-          },
-        }),
-      },
+      where: tripsOnly
+        ? {
+            eventType: {
+              equals: 'trip',
+            },
+          }
+        : {},
     })
 
     return {
@@ -44,9 +44,7 @@ export const getEvents = unstable_cache(
     }
   },
   ['getAllEvents'],
-  {
-    tags: cacheTags.events.relatedTags,
-  },
+  { tags: cacheTags.events.relatedTags },
 )
 
 /**

@@ -1,10 +1,10 @@
 import { GradeBadge } from '@/components/GradeBadge'
+import { TripsCardButtons } from '@/components/TripsCard/TripsCardButtons'
+import { TripsCardDate } from '@/components/TripsCard/TripsCardDate'
+import { TripsCardImage } from '@/components/TripsCard/TripsCardImage'
+import { TripsCardLocation } from '@/components/TripsCard/TripsCardLocation'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { EventDTO } from '@/queries/events'
-import { TripsCardButtons } from './TripsCardButtons'
-import { TripsCardDate } from './TripsCardDate'
-import { TripsCardImage } from './TripsCardImage'
-import { TripsCardLocation } from './TripsCardLocation'
 
 type UpcomingTripsCardProps = {
   event: EventDTO

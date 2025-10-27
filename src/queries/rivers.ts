@@ -31,6 +31,7 @@ export const getRivers = unstable_cache(
       page,
       limit,
       sort,
+      depth: 2, // hydrate relations so RiverDTO matches
     })
 
     return {
@@ -41,37 +42,27 @@ export const getRivers = unstable_cache(
     }
   },
   ['getRivers'],
-  {
-    tags: cacheTags.rivers.relatedTags,
-  },
+  { tags: cacheTags.rivers.relatedTags },
 )
 
 /**
- * Get a river by its ID
- * @param id - The ID of the river to get
- * @returns The river
+ * Get a river by its slug
+ * @param slug - The slug of the river to get
+ * @returns The river (DTO) or null
  */
 export const getRiverBySlug = unstable_cache(
   async function (slug: string): Promise<RiverDTO | null> {
     const payload = await getPayloadClient()
 
-    const river = await payload.find({
+    const { docs } = await payload.find({
       collection: 'rivers',
-      where: {
-        slug: {
-          equals: slug,
-        },
-      },
+      where: { slug: { equals: slug } },
+      depth: 2, // ensure featuredImage et al. are objects, not ids
+      limit: 1,
     })
 
-    if (river.docs.length === 0) {
-      return null
-    }
-
-    return river.docs[0] as RiverDTO
+    return docs.length ? (docs[0] as RiverDTO) : null
   },
   ['getRiverBySlug'],
-  {
-    tags: cacheTags.rivers.relatedTags,
-  },
+  { tags: cacheTags.rivers.relatedTags },
 )

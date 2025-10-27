@@ -30,7 +30,7 @@ export function SpecificEventIntroSection({
         </div>
       </div>
 
-      <section className="xs:w-[300px] relative z-10 mx-auto mt-[125px] h-[1116px] w-full px-8 sm:px-12 md:px-20 lg:w-[1150px] xl:w-[1300px] 2xl:w-[1350px]">
+      <section className="xs:w-[300px] relative z-10 mx-auto mt-[125px] h-[1180px] w-full px-8 sm:px-12 md:h-[1116px] md:px-20 lg:w-[1150px] xl:w-[1300px] 2xl:w-[1350px]">
         <div className="relative left-0 mb-2 flex justify-start md:absolute md:-top-[2%] md:mb-0">
           <BackButton />
         </div>
@@ -46,7 +46,7 @@ export function SpecificEventIntroSection({
           {/* Specific Event's Image */}
           <div className="relative right-0 z-20 mt-2 aspect-[16/9] h-auto w-full overflow-hidden sm:mt-0 md:absolute md:z-0 md:h-[667px]">
             <PayloadImage
-              media={event.featuredImage}
+              media={event.featuredImage ?? undefined}
               className="object-cover"
             />
           </div>
