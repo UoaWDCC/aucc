@@ -19,6 +19,7 @@ export function RiversGrid({ rivers }: RiversGridProps) {
               ...river,
               featuredImage: river.featuredImage,
               slug: river.slug,
+              location: river.location ?? undefined,
             }}
           />
         )
