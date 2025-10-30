@@ -4,6 +4,7 @@ import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { NoNumber } from '@/lib/utils/util-types'
 import type { TripReport } from '@/payload-types'
+import { getTripEventsForRiverId } from './events'
 
 export type TripReportDTO = NoNumber<TripReport>
 
@@ -113,4 +114,31 @@ export const getTripReportBySlug = unstable_cache(
   {
     tags: cacheTags.tripReports.relatedTags,
   },
+)
+
+export const getTripReportsByEventIds = unstable_cache(
+  async function (
+    eventIds: (string | number)[],
+    { limit = 2, depth = 1 }: { limit?: number; depth?: number } = {},
+  ) {
+    if (!eventIds?.length) return []
+    const payload = await getPayloadClient()
+
+    const { docs } = await payload.find({
+      collection: 'trip-reports',
+      depth,
+      sort: '-datePublished',
+      limit,
+      where: {
+        and: [
+          { status: { equals: 'published' } },
+          { relatedEvent: { in: eventIds } },
+        ],
+      },
+    })
+
+    return docs as TripReportDTO[]
+  },
+  ['getTripReportsByEventIds'],
+  { tags: cacheTags.tripReports.relatedTags },
 )
