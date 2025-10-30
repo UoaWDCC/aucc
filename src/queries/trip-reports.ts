@@ -28,26 +28,37 @@ export const getTripReports = unstable_cache(
     status?: 'published' | 'draft'
     depth?: number
   } = {}) {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-      collection: 'trip-reports',
-      page,
-      limit,
-      sort,
-      depth,
-      where: {
-        status: {
-          equals: status,
+      const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+        collection: 'trip-reports',
+        page,
+        limit,
+        sort,
+        depth,
+        where: {
+          status: {
+            equals: status,
+          },
         },
-      },
-    })
+      })
 
-    return {
-      tripReports: docs as TripReportDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
+      return {
+        tripReports: docs as TripReportDTO[],
+        hasNextPage,
+        nextPage,
+        totalDocs,
+      }
+    } catch (error) {
+      console.error('Error fetching trip reports:', error)
+      // Return empty results as fallback
+      return {
+        tripReports: [] as TripReportDTO[],
+        hasNextPage: false,
+        nextPage: null,
+        totalDocs: 0,
+      }
     }
   },
   ['getTripReports'],
@@ -66,32 +77,37 @@ export const getTripReportBySlug = unstable_cache(
     slug: string,
     { status = 'published' }: { status?: 'published' | 'draft' } = {},
   ): Promise<TripReportDTO | null> {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const tripReport = await payload.find({
-      collection: 'trip-reports',
-      where: {
-        and: [
-          {
-            slug: {
-              equals: slug,
+      const tripReport = await payload.find({
+        collection: 'trip-reports',
+        where: {
+          and: [
+            {
+              slug: {
+                equals: slug,
+              },
             },
-          },
-          {
-            status: {
-              equals: status,
+            {
+              status: {
+                equals: status,
+              },
             },
-          },
-        ],
-      },
-      limit: 1,
-    })
+          ],
+        },
+        limit: 1,
+      })
 
-    if (tripReport.docs.length === 0) {
+      if (tripReport.docs.length === 0) {
+        return null
+      }
+
+      return tripReport.docs[0] as TripReportDTO
+    } catch (error) {
+      console.error('Error fetching trip report by slug:', slug, error)
       return null
     }
-
-    return tripReport.docs[0] as TripReportDTO
   },
   ['getTripReportBySlug'],
   {

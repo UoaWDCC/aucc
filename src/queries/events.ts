@@ -20,27 +20,38 @@ export const getEvents = unstable_cache(
     sort?: string
     tripsOnly?: boolean
   } = {}) {
-    const payload = await getPayloadClient()
+    try {
+      const payload = await getPayloadClient()
 
-    const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-      collection: 'events',
-      page,
-      limit,
-      sort,
-      where: tripsOnly
-        ? {
-            eventType: {
-              equals: 'trip',
-            },
-          }
-        : {},
-    })
+      const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
+        collection: 'events',
+        page,
+        limit,
+        sort,
+        where: tripsOnly
+          ? {
+              eventType: {
+                equals: 'trip',
+              },
+            }
+          : {},
+      })
 
-    return {
-      events: docs as EventDTO[],
-      hasNextPage,
-      nextPage,
-      totalDocs,
+      return {
+        events: docs as EventDTO[],
+        hasNextPage,
+        nextPage,
+        totalDocs,
+      }
+    } catch (error) {
+      console.error('Error fetching events:', error)
+      // Return empty results as fallback
+      return {
+        events: [] as EventDTO[],
+        hasNextPage: false,
+        nextPage: null,
+        totalDocs: 0,
+      }
     }
   },
   ['getAllEvents'],

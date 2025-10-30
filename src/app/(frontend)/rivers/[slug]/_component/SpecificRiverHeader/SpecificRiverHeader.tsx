@@ -1,5 +1,3 @@
-import { ArrowRightToLine } from 'lucide-react'
-
 import { GradeBadge } from '@/components/GradeBadge'
 import { RiverDTO } from '@/queries/rivers'
 import { BackButton } from './BackButton'

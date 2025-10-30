@@ -1,6 +1,6 @@
-import { ContactSectionBackground } from '../contact-us/ContactSectionBackground'
 import { ContactArrow } from './ContactArrow'
 import { ContactImages } from './ContactImages'
+import { ContactSectionBackground } from './ContactSectionBackground'
 import { ContactText } from './ContactText'
 
 export function ContactUsSection() {
