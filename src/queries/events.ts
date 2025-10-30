@@ -111,3 +111,24 @@ export const getNextTrip = unstable_cache(
     tags: [...cacheTags.events.relatedTags, cacheTags.rivers.tag],
   },
 )
+
+export const getTripEventsForRiverId = unstable_cache(
+  async function (riverId: string | number): Promise<EventDTO[]> {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({
+      collection: 'events',
+      depth: 0,
+      sort: '-startTime',
+      where: {
+        and: [
+          { eventType: { equals: 'trip' } },
+          { river: { equals: riverId } },
+        ],
+      },
+      limit: 100,
+    })
+    return docs as EventDTO[]
+  },
+  ['getTripEventsForRiverId'],
+  { tags: cacheTags.events.relatedTags },
+)
