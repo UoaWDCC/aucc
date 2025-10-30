@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import type { MockedFunction } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
 import { getEventById, getEvents } from '@/queries/events'
+
+// Type for mock function parameters
+type MockFunction = (...args: unknown[]) => unknown
 
 // Mock the payload client
 vi.mock('@/lib/payload', () => ({
@@ -11,7 +16,7 @@ vi.mock('@/lib/payload', () => ({
 // Mock the cache
 vi.mock('next/cache', async () => {
   return {
-    unstable_cache: (fn: any) => fn,
+    unstable_cache: (fn: MockFunction) => fn,
   }
 })
 
@@ -22,7 +27,9 @@ describe('getAllEvents', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(getPayloadClient as any).mockResolvedValue(mockPayloadClient)
+    ;(
+      getPayloadClient as MockedFunction<typeof getPayloadClient>
+    ).mockResolvedValue(mockPayloadClient as never)
   })
 
   it('should fetch events with default parameters', async () => {

@@ -39,7 +39,10 @@ export function selectOptimalImageSize(
 }
 
 interface PayloadImageProps {
-  media: Media | undefined
+  media:
+    | Media
+    | { url: string; alt?: string; width?: number; height?: number }
+    | undefined
   placeholder?: StaticImageData | string
   className?: string
 }
@@ -62,6 +65,20 @@ export function PayloadImage({
       />
     )
 
+  // Handle simple image objects (no sizes) - use Next.js Image directly
+  if (!('sizes' in media) || !media.sizes) {
+    return (
+      <Image
+        src={media.url || placeholder || PLACEHOLDER}
+        alt={media.alt || ''}
+        fill
+        className={cn('object-cover', className)}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+    )
+  }
+
+  // Handle full Media objects with Payload optimization
   const validSizes: ImageSize[] = [
     media.sizes?.small,
     media.sizes?.medium,

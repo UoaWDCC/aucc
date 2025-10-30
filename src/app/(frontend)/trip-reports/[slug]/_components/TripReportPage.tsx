@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { ChevronLeft } from 'lucide-react'

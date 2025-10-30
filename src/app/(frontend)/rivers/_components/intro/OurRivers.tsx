@@ -4,7 +4,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import { OurRiversText } from './OurRiversText'
 
 type RiversIntroSectionProps = {
-  introText: SerializedEditorState
+  introText: SerializedEditorState | null
 }
 export function OurRivers({ introText }: RiversIntroSectionProps) {
   return (
@@ -15,10 +15,16 @@ export function OurRivers({ introText }: RiversIntroSectionProps) {
         </div>
 
         <div className="px-12 md:w-[55%] md:px-20 lg:pr-30 lg:pl-5">
-          <RichText
-            className="font-body text-abyss text-center text-sm italic"
-            data={introText}
-          />
+          {introText ? (
+            <RichText
+              className="font-body text-abyss text-center text-sm italic"
+              data={introText}
+            />
+          ) : (
+            <p className="font-body text-abyss text-center text-sm italic">
+              Discover the amazing rivers and waterways we explore.
+            </p>
+          )}
         </div>
       </div>
     </div>

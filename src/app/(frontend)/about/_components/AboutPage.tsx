@@ -1,3 +1,7 @@
+// import { Suspense } from 'react'
+
+// import { ExecsGrid } from '@/app/(frontend)/about/_components/ExecsGrid'
+// import { ExecsGridFallback } from '@/app/(frontend)/about/_components/ExecsGridFallback'
 import { Exec } from '@/payload-types'
 import { ContactUsSection } from './contact-us/ContactUsSection'
 import { ExecsSection } from './Execs/ExecsSection'
