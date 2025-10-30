@@ -3,7 +3,7 @@ import { RiversHeaderBottomCurve } from './RiversHeaderBottomCurve'
 import { RiversHeaderImage } from './RiversHeaderImage'
 
 type RiversHeaderSectionProps = {
-  headerImage: Media
+  headerImage: Media | null
 }
 export function RiversHeaderSection({ headerImage }: RiversHeaderSectionProps) {
   return (

@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 import { PayloadImage } from '@/components/PayloadImage'
 import { cn } from '@/lib/utils/cn'
-import { formatDate } from '@/lib/utils/formatDate'
 import { getPlainText } from '@/lib/utils/get-plain-text'
 import { TripReportDTO } from '@/queries/trip-reports'
 
