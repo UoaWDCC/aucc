@@ -13,15 +13,7 @@ export function RiverPage({ river }: RiverPageProps) {
   return (
     <>
       <SpecificRiverHeader river={river} />
-      <div className="p-4">
-        <h1 className="text-center text-3xl font-bold">{river.name}</h1>
-        <div className="h-150 p-2">
-          <div className="p-2">
-            <div>{river.grade && <p>Grade: {river.grade}</p>}</div>
-            <div>{river.description && <p>{river.description}</p>}</div>
-          </div>
-        </div>
-      </div>
+      <SpecificRiverInfo river={river} />
       <SpecificRiverFooter name={river.name} />
     </>
   )
