@@ -17,7 +17,6 @@ export function RiversGrid({ rivers }: RiversGridProps) {
             key={river.id}
             river={{
               ...river,
-              location: river.location ?? undefined,
               featuredImage: river.featuredImage,
               slug: river.slug,
               location: river.location ?? undefined,
