@@ -1,4 +1,3 @@
-import { PayloadImage } from '@/components/PayloadImage'
 import { GalleryDTO, getGalleryByTag } from '@/queries/gallery'
 
 interface SpecificRiverGalleryGridProps {
@@ -76,13 +75,14 @@ export async function SpecificRiverGalleryGrid({
               }}
             >
               {col.map((item, i) => {
+                const image = item.image as { url: string; alt?: string }
                 return (
-                  <div
+                  <img
                     key={`${item.id}-${idx}-${i}`}
-                    className="relative h-auto w-full"
-                  >
-                    <PayloadImage media={item.image} className="object-cover" />
-                  </div>
+                    src={image.url}
+                    alt={image.alt || `Gallery image ${i + 1}`}
+                    className="h-auto w-full object-cover"
+                  />
                 )
               })}
             </div>
