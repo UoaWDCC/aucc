@@ -100,12 +100,14 @@ export interface Config {
     'events-global': EventsGlobal;
     'trip-reports-global': TripReportsGlobal;
     'rivers-global': RiversGlobal;
+    'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
     'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
+    'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
   };
   locale: null;
@@ -765,6 +767,16 @@ export interface RiversGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-global".
+ */
+export interface ResourcesGlobal {
+  id: number;
+  headerImage: number | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "gear-hire-global".
  */
 export interface GearHireGlobal {
@@ -818,6 +830,16 @@ export interface TripReportsGlobalSelect<T extends boolean = true> {
 export interface RiversGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-global_select".
+ */
+export interface ResourcesGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
