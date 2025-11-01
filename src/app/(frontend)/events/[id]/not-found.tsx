@@ -1,6 +1,4 @@
-import Link from 'next/link'
-
-import NotFoundComponent from '@/components/NotFound/index.tsx'
+import NotFoundComponent from '@/components/NotFound'
 
 export default function NotFound() {
   return (

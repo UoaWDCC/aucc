@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import Button from '@/components/Button'
 
 interface NotFoundComponentProps {
