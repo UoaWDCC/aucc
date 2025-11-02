@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { Logo } from '@/assets/Logo'
 
 export function SocialsSection() {

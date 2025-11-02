@@ -4,7 +4,6 @@ import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { NoNumber } from '@/lib/utils/util-types'
 import type { TripReport } from '@/payload-types'
-import { getTripEventsForRiverId } from './events'
 
 export type TripReportDTO = NoNumber<TripReport>
 

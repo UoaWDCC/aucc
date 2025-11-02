@@ -1,10 +1,14 @@
-import Link from 'next/link'
+import NotFoundComponent from '@/components/NotFound'
 
 export default function NotFound() {
   return (
     <div>
-      <div>River not found.</div>
-      <Link href="/rivers">Return to Rivers</Link>
+      <NotFoundComponent
+        title="River"
+        href="/rivers"
+        subtitle="The river you are looking for does not exist."
+        buttonText="Return to Rivers"
+      />
     </div>
   )
 }

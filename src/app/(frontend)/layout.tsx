@@ -10,16 +10,16 @@ export const metadata = {
   title: 'Payload Blank Template',
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
+export default async function FrontendLayout(props: {
+  children: React.ReactNode
+}) {
   const { children } = props
 
   return (
-    <html lang="en">
-      <body className="flex min-h-dvh flex-col">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <div className="flex min-h-dvh flex-col">
+      <Navbar />
+      <main className="flex-grow">{children}</main>
+      <Footer />
+    </div>
   )
 }
