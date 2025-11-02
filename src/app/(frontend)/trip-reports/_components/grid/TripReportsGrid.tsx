@@ -1,12 +1,9 @@
 import { cn } from '@/lib/utils/cn'
-import { TripReportDTO } from '@/queries/trip-reports'
+import { getTripReports } from '@/queries/trip-reports'
 import TripReportGridCard from './TripReportGridCard'
 
-type TripReportsGridProps = {
-  tripReports: TripReportDTO[]
-}
-
-export default function TripReportsGrid({ tripReports }: TripReportsGridProps) {
+export default async function TripReportsGrid() {
+  const { tripReports } = await getTripReports({ depth: 1 })
   if (!tripReports.length) {
     return (
       <div className="mx-4 pb-20 md:mx-20 lg:mx-28 xl:mx-auto xl:max-w-[1200px]">
