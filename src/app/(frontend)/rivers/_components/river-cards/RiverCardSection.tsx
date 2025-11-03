@@ -18,14 +18,10 @@ export function RiverCardSection({ rivers }: RiverCardSectionProps) {
 
   return (
     <RiverCardBackground>
-      <div className="mx-5 -mt-130 flex flex-col items-center justify-center md:gap-20 lg:-mt-150">
-        {/*Show 1 river for small screen*/}
-        <div className="block md:hidden">
-          {riversWithDefaults[0] && <RiverCard river={riversWithDefaults[0]} />}
-        </div>
-        {/*Show 2 rivers for medium and larger screens*/}
-        <div className="hidden w-full md:flex md:flex-col md:gap-20">
-          {riversWithDefaults.slice(0, 2).map((river) => (
+      <div className="mx-5 -mt-130 flex flex-col items-center justify-center gap-10 pb-20 md:gap-20 lg:-mt-150">
+        {/*Show all rivers*/}
+        <div className="flex w-full max-w-[400px] flex-col gap-10 md:max-w-5xl">
+          {riversWithDefaults.map((river) => (
             <RiverCard key={river.slug} river={river} />
           ))}
         </div>

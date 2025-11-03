@@ -6,11 +6,9 @@ type LocationProps = {
 
 export function RiverCardLocation({ children }: LocationProps) {
   return (
-    <div className="flex w-full gap-1">
-      <MapPin className="text-cream inline-block size-5" />
-      <p className="font-body w-full text-left text-sm italic md:text-sm">
-        {children}
-      </p>
+    <div className="flex items-center gap-2">
+      <MapPin className="text-algae h-4 w-4 flex-shrink-0" />
+      <p className="font-body text-cream/80 text-sm font-medium">{children}</p>
     </div>
   )
 }

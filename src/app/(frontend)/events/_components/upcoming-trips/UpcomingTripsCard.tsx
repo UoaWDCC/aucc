@@ -29,7 +29,7 @@ export function UpcomingTripsCard({ event }: UpcomingTripsCardProps) {
             />
           </div>
           <div className="flex flex-col gap-4">
-            <p className="font-body line-clamp-4 text-sm italic">
+            <p className="font-body text-cream/90 line-clamp-4 text-sm italic">
               {getPlainText(event.description)}
             </p>
             <TripsCardLocation>{event.location}</TripsCardLocation>
