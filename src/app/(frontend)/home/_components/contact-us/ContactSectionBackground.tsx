@@ -1,11 +1,13 @@
 import { ReactNode } from 'react'
 import Image from 'next/image'
 
-import lookingForUsBackground from '@/assets/looking-for-us-background.webp'
+import { env } from '@/lib/env'
 
 interface ContactSectionBackGroundProps {
   children?: ReactNode
 }
+
+const LOOKING_FOR_US_BACKGROUND_URL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/looking-for-us-background.v1.webp`
 
 export function ContactSectionBackground({
   children,
@@ -19,7 +21,7 @@ export function ContactSectionBackground({
         }}
       >
         <Image
-          src={lookingForUsBackground}
+          src={LOOKING_FOR_US_BACKGROUND_URL}
           alt="Contact background"
           fill
           className="object-cover opacity-20"

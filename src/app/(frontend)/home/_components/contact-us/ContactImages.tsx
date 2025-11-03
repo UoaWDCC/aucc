@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 
-import lookingForUs01 from '@/assets/looking-for-us-01.webp'
-import lookingForUs02 from '@/assets/looking-for-us-02.webp'
-import lookingForUs03 from '@/assets/looking-for-us-03.webp'
+import { env } from '@/lib/env'
+
+const LOOKING_FOR_US_01_URL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/looking-for-us-01.v1.webp`
+const LOOKING_FOR_US_02_URL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/looking-for-us-02.v1.webp`
+const LOOKING_FOR_US_03_URL = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/looking-for-us-03.v1.webp`
 
 export function ContactImages() {
   const [isDesktop, setIsDesktop] = useState(false)
@@ -28,7 +30,7 @@ export function ContactImages() {
               >
                 <div className="relative aspect-[11/16] w-[38vw] max-w-[230px] overflow-hidden rounded-2xl xl:w-[30vw] xl:max-w-[260px]">
                   <Image
-                    src={lookingForUs02}
+                    src={LOOKING_FOR_US_02_URL}
                     alt="Looking picture 2"
                     fill
                     className="object-cover"
@@ -41,7 +43,7 @@ export function ContactImages() {
               >
                 <div className="absolute top-[55%] right-[80%] z-10 aspect-[2/3] w-[24vw] max-w-[140px] overflow-hidden rounded-2xl xl:w-[20vw] xl:max-w-[160px]">
                   <Image
-                    src={lookingForUs03}
+                    src={LOOKING_FOR_US_03_URL}
                     alt="Looking picture 3"
                     fill
                     className="object-cover"
@@ -57,7 +59,7 @@ export function ContactImages() {
             <div className="relative mt-[6%] flex justify-end pr-[3%] md:mt-[4%] lg:mt-[1%]">
               <div className="w-[30%] max-w-[160px] rounded-2xl xl:w-[36%] xl:max-w-[180px]">
                 <Image
-                  src={lookingForUs01}
+                  src={LOOKING_FOR_US_01_URL}
                   alt="Looking picture 1"
                   width={180}
                   height={135}

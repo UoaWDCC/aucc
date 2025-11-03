@@ -20,11 +20,6 @@ vi.mock('next/image', () => ({
   )),
 }))
 
-// Mock the placeholder image
-vi.mock('@/assets/hero.webp', () => ({
-  default: 'mocked-placeholder.webp',
-}))
-
 describe('PayloadImage', () => {
   const mockMediaWithSizes: Media = {
     id: 1,

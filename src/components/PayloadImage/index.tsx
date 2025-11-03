@@ -2,7 +2,7 @@
 
 import Image, { StaticImageData } from 'next/image'
 
-import PLACEHOLDER from '@/assets/hero.webp'
+import { env } from '@/lib/env'
 import { cn } from '@/lib/utils/cn'
 import { Media } from '@/payload-types'
 
@@ -10,6 +10,8 @@ interface ImageSize {
   width: number
   url: string
 }
+
+const PLACEHOLDER = `${env.NEXT_PUBLIC_CF_URL}/static/homepage/hero.v1.webp`
 
 /**
  * Selects the optimal image URL based on requested width
