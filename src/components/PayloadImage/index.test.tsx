@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
-import PLACEHOLDER from '@/assets/hero.webp'
+import PLACEHOLDER from '@/assets/upcoming-trip-background.webp'
 import { Media } from '@/payload-types'
 import { PayloadImage, selectOptimalImageSize } from './index'
 
