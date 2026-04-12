@@ -260,6 +260,14 @@ terraform apply -var-file="prod.tfvars"
 | Mai Pham                | Developer       |
 | Hanna Lin               | Designer        |
 
+### 2026 Team
+
+| Name        | Role            |
+| ----------- | --------------- |
+| Daniel Chen | Project Manager |
+| Jonathan Wu | Tech Lead       |
+| <Your Name> | Developer       |
+
 ### Documentation
 
 - **Comprehensive Handover**: [README_HANDOVER.md](./README_HANDOVER.md)
