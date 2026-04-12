@@ -1,9 +1,17 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
-import PLACEHOLDER from '@/assets/hero.webp'
 import { Media } from '@/payload-types'
 import { PayloadImage, selectOptimalImageSize } from './index'
+
+const EXPECTED_PLACEHOLDER =
+  'https://cdn.example.test/static/homepage/hero.v1.webp'
+
+vi.mock('@/lib/env', () => ({
+  env: {
+    NEXT_PUBLIC_CF_URL: 'https://cdn.example.test',
+  },
+}))
 
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
@@ -60,7 +68,7 @@ describe('PayloadImage', () => {
       render(<PayloadImage media={undefined} />)
 
       const image = screen.getByTestId('next-image')
-      expect(image.getAttribute('src')).toBe(PLACEHOLDER)
+      expect(image.getAttribute('src')).toBe(EXPECTED_PLACEHOLDER)
       expect(image.getAttribute('alt')).toBe('Placeholder image')
       expect(image.getAttribute('data-loader')).toBe('default')
     })
@@ -97,7 +105,7 @@ describe('PayloadImage', () => {
       render(<PayloadImage media={mediaWithoutUrl} />)
 
       const image = screen.getByTestId('next-image')
-      expect(image.getAttribute('src')).toBe('mocked-placeholder.webp')
+      expect(image.getAttribute('src')).toBe(EXPECTED_PLACEHOLDER)
     })
   })
 
