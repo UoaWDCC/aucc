@@ -262,11 +262,11 @@ terraform apply -var-file="prod.tfvars"
 
 ### 2026 Team
 
-| Name        | Role            |
-| ----------- | --------------- |
-| Daniel Chen | Project Manager |
-| Jonathan Wu | Tech Lead       |
-| <Your Name> | Developer       |
+| Name          | Role            |
+| ------------- | --------------- |
+| Daniel Chen   | Project Manager |
+| Jonathan Wu   | Tech Lead       |
+| Olivia Kusuma | Developer       |
 
 ### Documentation
 
