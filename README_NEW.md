@@ -266,7 +266,7 @@ terraform apply -var-file="prod.tfvars"
 | ----------- | --------------- |
 | Daniel Chen | Project Manager |
 | Jonathan Wu | Tech Lead       |
-| <Your Name> | Developer       |
+| Jacob Gray  | Developer       |
 
 ### Documentation
 
