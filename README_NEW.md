@@ -270,6 +270,7 @@ terraform apply -var-file="prod.tfvars"
 | Olivia Kusuma  | Developer       |
 | Jacob Gray     | Developer       |
 | Dylan Bhadresa | Developer       |
+| Carl Misquitta | Developer       |
 
 ### Documentation
 
