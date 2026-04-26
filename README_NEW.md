@@ -268,6 +268,7 @@ terraform apply -var-file="prod.tfvars"
 | Jonathan Wu   | Tech Lead       |
 | Ayush Kumar   | Developer       |
 | Olivia Kusuma | Developer       |
+| Jacob Gray    | Developer       |
 
 ### Documentation
 
