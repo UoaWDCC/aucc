@@ -262,12 +262,16 @@ terraform apply -var-file="prod.tfvars"
 
 ### 2026 Team
 
-| Name        | Role            |
-| ----------- | --------------- |
-| Daniel Chen | Project Manager |
-| Jonathan Wu | Tech Lead       |
-| Ayush Kumar | Developer       |
-| Vanessa Dang| Developer       |
+| Name           | Role            |
+| -------------- | --------------- |
+| Daniel Chen    | Project Manager |
+| Jonathan Wu    | Tech Lead       |
+| Ayush Kumar    | Developer       |
+| Olivia Kusuma  | Developer       |
+| Jacob Gray     | Developer       |
+| Dylan Bhadresa | Developer       |
+| Carl Misquitta | Developer       |
+| Vanessa Dang   | Developer       |
 
 ### Documentation
 
