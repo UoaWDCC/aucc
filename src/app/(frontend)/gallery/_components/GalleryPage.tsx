@@ -1,8 +1,16 @@
-export function GalleryPage() {
+'use client'
+
+import { Media } from '@/payload-types'
+import { GalleryHeaderSection } from './header/GalleryHeaderSection'
+
+interface GalleryPageProps {
+  headerImage: Media
+}
+
+export function GalleryPage({ headerImage }: GalleryPageProps) {
   return (
-    <div>
-      <h1>Gallery</h1>
-      <p>This is the gallery page.</p>
-    </div>
+    <>
+      <GalleryHeaderSection headerImage={headerImage} />
+    </>
   )
 }
