@@ -1,9 +1,12 @@
-export function VideoHighightsArrow({}) {
+import type { SVGProps } from 'react'
+
+export function VideoHighightsArrow(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="142"
       height="66"
       viewBox="0 0 142 66"
+      className={props.className}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

@@ -8,8 +8,8 @@ export function VideoHighlightSection() {
       <VideoHighlightsCurve />
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 flex justify-center md:justify-end md:gap-6">
-          <VideoHighightsArrow />
-          <h2 className="text-right text-3xl font-extrabold tracking-widest text-[#EFEFE1] md:text-4xl">
+          <VideoHighightsArrow className="mt-8 h-24 w-48" />
+          <h2 className="text-right text-3xl font-extrabold tracking-wider text-[#EFEFE1] md:text-5xl">
             VIDEO
             <br />
             HIGHLIGHTS
