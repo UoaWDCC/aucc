@@ -1,5 +1,9 @@
 import { MerchandisePage } from './_components/MerchandisePage'
 
-export default async function Page() {
-  return <MerchandisePage />
+export default function MerchPage() {
+  return (
+    <main>
+      <MerchandisePage />
+    </main>
+  )
 }
