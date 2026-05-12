@@ -1,27 +1,18 @@
-import Image from 'next/image'
+import { HeaderBackground } from './HeaderBackground'
 
 export function MerchandisePage() {
   return (
     <main>
       <section className="relative aspect-[128/57] w-full overflow-hidden">
-        <Image
-          src="/images/merch-hero.png"
-          alt="Kayaker paddling through white water"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-top"
-        />
+        <HeaderBackground />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#26342c] from-10% to-[#90A1A5]/0 opacity-80 brightness-90" />
-
-        <div className="absolute top-[60%] left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 px-4 sm:top-[50%] md:top-[50%] lg:top-[45%]">
+        <div className="absolute inset-x-0 top-[44%] z-10 flex justify-center px-4 min-[500px]:top-[36%] sm:top-[32%] md:top-[30%] lg:top-[28%]">
           <div className="flex flex-col items-start">
-            <h1 className="font-heading text-3xl leading-none text-[#EFEDE3] min-[450px]:text-5xl sm:text-7xl md:text-8xl lg:text-[140px]">
+            <h1 className="font-heading text-4xl leading-none text-[#EFEDE3] min-[500px]:text-5xl sm:text-7xl md:text-8xl lg:text-[140px]">
               MERCH
             </h1>
 
-            <p className="text-[8px] text-[#EFEDE3] italic sm:translate-x-1 sm:text-xs md:translate-x-2 md:text-base">
+            <p className="translate-x-[0.5em] text-[6px] font-light text-[#EFEDE3] italic min-[500px]:text-[9px] sm:text-xs md:text-sm lg:text-base">
               Past AUCC merchandise!
             </p>
           </div>
