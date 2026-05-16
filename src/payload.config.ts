@@ -16,6 +16,7 @@ import { Rivers } from './collections/rivers'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
 import { EventsGlobal } from './globals/events-global'
+import { GalleryGlobal } from './globals/gallery-global'
 import { GearHireGlobal } from './globals/gear-hire-global'
 import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
@@ -43,6 +44,7 @@ export default buildConfig({
   ],
   globals: [
     EventsGlobal,
+    GalleryGlobal,
     TripReportsGlobal,
     RiversGlobal,
     ResourcesGlobal,
