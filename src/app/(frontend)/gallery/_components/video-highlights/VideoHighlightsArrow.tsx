@@ -1,0 +1,27 @@
+import type { SVGProps } from 'react'
+
+export function VideoHighightsArrow(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="142"
+      height="66"
+      viewBox="0 0 142 66"
+      className={props.className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.00042 53.6247C5.29388 55.7683 5.58735 57.9119 5.88081 60.0555C5.96863 60.6969 5.82819 64.3435 6.7342 63.5328C8.0451 62.3598 10.5235 61.8845 12.2287 61.1427C13.283 60.6841 17.0856 60.0883 17.42 59.2946"
+        stroke="#EFEFE1"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M138.454 21.1679C128.039 11.1847 116.909 4.79924 101.804 4.62441C94.352 5.64402 79.6443 7.38346 74.6662 12.4798C62.6457 24.7857 79.5524 51.3537 95.8171 29.7605C103.323 19.7955 92.4791 18.0947 87.5021 15.2217C78.4056 9.97091 46.1627 13.1221 35.9203 19.7526C25.678 26.3831 18.0328 34.9252 13.4221 44.3447C11.4263 48.422 10.4767 59.5554 6.36662 61.761"
+        stroke="#EFEFE1"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
