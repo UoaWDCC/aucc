@@ -1,9 +1,5 @@
-import { MerchandisePage } from './_components/MerchandisePage'
+import { MerchandisePage } from './_components/header/MerchandiseHeaderSection'
 
 export default function MerchPage() {
-  return (
-    <main>
-      <MerchandisePage />
-    </main>
-  )
+  return <MerchandisePage />
 }
