@@ -1,8 +1,13 @@
+import { GalleryHeaderSection } from './header/GalleryHeaderSection'
+import { GallerySpotlightSection } from './gallery-spotlight/GallerySpotlightSection'
+import { VideoHighlightSection } from './video-highlights/VideoHighlightSection'
+
 export function GalleryPage() {
   return (
-    <div>
-      <h1>Gallery</h1>
-      <p>This is the gallery page.</p>
-    </div>
+    <>
+      <GalleryHeaderSection />
+      <GallerySpotlightSection />
+      <VideoHighlightSection />
+    </>
   )
 }
