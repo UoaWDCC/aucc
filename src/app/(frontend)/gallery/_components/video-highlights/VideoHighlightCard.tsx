@@ -10,6 +10,7 @@ export function VideoHighlightCard({ url }: VideoHighlightCardProps) {
           src={url}
           title="Video highlight"
           allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
           className="h-full w-full"
         />
       )}
