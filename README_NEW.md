@@ -272,6 +272,7 @@ terraform apply -var-file="prod.tfvars"
 | Dylan Bhadresa | Developer       |
 | Carl Misquitta | Developer       |
 | Vanessa Dang   | Developer       |
+| Ryan Supardi   | Developer       |
 
 ### Documentation
 
