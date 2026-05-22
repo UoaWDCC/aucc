@@ -1,5 +1,5 @@
-import { MerchandisePage } from './_components/MerchandisePage'
+import { MerchandisePage } from './_components/header/MerchandiseHeaderSection'
 
-export default async function Page() {
+export default function MerchPage() {
   return <MerchandisePage />
 }
