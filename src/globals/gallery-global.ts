@@ -1,9 +1,9 @@
 import type { GlobalConfig } from 'payload'
 
+import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from '../collections/_access/anyone'
 import { authenticated } from '../collections/_access/authenticated'
 import { customUploadField } from '../collections/_fields/custom-upload'
-import { cacheTags } from '@/lib/utils/revalidation'
 
 export const GalleryGlobal: GlobalConfig = {
   slug: 'gallery-global',
@@ -23,5 +23,23 @@ export const GalleryGlobal: GlobalConfig = {
       mimeType: 'image',
       admin: { thumbnail: true, className: 'hide-filename' },
     }),
+    {
+      name: 'videoHighlights',
+      type: 'array',
+      label: 'Video Highlights',
+      maxRows: 3,
+      labels: { singular: 'Video', plural: 'Videos' },
+      fields: [
+        {
+          name: 'url',
+          type: 'text',
+          label: 'Embed URL',
+          required: true,
+          admin: {
+            description: 'Embed URL',
+          },
+        },
+      ],
+    },
   ],
 }

@@ -724,6 +724,15 @@ export interface EventsGlobal {
 export interface GalleryGlobal {
   id: number;
   headerImage: number | Media;
+  videoHighlights?:
+    | {
+        /**
+         * Embed URL
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -830,6 +839,12 @@ export interface EventsGlobalSelect<T extends boolean = true> {
  */
 export interface GalleryGlobalSelect<T extends boolean = true> {
   headerImage?: T;
+  videoHighlights?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
