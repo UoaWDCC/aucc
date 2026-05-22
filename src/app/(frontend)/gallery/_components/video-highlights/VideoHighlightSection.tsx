@@ -16,9 +16,9 @@ export function VideoHighlightSection() {
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <VideoHighlightCard />
-          <VideoHighlightCard />
-          <VideoHighlightCard />
+          <VideoHighlightCard url="https://www.youtube.com/embed/dQw4w9WgXcQ?origin=http://localhost:3000" />
+          <VideoHighlightCard url="https://player.vimeo.com/video/76979871" />
+          <VideoHighlightCard /> {/* no url → grey placeholder */}
         </div>
       </div>
     </section>
