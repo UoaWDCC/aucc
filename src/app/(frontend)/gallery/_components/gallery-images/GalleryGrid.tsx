@@ -7,7 +7,7 @@ type GalleryGridProps = {
 export function GalleryGrid({ images }: GalleryGridProps) {
   return (
     <div
-      className="grid grid-cols-4 justify-items-center"
+      className="grid grid-cols-2 justify-items-center md:grid-cols-3 lg:grid-cols-4"
       style={{ gap: 'clamp(0.5rem, 1.5vw, 1.5rem)' }}
     >
       {images.map((image, index) => (
