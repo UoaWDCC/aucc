@@ -98,6 +98,7 @@ export interface Config {
   };
   globals: {
     'events-global': EventsGlobal;
+    'gallery-global': GalleryGlobal;
     'trip-reports-global': TripReportsGlobal;
     'rivers-global': RiversGlobal;
     'resources-global': ResourcesGlobal;
@@ -105,6 +106,7 @@ export interface Config {
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
+    'gallery-global': GalleryGlobalSelect<false> | GalleryGlobalSelect<true>;
     'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
@@ -717,6 +719,16 @@ export interface EventsGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-global".
+ */
+export interface GalleryGlobal {
+  id: number;
+  headerImage: number | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "trip-reports-global".
  */
 export interface TripReportsGlobal {
@@ -808,6 +820,16 @@ export interface EventsGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   petrolCosts?: T;
   introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-global_select".
+ */
+export interface GalleryGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

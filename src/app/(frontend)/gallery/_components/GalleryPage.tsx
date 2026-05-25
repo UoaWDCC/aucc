@@ -1,6 +1,8 @@
+import { GalleryHeaderSection } from './header/GalleryHeaderSection'
+import { GallerySpotlightSection } from './gallery-spotlight/GallerySpotlightSection'
+import { VideoHighlightSection } from './video-highlights/VideoHighlightSection'
 import { GalleryGrid } from './grid/GalleryGrid'
 
-// Temporary hardcoded images
 const GALLERY_IMAGES = [
   { src: 'https://placehold.co/400x400', alt: 'Gallery image 1' },
   { src: 'https://placehold.co/400x400', alt: 'Gallery image 2' },
@@ -18,16 +20,21 @@ const GALLERY_IMAGES = [
 
 export function GalleryPage() {
   return (
-    <div className="min-h-screen py-40">
-      <div className="mx-auto max-w-6xl px-15">
-        <h1
-          className="font-heading mb-16 tracking-widest text-white uppercase"
-          style={{ fontSize: 'clamp(1.5rem, 4vw, 3.5rem)' }}
-        >
-          Full Gallery
-        </h1>
-        <GalleryGrid images={GALLERY_IMAGES} />
+    <>
+      <GalleryHeaderSection />
+      <GallerySpotlightSection />
+      <VideoHighlightSection />
+      <div className="min-h-screen py-40">
+        <div className="mx-auto max-w-6xl px-15">
+          <h1
+            className="font-heading mb-16 tracking-widest text-white uppercase"
+            style={{ fontSize: 'clamp(1.5rem, 4vw, 3.5rem)' }}
+          >
+            Full Gallery
+          </h1>
+          <GalleryGrid images={GALLERY_IMAGES} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
