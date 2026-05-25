@@ -57,6 +57,8 @@ export function Navbar() {
           <NavButton href="/">Home</NavButton>
           <NavButton href="/events">Events</NavButton>
           <NavButton href="/about">About</NavButton>
+          <NavButton href="/merchandise">Merch</NavButton>
+          <NavButton href="/gallery">Gallery</NavButton>
           <NavButton
             href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
             className="font-semibold"

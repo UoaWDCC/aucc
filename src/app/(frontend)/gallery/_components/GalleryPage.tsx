@@ -1,8 +1,15 @@
+import { GallerySubheading } from './gallery-images/GallerySubheading'
+import { GallerySpotlightSection } from './gallery-spotlight/GallerySpotlightSection'
+import { GalleryHeaderSection } from './header/GalleryHeaderSection'
+import { VideoHighlightSection } from './video-highlights/VideoHighlightSection'
+
 export function GalleryPage() {
   return (
-    <div>
-      <h1>Gallery</h1>
-      <p>This is the gallery page.</p>
-    </div>
+    <>
+      <GalleryHeaderSection />
+      <GallerySpotlightSection />
+      <VideoHighlightSection />
+      <GallerySubheading />
+    </>
   )
 }
