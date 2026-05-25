@@ -1,12 +1,12 @@
-import { getGalleryGlobal } from '@/queries/gallery-global'
+import { getVideoHighlights } from '@/queries/video-highlights'
 import { VideoHighlightCard } from './VideoHighlightCard'
 import { VideoHighightsArrow } from './VideoHighlightsArrow'
 import { VideoHighlightsCurve } from './VideoHighlightsCurve'
 
 export async function VideoHighlightSection() {
-  const data = await getGalleryGlobal()
-  const video = data?.videoHighlights ?? []
-  const videos = [0, 1, 2].map((i) => video[i]?.url)
+  const videos = await getVideoHighlights()
+  const slots = [0, 1, 2].map((i) => videos[i]?.url)
+
   return (
     <section className="relative w-full bg-[#89ACAD] px-6 pt-12 pb-20">
       <VideoHighlightsCurve />
@@ -20,7 +20,7 @@ export async function VideoHighlightSection() {
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {videos.map((url, i) => (
+          {slots.map((url, i) => (
             <VideoHighlightCard key={i} url={url} />
           ))}
         </div>

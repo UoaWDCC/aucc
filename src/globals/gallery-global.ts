@@ -23,23 +23,5 @@ export const GalleryGlobal: GlobalConfig = {
       mimeType: 'image',
       admin: { thumbnail: true, className: 'hide-filename' },
     }),
-    {
-      name: 'videoHighlights',
-      type: 'array',
-      label: 'Video Highlights',
-      maxRows: 3,
-      labels: { singular: 'Video', plural: 'Videos' },
-      fields: [
-        {
-          name: 'url',
-          type: 'text',
-          label: 'Embed URL',
-          required: true,
-          admin: {
-            description: 'Embed URL',
-          },
-        },
-      ],
-    },
   ],
 }
