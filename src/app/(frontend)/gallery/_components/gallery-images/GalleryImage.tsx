@@ -10,3 +10,11 @@ export function GalleryImage({ src, alt }: GalleryImageProps) {
     </div>
   )
 }
+
+export function NoImages() {
+  return (
+    <div className="text-cream flex h-full w-full items-center justify-center">
+      There are no images available at this moment.
+    </div>
+  )
+}
