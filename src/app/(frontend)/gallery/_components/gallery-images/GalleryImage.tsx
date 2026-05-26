@@ -13,7 +13,7 @@ export function GalleryImage({ src, alt }: GalleryImageProps) {
 
 export function NoImages() {
   return (
-    <div className="text-cream flex h-full w-full items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center text-white">
       There are no images available at this moment.
     </div>
   )
