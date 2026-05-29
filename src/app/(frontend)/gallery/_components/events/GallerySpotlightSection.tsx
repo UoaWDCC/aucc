@@ -11,8 +11,6 @@ const LOGO_POSITION = 'top-0 -left-[5%]'
 function FlareIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="27"
-      height="80"
       viewBox="0 0 27 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +38,7 @@ function FlareIcon({ className }: { className?: string }) {
   )
 }
 
-export function EventSpotlightSection() {
+export function GallerySpotlightSection() {
   return (
     <div className="from-abyss relative flex h-[60vh] w-full overflow-hidden bg-gradient-to-b to-[#D3E2DA] md:h-[80vh] lg:h-[100vh]">
       <div
@@ -50,9 +48,9 @@ export function EventSpotlightSection() {
       </div>
       <div className="absolute flex w-full flex-col items-center justify-center">
         <h2 className="font-heading text-cream relative mt-[8%] mb-[2%] w-max text-[4vw]">
-          <FlareIcon className="absolute -top-1 -left-5" />
+          <FlareIcon className="absolute -top-[0.2em] -left-[0.6em] h-[2em] w-auto" />
           EVENT SPOTLIGHT
-          <FlareIcon className="absolute -top-1 -right-6 scale-x-[-1] md:left-auto" />
+          <FlareIcon className="absolute -top-[0.2em] -right-[0.6em] h-[2em] w-auto scale-x-[-1]" />
         </h2>
         <Image
           src={eventSpotlight}
