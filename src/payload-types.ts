@@ -75,6 +75,7 @@ export interface Config {
     execs: Exec;
     gallery: Gallery;
     tags: Tag;
+    'video-highlights': VideoHighlight;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -89,6 +90,7 @@ export interface Config {
     execs: ExecsSelect<false> | ExecsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    'video-highlights': VideoHighlightsSelect<false> | VideoHighlightsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -373,6 +375,23 @@ export interface Gallery {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-highlights".
+ */
+export interface VideoHighlight {
+  id: number;
+  /**
+   * Enter video title
+   */
+  title: string;
+  /**
+   * YouTube or Vimeo URL.
+   */
+  url: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -409,6 +428,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'video-highlights';
+        value: number | VideoHighlight;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -642,6 +665,16 @@ export interface GallerySelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-highlights_select".
+ */
+export interface VideoHighlightsSelect<T extends boolean = true> {
+  title?: T;
+  url?: T;
   updatedAt?: T;
   createdAt?: T;
 }
