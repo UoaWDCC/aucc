@@ -7,12 +7,10 @@ export const metadata = {
   title: 'AUCC',
 }
 
-export default function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
-
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return children
 }

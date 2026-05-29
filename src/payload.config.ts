@@ -18,6 +18,7 @@ import { TripReports } from './collections/trip-reports'
 import { EventsGlobal } from './globals/events-global'
 import { GalleryGlobal } from './globals/gallery-global'
 import { GearHireGlobal } from './globals/gear-hire-global'
+import { Merch } from './globals/Merch'
 import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
 import { TripReportsGlobal } from './globals/trip-reports-global'
@@ -49,6 +50,7 @@ export default buildConfig({
     RiversGlobal,
     ResourcesGlobal,
     GearHireGlobal,
+    Merch,
   ],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
