@@ -1,9 +1,9 @@
 import type { GlobalConfig } from 'payload'
 
+import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from '../collections/_access/anyone'
 import { authenticated } from '../collections/_access/authenticated'
 import { customUploadField } from '../collections/_fields/custom-upload'
-import { cacheTags } from '@/lib/utils/revalidation'
 
 export const GalleryGlobal: GlobalConfig = {
   slug: 'gallery-global',
