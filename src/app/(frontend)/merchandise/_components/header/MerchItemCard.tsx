@@ -6,18 +6,17 @@ type MerchItemCardProps = {
 
 export function MerchItemCard({ title, price, image }: MerchItemCardProps) {
   return (
-    <div className="rounded-xl border p-4">
+    <article className="bg-[#f4f3ea] text-[#172926]">
       {image && (
-        <img
-          src={image}
-          alt={title}
-          className="mb-4 h-64 w-full rounded-lg object-cover"
-        />
+        <div className="aspect-[4/3] overflow-hidden">
+          <img src={image} alt={title} className="h-full w-full object-cover" />
+        </div>
       )}
 
-      <h3 className="text-xl font-bold">{title}</h3>
-
-      {price && <p className="text-gray-400">{price}</p>}
-    </div>
+      <div className="p-2">
+        <h3 className="text-xs font-black tracking-wider uppercase">{title}</h3>
+        {price && <p className="text-xs">{price}</p>}
+      </div>
+    </article>
   )
 }

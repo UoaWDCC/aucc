@@ -1,8 +1,6 @@
-import { unstable_cache } from 'next/cache'
-
 import { getPayloadClient } from '@/lib/payload'
 
-export const getMerchGlobal = unstable_cache(async () => {
+export async function getMerchGlobal() {
   const payload = await getPayloadClient()
 
   const merch = await payload.findGlobal({
@@ -10,4 +8,4 @@ export const getMerchGlobal = unstable_cache(async () => {
   })
 
   return merch
-}, ['merch-global'])
+}
