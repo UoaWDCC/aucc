@@ -3,7 +3,7 @@ import { GalleryHeaderBottomCurve } from './GalleryHeaderBottomCurve'
 import { GalleryHeaderImage } from './GalleryHeaderImage'
 
 type GalleryHeaderSectionProps = {
-  headerImage: Media
+  headerImage: Media | null
 }
 
 export function GalleryHeaderSection({
@@ -11,7 +11,7 @@ export function GalleryHeaderSection({
 }: GalleryHeaderSectionProps) {
   return (
     <div className="relative flex h-60 w-full flex-col items-center justify-center align-middle md:h-115">
-      <GalleryHeaderImage media={headerImage} />
+      {<GalleryHeaderImage media={headerImage} />}
       <div className="text-cream relative z-1 flex flex-col items-center md:items-start">
         <h1 className="font-heading flex justify-self-center text-center text-[60px] md:text-[100px] lg:text-[140px]">
           Gallery

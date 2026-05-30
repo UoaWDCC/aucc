@@ -1,21 +1,17 @@
-import config from '@payload-config'
-import { getPayload } from 'payload'
-
+import { Media } from '@/payload-types'
 import { GallerySubheading } from './gallery-images/GallerySubheading'
 import { GallerySpotlightSection } from './gallery-spotlight/GallerySpotlightSection'
 import { GalleryHeaderSection } from './header/GalleryHeaderSection'
 import { VideoHighlightSection } from './video-highlights/VideoHighlightSection'
 
-export async function GalleryPage() {
-  const payload = await getPayload({ config })
+type GalleryPageProps = {
+  headerImage: Media | null
+}
 
-  const gallerySettings = await payload.findGlobal({
-    slug: 'gallery-settings',
-  })
-
+export function GalleryPage({ headerImage }: GalleryPageProps) {
   return (
     <>
-      <GalleryHeaderSection headerImage={gallerySettings.headerImage} />
+      <GalleryHeaderSection headerImage={headerImage} />
       <GallerySpotlightSection />
       <VideoHighlightSection />
       <GallerySubheading />
