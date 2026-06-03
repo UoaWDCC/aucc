@@ -1,4 +1,4 @@
-export default function Showcase() {
+export default function MerchandiseShowcaseSection() {
   return (
     <section className="relative min-h-[35.6vw] w-full overflow-hidden bg-[#1E2A29] text-center">
       <div

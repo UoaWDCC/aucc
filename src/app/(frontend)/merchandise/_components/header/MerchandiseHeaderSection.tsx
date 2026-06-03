@@ -1,6 +1,6 @@
 import { HeaderBackground } from './MerchandiseHeaderImage'
 
-export function MerchandiseHeader() {
+export function MerchandiseHeaderSection() {
   return (
     <section className="relative aspect-[128/57] w-full overflow-hidden">
       <HeaderBackground />
