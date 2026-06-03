@@ -1,5 +1,4 @@
-import { GALLERY_IMAGES } from './GalleryData'
-import { GalleryGrid } from './GalleryGrid'
+import { ImagesFromPayload } from '../ImagesFromPayload'
 
 export function GallerySubheading() {
   return (
@@ -11,7 +10,7 @@ export function GallerySubheading() {
         >
           Gallery
         </h1>
-        <GalleryGrid images={GALLERY_IMAGES} />
+        <ImagesFromPayload />
       </div>
     </div>
   )
