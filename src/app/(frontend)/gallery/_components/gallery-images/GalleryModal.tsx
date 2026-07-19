@@ -45,49 +45,66 @@ export function GalleryModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
       onClick={onClose}
     >
       <div
-        className="relative flex max-h-full max-w-4xl items-center"
+        className="flex w-full max-w-5xl items-center gap-4 md:gap-8"
         onClick={(e) => e.stopPropagation()}
       >
-        {hasPrev && (
+        <div className="w-12 flex-shrink-0 md:w-16">
+          {hasPrev && (
+            <button
+              type="button"
+              aria-label="Previous image"
+              onClick={goPrev}
+              className="rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+            >
+              &#8592;
+            </button>
+          )}
+        </div>
+
+        <div className="relative min-w-0 flex-1">
           <button
             type="button"
-            aria-label="Previous image"
-            onClick={goPrev}
-            className="absolute left-2 z-10 -translate-x-full rounded-full bg-white/10 p-3 text-white hover:bg-white/20 md:left-0"
+            aria-label="Close"
+            onClick={onClose}
+            className="absolute -top-10 right-0 text-white hover:opacity-70"
           >
-            &#8592;
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
           </button>
-        )}
 
-        <img
-          src={image.src}
-          alt={image.alt}
-          className="max-h-[85vh] max-w-full rounded object-contain"
-        />
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="max-h-[65vh] w-full rounded object-contain"
+          />
+        </div>
 
-        {hasNext && (
-          <button
-            type="button"
-            aria-label="Next image"
-            onClick={goNext}
-            className="absolute right-2 z-10 translate-x-full rounded-full bg-white/10 p-3 text-white hover:bg-white/20 md:right-0"
-          >
-            &#8594;
-          </button>
-        )}
-
-        <button
-          type="button"
-          aria-label="Close"
-          onClick={onClose}
-          className="absolute -top-10 right-0 text-white hover:opacity-70"
-        >
-          &#10005;
-        </button>
+        <div className="w-12 flex-shrink-0 md:w-16">
+          {hasNext && (
+            <button
+              type="button"
+              aria-label="Next image"
+              onClick={goNext}
+              className="rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+            >
+              &#8594;
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )
