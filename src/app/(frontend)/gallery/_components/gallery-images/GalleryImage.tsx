@@ -3,11 +3,15 @@ import Image from 'next/image'
 type GalleryImageProps = {
   src: string
   alt: string
+  onClick?: () => void
 }
 
-export function GalleryImage({ src, alt }: GalleryImageProps) {
+export function GalleryImage({ src, alt, onClick }: GalleryImageProps) {
   return (
-    <div className="aspect-square w-full overflow-hidden">
+    <div
+      className="aspect-square w-full cursor-pointer overflow-hidden"
+      onClick={onClick}
+    >
       <img src={src} alt={alt} className="h-full w-full object-cover" />
     </div>
   )
