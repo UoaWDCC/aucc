@@ -48,16 +48,16 @@ export function GalleryModal({
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
       onClick={onClose}
     >
-      <div
-        className="flex w-full max-w-5xl items-center gap-4 md:gap-8"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="flex w-full max-w-5xl items-center gap-4 md:gap-8">
         <div className="w-12 flex-shrink-0 md:w-16">
           {hasPrev && (
             <button
               type="button"
               aria-label="Previous image"
-              onClick={goPrev}
+              onClick={(e) => {
+                e.stopPropagation()
+                goPrev()
+              }}
               className="rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
             >
               &#8592;
@@ -69,7 +69,10 @@ export function GalleryModal({
           <button
             type="button"
             aria-label="Close"
-            onClick={onClose}
+            onClick={(e) => {
+              e.stopPropagation()
+              onClose()
+            }}
             className="absolute -top-10 right-0 text-white hover:opacity-70"
           >
             <svg
@@ -89,6 +92,7 @@ export function GalleryModal({
           <img
             src={image.src}
             alt={image.alt}
+            onClick={(e) => e.stopPropagation()}
             className="max-h-[65vh] w-full rounded object-contain"
           />
         </div>
@@ -98,7 +102,10 @@ export function GalleryModal({
             <button
               type="button"
               aria-label="Next image"
-              onClick={goNext}
+              onClick={(e) => {
+                e.stopPropagation()
+                goNext()
+              }}
               className="rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
             >
               &#8594;
