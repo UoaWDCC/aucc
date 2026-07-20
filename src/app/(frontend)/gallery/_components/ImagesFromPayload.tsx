@@ -1,21 +1,15 @@
-import { getPayloadClient } from '@/lib/payload'
 import type { Media } from '@/payload-types'
+import { getGallery } from '@/queries/gallery'
 import { GalleryGrid } from './gallery-images/GalleryGrid'
 import { NoImages } from './gallery-images/GalleryImage'
 
 export async function ImagesFromPayload() {
-  const payload = await getPayloadClient()
+  const { gallery, hasNextPage } = await getGallery({ limit: 12 })
 
-  const result = await payload.find({
-    collection: 'gallery',
-    depth: 1,
-    limit: 12,
-  })
-
-  const images = result.docs
+  const images = gallery
     .filter(
       (doc): doc is typeof doc & { image: Media } =>
-        typeof doc.image !== 'number',
+        typeof doc.image !== 'number' && doc.image != null,
     )
     .map((doc) => ({
       src: doc.image.url ?? '',
@@ -26,7 +20,5 @@ export async function ImagesFromPayload() {
     return <NoImages />
   }
 
-  return (
-    <GalleryGrid initialImages={images} initialHasMore={result.hasNextPage} />
-  )
+  return <GalleryGrid initialImages={images} initialHasMore={hasNextPage} />
 }
