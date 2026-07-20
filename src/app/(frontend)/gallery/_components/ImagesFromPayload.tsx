@@ -6,12 +6,13 @@ import { NoImages } from './gallery-images/GalleryImage'
 export async function ImagesFromPayload() {
   const payload = await getPayloadClient()
 
-  const { docs } = await payload.find({
+  const result = await payload.find({
     collection: 'gallery',
     depth: 1,
+    limit: 12,
   })
 
-  const images = docs
+  const images = result.docs
     .filter(
       (doc): doc is typeof doc & { image: Media } =>
         typeof doc.image !== 'number',
@@ -20,8 +21,12 @@ export async function ImagesFromPayload() {
       src: doc.image.url ?? '',
       alt: doc.image.alt ?? '',
     }))
+
   if (images.length === 0) {
     return <NoImages />
   }
-  return <GalleryGrid images={images} />
+
+  return (
+    <GalleryGrid initialImages={images} initialHasMore={result.hasNextPage} />
+  )
 }
