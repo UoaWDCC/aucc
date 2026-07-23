@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 
 import type { RichTextContent } from '@/types'
 
@@ -10,7 +10,7 @@ export type MerchItemVariant =
 export interface MerchItemCardProps {
   heading: string
   body?: RichTextContent
-  imageSrc: string
+  imageSrc: string | StaticImageData
   imageAlt?: string
   variant: MerchItemVariant
   calloutLabels?: string[]
