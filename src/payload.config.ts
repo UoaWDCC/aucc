@@ -15,6 +15,7 @@ import { Gallery } from './collections/gallery'
 import { Rivers } from './collections/rivers'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
+import { VideoHighlights } from './collections/video-highlights'
 import { EventsGlobal } from './globals/events-global'
 import { GalleryGlobal } from './globals/gallery-global'
 import { GearHireGlobal } from './globals/gear-hire-global'
@@ -42,6 +43,7 @@ export default buildConfig({
     Execs,
     Gallery,
     Tags,
+    VideoHighlights,
   ],
   globals: [
     EventsGlobal,
