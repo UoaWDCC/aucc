@@ -32,6 +32,7 @@ const tagRelations = {
   resourcesGlobal: ['media'],
   gearHireGlobal: ['media'],
   merchGlobal: ['media'],
+  videoHighlights: [],
 } as const
 
 /** 
@@ -124,6 +125,11 @@ export const cacheTags: Record<
     tag: 'merchGlobal',
     relatedTags: getRevalidationTags('merchGlobal'),
     revalidate: () => revalidateTag('merchGlobal'),
+  },
+  videoHighlights: {
+    tag: 'videoHighlights',
+    relatedTags: getRevalidationTags('videoHighlights'),
+    revalidate: () => revalidateTag('videoHighlights'),
   },
 }
 

@@ -1,5 +1,5 @@
 import imagePlaceholder from '@/assets/tshirt-image.png'
-import { MerchandisePage } from './_components/header/MerchandiseHeaderSection'
+import { MerchandisePage } from './_components/MerchandisePage'
 import { MerchItemCard } from './_components/MerchItemCard'
 
 export default function MerchPage() {
@@ -19,7 +19,7 @@ export default function MerchPage() {
           heading="Stickers"
           imageSrc={imagePlaceholder}
           body={
-            "If you're interested contact our media officers at social@aucc.org.nz for details." as any
+            "If you're interested contact our media officers at social@aucc.org.nz for details." as any
           }
         />
         <MerchItemCard
