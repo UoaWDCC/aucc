@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect } from 'react'
+import Image from 'next/image'
 
 type GalleryModalProps = {
   images: { src: string; alt: string }[]
@@ -65,7 +66,7 @@ export function GalleryModal({
           )}
         </div>
 
-        <div className="relative min-w-0 flex-1">
+        <div className="relative min-w-0 flex-1" style={{ height: '65vh' }}>
           <button
             type="button"
             aria-label="Close"
@@ -73,7 +74,7 @@ export function GalleryModal({
               e.stopPropagation()
               onClose()
             }}
-            className="absolute -top-10 right-0 text-white hover:opacity-70"
+            className="absolute -top-10 right-0 z-10 text-white hover:opacity-70"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -89,11 +90,13 @@ export function GalleryModal({
             </svg>
           </button>
 
-          <img
+          <Image
             src={image.src}
             alt={image.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 1024px"
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[65vh] w-full rounded object-contain"
+            className="rounded object-contain"
           />
         </div>
 

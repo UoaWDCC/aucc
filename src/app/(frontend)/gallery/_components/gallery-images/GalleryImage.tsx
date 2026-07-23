@@ -9,10 +9,16 @@ type GalleryImageProps = {
 export function GalleryImage({ src, alt, onClick }: GalleryImageProps) {
   return (
     <div
-      className="aspect-square w-full cursor-pointer overflow-hidden"
+      className="relative aspect-square w-full cursor-pointer overflow-hidden"
       onClick={onClick}
     >
-      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="object-cover"
+      />
     </div>
   )
 }
