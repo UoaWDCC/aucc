@@ -3,10 +3,7 @@ import { unstable_cache } from 'next/cache'
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import type { NoNumber } from '@/lib/utils/util-types'
-import type {
-  EventSpotlight as EventSpotlightType,
-  Media,
-} from '@/payload-types'
+import type { EventSpotlight as EventSpotlightType } from '@/payload-types'
 
 export type EventSpotlightDTO = NoNumber<EventSpotlightType>
 
@@ -24,10 +21,11 @@ export const getEventSpotlight = unstable_cache(
     } catch (error) {
       console.error('Error fetching event spotlight data:', error)
       return {
-        spotlightImage: null as Media | null,
+        id: 0,
         eventLabel: null,
-        updatedAt: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
+        spotlightImage: null,
+        updatedAt: null,
+        createdAt: null,
       } as unknown as EventSpotlightDTO
     }
   },
