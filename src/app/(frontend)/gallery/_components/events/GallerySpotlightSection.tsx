@@ -1,7 +1,7 @@
-import Image from 'next/image'
-
 import eventSpotlight from '@/assets/event-spotlight.webp'
 import { Logo } from '@/assets/Logo'
+import { PayloadImage } from '@/components/PayloadImage'
+import type { Media } from '@/payload-types'
 
 const LOGO_SIZE = 'w-2/5 h-auto'
 const LOGO_OPACITY = 'opacity-5'
@@ -38,25 +38,49 @@ function FlareIcon({ className }: { className?: string }) {
   )
 }
 
-export function GallerySpotlightSection() {
+type GallerySpotlightSectionProps = {
+  spotlightImage?: Media | null
+  eventLabel?: string | null
+}
+
+export function GallerySpotlightSection({
+  spotlightImage,
+  eventLabel,
+}: GallerySpotlightSectionProps) {
+  const imageAspectRatio =
+    spotlightImage?.width && spotlightImage.height
+      ? `${spotlightImage.width} / ${spotlightImage.height}`
+      : `${eventSpotlight.width} / ${eventSpotlight.height}`
+
   return (
-    <div className="from-abyss relative flex h-[60vh] w-full overflow-hidden bg-gradient-to-b to-[#D3E2DA] md:h-[80vh] lg:h-[100vh]">
+    <div className="from-abyss relative flex min-h-[60vh] w-full overflow-hidden bg-gradient-to-b to-[#D3E2DA] md:min-h-[80vh] lg:min-h-screen">
       <div
         className={`absolute ${LOGO_POSITION} ${LOGO_SIZE} ${LOGO_ROTATION} ${LOGO_OPACITY}`}
       >
         <Logo />
       </div>
-      <div className="absolute flex w-full flex-col items-center justify-center">
-        <h2 className="font-heading text-cream relative mt-[8%] mb-[2%] w-max text-[4vw]">
+      <div className="relative z-10 flex w-full flex-col items-center justify-center px-4 py-12 md:py-16">
+        <h2 className="font-heading text-cream relative mb-[2%] w-max text-[8vw] md:text-[4vw]">
           <FlareIcon className="absolute -top-[0.2em] -left-[0.6em] h-[2em] w-auto" />
           EVENT SPOTLIGHT
           <FlareIcon className="absolute -top-[0.2em] -right-[0.6em] h-[2em] w-auto scale-x-[-1]" />
         </h2>
-        <Image
-          src={eventSpotlight}
-          alt="About Us Header"
-          className="border-abyss z-10 w-3/5 border-12"
-        />
+        <figure className="bg-abyss z-10 w-[86%] p-3 md:w-3/5">
+          <div
+            className="relative w-full overflow-hidden"
+            style={{ aspectRatio: imageAspectRatio }}
+          >
+            <PayloadImage
+              media={spotlightImage ?? undefined}
+              placeholder={eventSpotlight}
+            />
+          </div>
+          {eventLabel ? (
+            <figcaption className="text-cream px-2 pt-3 text-center text-sm font-semibold md:text-lg">
+              {eventLabel}
+            </figcaption>
+          ) : null}
+        </figure>
       </div>
     </div>
   )

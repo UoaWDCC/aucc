@@ -31,6 +31,7 @@ const tagRelations = {
   riversGlobal: ['media'],
   resourcesGlobal: ['media'],
   gearHireGlobal: ['media'],
+  eventSpotlight: ['media'],
   videoHighlights: [],
 } as const
 
@@ -119,6 +120,11 @@ export const cacheTags: Record<
     tag: 'gearHireGlobal',
     relatedTags: getRevalidationTags('gearHireGlobal'),
     revalidate: () => revalidateTag('gearHireGlobal'),
+  },
+  eventSpotlight: {
+    tag: 'eventSpotlight',
+    relatedTags: getRevalidationTags('eventSpotlight'),
+    revalidate: () => revalidateTag('eventSpotlight'),
   },
   videoHighlights: {
     tag: 'videoHighlights',
