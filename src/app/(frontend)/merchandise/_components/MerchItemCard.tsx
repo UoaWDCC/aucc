@@ -1,7 +1,5 @@
 import Image, { type StaticImageData } from 'next/image'
 
-import type { RichTextContent } from '@/types'
-
 export type MerchItemVariant =
   | 'image-left'
   | 'image-right'
@@ -9,11 +7,10 @@ export type MerchItemVariant =
 
 export interface MerchItemCardProps {
   heading: string
-  body?: RichTextContent
+  body?: string
   imageSrc: string | StaticImageData
   imageAlt?: string
   variant: MerchItemVariant
-  calloutLabels?: string[]
   className?: string
 }
 
@@ -23,7 +20,6 @@ export function MerchItemCard({
   imageSrc,
   imageAlt = '',
   variant,
-  calloutLabels = [],
   className,
 }: MerchItemCardProps) {
   if (variant === 'image-left') {
@@ -55,11 +51,7 @@ export function MerchItemCard({
           <h2 className="text-xl font-extrabold tracking-wider text-green-700 uppercase">
             {heading}
           </h2>
-          {body && (
-            <div className="text-sm text-gray-700 italic">
-              {body as React.ReactNode}
-            </div>
-          )}
+          {body && <div className="text-sm text-gray-700 italic">{body}</div>}
         </div>
         {/* Image side */}
         <div className="relative w-full overflow-hidden rounded-md sm:w-2/3">
@@ -75,7 +67,6 @@ export function MerchItemCard({
     )
   }
 
-  // image-with-caption
   return (
     <div className={`w-full rounded-md p-6 ${className ?? ''}`}>
       <h2 className="mb-3 text-center font-extrabold tracking-widest text-white uppercase">

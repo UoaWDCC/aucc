@@ -18,9 +18,7 @@ export default function MerchPage() {
           className="bg-white"
           heading="Stickers"
           imageSrc={imagePlaceholder}
-          body={
-            "If you're interested contact our media officers at social@aucc.org.nz for details." as any
-          }
+          body="If you're interested contact our media officers at social@aucc.org.nz for details."
         />
         <MerchItemCard
           variant="image-with-caption"
