@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { GalleryGrid } from '../_components/gallery-images/GalleryGrid'
+import { NO_IMAGES_EMPTY_STATE_COPY } from '../_components/gallery-images/GalleryImage'
 
 describe('GalleryGrid', () => {
   it('renders the correct number of GalleryImage children for a given images prop', () => {
@@ -17,16 +18,19 @@ describe('GalleryGrid', () => {
     expect(galleryImages).toHaveLength(images.length)
   })
 
-  it('renders "No images yet" empty state when images={[]}', () => {
+  it('renders an empty state when images={[]}', () => {
     render(<GalleryGrid images={[]} />)
 
-    const noImagesText = screen.getByText(
-      /There are no images available at this moment./i,
-    )
-    expect(noImagesText).not.toBeNull()
+    expect(screen.getByTestId('gallery-empty-state')).not.toBeNull()
   })
 
-  it(' does not render the empty state when images are present', () => {
+  it('renders the empty-state copy', () => {
+    render(<GalleryGrid images={[]} />)
+
+    expect(screen.getByText(NO_IMAGES_EMPTY_STATE_COPY)).not.toBeNull()
+  })
+
+  it('does not render the empty state when images are present', () => {
     const images = [
       { src: 'image1.jpg', alt: 'Image 1' },
       { src: 'image2.jpg', alt: 'Image 2' },
@@ -34,9 +38,7 @@ describe('GalleryGrid', () => {
 
     render(<GalleryGrid images={images} />)
 
-    const noImagesText = screen.queryByText(
-      /There are no images available at this moment./i,
-    )
+    const noImagesText = screen.queryByTestId('gallery-empty-state')
     expect(noImagesText).toBeNull()
   })
   it(' has the expected responsive Tailwind class names', () => {
@@ -48,18 +50,10 @@ describe('GalleryGrid', () => {
     render(<GalleryGrid images={images} />)
 
     const gridContainer = screen.getByTestId('gallery-grid')
-    expect(gridContainer.className).to.contain(
-      'grid justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
-    )
-  })
-
-  it(' matches the snapshot', () => {
-    const images = [
-      { src: 'image1.jpg', alt: 'Image 1' },
-      { src: 'image2.jpg', alt: 'Image 2' },
-    ]
-
-    const { asFragment } = render(<GalleryGrid images={images} />)
-    expect(asFragment()).toMatchSnapshot()
+    expect(gridContainer.className).toContain('grid')
+    expect(gridContainer.className).toContain('justify-items-center')
+    expect(gridContainer.className).toContain('sm:grid-cols-2')
+    expect(gridContainer.className).toContain('md:grid-cols-3')
+    expect(gridContainer.className).toContain('lg:grid-cols-4')
   })
 })

@@ -1,3 +1,6 @@
+export const NO_IMAGES_EMPTY_STATE_COPY =
+  'There are no images available at this moment.'
+
 type GalleryImageProps = {
   src: string
   alt: string
@@ -13,8 +16,11 @@ export function GalleryImage({ src, alt }: GalleryImageProps) {
 
 export function NoImages() {
   return (
-    <div className="flex h-full w-full items-center justify-center text-white">
-      There are no images available at this moment.
+    <div
+      data-testid="gallery-empty-state"
+      className="flex h-full w-full items-center justify-center text-white"
+    >
+      {NO_IMAGES_EMPTY_STATE_COPY}
     </div>
   )
 }
