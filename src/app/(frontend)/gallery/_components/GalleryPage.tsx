@@ -5,17 +5,19 @@ import { GalleryHeaderSection } from './header/GalleryHeaderSection'
 import { VideoHighlightSection } from './video-highlights/VideoHighlightSection'
 
 type GalleryPageProps = {
-  eventSpotlight: EventSpotlightDTO
+  eventSpotlight: EventSpotlightDTO | null
 }
 
 export function GalleryPage({ eventSpotlight }: GalleryPageProps) {
   return (
     <>
       <GalleryHeaderSection />
-      <GallerySpotlightSection
-        eventLabel={eventSpotlight.eventLabel}
-        spotlightImage={eventSpotlight.spotlightImage}
-      />
+      {eventSpotlight ? (
+        <GallerySpotlightSection
+          eventLabel={eventSpotlight.eventLabel}
+          spotlightImage={eventSpotlight.spotlightImage}
+        />
+      ) : null}
       <VideoHighlightSection />
       <GallerySubheading />
     </>

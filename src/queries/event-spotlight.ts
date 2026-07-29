@@ -8,7 +8,7 @@ import type { EventSpotlight as EventSpotlightType } from '@/payload-types'
 export type EventSpotlightDTO = NoNumber<EventSpotlightType>
 
 export const getEventSpotlight = unstable_cache(
-  async function () {
+  async function (): Promise<EventSpotlightDTO | null> {
     try {
       const payload = await getPayloadClient()
 
@@ -20,13 +20,7 @@ export const getEventSpotlight = unstable_cache(
       return result as EventSpotlightDTO
     } catch (error) {
       console.error('Error fetching event spotlight data:', error)
-      return {
-        id: 0,
-        eventLabel: null,
-        spotlightImage: null,
-        updatedAt: null,
-        createdAt: null,
-      } as unknown as EventSpotlightDTO
+      return null
     }
   },
   ['getEventSpotlight'],
