@@ -126,6 +126,7 @@ export const cacheTags: Record<
     tag: 'eventSpotlight',
     relatedTags: getRevalidationTags('eventSpotlight'),
     revalidate: () => revalidateTag('eventSpotlight'),
+  },
   merchGlobal: {
     tag: 'merchGlobal',
     relatedTags: getRevalidationTags('merchGlobal'),
