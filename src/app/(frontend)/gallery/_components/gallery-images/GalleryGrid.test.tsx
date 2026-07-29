@@ -3,6 +3,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { GalleryGrid } from './GalleryGrid'
 
+type PayloadGalleryDoc = {
+  image: { url?: string; alt?: string } | number | null
+}
+
 class IntersectionObserverMock {
   static instances: IntersectionObserverMock[] = []
   callback: IntersectionObserverCallback
@@ -26,7 +30,7 @@ function latestObserver() {
 }
 
 const initialImages = Array.from({ length: 12 }, (_, i) => ({
-  src: `image-${i}.jpg`,
+  src: `/image-${i}.jpg`,
   alt: `Image ${i}`,
 }))
 
@@ -36,7 +40,9 @@ function mockPayloadResponse(
 ) {
   return {
     json: async () => ({
-      docs: images.map((img) => ({ image: { url: img.src, alt: img.alt } })),
+      docs: images.map(
+        (img): PayloadGalleryDoc => ({ image: { url: img.src, alt: img.alt } }),
+      ),
       hasNextPage,
     }),
   }
@@ -56,8 +62,11 @@ describe('GalleryGrid infinite scroll', () => {
   })
 
   it('fetches page 2 with limit 12 when the observer fires', async () => {
-    ;(fetch as any).mockResolvedValueOnce(
-      mockPayloadResponse([{ src: 'image-12.jpg', alt: 'Image 12' }], true),
+    vi.mocked(fetch).mockResolvedValueOnce(
+      mockPayloadResponse(
+        [{ src: '/image-12.jpg', alt: 'Image 12' }],
+        true,
+      ) as Response,
     )
 
     render(<GalleryGrid initialImages={initialImages} initialHasMore={true} />)
@@ -69,8 +78,11 @@ describe('GalleryGrid infinite scroll', () => {
   })
 
   it('appends newly fetched images rather than replacing existing ones', async () => {
-    ;(fetch as any).mockResolvedValueOnce(
-      mockPayloadResponse([{ src: 'image-12.jpg', alt: 'Image 12' }], true),
+    vi.mocked(fetch).mockResolvedValueOnce(
+      mockPayloadResponse(
+        [{ src: '/image-12.jpg', alt: 'Image 12' }],
+        true,
+      ) as Response,
     )
 
     render(<GalleryGrid initialImages={initialImages} initialHasMore={true} />)
@@ -82,7 +94,9 @@ describe('GalleryGrid infinite scroll', () => {
   })
 
   it('does not fetch again once hasMore is false', async () => {
-    ;(fetch as any).mockResolvedValueOnce(mockPayloadResponse([], false))
+    vi.mocked(fetch).mockResolvedValueOnce(
+      mockPayloadResponse([], false) as Response,
+    )
 
     render(<GalleryGrid initialImages={initialImages} initialHasMore={true} />)
     const observer = latestObserver()
@@ -97,9 +111,10 @@ describe('GalleryGrid infinite scroll', () => {
   })
 
   it('does not fire a second fetch while one is in-flight', async () => {
-    let resolveFetch: (value: any) => void
-    ;(fetch as any).mockReturnValueOnce(
-      new Promise((resolve) => {
+    let resolveFetch: (value: Response) => void = () => {}
+
+    vi.mocked(fetch).mockReturnValueOnce(
+      new Promise<Response>((resolve) => {
         resolveFetch = resolve
       }),
     )
@@ -112,7 +127,7 @@ describe('GalleryGrid infinite scroll', () => {
 
     expect(fetch).toHaveBeenCalledTimes(1)
 
-    resolveFetch!(mockPayloadResponse([], true))
+    resolveFetch(mockPayloadResponse([], true) as Response)
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
   })
 })

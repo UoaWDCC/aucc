@@ -3,12 +3,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { GalleryImage } from './GalleryImage'
+import { GalleryModal } from './GalleryModal'
 
 type Image = { src: string; alt: string }
 
 type GalleryGridProps = {
   initialImages: Image[]
   initialHasMore: boolean
+}
+
+type PayloadGalleryDoc = {
+  image: { url?: string; alt?: string } | number | null
 }
 
 const LIMIT = 12
@@ -18,6 +23,7 @@ export function GalleryGrid({
   initialHasMore,
 }: GalleryGridProps) {
   const [images, setImages] = useState<Image[]>(initialImages)
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
   const isFetchingRef = useRef(false)
   const hasMoreRef = useRef(initialHasMore)
@@ -31,11 +37,18 @@ export function GalleryGrid({
     const nextPage = pageRef.current + 1
     try {
       const res = await fetch(`/api/gallery?page=${nextPage}&limit=${LIMIT}`)
-      const data = await res.json()
+      const data: { docs: PayloadGalleryDoc[]; hasNextPage: boolean } =
+        await res.json()
 
       const newImages: Image[] = (data.docs ?? [])
-        .filter((doc: any) => doc.image && typeof doc.image === 'object')
-        .map((doc: any) => ({
+        .filter(
+          (
+            doc,
+          ): doc is PayloadGalleryDoc & {
+            image: { url?: string; alt?: string }
+          } => doc.image !== null && typeof doc.image === 'object',
+        )
+        .map((doc) => ({
           src: doc.image.url ?? '',
           alt: doc.image.alt ?? '',
         }))
@@ -69,11 +82,25 @@ export function GalleryGrid({
         style={{ gap: 'clamp(0.5rem, 1.5vw, 1.5rem)' }}
       >
         {images.map((image, index) => (
-          <GalleryImage key={index} src={image.src} alt={image.alt} />
+          <GalleryImage
+            key={index}
+            src={image.src}
+            alt={image.alt}
+            onClick={() => setSelectedIndex(index)}
+          />
         ))}
       </div>
 
       <div ref={sentinelRef} aria-hidden className="h-px w-full" />
+
+      {selectedIndex !== null && (
+        <GalleryModal
+          images={images}
+          selectedIndex={selectedIndex}
+          onClose={() => setSelectedIndex(null)}
+          onNavigate={setSelectedIndex}
+        />
+      )}
     </>
   )
 }
