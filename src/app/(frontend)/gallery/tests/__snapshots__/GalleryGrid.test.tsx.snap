@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GalleryGrid >  matches the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="grid justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    data-testid="gallery-grid"
+    style="gap: clamp(0.5rem, 1.5vw, 1.5rem);"
+  >
+    <div
+      class="aspect-square w-full overflow-hidden"
+    >
+      <img
+        alt="Image 1"
+        class="h-full w-full object-cover"
+        src="image1.jpg"
+      />
+    </div>
+    <div
+      class="aspect-square w-full overflow-hidden"
+    >
+      <img
+        alt="Image 2"
+        class="h-full w-full object-cover"
+        src="image2.jpg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
