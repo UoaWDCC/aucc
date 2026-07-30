@@ -3,6 +3,7 @@ import type { GlobalConfig } from 'payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from '../collections/_access/anyone'
 import { authenticated } from '../collections/_access/authenticated'
+import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const Merch: GlobalConfig = {
   slug: 'merch',
@@ -56,13 +57,12 @@ export const Merch: GlobalConfig = {
               type: 'text',
             },
 
-            {
+            customUploadField({
               name: 'image',
               label: 'Product Image',
-              type: 'upload',
-              relationTo: 'media',
               required: true,
-            },
+              mimeType: 'image',
+            }),
           ],
         },
       ],
