@@ -1,6 +1,6 @@
 import { getMerchGlobal } from '@/queries/merch-global'
-import { MerchandisePage } from './_components/header/MerchandiseHeaderSection'
 import { MerchProductSection } from './_components/header/MerchProductSection'
+import { MerchandisePage } from './_components/MerchandisePage'
 
 export default async function MerchPage() {
   const merch = await getMerchGlobal()
