@@ -4,7 +4,7 @@ import { GalleryGrid } from './gallery-images/GalleryGrid'
 import { NoImages } from './gallery-images/GalleryImage'
 
 export async function ImagesFromPayload() {
-  const { gallery, hasNextPage } = await getGallery({ limit: 12 })
+  const { gallery, hasNextPage } = await getGallery()
 
   const images = gallery
     .filter(
