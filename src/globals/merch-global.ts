@@ -5,15 +5,15 @@ import { anyone } from '../collections/_access/anyone'
 import { authenticated } from '../collections/_access/authenticated'
 import { customUploadField } from '../collections/_fields/custom-upload'
 
-export const GalleryGlobal: GlobalConfig = {
-  slug: 'gallery-global',
-  label: 'Gallery Page',
+export const MerchGlobal: GlobalConfig = {
+  slug: 'merch-global',
+  label: 'Merch Page',
   access: {
     read: anyone,
     update: authenticated,
   },
   hooks: {
-    afterChange: [() => cacheTags.galleryGlobal.revalidate()],
+    afterChange: [() => cacheTags.merchGlobal.revalidate()],
   },
   fields: [
     customUploadField({

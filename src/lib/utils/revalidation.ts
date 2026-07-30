@@ -1,5 +1,7 @@
 import { revalidateTag } from 'next/cache'
 
+import { MerchGlobal } from '@/globals/merch-global'
+
 /**
  @typedef CacheTag Custom type definined by keys of tagRelatinos
  */
@@ -27,6 +29,7 @@ const tagRelations = {
   tags: ['gallery'],
   eventsGlobal: ['media'],
   galleryGlobal: ['media'],
+  merchGlobal: ['media'],
   tripReportsGlobal: ['media'],
   riversGlobal: ['media'],
   resourcesGlobal: ['media'],
@@ -84,6 +87,11 @@ export const cacheTags: Record<
     tag: 'gallery',
     relatedTags: getRevalidationTags('gallery'),
     revalidate: () => revalidateTag('gallery'),
+  },
+  merchGlobal: {
+    tag: 'merchGlobal',
+    relatedTags: getRevalidationTags('merchGlobal'),
+    revalidate: () => revalidateTag('merchGlobal'),
   },
   tags: {
     tag: 'tags',

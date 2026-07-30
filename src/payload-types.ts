@@ -105,6 +105,7 @@ export interface Config {
     'rivers-global': RiversGlobal;
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
+    'merch-global': MerchGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
@@ -113,6 +114,7 @@ export interface Config {
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
+    'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
   };
   locale: null;
   user: User & {
@@ -757,6 +759,21 @@ export interface EventsGlobal {
 export interface GalleryGlobal {
   id: number;
   headerImage: number | Media;
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -847,6 +864,31 @@ export interface GearHireGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch-global".
+ */
+export interface MerchGlobal {
+  id: number;
+  headerImage: number | Media;
+  introText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
@@ -863,6 +905,7 @@ export interface EventsGlobalSelect<T extends boolean = true> {
  */
 export interface GalleryGlobalSelect<T extends boolean = true> {
   headerImage?: T;
+  introText?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -904,6 +947,17 @@ export interface ResourcesGlobalSelect<T extends boolean = true> {
  * via the `definition` "gear-hire-global_select".
  */
 export interface GearHireGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch-global_select".
+ */
+export interface MerchGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
   updatedAt?: T;
