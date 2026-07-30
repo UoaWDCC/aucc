@@ -29,7 +29,6 @@ const tagRelations = {
   tags: ['gallery'],
   eventsGlobal: ['media'],
   galleryGlobal: ['media'],
-  merchGlobal: ['media'],
   tripReportsGlobal: ['media'],
   riversGlobal: ['media'],
   resourcesGlobal: ['media'],
