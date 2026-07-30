@@ -89,11 +89,6 @@ export const cacheTags: Record<
     relatedTags: getRevalidationTags('gallery'),
     revalidate: () => revalidateTag('gallery'),
   },
-  merchGlobal: {
-    tag: 'merchGlobal',
-    relatedTags: getRevalidationTags('merchGlobal'),
-    revalidate: () => revalidateTag('merchGlobal'),
-  },
   tags: {
     tag: 'tags',
     relatedTags: getRevalidationTags('tags'),
