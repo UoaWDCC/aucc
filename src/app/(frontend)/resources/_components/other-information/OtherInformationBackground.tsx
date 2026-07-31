@@ -1,9 +1,3 @@
-import { ReactNode } from 'react'
-
-interface OtherInformationBackgroundProps {
-  children?: ReactNode
-}
-
 export function OtherInformationBackground() {
   return (
     <div>
