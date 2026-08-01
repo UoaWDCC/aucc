@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { GalleryImage } from './GalleryImage'
+import { GalleryImage, NoImages } from './GalleryImage'
 import { GalleryModal } from './GalleryModal'
 
 type GalleryGridProps = {
@@ -12,10 +12,15 @@ type GalleryGridProps = {
 export function GalleryGrid({ images }: GalleryGridProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
+  if (images.length === 0) {
+    return <NoImages />
+  }
+
   return (
     <>
       <div
-        className="grid grid-cols-2 justify-items-center md:grid-cols-3 lg:grid-cols-4"
+        data-testid="gallery-grid"
+        className="grid justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         style={{ gap: 'clamp(0.5rem, 1.5vw, 1.5rem)' }}
       >
         {images.map((image, index) => (
