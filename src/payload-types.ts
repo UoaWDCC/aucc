@@ -105,6 +105,7 @@ export interface Config {
     'rivers-global': RiversGlobal;
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
+    merch: Merch;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
@@ -113,6 +114,7 @@ export interface Config {
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
+    merch: MerchSelect<false> | MerchSelect<true>;
   };
   locale: null;
   user: User & {
@@ -847,6 +849,30 @@ export interface GearHireGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch".
+ */
+export interface Merch {
+  id: number;
+  sections?:
+    | {
+        title: string;
+        description?: string | null;
+        products?:
+          | {
+              productName: string;
+              price?: string | null;
+              image: number | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events-global_select".
  */
 export interface EventsGlobalSelect<T extends boolean = true> {
@@ -906,6 +932,30 @@ export interface ResourcesGlobalSelect<T extends boolean = true> {
 export interface GearHireGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch_select".
+ */
+export interface MerchSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        products?:
+          | T
+          | {
+              productName?: T;
+              price?: T;
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
