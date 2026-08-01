@@ -105,6 +105,7 @@ export interface Config {
     'rivers-global': RiversGlobal;
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
+    'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
@@ -113,6 +114,7 @@ export interface Config {
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
+    'event-spotlight': EventSpotlightSelect<false> | EventSpotlightSelect<true>;
   };
   locale: null;
   user: User & {
@@ -846,6 +848,22 @@ export interface GearHireGlobal {
   createdAt?: string | null;
 }
 /**
+ * Featured image and caption shown on the event spotlight section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-spotlight".
+ */
+export interface EventSpotlight {
+  id: number;
+  spotlightImage: number | Media;
+  /**
+   * Caption or label displayed beneath the image
+   */
+  eventLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events-global_select".
  */
@@ -906,6 +924,17 @@ export interface ResourcesGlobalSelect<T extends boolean = true> {
 export interface GearHireGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-spotlight_select".
+ */
+export interface EventSpotlightSelect<T extends boolean = true> {
+  spotlightImage?: T;
+  eventLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

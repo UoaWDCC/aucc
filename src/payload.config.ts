@@ -16,6 +16,7 @@ import { Rivers } from './collections/rivers'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
 import { VideoHighlights } from './collections/video-highlights'
+import { EventSpotlight } from './globals/event-spotlight'
 import { EventsGlobal } from './globals/events-global'
 import { GalleryGlobal } from './globals/gallery-global'
 import { GearHireGlobal } from './globals/gear-hire-global'
@@ -51,6 +52,7 @@ export default buildConfig({
     RiversGlobal,
     ResourcesGlobal,
     GearHireGlobal,
+    EventSpotlight,
   ],
   editor: lexicalEditor({}),
   serverURL: env.SERVER_URL,
