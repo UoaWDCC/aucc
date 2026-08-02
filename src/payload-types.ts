@@ -106,6 +106,7 @@ export interface Config {
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
     'merch-global': MerchGlobal;
+    'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
@@ -115,6 +116,7 @@ export interface Config {
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
     'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
+    'event-spotlight': EventSpotlightSelect<false> | EventSpotlightSelect<true>;
   };
   locale: null;
   user: User & {
@@ -863,6 +865,22 @@ export interface GearHireGlobal {
   createdAt?: string | null;
 }
 /**
+ * Featured image and caption shown on the event spotlight section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-spotlight".
+ */
+export interface EventSpotlight {
+  id: number;
+  spotlightImage: number | Media;
+  /**
+   * Caption or label displayed beneath the image
+   */
+  eventLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "merch-global".
  */
@@ -960,6 +978,14 @@ export interface GearHireGlobalSelect<T extends boolean = true> {
 export interface MerchGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-spotlight_select".
+ */
+export interface EventSpotlightSelect<T extends boolean = true> {
+  spotlightImage?: T;
+  eventLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
