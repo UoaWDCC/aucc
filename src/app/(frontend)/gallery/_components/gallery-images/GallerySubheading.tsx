@@ -1,6 +1,9 @@
-import { ImagesFromPayload } from '../ImagesFromPayload'
+import { getTags } from '@/queries/tags'
+import { PaginatedGallery } from './PaginatedGallery'
 
-export function GallerySubheading() {
+export async function GallerySubheading() {
+  const tags = await getTags()
+
   return (
     <div className="min-h-screen bg-[#89ACAD] py-40">
       <div className="mx-auto max-w-6xl px-15">
@@ -10,7 +13,7 @@ export function GallerySubheading() {
         >
           Gallery
         </h1>
-        <ImagesFromPayload />
+        <PaginatedGallery tags={tags.map((tag) => tag.name)} />
       </div>
     </div>
   )

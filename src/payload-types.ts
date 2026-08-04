@@ -865,22 +865,6 @@ export interface GearHireGlobal {
   createdAt?: string | null;
 }
 /**
- * Featured image and caption shown on the event spotlight section.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "event-spotlight".
- */
-export interface EventSpotlight {
-  id: number;
-  spotlightImage: number | Media;
-  /**
-   * Caption or label displayed beneath the image
-   */
-  eventLabel?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "merch-global".
  */
@@ -902,6 +886,52 @@ export interface MerchGlobal {
     };
     [k: string]: unknown;
   };
+  items: {
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    variant: 'image-left' | 'image-right' | 'image-with-caption';
+    /**
+     * Optional labels overlaid on the image, e.g. for Towel Poncho variant
+     */
+    calloutLabels?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Featured image and caption shown on the event spotlight section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-spotlight".
+ */
+export interface EventSpotlight {
+  id: number;
+  spotlightImage: number | Media;
+  /**
+   * Caption or label displayed beneath the image
+   */
+  eventLabel?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -978,6 +1008,24 @@ export interface GearHireGlobalSelect<T extends boolean = true> {
 export interface MerchGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
+  items?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        image?: T;
+        variant?: T;
+        calloutLabels?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
