@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { getGallery } from '@/queries/gallery'
+import { getGallery, getGalleryByTag } from '@/queries/gallery'
 
 function parsePositiveInt(value: string | null): number | null {
   if (value === null || value.trim() === '') {
@@ -16,6 +16,8 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const pageParam = searchParams.get('page')
   const limitParam = searchParams.get('limit')
+
+  const tagParam = searchParams.get('tag') ?? searchParams.get('category')
 
   if (pageParam === null || limitParam === null) {
     return NextResponse.json(
@@ -34,7 +36,11 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  const { gallery, hasNextPage } = await getGallery({ page, limit })
+  const tag = tagParam?.trim()
+
+  const { gallery, hasNextPage } = tag
+    ? await getGalleryByTag(tag, { page, limit })
+    : await getGallery({ page, limit })
 
   return NextResponse.json({ images: gallery, hasMore: hasNextPage })
 }
