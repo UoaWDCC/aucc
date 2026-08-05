@@ -7,21 +7,29 @@ const config = {
   semi: false,
   singleQuote: true,
   trailingComma: 'all',
-  plugins: [
-    '@ianvs/prettier-plugin-sort-imports',
-    'prettier-plugin-tailwindcss', // must be placed last`
-  ],
+  plugins: ['prettier-plugin-tailwindcss'],
   tailwindFunctions: ['cn', 'clsx', 'twMerge', 'twJoin'],
-  importOrder: [
-    '^(react/(.*)$)|^(react$)',
-    '^(next/(.*)$)|^(next$)',
-    '<THIRD_PARTY_MODULES>',
-    '',
-    '^types$',
-    '^@/(.*)$',
-    '^[./]',
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.mjs', '*.cjs'],
+      options: {
+        plugins: [
+          '@ianvs/prettier-plugin-sort-imports',
+          'prettier-plugin-tailwindcss',
+        ],
+        importOrder: [
+          '^(react/(.*)$)|^(react$)',
+          '^(next/(.*)$)|^(next$)',
+          '<THIRD_PARTY_MODULES>',
+          '',
+          '^types$',
+          '^@/(.*)$',
+          '^[./]',
+        ],
+        importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+      },
+    },
   ],
-  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
 }
 
 export default config

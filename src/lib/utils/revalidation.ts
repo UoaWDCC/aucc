@@ -1,5 +1,7 @@
 import { revalidateTag } from 'next/cache'
 
+import { MerchGlobal } from '@/globals/merch-global'
+
 /**
  @typedef CacheTag Custom type definined by keys of tagRelatinos
  */

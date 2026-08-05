@@ -23,5 +23,11 @@ export const GalleryGlobal: GlobalConfig = {
       mimeType: 'image',
       admin: { thumbnail: true, className: 'hide-filename' },
     }),
+    {
+      name: 'introText',
+      type: 'richText',
+      label: 'Intro Text',
+      required: true,
+    },
   ],
 }

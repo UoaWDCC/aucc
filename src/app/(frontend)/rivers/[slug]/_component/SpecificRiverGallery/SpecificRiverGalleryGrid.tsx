@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { GalleryDTO, getGalleryByTag } from '@/queries/gallery'
 
 interface SpecificRiverGalleryGridProps {
@@ -77,12 +79,15 @@ export async function SpecificRiverGalleryGrid({
               {col.map((item, i) => {
                 const image = item.image as { url: string; alt?: string }
                 return (
-                  <img
-                    key={`${item.id}-${idx}-${i}`}
-                    src={image.url}
-                    alt={image.alt || `Gallery image ${i + 1}`}
-                    className="h-auto w-full object-cover"
-                  />
+                  <div key={`${item.id}-${idx}-${i}`} className="relative">
+                    <Image
+                      src={image.url}
+                      alt={image.alt || `Gallery image ${i + 1}`}
+                      fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="h-auto w-full object-cover"
+                    />
+                  </div>
                 )
               })}
             </div>
