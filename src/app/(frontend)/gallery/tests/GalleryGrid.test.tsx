@@ -41,6 +41,7 @@ describe('GalleryGrid', () => {
     const noImagesText = screen.queryByTestId('gallery-empty-state')
     expect(noImagesText).toBeNull()
   })
+
   it(' has the expected responsive Tailwind class names', () => {
     const images = [
       { src: '/image1.jpg', alt: 'Image 1' },
