@@ -1,6 +1,6 @@
 import type { Media } from '@/payload-types'
 import { getGallery } from '@/queries/gallery'
-import { FilterableGalleryGrid } from './gallery-images/FilterableGalleryGrid'
+import { GalleryGrid } from './gallery-images/GalleryGrid'
 import { NoImages } from './gallery-images/GalleryImage'
 
 export async function ImagesFromPayload() {
@@ -25,5 +25,5 @@ export async function ImagesFromPayload() {
     return <NoImages />
   }
 
-  return <FilterableGalleryGrid images={images} initialHasMore={hasNextPage} />
+  return <GalleryGrid initialImages={images} initialHasMore={hasNextPage} />
 }
