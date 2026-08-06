@@ -1,17 +1,20 @@
-interface TripsCardSkeletonProps {
-  bg?: 'abyss' | 'cream'
+type TripsCardSkeletonProps = {
+  mode: 'upcoming' | 'past'
+  bg: 'cream' | 'abyss'
 }
 
-export function TripsCardSkeleton({ bg = 'abyss' }: TripsCardSkeletonProps) {
-  const bgClass = bg === 'abyss' ? 'bg-abyss' : 'bg-cream'
-  const pulseClass = bg === 'abyss' ? 'bg-cream/20' : 'bg-abyss/10'
+export function TripsCardSkeleton({ mode, bg }: TripsCardSkeletonProps) {
+  const bgClass = bg === 'abyss' ? 'bg-abyss' : 'bg-cream/5'
+  const flexDirection =
+    mode === 'upcoming' ? 'md:flex-row' : 'md:flex-row-reverse'
+  const pulseClass = bg === 'abyss' ? 'bg-cream/20' : 'bg-cream/10'
 
   return (
     <div
-      className={`${bgClass} relative flex flex-col-reverse justify-center gap-5 rounded-2xl px-5 py-9 md:flex-row md:gap-24 md:px-16 lg:mx-30`}
+      className={`${bgClass} mx-auto flex max-w-6xl flex-col-reverse justify-between gap-5 rounded-2xl px-16 py-9 ${flexDirection} md:gap-24 lg:min-w-6xl`}
     >
-      <div className="flex flex-col md:flex-row">
-        <div className="flex w-full flex-col gap-6 md:w-96">
+      <div className="w-full md:w-96">
+        <div className="flex flex-col-reverse gap-6">
           <div className={`h-6 w-2/3 animate-pulse rounded ${pulseClass}`} />
           <div className="flex flex-row gap-7">
             <div
@@ -19,13 +22,15 @@ export function TripsCardSkeleton({ bg = 'abyss' }: TripsCardSkeletonProps) {
             />
             <div className={`h-6 w-32 animate-pulse rounded ${pulseClass}`} />
           </div>
-          <div className="flex flex-col gap-4">
-            <div className={`h-4 w-full animate-pulse rounded ${pulseClass}`} />
-            <div className={`h-4 w-5/6 animate-pulse rounded ${pulseClass}`} />
-            <div className={`h-4 w-3/4 animate-pulse rounded ${pulseClass}`} />
-            <div className={`h-4 w-1/2 animate-pulse rounded ${pulseClass}`} />
+        </div>
+        <div className="mt-4 flex flex-col gap-4">
+          <div className={`h-4 w-full animate-pulse rounded ${pulseClass}`} />
+          <div className={`h-4 w-5/6 animate-pulse rounded ${pulseClass}`} />
+          <div className={`h-4 w-3/4 animate-pulse rounded ${pulseClass}`} />
+          <div className={`h-4 w-1/2 animate-pulse rounded ${pulseClass}`} />
+          {mode === 'upcoming' && (
             <div className={`h-9 w-28 animate-pulse rounded ${pulseClass}`} />
-          </div>
+          )}
         </div>
       </div>
       <div

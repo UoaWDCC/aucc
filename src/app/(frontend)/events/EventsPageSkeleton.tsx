@@ -18,7 +18,11 @@ export function EventsPageSkeleton() {
         <div className="relative z-10 flex w-full flex-col gap-5 px-5">
           <div className="flex flex-col items-center justify-center gap-5">
             {Array.from({ length: 2 }).map((_, i) => (
-              <TripsCardSkeleton key={`upcoming-${i}`} bg="abyss" />
+              <TripsCardSkeleton
+                key={`upcoming-${i}`}
+                mode="upcoming"
+                bg="abyss"
+              />
             ))}
           </div>
         </div>
@@ -31,7 +35,7 @@ export function EventsPageSkeleton() {
         </div>
         <div className="mb-45 flex flex-col gap-10">
           {Array.from({ length: 2 }).map((_, i) => (
-            <TripsCardSkeleton key={`past-${i}`} bg="cream" />
+            <TripsCardSkeleton key={`past-${i}`} mode="past" bg="cream" />
           ))}
         </div>
       </div>

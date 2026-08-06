@@ -4,12 +4,10 @@ import { EventsPage } from './_components/EventsPage'
 
 export async function EventsPageContent() {
   try {
-    const { events } = await getEvents({
-      sort: 'startTime',
-      tripsOnly: true,
-    })
-
-    const { headerImage, petrolCosts } = await getEventsGlobal()
+    const [{ events }, { headerImage, petrolCosts }] = await Promise.all([
+      getEvents({ sort: 'startTime', tripsOnly: true }),
+      getEventsGlobal(),
+    ])
 
     return (
       <EventsPage
