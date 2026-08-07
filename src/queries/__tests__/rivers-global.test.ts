@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getPayloadClient } from '@/lib/payload'
 import { getRiversGlobal, type RiversGlobalDTO } from '@/queries/rivers-global'
@@ -29,10 +29,17 @@ describe('Rivers Global queries', () => {
   const mockPayloadClient = {
     findGlobal: vi.fn(),
   }
+  const consoleErrorSpy = vi
+    .spyOn(console, 'error')
+    .mockImplementation(() => {})
 
   beforeEach(() => {
     vi.clearAllMocks()
     ;(getPayloadClient as any).mockResolvedValue(mockPayloadClient)
+  })
+
+  afterEach(() => {
+    consoleErrorSpy.mockClear()
   })
 
   describe('getRiversGlobal', () => {
