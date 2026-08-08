@@ -31,6 +31,7 @@ export function GalleryGrid({
   const hasMoreRef = useRef(initialHasMore)
   const pageRef = useRef(1)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const isInitialCallbackRef = useRef(true)
 
   const availableTags = useMemo(() => {
     const tagSet = new Set<string>()
@@ -86,13 +87,16 @@ export function GalleryGrid({
   useEffect(() => {
     const sentinel = sentinelRef.current
     if (!sentinel) return
-
+    isInitialCallbackRef.current = true
     const observer = new IntersectionObserver((entries) => {
+      if (isInitialCallbackRef.current) {
+        isInitialCallbackRef.current = false
+        return
+      }
       if (entries[0].isIntersecting) {
         fetchNextPage()
       }
     })
-
     observer.observe(sentinel)
     return () => observer.disconnect()
   }, [fetchNextPage])
