@@ -1,15 +1,16 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { GalleryImage, NoImages } from './GalleryImage'
 import { GalleryModal } from './GalleryModal'
 
-type Image = { src: string; alt: string; tags?: string[] }
+type Image = { src: string; alt: string }
 
 type GalleryGridProps = {
   initialImages: Image[]
   initialHasMore: boolean
+  availableTags: string[]
 }
 
 type PayloadGalleryDoc = {
@@ -23,30 +24,48 @@ type GalleryApiResponse = {
 
 const LIMIT = 12
 
+function galleryUrl(page: number, tag: string | null) {
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(LIMIT),
+  })
+  if (tag) params.set('tag', tag)
+  return `/api/gallery?${params}`
+}
+
+function toImages(docs: PayloadGalleryDoc[] = []): Image[] {
+  return docs
+    .filter(
+      (
+        doc,
+      ): doc is PayloadGalleryDoc & {
+        image: { url?: string; alt?: string }
+      } => doc.image !== null && typeof doc.image === 'object',
+    )
+    .map((doc) => ({
+      src: doc.image.url ?? '',
+      alt: doc.image.alt ?? '',
+    }))
+}
+
 export function GalleryGrid({
   initialImages,
   initialHasMore,
+  availableTags,
 }: GalleryGridProps) {
   const [images, setImages] = useState<Image[]>(initialImages)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [activeFilter, setActiveFilter] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const isFetchingRef = useRef(false)
   const hasMoreRef = useRef(initialHasMore)
   const pageRef = useRef(1)
+
+  const requestIdRef = useRef(0)
+  const didMountRef = useRef(false)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
-
-  const availableTags = useMemo(() => {
-    const tagSet = new Set<string>()
-    images.forEach((image) => image.tags?.forEach((tag) => tagSet.add(tag)))
-    return Array.from(tagSet).sort()
-  }, [images])
-
-  const filteredImages = useMemo(() => {
-    if (!activeFilter) return images
-    return images.filter((image) => image.tags?.includes(activeFilter))
-  }, [images, activeFilter])
 
   function handleSelectFilter(tag: string | null) {
     setActiveFilter(tag)
@@ -54,37 +73,57 @@ export function GalleryGrid({
   }
 
   const fetchNextPage = useCallback(async () => {
-    // Scroll-loading is paused while a filter is active — newly fetched
-    // pages don't carry tags yet, so they'd silently bypass the filter.
-    // TODO: move filtering server-side (via /api/gallery?tag=) once real
-    // tags are wired up, so infinite scroll works while filtered.
-    if (isFetchingRef.current || !hasMoreRef.current || activeFilter) return
+    if (isFetchingRef.current || !hasMoreRef.current) return
     isFetchingRef.current = true
 
+    const requestId = requestIdRef.current
     const nextPage = pageRef.current + 1
     try {
-      const res = await fetch(`/api/gallery?page=${nextPage}&limit=${LIMIT}`)
+      const res = await fetch(galleryUrl(nextPage, activeFilter))
       const data: GalleryApiResponse = await res.json()
 
-      const newImages: Image[] = (data.images ?? [])
-        .filter(
-          (
-            doc,
-          ): doc is PayloadGalleryDoc & {
-            image: { url?: string; alt?: string }
-          } => doc.image !== null && typeof doc.image === 'object',
-        )
-        .map((doc) => ({
-          src: doc.image.url ?? '',
-          alt: doc.image.alt ?? '',
-        }))
+      if (requestId !== requestIdRef.current) return
 
-      setImages((prev) => [...prev, ...newImages])
+      setImages((prev) => [...prev, ...toImages(data.images)])
       pageRef.current = nextPage
       hasMoreRef.current = Boolean(data.hasMore)
     } finally {
-      isFetchingRef.current = false
+      if (requestId === requestIdRef.current) {
+        isFetchingRef.current = false
+      }
     }
+  }, [activeFilter])
+
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true
+      return
+    }
+
+    const requestId = ++requestIdRef.current
+    setImages([])
+    setSelectedIndex(null)
+    setIsLoading(true)
+    pageRef.current = 1
+    hasMoreRef.current = false
+    isFetchingRef.current = true
+
+    void (async () => {
+      try {
+        const res = await fetch(galleryUrl(1, activeFilter))
+        const data: GalleryApiResponse = await res.json()
+
+        if (requestId !== requestIdRef.current) return
+
+        setImages(toImages(data.images))
+        hasMoreRef.current = Boolean(data.hasMore)
+      } finally {
+        if (requestId === requestIdRef.current) {
+          isFetchingRef.current = false
+          setIsLoading(false)
+        }
+      }
+    })()
   }, [activeFilter])
 
   useEffect(() => {
@@ -100,10 +139,6 @@ export function GalleryGrid({
     observer.observe(sentinel)
     return () => observer.disconnect()
   }, [fetchNextPage])
-
-  if (images.length === 0) {
-    return <NoImages />
-  }
 
   return (
     <div className="relative">
@@ -149,7 +184,7 @@ export function GalleryGrid({
         </div>
       )}
 
-      {filteredImages.length === 0 ? (
+      {images.length === 0 && !isLoading ? (
         <NoImages />
       ) : (
         <div
@@ -157,9 +192,9 @@ export function GalleryGrid({
           className="grid justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
           style={{ gap: 'clamp(0.5rem, 1.5vw, 1.5rem)' }}
         >
-          {filteredImages.map((image, index) => (
+          {images.map((image, index) => (
             <GalleryImage
-              key={index}
+              key={`${image.src}-${index}`}
               src={image.src}
               alt={image.alt}
               onClick={() => setSelectedIndex(index)}
@@ -172,7 +207,7 @@ export function GalleryGrid({
 
       {selectedIndex !== null && (
         <GalleryModal
-          images={filteredImages}
+          images={images}
           selectedIndex={selectedIndex}
           onClose={() => setSelectedIndex(null)}
           onNavigate={setSelectedIndex}
