@@ -66,6 +66,7 @@ export function GalleryGrid({
   const requestIdRef = useRef(0)
   const didMountRef = useRef(false)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const isInitialCallbackRef = useRef(true)
 
   function handleSelectFilter(tag: string | null) {
     setActiveFilter(tag)
@@ -129,13 +130,16 @@ export function GalleryGrid({
   useEffect(() => {
     const sentinel = sentinelRef.current
     if (!sentinel) return
-
+    isInitialCallbackRef.current = true
     const observer = new IntersectionObserver((entries) => {
+      if (isInitialCallbackRef.current) {
+        isInitialCallbackRef.current = false
+        return
+      }
       if (entries[0].isIntersecting) {
         fetchNextPage()
       }
     })
-
     observer.observe(sentinel)
     return () => observer.disconnect()
   }, [fetchNextPage])

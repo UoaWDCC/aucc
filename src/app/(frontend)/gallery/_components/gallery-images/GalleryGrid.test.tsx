@@ -94,7 +94,9 @@ describe('GalleryGrid infinite scroll', () => {
         availableTags={availableTags}
       />,
     )
-    latestObserver().trigger()
+    const observer = latestObserver()
+    observer.trigger() // mandatory initial callback — ignored by the guard
+    observer.trigger() // real scroll-triggered intersection
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('/api/gallery-images?page=2&limit=12')
@@ -116,7 +118,9 @@ describe('GalleryGrid infinite scroll', () => {
         availableTags={availableTags}
       />,
     )
-    latestObserver().trigger()
+    const observer = latestObserver()
+    observer.trigger() // mandatory initial callback — ignored by the guard
+    observer.trigger() // real scroll-triggered intersection
 
     await waitFor(() => {
       expect(screen.getAllByRole('img')).toHaveLength(13)
@@ -136,7 +140,8 @@ describe('GalleryGrid infinite scroll', () => {
       />,
     )
     const observer = latestObserver()
-    observer.trigger()
+    observer.trigger() // mandatory initial callback — ignored by the guard
+    observer.trigger() // first real intersection — triggers the fetch
 
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
 
@@ -164,6 +169,7 @@ describe('GalleryGrid infinite scroll', () => {
     )
     const observer = latestObserver()
 
+    observer.trigger() // mandatory initial callback — ignored by the guard
     observer.trigger()
     observer.trigger()
 
@@ -171,6 +177,41 @@ describe('GalleryGrid infinite scroll', () => {
 
     resolveFetch(mockGalleryResponse([], true) as Response)
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
+  })
+
+  it('does not fetch on initial render even if the sentinel is already intersecting', async () => {
+    render(
+      <GalleryGrid
+        initialImages={initialImages}
+        initialHasMore={true}
+        availableTags={availableTags}
+      />,
+    )
+    latestObserver().trigger(true)
+    await new Promise((r) => setTimeout(r, 0))
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('fetches on the first real intersection after the initial mount callback', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(
+      mockGalleryResponse(
+        [{ src: '/image-12.jpg', alt: 'Image 12' }],
+        true,
+      ) as Response,
+    )
+    render(
+      <GalleryGrid
+        initialImages={initialImages}
+        initialHasMore={true}
+        availableTags={availableTags}
+      />,
+    )
+    const observer = latestObserver()
+    observer.trigger(true)
+    observer.trigger(true)
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledTimes(1)
+    })
   })
 })
 
@@ -363,7 +404,11 @@ describe('GalleryGrid filtering', () => {
     await user.click(screen.getByText('Taupo'))
     await waitFor(() => expect(screen.getAllByRole('img')).toHaveLength(1))
 
-    latestObserver().trigger()
+    // The observer is rebuilt when the filter changes, so it swallows one
+    // callback again before a real intersection counts.
+    const observer = latestObserver()
+    observer.trigger()
+    observer.trigger()
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith(
