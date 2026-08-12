@@ -3,28 +3,73 @@
 exports[`GalleryGrid >  matches the snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="grid justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-    data-testid="gallery-grid"
-    style="gap: clamp(0.5rem, 1.5vw, 1.5rem);"
+    class="relative"
   >
     <div
-      class="aspect-square w-full overflow-hidden"
+      class="mb-4 flex justify-end"
     >
-      <img
-        alt="Image 1"
-        class="h-full w-full object-cover"
-        src="image1.jpg"
-      />
+      <button
+        aria-expanded="false"
+        aria-label="Filter gallery images"
+        class="rounded-full p-2 hover:bg-gray-100"
+        type="button"
+      >
+        <svg
+          class="h-7 w-7"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon
+            points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+          />
+        </svg>
+      </button>
     </div>
     <div
-      class="aspect-square w-full overflow-hidden"
+      class="grid justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      data-testid="gallery-grid"
+      style="gap: clamp(0.5rem, 1.5vw, 1.5rem);"
     >
-      <img
-        alt="Image 2"
-        class="h-full w-full object-cover"
-        src="image2.jpg"
-      />
+      <div
+        class="relative aspect-square w-full cursor-pointer overflow-hidden"
+      >
+        <img
+          alt="Image 1"
+          class="object-cover"
+          data-nimg="fill"
+          decoding="async"
+          loading="lazy"
+          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          src="/_next/image?url=%2Fimage1.jpg&w=3840&q=75"
+          srcset="/_next/image?url=%2Fimage1.jpg&w=256&q=75 256w, /_next/image?url=%2Fimage1.jpg&w=384&q=75 384w, /_next/image?url=%2Fimage1.jpg&w=640&q=75 640w, /_next/image?url=%2Fimage1.jpg&w=750&q=75 750w, /_next/image?url=%2Fimage1.jpg&w=828&q=75 828w, /_next/image?url=%2Fimage1.jpg&w=1080&q=75 1080w, /_next/image?url=%2Fimage1.jpg&w=1200&q=75 1200w, /_next/image?url=%2Fimage1.jpg&w=1920&q=75 1920w, /_next/image?url=%2Fimage1.jpg&w=2048&q=75 2048w, /_next/image?url=%2Fimage1.jpg&w=3840&q=75 3840w"
+          style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+        />
+      </div>
+      <div
+        class="relative aspect-square w-full cursor-pointer overflow-hidden"
+      >
+        <img
+          alt="Image 2"
+          class="object-cover"
+          data-nimg="fill"
+          decoding="async"
+          loading="lazy"
+          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          src="/_next/image?url=%2Fimage2.jpg&w=3840&q=75"
+          srcset="/_next/image?url=%2Fimage2.jpg&w=256&q=75 256w, /_next/image?url=%2Fimage2.jpg&w=384&q=75 384w, /_next/image?url=%2Fimage2.jpg&w=640&q=75 640w, /_next/image?url=%2Fimage2.jpg&w=750&q=75 750w, /_next/image?url=%2Fimage2.jpg&w=828&q=75 828w, /_next/image?url=%2Fimage2.jpg&w=1080&q=75 1080w, /_next/image?url=%2Fimage2.jpg&w=1200&q=75 1200w, /_next/image?url=%2Fimage2.jpg&w=1920&q=75 1920w, /_next/image?url=%2Fimage2.jpg&w=2048&q=75 2048w, /_next/image?url=%2Fimage2.jpg&w=3840&q=75 3840w"
+          style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+        />
+      </div>
     </div>
+    <div
+      aria-hidden="true"
+      class="h-px w-full"
+    />
   </div>
 </DocumentFragment>
 `;
