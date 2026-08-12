@@ -21,6 +21,10 @@ const PAGES: { name: string; href: string }[] = [
     href: '/trip-reports',
   },
   {
+    name: 'SWIMS',
+    href: '/swims',
+  },
+  {
     name: 'GALLERY',
     href: '/gallery',
   },
