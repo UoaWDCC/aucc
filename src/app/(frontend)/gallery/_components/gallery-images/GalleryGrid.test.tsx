@@ -42,16 +42,16 @@ const mockImages = [
   { src: '/image3.jpg', alt: 'Image 3', tags: ['Wairoa'] },
 ]
 
-function mockPayloadResponse(
+function mockGalleryResponse(
   images: { src: string; alt: string }[],
-  hasNextPage: boolean,
+  hasMore: boolean,
 ) {
   return {
     json: async () => ({
-      docs: images.map(
+      images: images.map(
         (img): PayloadGalleryDoc => ({ image: { url: img.src, alt: img.alt } }),
       ),
-      hasNextPage,
+      hasMore,
     }),
   }
 }
@@ -71,7 +71,7 @@ describe('GalleryGrid infinite scroll', () => {
 
   it('fetches page 2 with limit 12 when the observer fires', async () => {
     vi.mocked(fetch).mockResolvedValueOnce(
-      mockPayloadResponse(
+      mockGalleryResponse(
         [{ src: '/image-12.jpg', alt: 'Image 12' }],
         true,
       ) as Response,
@@ -87,7 +87,7 @@ describe('GalleryGrid infinite scroll', () => {
 
   it('appends newly fetched images rather than replacing existing ones', async () => {
     vi.mocked(fetch).mockResolvedValueOnce(
-      mockPayloadResponse(
+      mockGalleryResponse(
         [{ src: '/image-12.jpg', alt: 'Image 12' }],
         true,
       ) as Response,
@@ -103,7 +103,7 @@ describe('GalleryGrid infinite scroll', () => {
 
   it('does not fetch again once hasMore is false', async () => {
     vi.mocked(fetch).mockResolvedValueOnce(
-      mockPayloadResponse([], false) as Response,
+      mockGalleryResponse([], false) as Response,
     )
 
     render(<GalleryGrid initialImages={initialImages} initialHasMore={true} />)
@@ -135,7 +135,7 @@ describe('GalleryGrid infinite scroll', () => {
 
     expect(fetch).toHaveBeenCalledTimes(1)
 
-    resolveFetch(mockPayloadResponse([], true) as Response)
+    resolveFetch(mockGalleryResponse([], true) as Response)
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1))
   })
 })

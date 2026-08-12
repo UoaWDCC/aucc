@@ -16,6 +16,11 @@ type PayloadGalleryDoc = {
   image: { url?: string; alt?: string } | number | null
 }
 
+type GalleryApiResponse = {
+  images: PayloadGalleryDoc[]
+  hasMore: boolean
+}
+
 const LIMIT = 12
 
 export function GalleryGrid({
@@ -59,10 +64,9 @@ export function GalleryGrid({
     const nextPage = pageRef.current + 1
     try {
       const res = await fetch(`/api/gallery?page=${nextPage}&limit=${LIMIT}`)
-      const data: { docs: PayloadGalleryDoc[]; hasNextPage: boolean } =
-        await res.json()
+      const data: GalleryApiResponse = await res.json()
 
-      const newImages: Image[] = (data.docs ?? [])
+      const newImages: Image[] = (data.images ?? [])
         .filter(
           (
             doc,
@@ -77,7 +81,7 @@ export function GalleryGrid({
 
       setImages((prev) => [...prev, ...newImages])
       pageRef.current = nextPage
-      hasMoreRef.current = Boolean(data.hasNextPage)
+      hasMoreRef.current = Boolean(data.hasMore)
     } finally {
       isFetchingRef.current = false
     }
