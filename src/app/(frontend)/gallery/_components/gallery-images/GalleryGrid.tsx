@@ -30,7 +30,7 @@ function galleryUrl(page: number, tag: string | null) {
     limit: String(LIMIT),
   })
   if (tag) params.set('tag', tag)
-  return `/api/gallery?${params}`
+  return `/api/gallery-images?${params}`
 }
 
 function toImages(docs: PayloadGalleryDoc[] = []): Image[] {

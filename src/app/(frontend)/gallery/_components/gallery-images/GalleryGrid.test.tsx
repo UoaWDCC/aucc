@@ -97,7 +97,7 @@ describe('GalleryGrid infinite scroll', () => {
     latestObserver().trigger()
 
     await waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith('/api/gallery?page=2&limit=12')
+      expect(fetch).toHaveBeenCalledWith('/api/gallery-images?page=2&limit=12')
     })
   })
 
@@ -271,7 +271,7 @@ describe('GalleryGrid filtering', () => {
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith(
-        '/api/gallery?page=1&limit=12&tag=Taupo',
+        '/api/gallery-images?page=1&limit=12&tag=Taupo',
       )
     })
   })
@@ -329,7 +329,9 @@ describe('GalleryGrid filtering', () => {
     await user.click(screen.getByText('All'))
 
     await waitFor(() => {
-      expect(fetch).toHaveBeenLastCalledWith('/api/gallery?page=1&limit=12')
+      expect(fetch).toHaveBeenLastCalledWith(
+        '/api/gallery-images?page=1&limit=12',
+      )
     })
   })
 
@@ -365,7 +367,7 @@ describe('GalleryGrid filtering', () => {
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith(
-        '/api/gallery?page=2&limit=12&tag=Taupo',
+        '/api/gallery-images?page=2&limit=12&tag=Taupo',
       )
     })
   })
