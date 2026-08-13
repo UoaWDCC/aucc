@@ -4,13 +4,18 @@ import config from '../payload.config'
 
 const seedGlobals = async () => {
   const payload = await getPayload({ config })
-  const merch = await payload.findGlobal({ slug: 'merch' })
 
-  if (!Array.isArray(merch.sections)) {
-    await payload.updateGlobal({
-      slug: 'merch',
-      data: { sections: [] },
-    })
+  try {
+    const merch = await payload.findGlobal({ slug: 'merch-global' })
+
+    if (!Array.isArray(merch.items)) {
+      await payload.updateGlobal({
+        slug: 'merch-global',
+        data: { items: [] },
+      })
+    }
+  } catch (error) {
+    console.error('Error seeding merch global (continuing build):', error)
   }
 }
 

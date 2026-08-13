@@ -5,29 +5,36 @@ import { anyone } from '../collections/_access/anyone'
 import { authenticated } from '../collections/_access/authenticated'
 import { customUploadField } from '../collections/_fields/custom-upload'
 
-export const GalleryGlobal: GlobalConfig = {
-  slug: 'gallery-global',
-  label: 'Gallery Page',
+export const EventSpotlight: GlobalConfig = {
+  slug: 'event-spotlight',
+  label: 'Event Spotlight',
   access: {
     read: anyone,
     update: authenticated,
   },
+  admin: {
+    description:
+      'Featured image and caption shown on the event spotlight section.',
+  },
   hooks: {
-    afterChange: [() => cacheTags.galleryGlobal.revalidate()],
+    afterChange: [() => cacheTags.eventSpotlight.revalidate()],
   },
   fields: [
     customUploadField({
-      name: 'headerImage',
-      label: 'Header Image',
+      name: 'spotlightImage',
+      label: 'Spotlight Image',
       required: true,
       mimeType: 'image',
       admin: { thumbnail: true, className: 'hide-filename' },
     }),
     {
-      name: 'introText',
-      type: 'richText',
-      label: 'Intro Text',
-      required: true,
+      name: 'eventLabel',
+      type: 'text',
+      required: false,
+      label: 'Event Label',
+      admin: {
+        description: 'Caption or label displayed beneath the image',
+      },
     },
   ],
 }

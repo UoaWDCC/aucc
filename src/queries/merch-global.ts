@@ -3,7 +3,7 @@ import { unstable_cache } from 'next/cache'
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import type { NoNumber } from '@/lib/utils/util-types'
-import type { MerchGlobal as MerchGlobalType } from '@/payload-types'
+import type { Media, MerchGlobal as MerchGlobalType } from '@/payload-types'
 
 export type MerchGlobalDTO = NoNumber<MerchGlobalType>
 
@@ -20,7 +20,7 @@ export const getMerchGlobal = unstable_cache(
     } catch (error) {
       console.error('Error fetching merch global data:', error)
       return {
-        items: [],
+        headerImage: null as Media | null,
         updatedAt: new Date().toISOString(),
         createdAt: new Date().toISOString(),
       } as unknown as MerchGlobalDTO

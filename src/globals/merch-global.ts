@@ -16,6 +16,19 @@ export const MerchGlobal: GlobalConfig = {
     afterChange: [() => cacheTags.merchGlobal.revalidate()],
   },
   fields: [
+    customUploadField({
+      name: 'headerImage',
+      label: 'Header Image',
+      required: true,
+      mimeType: 'image',
+      admin: { thumbnail: true, className: 'hide-filename' },
+    }),
+    {
+      name: 'introText',
+      type: 'richText',
+      label: 'Intro Text',
+      required: true,
+    },
     {
       name: 'items',
       type: 'array',
