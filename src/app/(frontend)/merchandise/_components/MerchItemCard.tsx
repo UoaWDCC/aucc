@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import Image, { type StaticImageData } from 'next/image'
 
 export type MerchItemVariant =
@@ -7,7 +8,7 @@ export type MerchItemVariant =
 
 export interface MerchItemCardProps {
   heading: string
-  body?: string
+  body?: ReactNode
   imageSrc: string | StaticImageData
   imageAlt?: string
   variant: MerchItemVariant

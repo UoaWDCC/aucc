@@ -105,7 +105,7 @@ export interface Config {
     'rivers-global': RiversGlobal;
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
-    merch: Merch;
+    'merch-global': MerchGlobal;
   };
   globalsSelect: {
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
@@ -114,7 +114,7 @@ export interface Config {
     'rivers-global': RiversGlobalSelect<false> | RiversGlobalSelect<true>;
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
-    merch: MerchSelect<false> | MerchSelect<true>;
+    'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
   };
   locale: null;
   user: User & {
@@ -849,25 +849,40 @@ export interface GearHireGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "merch".
+ * via the `definition` "merch-global".
  */
-export interface Merch {
+export interface MerchGlobal {
   id: number;
-  sections?:
-    | {
-        title: string;
-        description?: string | null;
-        products?:
-          | {
-              productName: string;
-              price?: string | null;
-              image: number | Media;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
+  items: {
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    variant: 'image-left' | 'image-right' | 'image-with-caption';
+    /**
+     * Optional labels overlaid on the image, e.g. for Towel Poncho variant
+     */
+    calloutLabels?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -938,20 +953,20 @@ export interface GearHireGlobalSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "merch_select".
+ * via the `definition` "merch-global_select".
  */
-export interface MerchSelect<T extends boolean = true> {
-  sections?:
+export interface MerchGlobalSelect<T extends boolean = true> {
+  items?:
     | T
     | {
-        title?: T;
-        description?: T;
-        products?:
+        heading?: T;
+        body?: T;
+        image?: T;
+        variant?: T;
+        calloutLabels?:
           | T
           | {
-              productName?: T;
-              price?: T;
-              image?: T;
+              label?: T;
               id?: T;
             };
         id?: T;
