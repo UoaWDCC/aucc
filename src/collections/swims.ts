@@ -20,8 +20,8 @@ export const Swims: CollectionConfig = {
     ],
   },
   access: {
-    create: authenticated,
-    read: anyone,
+    create: anyone,
+    read: authenticated,
     update: authenticated,
     delete: authenticated,
   },
