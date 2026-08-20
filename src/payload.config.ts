@@ -13,6 +13,7 @@ import { Events } from './collections/events'
 import { Execs } from './collections/execs'
 import { Gallery } from './collections/gallery'
 import { Rivers } from './collections/rivers'
+import { Swims } from './collections/swims'
 import { Tags } from './collections/tags'
 import { TripReports } from './collections/trip-reports'
 import { VideoHighlights } from './collections/video-highlights'
@@ -45,6 +46,7 @@ export default buildConfig({
     Gallery,
     Tags,
     VideoHighlights,
+    Swims,
   ],
   globals: [
     EventsGlobal,

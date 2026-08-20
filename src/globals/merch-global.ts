@@ -5,6 +5,32 @@ import { authenticated } from '@/collections/_access/authenticated'
 import { customUploadField } from '@/collections/_fields/custom-upload'
 import { cacheTags } from '@/lib/utils/revalidation'
 
+const placeholderRichText = {
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'Placeholder text',
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    ],
+    direction: 'ltr',
+    format: '',
+    indent: 0,
+    version: 1,
+  },
+}
+
 export const MerchGlobal: GlobalConfig = {
   slug: 'merch-global',
   label: 'Merch Page',
@@ -28,6 +54,7 @@ export const MerchGlobal: GlobalConfig = {
       type: 'richText',
       label: 'Intro Text',
       required: true,
+      defaultValue: placeholderRichText,
     },
     {
       name: 'items',
