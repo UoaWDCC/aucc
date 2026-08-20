@@ -1,10 +1,18 @@
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+
 import { getPlainText } from '@/lib/utils/get-plain-text'
-import { getMerchGlobal } from '@/queries/merch-global'
+import { Media } from '@/payload-types'
 import { HeaderBackground } from './MerchandiseHeaderImage'
 
-export async function MerchandiseHeaderSection() {
-  const { headerImage, introText } = await getMerchGlobal()
+type MerchandiseHeaderSectionProps = {
+  headerImage: Media
+  introText: SerializedEditorState
+}
 
+export function MerchandiseHeaderSection({
+  headerImage,
+  introText,
+}: MerchandiseHeaderSectionProps) {
   return (
     <section className="relative aspect-[128/57] w-full overflow-hidden">
       <HeaderBackground media={headerImage} />
