@@ -1,4 +1,4 @@
-import type { Field } from 'payload'
+import type { Field, PayloadRequest } from 'payload'
 
 type CustomUploadFieldArgs = {
   name: string
@@ -30,27 +30,23 @@ export const customUploadField = ({
   filterOptions: {
     mimeType: { contains: mimeType },
   },
-  hooks: {
-    beforeChange: [
-      async ({ value, req }) => {
-        if (!value) return value
+  validate: async (value: unknown, { req }: { req: PayloadRequest }) => {
+    if (!value) return true
 
-        const ids = Array.isArray(value) ? value : [value]
+    const ids = Array.isArray(value) ? value : [value]
 
-        for (const id of ids) {
-          const media = await req.payload.findByID({
-            collection: 'media',
-            id,
-          })
+    for (const id of ids) {
+      const media = await req.payload.findByID({
+        collection: 'media',
+        id: id as string | number,
+      })
 
-          const mime = media?.mimeType
-          if (!mime || !mime.includes(mimeType)) {
-            return `Only files of type "${mimeType}" are allowed.`
-          }
-        }
+      const mime = media?.mimeType
+      if (!mime || !mime.includes(mimeType)) {
+        return `Only files of type "${mimeType}" are allowed.`
+      }
+    }
 
-        return value
-      },
-    ],
+    return true
   },
 })

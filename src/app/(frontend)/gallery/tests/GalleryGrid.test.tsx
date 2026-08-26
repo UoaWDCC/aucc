@@ -23,20 +23,38 @@ describe('GalleryGrid', () => {
       { src: '/image3.jpg', alt: 'Image 3' },
     ]
 
-    render(<GalleryGrid initialImages={images} initialHasMore={false} />)
+    render(
+      <GalleryGrid
+        initialImages={images}
+        initialHasMore={false}
+        availableTags={[]}
+      />,
+    )
 
     const galleryImages = screen.getAllByRole('img')
     expect(galleryImages).toHaveLength(images.length)
   })
 
   it('renders an empty state when images={[]}', () => {
-    render(<GalleryGrid initialImages={[]} initialHasMore={false} />)
+    render(
+      <GalleryGrid
+        initialImages={[]}
+        initialHasMore={false}
+        availableTags={[]}
+      />,
+    )
 
     expect(screen.getByTestId('gallery-empty-state')).not.toBeNull()
   })
 
   it('renders the empty-state copy', () => {
-    render(<GalleryGrid initialImages={[]} initialHasMore={false} />)
+    render(
+      <GalleryGrid
+        initialImages={[]}
+        initialHasMore={false}
+        availableTags={[]}
+      />,
+    )
 
     expect(screen.getByText(NO_IMAGES_EMPTY_STATE_COPY)).not.toBeNull()
   })
@@ -47,7 +65,13 @@ describe('GalleryGrid', () => {
       { src: '/image2.jpg', alt: 'Image 2' },
     ]
 
-    render(<GalleryGrid initialImages={images} initialHasMore={false} />)
+    render(
+      <GalleryGrid
+        initialImages={images}
+        initialHasMore={false}
+        availableTags={[]}
+      />,
+    )
 
     const noImagesText = screen.queryByTestId('gallery-empty-state')
     expect(noImagesText).toBeNull()
@@ -59,7 +83,13 @@ describe('GalleryGrid', () => {
       { src: '/image2.jpg', alt: 'Image 2' },
     ]
 
-    render(<GalleryGrid initialImages={images} initialHasMore={false} />)
+    render(
+      <GalleryGrid
+        initialImages={images}
+        initialHasMore={false}
+        availableTags={[]}
+      />,
+    )
 
     const gridContainer = screen.getByTestId('gallery-grid')
     expect(gridContainer.className).toContain('grid')
@@ -76,7 +106,11 @@ describe('GalleryGrid', () => {
     ]
 
     const { asFragment } = render(
-      <GalleryGrid initialImages={images} initialHasMore={false} />,
+      <GalleryGrid
+        initialImages={images}
+        initialHasMore={false}
+        availableTags={[]}
+      />,
     )
 
     expect(asFragment()).toMatchSnapshot()
