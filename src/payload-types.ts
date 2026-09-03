@@ -76,6 +76,7 @@ export interface Config {
     gallery: Gallery;
     tags: Tag;
     'video-highlights': VideoHighlight;
+    swims: Swim;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -91,6 +92,7 @@ export interface Config {
     gallery: GallerySelect<false> | GallerySelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'video-highlights': VideoHighlightsSelect<false> | VideoHighlightsSelect<true>;
+    swims: SwimsSelect<false> | SwimsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -396,6 +398,21 @@ export interface VideoHighlight {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "swims".
+ */
+export interface Swim {
+  id: number;
+  date: string;
+  tripName: string;
+  river: number | River;
+  memberName: string;
+  email: string;
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -436,6 +453,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'video-highlights';
         value: number | VideoHighlight;
+      } | null)
+    | ({
+        relationTo: 'swims';
+        value: number | Swim;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -684,6 +705,20 @@ export interface VideoHighlightsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "swims_select".
+ */
+export interface SwimsSelect<T extends boolean = true> {
+  date?: T;
+  tripName?: T;
+  river?: T;
+  memberName?: T;
+  email?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -865,22 +900,6 @@ export interface GearHireGlobal {
   createdAt?: string | null;
 }
 /**
- * Featured image and caption shown on the event spotlight section.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "event-spotlight".
- */
-export interface EventSpotlight {
-  id: number;
-  spotlightImage: number | Media;
-  /**
-   * Caption or label displayed beneath the image
-   */
-  eventLabel?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "merch-global".
  */
@@ -902,6 +921,52 @@ export interface MerchGlobal {
     };
     [k: string]: unknown;
   };
+  items: {
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    variant: 'image-left' | 'image-right' | 'image-with-caption';
+    /**
+     * Optional labels overlaid on the image, e.g. for Towel Poncho variant
+     */
+    calloutLabels?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Featured image and caption shown on the event spotlight section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-spotlight".
+ */
+export interface EventSpotlight {
+  id: number;
+  spotlightImage: number | Media;
+  /**
+   * Caption or label displayed beneath the image
+   */
+  eventLabel?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -978,6 +1043,24 @@ export interface GearHireGlobalSelect<T extends boolean = true> {
 export interface MerchGlobalSelect<T extends boolean = true> {
   headerImage?: T;
   introText?: T;
+  items?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        image?: T;
+        variant?: T;
+        calloutLabels?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
