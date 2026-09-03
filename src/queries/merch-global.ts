@@ -19,8 +19,20 @@ export const getMerchGlobal = unstable_cache(
       return result as MerchGlobalDTO
     } catch (error) {
       console.error('Error fetching merch global data:', error)
+      // Return a fallback object with required properties
       return {
         headerImage: null as Media | null,
+        introText: {
+          root: {
+            type: 'root',
+            children: [],
+            direction: null,
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        items: [],
         updatedAt: new Date().toISOString(),
         createdAt: new Date().toISOString(),
       } as unknown as MerchGlobalDTO
