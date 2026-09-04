@@ -24,6 +24,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
+    mimeTypes: ['image/*'],
     adminThumbnail: 'thumbnail',
     imageSizes: [
       {

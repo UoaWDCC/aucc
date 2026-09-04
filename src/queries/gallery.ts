@@ -13,7 +13,7 @@ export type GalleryDTO = NoNumber<Gallery>
 export const getGallery = unstable_cache(
   async function ({
     page = 1,
-    limit = 10,
+    limit = 12,
     sort = '-createdAt',
   }: {
     page?: number
@@ -68,7 +68,7 @@ export const getGalleryByTag = unstable_cache(
     tagName: string,
     {
       page = 1,
-      limit = 10,
+      limit = 12,
       sort = '-createdAt',
     }: {
       page?: number

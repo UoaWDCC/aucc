@@ -1,13 +1,23 @@
+import type { EventSpotlightDTO } from '@/queries/event-spotlight'
 import { GallerySpotlightSection } from './events/GallerySpotlightSection'
 import { GallerySubheading } from './gallery-images/GallerySubheading'
 import { GalleryHeaderSection } from './header/GalleryHeaderSection'
 import { VideoHighlightSection } from './video-highlights/VideoHighlightSection'
 
-export function GalleryPage() {
+type GalleryPageProps = {
+  eventSpotlight: EventSpotlightDTO | null
+}
+
+export function GalleryPage({ eventSpotlight }: GalleryPageProps) {
   return (
     <>
       <GalleryHeaderSection />
-      <GallerySpotlightSection />
+      {eventSpotlight ? (
+        <GallerySpotlightSection
+          eventLabel={eventSpotlight.eventLabel}
+          spotlightImage={eventSpotlight.spotlightImage}
+        />
+      ) : null}
       <VideoHighlightSection />
       <GallerySubheading />
     </>

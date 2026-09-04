@@ -9,6 +9,7 @@ export default defineConfig({
     globals: true,
     include: ['**/*.{test,spec}.{js,jsx,ts,tsx}'],
     exclude: ['node_modules', 'dist', '.next', 'coverage'],
+    setupFiles: ['./vitest.setup.ts'],
   },
   esbuild: {
     jsx: 'automatic',

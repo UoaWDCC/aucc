@@ -47,6 +47,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Run migrations and seed globals
+        run: |
+          pnpm payload migrate
+          pnpm payload run src/scripts/seed-globals.ts
+
       - name: Build Next app
         run: |
           pnpm build
