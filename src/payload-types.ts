@@ -108,6 +108,7 @@ export interface Config {
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
     'merch-global': MerchGlobal;
+    'merch-content': MerchContent;
     'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
@@ -118,6 +119,7 @@ export interface Config {
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
     'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
+    'merch-content': MerchContentSelect<false> | MerchContentSelect<true>;
     'event-spotlight': EventSpotlightSelect<false> | EventSpotlightSelect<true>;
   };
   locale: null;
@@ -955,6 +957,189 @@ export interface MerchGlobal {
   createdAt?: string | null;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch-content".
+ */
+export interface MerchContent {
+  id: number;
+  /**
+   * Editable content for the T-Shirts section.
+   */
+  tshirts: {
+    /**
+     * Short name shown in navigation/tabs for this section.
+     */
+    label: string;
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    /**
+     * e.g. "New", "Limited Edition" — leave blank to hide.
+     */
+    badge?: string | null;
+  };
+  /**
+   * Editable content for the Stickers section.
+   */
+  stickers: {
+    /**
+     * Short name shown in navigation/tabs for this section.
+     */
+    label: string;
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    /**
+     * e.g. "New", "Limited Edition" — leave blank to hide.
+     */
+    badge?: string | null;
+  };
+  /**
+   * Editable content for the Board Shorts section.
+   */
+  boardShorts: {
+    /**
+     * Short name shown in navigation/tabs for this section.
+     */
+    label: string;
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    /**
+     * e.g. "New", "Limited Edition" — leave blank to hide.
+     */
+    badge?: string | null;
+    /**
+     * Short caption shown under the group photo.
+     */
+    caption?: string | null;
+    groupPhoto: number | Media;
+  };
+  /**
+   * Editable content for the Towel Poncho section.
+   */
+  towelPoncho: {
+    /**
+     * Short name shown in navigation/tabs for this section.
+     */
+    label: string;
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    /**
+     * e.g. "New", "Limited Edition" — leave blank to hide.
+     */
+    badge?: string | null;
+    /**
+     * Text labels positioned over the image (e.g. pointing to features). "Top %" controls vertical placement — 0 is the top edge of the image, 100 is the bottom edge.
+     */
+    annotations?:
+      | {
+          text: string;
+          /**
+           * 0 = top of image, 100 = bottom of image, 50 = middle.
+           */
+          topPercent: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Editable content for the Sweatshirt section.
+   */
+  sweatshirt: {
+    /**
+     * Short name shown in navigation/tabs for this section.
+     */
+    label: string;
+    heading: string;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image: number | Media;
+    /**
+     * e.g. "New", "Limited Edition" — leave blank to hide.
+     */
+    badge?: string | null;
+    /**
+     * e.g. "2026 Edition" — shown alongside the heading.
+     */
+    yearLabel?: string | null;
+    imageLeft: number | Media;
+    imageRight: number | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Featured image and caption shown on the event spotlight section.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1057,6 +1242,72 @@ export interface MerchGlobalSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch-content_select".
+ */
+export interface MerchContentSelect<T extends boolean = true> {
+  tshirts?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        badge?: T;
+      };
+  stickers?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        badge?: T;
+      };
+  boardShorts?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        badge?: T;
+        caption?: T;
+        groupPhoto?: T;
+      };
+  towelPoncho?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        badge?: T;
+        annotations?:
+          | T
+          | {
+              text?: T;
+              topPercent?: T;
+              id?: T;
+            };
+      };
+  sweatshirt?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        badge?: T;
+        yearLabel?: T;
+        imageLeft?: T;
+        imageRight?: T;
       };
   updatedAt?: T;
   createdAt?: T;
