@@ -1,3 +1,4 @@
+import { SwimsHeaderBottomCurve } from './SwimsHeaderBottomCurve'
 import { SwimsHeaderBackground } from './SwimsHeaderImage'
 
 export function SwimsHeaderSection() {
@@ -16,6 +17,8 @@ export function SwimsHeaderSection() {
           </p>
         </div>
       </div>
+
+      <SwimsHeaderBottomCurve />
     </section>
   )
 }
