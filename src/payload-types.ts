@@ -407,6 +407,10 @@ export interface Swim {
   river: number | River;
   memberName: string;
   email: string;
+  /**
+   * Honeypot field for spam protection. Do not expose to real users.
+   */
+  honeypot?: string | null;
   image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -713,6 +717,7 @@ export interface SwimsSelect<T extends boolean = true> {
   river?: T;
   memberName?: T;
   email?: T;
+  honeypot?: T;
   image?: T;
   updatedAt?: T;
   createdAt?: T;
