@@ -54,3 +54,12 @@
     @apply bg-abyss text-abyss font-body;
   }
 }
+
+/* Honeypot field hidden from real users but present in DOM for bots */
+.hidden-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
