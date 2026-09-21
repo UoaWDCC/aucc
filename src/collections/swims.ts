@@ -68,5 +68,15 @@ export const Swims: CollectionConfig = {
         className: 'hide-filename',
       },
     }),
+    {
+      name: 'submitterApproved',
+      type: 'checkbox',
+      label: 'Submitter approved',
+      defaultValue: false,
+      admin: {
+        description:
+          'Whether the submitter consents to the image being shared publicly.',
+      },
+    },
   ],
 }

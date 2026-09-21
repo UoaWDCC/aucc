@@ -408,6 +408,10 @@ export interface Swim {
   memberName: string;
   email: string;
   image?: (number | null) | Media;
+  /**
+   * Whether the submitter consents to the image being shared publicly.
+   */
+  submitterApproved?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -714,6 +718,7 @@ export interface SwimsSelect<T extends boolean = true> {
   memberName?: T;
   email?: T;
   image?: T;
+  submitterApproved?: T;
   updatedAt?: T;
   createdAt?: T;
 }

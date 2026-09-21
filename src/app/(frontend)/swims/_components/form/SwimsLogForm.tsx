@@ -23,6 +23,11 @@ export function SwimsLogForm() {
     setErrors((previous) => ({ ...previous, [field]: undefined }))
   }
 
+  const setBooleanField =
+    (field: keyof SwimsFormValues) => (value: boolean) => {
+      setValues((previous) => ({ ...previous, [field]: value }))
+    }
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -75,6 +80,25 @@ export function SwimsLogForm() {
           onChange={setField('trip')}
           error={errors.trip}
         />
+      </div>
+
+      <div className="mt-4 flex items-start gap-3">
+        <input
+          id="submitterApproved"
+          name="submitterApproved"
+          type="checkbox"
+          checked={Boolean(values.submitterApproved)}
+          onChange={(e) =>
+            setBooleanField('submitterApproved')(e.target.checked)
+          }
+          className="h-4 w-4"
+        />
+        <label
+          htmlFor="submitterApproved"
+          className="text-[11px] text-[#EFEFE1] md:text-sm"
+        >
+          I consent to this photo being shared publicly on the AUCC website
+        </label>
       </div>
 
       <div className="-mx-6 mt-8 grid grid-cols-3 gap-6 md:-mx-12 md:gap-8">

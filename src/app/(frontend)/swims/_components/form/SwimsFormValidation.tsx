@@ -3,6 +3,7 @@ export interface SwimsFormValues {
   riverName: string
   dateSwam: string
   trip: string
+  submitterApproved?: boolean
 }
 
 export type SwimsFormErrors = Partial<Record<keyof SwimsFormValues, string>>
@@ -12,6 +13,7 @@ export const emptySwimsForm: SwimsFormValues = {
   riverName: '',
   dateSwam: '',
   trip: '',
+  submitterApproved: false,
 }
 
 export function todayAsInputValue() {
