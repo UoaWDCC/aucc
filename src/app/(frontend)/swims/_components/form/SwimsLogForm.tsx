@@ -77,6 +77,18 @@ export function SwimsLogForm() {
         />
       </div>
 
+      {/* Honeypot field for spam protection. Hidden from real users via CSS. */}
+      <input
+        type="text"
+        name="honeypot"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="hidden-hp"
+        value={(values as any).honeypot ?? ''}
+        onChange={(e) => setField('honeypot')(e.target.value)}
+      />
+
       <div className="-mx-6 mt-8 grid grid-cols-3 gap-6 md:-mx-12 md:gap-8">
         <div className="aspect-4/3 bg-[#D9D9D9]" />
         <div className="aspect-4/3 bg-[#D9D9D9]" />
