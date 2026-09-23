@@ -1,3 +1,4 @@
+import { SwimsFormSection } from './form/SwimsFormSection'
 import { SwimsHeaderSection } from './header/SwimsHeaderSection'
 import { SwimsList } from './SwimsList'
 
@@ -10,6 +11,7 @@ export function SwimsPage() {
     <main>
       <SwimsHeaderSection />
       <SwimsList swims={[]} />
+      <SwimsFormSection />
     </main>
   )
 }

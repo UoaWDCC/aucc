@@ -10,6 +10,20 @@ class IntersectionObserverMock {
   disconnect = vi.fn()
 }
 
+function normalizeNextImageSrc(fragment: DocumentFragment) {
+  fragment.querySelectorAll('img').forEach((image) => {
+    const src = image.getAttribute('src')
+    if (!src) {
+      return
+    }
+
+    image.setAttribute(
+      'src',
+      src.replace(/^https?:\/\/[^/]+(?=\/_next\/image)/, ''),
+    )
+  })
+}
+
 describe('GalleryGrid', () => {
   beforeEach(() => {
     // @ts-expect-error - test mock
@@ -113,6 +127,9 @@ describe('GalleryGrid', () => {
       />,
     )
 
-    expect(asFragment()).toMatchSnapshot()
+    const fragment = asFragment()
+    normalizeNextImageSrc(fragment)
+
+    expect(fragment).toMatchSnapshot()
   })
 })
