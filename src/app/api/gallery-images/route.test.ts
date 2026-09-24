@@ -10,10 +10,10 @@ vi.mock('@/queries/gallery', () => ({
 }))
 
 function makeRequest(query: string) {
-  return new NextRequest(`http://localhost/api/gallery${query}`)
+  return new NextRequest(`http://localhost/api/gallery-images${query}`)
 }
 
-describe('GET /api/gallery', () => {
+describe('GET /api/gallery-images', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })

@@ -15,7 +15,7 @@ vi.mock('@/lib/env', () => ({
 
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
-  default: vi.fn(({ src, alt, className, loader, ...props }) => (
+  default: vi.fn(({ src, alt, className, loader, fill: _fill, ...props }) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={typeof src === 'string' ? src : src.src}

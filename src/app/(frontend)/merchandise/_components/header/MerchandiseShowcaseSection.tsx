@@ -3,7 +3,7 @@ export default function MerchandiseShowcaseSection() {
     <section className="relative min-h-[35.6vw] w-full overflow-hidden bg-[#1E2A29] text-center">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-[15%] left-1/2 aspect-square w-[112.5%] -translate-x-1/2 rounded-full bg-[linear-gradient(180deg,#D3E2DA_0%,#EFEDE3_100%)] sm:top-[12%] sm:w-[110%]"
+        className="pointer-events-none absolute top-[15%] left-1/2 aspect-square w-[112.5%] -translate-x-1/2 rounded-full bg-[#D3E2DA] sm:top-[12%] sm:w-[110%]"
       />
 
       <div className="relative z-10 mx-auto max-w-[16rem] px-4 pt-[10%] pb-[4%] sm:max-w-[24rem] sm:pt-[12%] sm:pb-[8%] md:max-w-[30rem] xl:max-w-[36rem]">

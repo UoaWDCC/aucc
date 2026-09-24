@@ -38,9 +38,14 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
       <div
         class="relative aspect-square w-full cursor-pointer overflow-hidden"
       >
+        <div
+          class="bg-skeleton animate-pulse absolute inset-0 h-full w-full rounded-none"
+          data-slot="skeleton"
+          data-testid="gallery-image-skeleton"
+        />
         <img
           alt="Image 1"
-          class="object-cover"
+          class="object-cover transition-opacity duration-300 opacity-0"
           data-nimg="fill"
           decoding="async"
           loading="lazy"
@@ -53,9 +58,14 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
       <div
         class="relative aspect-square w-full cursor-pointer overflow-hidden"
       >
+        <div
+          class="bg-skeleton animate-pulse absolute inset-0 h-full w-full rounded-none"
+          data-slot="skeleton"
+          data-testid="gallery-image-skeleton"
+        />
         <img
           alt="Image 2"
-          class="object-cover"
+          class="object-cover transition-opacity duration-300 opacity-0"
           data-nimg="fill"
           decoding="async"
           loading="lazy"

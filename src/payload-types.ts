@@ -76,6 +76,7 @@ export interface Config {
     gallery: Gallery;
     tags: Tag;
     'video-highlights': VideoHighlight;
+    swims: Swim;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -91,6 +92,7 @@ export interface Config {
     gallery: GallerySelect<false> | GallerySelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'video-highlights': VideoHighlightsSelect<false> | VideoHighlightsSelect<true>;
+    swims: SwimsSelect<false> | SwimsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -396,6 +398,21 @@ export interface VideoHighlight {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "swims".
+ */
+export interface Swim {
+  id: number;
+  date: string;
+  tripName: string;
+  river: number | River;
+  memberName: string;
+  email: string;
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -436,6 +453,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'video-highlights';
         value: number | VideoHighlight;
+      } | null)
+    | ({
+        relationTo: 'swims';
+        value: number | Swim;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -679,6 +700,20 @@ export interface TagsSelect<T extends boolean = true> {
 export interface VideoHighlightsSelect<T extends boolean = true> {
   title?: T;
   url?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "swims_select".
+ */
+export interface SwimsSelect<T extends boolean = true> {
+  date?: T;
+  tripName?: T;
+  river?: T;
+  memberName?: T;
+  email?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
