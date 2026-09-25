@@ -36,6 +36,7 @@ const tagRelations = {
   eventSpotlight: ['media'],
   merchGlobal: ['media'],
   videoHighlights: [],
+  swims: ['media', 'rivers'],
 } as const
 
 /** 
@@ -138,6 +139,11 @@ export const cacheTags: Record<
     tag: 'videoHighlights',
     relatedTags: getRevalidationTags('videoHighlights'),
     revalidate: () => revalidateTag('videoHighlights'),
+  },
+  swims: {
+    tag: 'swims',
+    relatedTags: getRevalidationTags('swims'),
+    revalidate: () => revalidateTag('swims'),
   },
 }
 

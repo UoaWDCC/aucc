@@ -2,6 +2,8 @@
 
 import { useRef, useState, type FormEvent } from 'react'
 
+import type { ApprovedSwimPhotoDTO } from '@/queries/swims'
+import { SwimsCarousel } from '../SwimsCarousel'
 import { SwimsFormField } from './SwimsFormField'
 import {
   emptySwimsForm,
@@ -12,7 +14,11 @@ import {
   type SwimsFormValues,
 } from './SwimsFormValidation'
 
-export function SwimsLogForm() {
+type SwimsLogFormProps = {
+  approvedPhotos: ApprovedSwimPhotoDTO[]
+}
+
+export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
   const [values, setValues] = useState<SwimsFormValues>(emptySwimsForm)
   const [errors, setErrors] = useState<SwimsFormErrors>({})
   const [fileName, setFileName] = useState<string | null>(null)
@@ -77,10 +83,8 @@ export function SwimsLogForm() {
         />
       </div>
 
-      <div className="-mx-6 mt-8 grid grid-cols-3 gap-6 md:-mx-12 md:gap-8">
-        <div className="aspect-4/3 bg-[#D9D9D9]" />
-        <div className="aspect-4/3 bg-[#D9D9D9]" />
-        <div className="aspect-4/3 bg-[#D9D9D9]" />
+      <div className="mt-8">
+        <SwimsCarousel photos={approvedPhotos} />
       </div>
 
       <div className="mt-8 flex items-center justify-center gap-3">

@@ -1,6 +1,11 @@
+import type { ApprovedSwimPhotoDTO } from '@/queries/swims'
 import { SwimsLogForm } from './SwimsLogForm'
 
-export function SwimsFormSection() {
+type SwimsFormSectionProps = {
+  approvedPhotos: ApprovedSwimPhotoDTO[]
+}
+
+export function SwimsFormSection({ approvedPhotos }: SwimsFormSectionProps) {
   return (
     <section className="relative overflow-hidden">
       <div className="relative bg-[#66989F] pt-6 pb-16 md:pt-12 md:pb-28">
@@ -74,7 +79,7 @@ export function SwimsFormSection() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-md px-5 md:max-w-2xl">
-          <SwimsLogForm />
+          <SwimsLogForm approvedPhotos={approvedPhotos} />
         </div>
       </div>
     </section>
