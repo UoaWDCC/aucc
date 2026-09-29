@@ -1,13 +1,51 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import type { ApprovedSwimPhotoDTO } from '@/queries/swims'
+import type { Media } from '@/payload-types'
+import type { SwimDTO } from '@/queries/swims'
 import { SwimsCarousel } from './SwimsCarousel'
 
-const mockPhotos: ApprovedSwimPhotoDTO[] = [
-  { id: '1', image: { id: 1, url: '/a.jpg', alt: 'Swim A' } as any },
-  { id: '2', image: { id: 2, url: '/b.jpg', alt: 'Swim B' } as any },
-  { id: '3', image: { id: 3, url: '/c.jpg', alt: 'Swim C' } as any },
+function mockImage(overrides: Partial<Media>): Media {
+  return {
+    id: 1,
+    filename: 'mock.jpg',
+    url: '/mock.jpg',
+    alt: 'Mock image',
+    updatedAt: '',
+    createdAt: '',
+    ...overrides,
+  } as Media
+}
+
+function mockRiver(id: number, name: string): SwimDTO['river'] {
+  return { id, name } as SwimDTO['river']
+}
+
+const mockPhotos: SwimDTO[] = [
+  {
+    id: 1,
+    date: '2026-03-14',
+    tripName: 'Kaituna Trip',
+    river: mockRiver(1, 'Kaituna River'),
+    memberName: 'Jane Doe',
+    image: mockImage({ id: 1, url: '/a.jpg', alt: 'Swim A' }),
+  },
+  {
+    id: 2,
+    date: '2026-04-02',
+    tripName: 'Wairoa Weekender',
+    river: mockRiver(2, 'Wairoa River'),
+    memberName: 'John Smith',
+    image: mockImage({ id: 2, url: '/b.jpg', alt: 'Swim B' }),
+  },
+  {
+    id: 3,
+    date: '2026-05-10',
+    tripName: 'Rangitaiki Run',
+    river: mockRiver(3, 'Rangitaiki River'),
+    memberName: 'Alex Lee',
+    image: mockImage({ id: 3, url: '/c.jpg', alt: 'Swim C' }),
+  },
 ]
 
 describe('SwimsCarousel', () => {
@@ -16,14 +54,15 @@ describe('SwimsCarousel', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders a tile for each approved photo', () => {
+  it('renders a tile for each approved photo (duplicated once for the loop)', () => {
     render(<SwimsCarousel photos={mockPhotos} />)
-    expect(screen.getAllByRole('img')).toHaveLength(3)
+    expect(screen.getAllByRole('img')).toHaveLength(mockPhotos.length * 2)
   })
 
   it('renders images with correct src and alt text', () => {
     render(<SwimsCarousel photos={mockPhotos} />)
-    expect(screen.getByAltText('Swim A')).toHaveAttribute('src', '/a.jpg')
+    const matches = screen.getAllByAltText('Swim A')
+    expect(matches[0]).toHaveAttribute('src', '/a.jpg')
   })
 
   it('applies horizontal scroll container classes for responsiveness', () => {
@@ -33,8 +72,8 @@ describe('SwimsCarousel', () => {
 
   it('fills remaining slots with placeholders when fewer than 3 photos exist', () => {
     render(<SwimsCarousel photos={[mockPhotos[0]]} />)
-    expect(screen.getAllByRole('img')).toHaveLength(1)
-    expect(screen.getAllByTestId('swims-carousel-placeholder')).toHaveLength(2)
+    expect(screen.getAllByRole('img')).toHaveLength(2)
+    expect(screen.getAllByTestId('swims-carousel-placeholder')).toHaveLength(4)
   })
 
   it('shows no placeholders when there are 3 or more photos', () => {
@@ -44,10 +83,9 @@ describe('SwimsCarousel', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('does not wrap tiles onto multiple rows when there are more than 3 photos', () => {
-    render(<SwimsCarousel photos={[...mockPhotos, mockPhotos[0]]} />) // 4 photos
+  it('hides the scrollbar via CSS while keeping the row scrollable', () => {
+    render(<SwimsCarousel photos={mockPhotos} />)
     const carousel = screen.getByTestId('swims-carousel')
-    expect(carousel).toHaveClass('flex')
-    expect(carousel).not.toHaveClass('grid')
+    expect(carousel.className).toContain('scrollbar-width:none')
   })
 })

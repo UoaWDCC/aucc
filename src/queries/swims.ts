@@ -2,41 +2,66 @@ import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
-import type { Media } from '@/payload-types'
+import { NoNumber } from '@/lib/utils/util-types'
+import type { Swim } from '@/payload-types'
 
-export type ApprovedSwimPhotoDTO = {
-  id: string
-  image: Media
-}
+export type SwimDTO = NoNumber<
+  Pick<Swim, 'id' | 'date' | 'tripName' | 'river' | 'memberName' | 'image'>
+>
 
-export const getApprovedSwimPhotos = unstable_cache(
-  async function (): Promise<ApprovedSwimPhotoDTO[]> {
+export const getApprovedSwims = unstable_cache(
+  async function ({
+    page = 1,
+    limit = 12,
+    sort = '-date',
+    withImage = false,
+  }: {
+    page?: number
+    limit?: number
+    sort?: string
+    withImage?: boolean
+  } = {}) {
     try {
       const payload = await getPayloadClient()
 
-      const { docs } = await payload.find({
+      const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
         collection: 'swims',
+        page,
+        limit,
+        sort,
+        depth: 1,
         where: {
-          approvedToShare: {
-            equals: true,
-          },
+          and: [
+            { approvedToShare: { equals: true } },
+            ...(withImage ? [{ image: { exists: true } }] : []),
+          ],
+        },
+        select: {
+          id: true,
+          date: true,
+          tripName: true,
+          river: true,
+          memberName: true,
+          image: true,
         },
       })
 
-      return docs
-        .filter(
-          (doc): doc is typeof doc & { image: Media } =>
-            typeof doc.image === 'object' && doc.image !== null,
-        )
-        .map((doc) => ({
-          id: String(doc.id),
-          image: doc.image,
-        }))
+      return {
+        swims: docs as SwimDTO[],
+        hasNextPage,
+        nextPage,
+        totalDocs,
+      }
     } catch (error) {
-      console.error('Error fetching approved swim photos:', error)
-      return []
+      console.error('Error fetching approved swims:', error)
+      return {
+        swims: [] as SwimDTO[],
+        hasNextPage: false,
+        nextPage: null,
+        totalDocs: 0,
+      }
     }
   },
-  ['getApprovedSwimPhotos'],
-  { tags: cacheTags.swims?.relatedTags ?? [] },
+  ['getApprovedSwims'],
+  { tags: cacheTags.swims.relatedTags },
 )

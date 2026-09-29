@@ -1,8 +1,8 @@
-import type { ApprovedSwimPhotoDTO } from '@/queries/swims'
+import type { SwimDTO } from '@/queries/swims'
 import { SwimsLogForm } from './SwimsLogForm'
 
 type SwimsFormSectionProps = {
-  approvedPhotos: ApprovedSwimPhotoDTO[]
+  approvedPhotos: SwimDTO[]
 }
 
 export function SwimsFormSection({ approvedPhotos }: SwimsFormSectionProps) {

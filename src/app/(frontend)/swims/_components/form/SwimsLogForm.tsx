@@ -2,7 +2,7 @@
 
 import { useRef, useState, type FormEvent } from 'react'
 
-import type { ApprovedSwimPhotoDTO } from '@/queries/swims'
+import type { SwimDTO } from '@/queries/swims'
 import { SwimsCarousel } from '../SwimsCarousel'
 import { SwimsFormField } from './SwimsFormField'
 import {
@@ -15,7 +15,7 @@ import {
 } from './SwimsFormValidation'
 
 type SwimsLogFormProps = {
-  approvedPhotos: ApprovedSwimPhotoDTO[]
+  approvedPhotos: SwimDTO[]
 }
 
 export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {

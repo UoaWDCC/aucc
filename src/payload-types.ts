@@ -407,11 +407,11 @@ export interface Swim {
   river: number | River;
   memberName: string;
   email: string;
+  image?: (number | null) | Media;
   /**
-   * Toggle on to make this photo visible in the public swims carousel on the website. Off by default until reviewed by an admin.
+   * Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.
    */
   approvedToShare?: boolean | null;
-  image?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -717,8 +717,8 @@ export interface SwimsSelect<T extends boolean = true> {
   river?: T;
   memberName?: T;
   email?: T;
-  approvedToShare?: T;
   image?: T;
+  approvedToShare?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,16 +1,16 @@
-import { getApprovedSwimPhotos } from '@/queries/swims'
+import { getApprovedSwims } from '@/queries/swims'
 import { SwimsFormSection } from './form/SwimsFormSection'
 import { SwimsHeaderSection } from './header/SwimsHeaderSection'
 import { SwimsList } from './SwimsList'
 
 export async function SwimsPage() {
-  const approvedPhotos = await getApprovedSwimPhotos()
+  const { swims: approvedSwims } = await getApprovedSwims({ withImage: true })
 
   return (
     <main>
       <SwimsHeaderSection />
       <SwimsList swims={[]} />
-      <SwimsFormSection approvedPhotos={approvedPhotos} />
+      <SwimsFormSection approvedPhotos={approvedSwims} />
     </main>
   )
 }

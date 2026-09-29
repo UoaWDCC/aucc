@@ -2,21 +2,23 @@
 
 import { useEffect, useRef } from 'react'
 
-import type { ApprovedSwimPhotoDTO } from '@/queries/swims'
+import type { SwimDTO } from '@/queries/swims'
 
 type SwimsCarouselProps = {
-  photos: ApprovedSwimPhotoDTO[]
+  photos: SwimDTO[]
 }
 
 const MIN_TILES = 3
 const SCROLL_SPEED_PX_PER_FRAME = 0.5
 
-function getImageUrl(image: ApprovedSwimPhotoDTO['image']): string {
-  return typeof image === 'object' ? (image.url ?? '') : ''
+function getImageUrl(image: SwimDTO['image']): string {
+  return typeof image === 'object' && image !== null ? (image.url ?? '') : ''
 }
 
-function getImageAlt(image: ApprovedSwimPhotoDTO['image']): string {
-  return typeof image === 'object' ? (image.alt ?? 'Swim photo') : 'Swim photo'
+function getImageAlt(image: SwimDTO['image']): string {
+  return typeof image === 'object' && image !== null
+    ? (image.alt ?? 'Swim photo')
+    : 'Swim photo'
 }
 
 export function SwimsCarousel({ photos }: SwimsCarouselProps) {
