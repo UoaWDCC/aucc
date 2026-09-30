@@ -108,6 +108,7 @@ export interface Config {
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
     'merch-global': MerchGlobal;
+    'membership-global': MembershipGlobal;
     'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
@@ -118,6 +119,7 @@ export interface Config {
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
     'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
+    'membership-global': MembershipGlobalSelect<false> | MembershipGlobalSelect<true>;
     'event-spotlight': EventSpotlightSelect<false> | EventSpotlightSelect<true>;
   };
   locale: null;
@@ -960,6 +962,28 @@ export interface MerchGlobal {
   createdAt?: string | null;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "membership-global".
+ */
+export interface MembershipGlobal {
+  id: number;
+  headerImage?: (number | null) | Media;
+  heading: string;
+  subheading: string;
+  intro: string;
+  benefits: string;
+  tiers?:
+    | {
+        name: string;
+        price: number;
+        id?: string | null;
+      }[]
+    | null;
+  signupUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Featured image and caption shown on the event spotlight section.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1063,6 +1087,28 @@ export interface MerchGlobalSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "membership-global_select".
+ */
+export interface MembershipGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  heading?: T;
+  subheading?: T;
+  intro?: T;
+  benefits?: T;
+  tiers?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        id?: T;
+      };
+  signupUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
