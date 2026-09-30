@@ -151,6 +151,7 @@ export const cacheTags: Record<
     tag: 'membershipGlobal',
     relatedTags: getRevalidationTags('membershipGlobal'),
     revalidate: () => revalidateTag('membershipGlobal'),
+  },
   swims: {
     tag: 'swims',
     relatedTags: getRevalidationTags('swims'),
