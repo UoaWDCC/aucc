@@ -60,7 +60,7 @@ export function Navbar() {
           <NavButton href="/merchandise">Merch</NavButton>
           <NavButton href="/gallery">Gallery</NavButton>
           <NavButton
-            href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA"
+            href="https://pci.jotform.com/form/260532948493870?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAUqbHlleHRuA2FlbQIxMQBwZG9mAnNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp64XIqLdVKQxeKcLgkDebLWZkrw9YrTD3X55GNmFwVGlriZXmOFU40dp5e-t_aem_9IYZEIis2qpha6iwRPy8iQ&utm_id=97760_v0_s00_e0_tv3"
             className="font-semibold"
           >
             Sign Up
