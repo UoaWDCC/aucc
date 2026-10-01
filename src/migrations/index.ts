@@ -2,6 +2,8 @@ import * as migration_20260724_005630_add_merch_global_and_intro_text from './20
 import * as migration_20260818_003440 from './20260818_003440'
 import * as migration_20260818_020412 from './20260818_020412'
 import * as migration_20260924_012623 from './20260924_012623'
+import * as migration_20261001_000000_add_submitter_approved from './20261001_000000_add_submitter_approved'
+import * as migration_20261002_000000_add_honeypot from './20261002_000000_add_honeypot'
 
 export const migrations = [
   {
@@ -23,5 +25,15 @@ export const migrations = [
     up: migration_20260924_012623.up,
     down: migration_20260924_012623.down,
     name: '20260924_012623',
+  },
+  {
+    up: migration_20261001_000000_add_submitter_approved.up,
+    down: migration_20261001_000000_add_submitter_approved.down,
+    name: '20261001_000000_add_submitter_approved',
+  },
+  {
+    up: migration_20261002_000000_add_honeypot.up,
+    down: migration_20261002_000000_add_honeypot.down,
+    name: '20261002_000000_add_honeypot',
   },
 ]
