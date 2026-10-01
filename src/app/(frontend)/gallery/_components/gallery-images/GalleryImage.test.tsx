@@ -58,4 +58,24 @@ describe('GalleryImage', () => {
     expect(screen.queryByTestId('gallery-image-skeleton')).toBeNull()
     expect(screen.getByRole('alert').textContent).toBe('Image unavailable')
   })
+
+  it('does not apply the hover-zoom class before the image has loaded', () => {
+    render(<GalleryImage src={image.src} alt={image.alt} />)
+
+    expect(
+      screen.getByRole('img', { name: image.alt }).className,
+    ).not.toContain('group-hover:scale-105')
+  })
+
+  it('applies the hover-zoom class once the image has loaded', () => {
+    render(<GalleryImage src={image.src} alt={image.alt} />)
+
+    const renderedImage = screen.getByRole('img', { name: image.alt })
+    fireEvent.load(renderedImage)
+
+    expect(renderedImage.className).toContain('group-hover:scale-105')
+    expect(renderedImage.className).toContain(
+      'motion-reduce:group-hover:scale-100',
+    )
+  })
 })
