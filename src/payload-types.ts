@@ -108,6 +108,7 @@ export interface Config {
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
     'merch-global': MerchGlobal;
+    'merch-content': MerchContent;
     'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
@@ -118,6 +119,7 @@ export interface Config {
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
     'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
+    'merch-content': MerchContentSelect<false> | MerchContentSelect<true>;
     'event-spotlight': EventSpotlightSelect<false> | EventSpotlightSelect<true>;
   };
   locale: null;
@@ -960,6 +962,39 @@ export interface MerchGlobal {
   createdAt?: string | null;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch-content".
+ */
+export interface MerchContent {
+  id: number;
+  /**
+   * Each section becomes one product group on the merch page (e.g. T-Shirts, Stickers, Board Shorts).
+   */
+  sections?:
+    | {
+        title: string;
+        /**
+         * Short blurb shown under the section title.
+         */
+        description?: string | null;
+        products?:
+          | {
+              productName: string;
+              /**
+               * e.g. "$35" — shown as plain text, not calculated.
+               */
+              price?: string | null;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Featured image and caption shown on the event spotlight section.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1059,6 +1094,30 @@ export interface MerchGlobalSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merch-content_select".
+ */
+export interface MerchContentSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        products?:
+          | T
+          | {
+              productName?: T;
+              price?: T;
+              image?: T;
               id?: T;
             };
         id?: T;
