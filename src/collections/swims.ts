@@ -18,8 +18,8 @@ export const Swims: CollectionConfig = {
       'river',
       'memberName',
       'email',
-      'image',
       'approvedToShare',
+      'image',
     ],
   },
   access: {
