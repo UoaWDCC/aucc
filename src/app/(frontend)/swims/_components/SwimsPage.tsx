@@ -1,17 +1,16 @@
 import { SwimsFormSection } from './form/SwimsFormSection'
+import type { RiverOption } from './form/SwimsLogForm'
 import { SwimsHeaderSection } from './header/SwimsHeaderSection'
-import { SwimsList } from './SwimsList'
 
-export function SwimsPage() {
-  // TODO: replace [] with real data once the swims query/collection
-  // is wired up (fetch happens in page.tsx per Server Component
-  // convention, then gets passed down as a prop — see events/ for
-  // reference pattern).
+interface SwimsPageProps {
+  rivers: RiverOption[]
+}
+
+export function SwimsPage({ rivers }: SwimsPageProps) {
   return (
-    <main>
+    <>
       <SwimsHeaderSection />
-      <SwimsList swims={[]} />
-      <SwimsFormSection />
-    </main>
+      <SwimsFormSection rivers={rivers} />
+    </>
   )
 }

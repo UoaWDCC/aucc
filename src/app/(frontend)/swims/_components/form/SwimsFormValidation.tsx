@@ -1,18 +1,22 @@
 export interface SwimsFormValues {
-  name: string
-  riverName: string
-  dateSwam: string
-  trip: string
+  memberName: string
+  river: string
+  date: string
+  tripName: string
+  email: string
 }
 
 export type SwimsFormErrors = Partial<Record<keyof SwimsFormValues, string>>
 
 export const emptySwimsForm: SwimsFormValues = {
-  name: '',
-  riverName: '',
-  dateSwam: '',
-  trip: '',
+  memberName: '',
+  river: '',
+  date: '',
+  tripName: '',
+  email: '',
 }
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export function todayAsInputValue() {
   const now = new Date()
@@ -23,26 +27,37 @@ export function todayAsInputValue() {
 export function validateSwimsForm(values: SwimsFormValues): SwimsFormErrors {
   const errors: SwimsFormErrors = {}
 
-  const name = values.name.trim()
-  if (!name) {
-    errors.name = 'Please enter your name'
-  } else if (name.length < 2) {
-    errors.name = 'Name needs at least 2 characters'
+  const memberName = values.memberName.trim()
+  if (!memberName) {
+    errors.memberName = 'Please enter your name'
+  } else if (memberName.length < 2) {
+    errors.memberName = 'Name needs at least 2 characters'
   }
 
-  if (!values.riverName.trim()) {
-    errors.riverName = 'Please enter the river name'
+  if (!values.river) {
+    errors.river = 'Please choose a river'
   }
 
-  if (!values.dateSwam) {
-    errors.dateSwam = 'Please pick the date you swam'
+  if (!values.date) {
+    errors.date = 'Please pick the date you swam'
   } else {
-    const swamDate = new Date(values.dateSwam)
+    const swamDate = new Date(values.date)
     if (Number.isNaN(swamDate.getTime())) {
-      errors.dateSwam = 'That date does not look right'
-    } else if (values.dateSwam > todayAsInputValue()) {
-      errors.dateSwam = 'The date cannot be in the future'
+      errors.date = 'That date does not look right'
+    } else if (values.date > todayAsInputValue()) {
+      errors.date = 'The date cannot be in the future'
     }
+  }
+
+  if (!values.tripName.trim()) {
+    errors.tripName = 'Please enter the trip name'
+  }
+
+  const email = values.email.trim()
+  if (!email) {
+    errors.email = 'Please enter your email'
+  } else if (!emailPattern.test(email)) {
+    errors.email = 'That email does not look right'
   }
 
   return errors

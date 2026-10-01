@@ -11,19 +11,40 @@ import {
   type SwimsFormErrors,
   type SwimsFormValues,
 } from './SwimsFormValidation'
+import { SwimsSelectField } from './SwimsSelectField'
 
-export function SwimsLogForm() {
+export interface RiverOption {
+  id: number
+  name: string
+}
+
+interface SwimsLogFormProps {
+  rivers: RiverOption[]
+}
+
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+
+export function SwimsLogForm({ rivers }: SwimsLogFormProps) {
   const [values, setValues] = useState<SwimsFormValues>(emptySwimsForm)
   const [errors, setErrors] = useState<SwimsFormErrors>({})
   const [fileName, setFileName] = useState<string | null>(null)
+  const [status, setStatus] = useState<SubmitStatus>('idle')
+  const [message, setMessage] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const riverOptions = rivers.map((river) => ({
+    value: String(river.id),
+    label: river.name,
+  }))
 
   const setField = (field: keyof SwimsFormValues) => (value: string) => {
     setValues((previous) => ({ ...previous, [field]: value }))
     setErrors((previous) => ({ ...previous, [field]: undefined }))
+    setStatus('idle')
+    setMessage(null)
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const nextErrors = validateSwimsForm(values)
@@ -31,8 +52,49 @@ export function SwimsLogForm() {
 
     if (hasErrors(nextErrors)) return
 
-    // UI only for this ticket - no submission logic yet
+    setStatus('submitting')
+    setMessage(null)
+
+    try {
+      const response = await fetch('/api/swims', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          memberName: values.memberName.trim(),
+          river: values.river,
+          date: values.date,
+          tripName: values.tripName.trim(),
+          email: values.email.trim(),
+        }),
+      })
+
+      if (response.status === 201) {
+        setValues(emptySwimsForm)
+        setErrors({})
+        setFileName(null)
+        setStatus('success')
+        setMessage('Thanks, your swim has been logged.')
+        return
+      }
+
+      const body = await response.json().catch(() => null)
+
+      if (response.status === 400 && body?.fields) {
+        setErrors(body.fields as SwimsFormErrors)
+        setStatus('error')
+        setMessage('Please check the highlighted fields and try again.')
+        return
+      }
+
+      setStatus('error')
+      setMessage(body?.error ?? 'Something went wrong. Please try again.')
+    } catch {
+      setStatus('error')
+      setMessage('Could not reach the server. Please check your connection.')
+    }
   }
+
+  const isSubmitting = status === 'submitting'
 
   return (
     <form
@@ -46,34 +108,43 @@ export function SwimsLogForm() {
 
       <div className="flex flex-col gap-5">
         <SwimsFormField
-          id="name"
+          id="memberName"
           label="Name:"
-          value={values.name}
-          onChange={setField('name')}
-          error={errors.name}
+          value={values.memberName}
+          onChange={setField('memberName')}
+          error={errors.memberName}
         />
         <SwimsFormField
-          id="riverName"
+          id="email"
+          label="Email:"
+          type="email"
+          value={values.email}
+          onChange={setField('email')}
+          error={errors.email}
+        />
+        <SwimsSelectField
+          id="river"
           label="River Name:"
-          value={values.riverName}
-          onChange={setField('riverName')}
-          error={errors.riverName}
+          value={values.river}
+          options={riverOptions}
+          onChange={setField('river')}
+          error={errors.river}
         />
         <SwimsFormField
-          id="dateSwam"
+          id="date"
           label="Date Swam:"
           type="date"
           max={todayAsInputValue()}
-          value={values.dateSwam}
-          onChange={setField('dateSwam')}
-          error={errors.dateSwam}
+          value={values.date}
+          onChange={setField('date')}
+          error={errors.date}
         />
         <SwimsFormField
-          id="trip"
+          id="tripName"
           label="Trip:"
-          value={values.trip}
-          onChange={setField('trip')}
-          error={errors.trip}
+          value={values.tripName}
+          onChange={setField('tripName')}
+          error={errors.tripName}
         />
       </div>
 
@@ -133,12 +204,27 @@ export function SwimsLogForm() {
         </p>
       ) : null}
 
+      {message ? (
+        <p
+          role="status"
+          aria-live="polite"
+          className={
+            status === 'success'
+              ? 'mt-6 text-center text-sm text-[#98B969]'
+              : 'mt-6 text-center text-sm text-red-300'
+          }
+        >
+          {message}
+        </p>
+      ) : null}
+
       <div className="mt-6 flex justify-center">
         <button
           type="submit"
-          className="rounded-lg border-1 border-white bg-[#98B969] px-5 py-2 text-sm font-normal tracking-widest text-white transition-opacity hover:opacity-90 md:text-base"
+          disabled={isSubmitting}
+          className="rounded-lg border-1 border-white bg-[#98B969] px-5 py-2 text-sm font-normal tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60 md:text-base"
         >
-          SUBMIT
+          {isSubmitting ? 'SENDING...' : 'SUBMIT'}
         </button>
       </div>
     </form>
