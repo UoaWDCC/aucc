@@ -47,6 +47,7 @@ export const Swims: CollectionConfig = {
     ],
   },
 
+  },
   fields: [
     {
       name: 'date',
