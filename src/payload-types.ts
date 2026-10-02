@@ -412,6 +412,10 @@ export interface Swim {
    */
   honeypot?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.
+   */
+  approvedToShare?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -719,6 +723,7 @@ export interface SwimsSelect<T extends boolean = true> {
   email?: T;
   honeypot?: T;
   image?: T;
+  approvedToShare?: T;
   updatedAt?: T;
   createdAt?: T;
 }
