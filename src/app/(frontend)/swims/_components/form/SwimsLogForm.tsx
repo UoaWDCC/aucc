@@ -83,6 +83,18 @@ export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
         />
       </div>
 
+      {/* Honeypot field for spam protection. Hidden from real users via CSS. */}
+      <input
+        type="text"
+        name="honeypot"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="hidden-hp"
+        value={(values as any).honeypot ?? ''}
+        onChange={(e) => setField('honeypot')(e.target.value)}
+      />
+
       <div className="mt-8">
         <SwimsCarousel photos={approvedPhotos} />
       </div>
