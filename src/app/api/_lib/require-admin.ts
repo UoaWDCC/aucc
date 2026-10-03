@@ -7,7 +7,7 @@ export type RequireAdminResult =
   | { ok: true; user: User }
   | { ok: false; response: NextResponse }
 
-export async function reuqireAdmin(req: Request): Promise<RequireAdminResult> {
+export async function requireAdmin(req: Request): Promise<RequireAdminResult> {
   try {
     const payload = await getPayloadClient()
     const { user } = await payload.auth({ headers: req.headers })
