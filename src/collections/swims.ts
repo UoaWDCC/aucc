@@ -1,10 +1,12 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, FieldAccess } from 'payload'
 
+import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const adminOnly: FieldAccess = ({ req: { user } }) => Boolean(user)
 
 export const Swims: CollectionConfig = {
   slug: 'swims',
@@ -17,6 +19,7 @@ export const Swims: CollectionConfig = {
       'memberName',
       'email',
       'image',
+      'approvedToShare',
     ],
   },
   access: {
@@ -24,6 +27,10 @@ export const Swims: CollectionConfig = {
     read: authenticated,
     update: authenticated,
     delete: authenticated,
+  },
+  hooks: {
+    afterChange: [() => cacheTags.swims.revalidate()],
+    afterDelete: [() => cacheTags.swims.revalidate()],
   },
   fields: [
     {
@@ -68,5 +75,21 @@ export const Swims: CollectionConfig = {
         className: 'hide-filename',
       },
     }),
+    {
+      name: 'approvedToShare',
+      type: 'checkbox',
+      label: 'Approved to share',
+      defaultValue: false,
+      index: true,
+      access: {
+        create: adminOnly,
+        update: adminOnly,
+      },
+      admin: {
+        position: 'sidebar',
+        description:
+          'Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.',
+      },
+    },
   ],
 }
