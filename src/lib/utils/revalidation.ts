@@ -36,7 +36,7 @@ const tagRelations = {
   eventSpotlight: ['media'],
   merchGlobal: ['media'],
   videoHighlights: [],
-  swims: ['media'],
+  swims: ['media', 'rivers'],
 } as const
 
 /**
