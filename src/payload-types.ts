@@ -409,6 +409,10 @@ export interface Swim {
   river: number | River;
   memberName: string;
   email: string;
+  /**
+   * Honeypot field for spam protection. Hidden in admin and not stored.
+   */
+  honeypot?: string | null;
   image?: (number | null) | Media;
   /**
    * Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.
@@ -719,6 +723,7 @@ export interface SwimsSelect<T extends boolean = true> {
   river?: T;
   memberName?: T;
   email?: T;
+  honeypot?: T;
   image?: T;
   approvedToShare?: T;
   updatedAt?: T;

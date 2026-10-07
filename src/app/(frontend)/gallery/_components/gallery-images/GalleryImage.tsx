@@ -21,7 +21,7 @@ export function GalleryImage({ src, alt, onClick }: GalleryImageProps) {
 
   return (
     <div
-      className="relative aspect-square w-full cursor-pointer overflow-hidden"
+      className="group relative aspect-square w-full cursor-pointer overflow-hidden"
       onClick={onClick}
     >
       {!isLoaded && !hasError ? (
@@ -44,8 +44,10 @@ export function GalleryImage({ src, alt, onClick }: GalleryImageProps) {
           fill
           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className={cn(
-            'object-cover transition-opacity duration-300',
-            isLoaded ? 'opacity-100' : 'opacity-0',
+            'object-cover transition-[opacity,scale] duration-300 ease-out motion-reduce:transition-none',
+            isLoaded
+              ? 'opacity-100 group-hover:scale-105 motion-reduce:group-hover:scale-100'
+              : 'opacity-0',
           )}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
