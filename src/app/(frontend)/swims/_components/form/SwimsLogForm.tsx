@@ -91,7 +91,7 @@ export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
         tabIndex={-1}
         aria-hidden="true"
         className="hidden-hp"
-        value={(values as any).honeypot ?? ''}
+        value={values.honeypot ?? ''}
         onChange={(e) => setField('honeypot')(e.target.value)}
       />
 

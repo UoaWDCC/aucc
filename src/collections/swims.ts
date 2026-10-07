@@ -1,4 +1,5 @@
 import type { CollectionConfig, FieldAccess } from 'payload'
+import { APIError } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
@@ -40,7 +41,7 @@ export const Swims: CollectionConfig = {
     beforeChange: [
       ({ data }) => {
         if (data?.honeypot && String(data.honeypot).trim().length > 0) {
-          throw new Error('Spam detected')
+          throw new APIError('Submission rejected', 400)
         }
         return data
       },
@@ -91,10 +92,12 @@ export const Swims: CollectionConfig = {
       name: 'honeypot',
       type: 'text',
       admin: {
-        // Keep visible in admin for debugging but optional to hide.
         description:
-          'Honeypot field for spam protection. Do not expose to real users.',
+          'Honeypot field for spam protection. Hidden in admin and not stored.',
+        hidden: true,
       },
+      // Do not store honeypot value in the DB
+      virtual: true,
     },
     customUploadField({
       name: 'image',
