@@ -8,14 +8,14 @@ describe('Swims collection honeypot hook', () => {
     expect(hook).toBeTruthy()
 
     await expect(
-      // @ts-expect-error - calling hook directly with minimal args
+      // @ts-expect-error: calling hook directly with minimal args
       Promise.resolve().then(() => hook({ data: { honeypot: 'spam' } })),
     ).rejects.toThrow()
   })
 
   it('allows when honeypot is empty', async () => {
     const hook = Swims.hooks?.beforeChange?.[0]
-    // @ts-expect-error
+    // @ts-expect-error: calling hook directly with minimal args
     const out = await hook({ data: { email: 'a@b.com' } })
     expect(out).toBeDefined()
     expect(out.email).toBe('a@b.com')

@@ -48,7 +48,6 @@ export const Swims: CollectionConfig = {
     ],
   },
 
-  },
   fields: [
     {
       name: 'date',
@@ -64,11 +63,6 @@ export const Swims: CollectionConfig = {
       name: 'river',
       type: 'relationship',
       relationTo: 'rivers',
-      required: true,
-    },
-    {
-      name: 'memberName',
-      type: 'text',
       required: true,
     },
     {
