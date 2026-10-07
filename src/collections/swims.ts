@@ -66,6 +66,11 @@ export const Swims: CollectionConfig = {
       required: true,
     },
     {
+      name: 'memberName',
+      type: 'text',
+      required: true,
+    },
+    {
       name: 'email',
       type: 'email',
       required: true,

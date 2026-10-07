@@ -408,7 +408,7 @@ export interface Swim {
   memberName: string;
   email: string;
   /**
-   * Honeypot field for spam protection. Do not expose to real users.
+   * Honeypot field for spam protection. Hidden in admin and not stored.
    */
   honeypot?: string | null;
   image?: (number | null) | Media;
