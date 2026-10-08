@@ -1,4 +1,8 @@
-import type { CollectionConfig, FieldAccess } from 'payload'
+import type {
+  CollectionBeforeChangeHook,
+  CollectionConfig,
+  FieldAccess,
+} from 'payload'
 import { APIError } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
@@ -8,6 +12,24 @@ import { customUploadField } from './_fields/custom-upload'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const adminOnly: FieldAccess = ({ req: { user } }) => Boolean(user)
+
+// only stamp when an admin changes the status, not on new submissions
+export const setReviewMeta: CollectionBeforeChangeHook = ({
+  data,
+  originalDoc,
+  req,
+  operation,
+}) => {
+  if (
+    operation === 'update' &&
+    data?.reviewStatus &&
+    data.reviewStatus !== originalDoc?.reviewStatus
+  ) {
+    data.reviewedBy = req.user?.id ?? null
+    data.reviewedAt = new Date().toISOString()
+  }
+  return data
+}
 
 export const Swims: CollectionConfig = {
   slug: 'swims',
@@ -19,6 +41,7 @@ export const Swims: CollectionConfig = {
       'river',
       'memberName',
       'email',
+      'reviewStatus',
       'approvedToShare',
       'image',
     ],
@@ -45,6 +68,7 @@ export const Swims: CollectionConfig = {
         }
         return data
       },
+      setReviewMeta,
     ],
   },
 
@@ -53,6 +77,7 @@ export const Swims: CollectionConfig = {
       name: 'date',
       type: 'date',
       required: true,
+      index: true,
     },
     {
       name: 'tripName',
@@ -64,6 +89,7 @@ export const Swims: CollectionConfig = {
       type: 'relationship',
       relationTo: 'rivers',
       required: true,
+      index: true,
     },
     {
       name: 'memberName',
@@ -74,6 +100,7 @@ export const Swims: CollectionConfig = {
       name: 'email',
       type: 'email',
       required: true,
+      index: true,
       validate: (value: unknown) => {
         if (typeof value !== 'string' || !emailPattern.test(value)) {
           return 'Please enter a valid email address.'
@@ -121,6 +148,60 @@ export const Swims: CollectionConfig = {
         position: 'sidebar',
         description:
           'Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.',
+      },
+    },
+    {
+      name: 'reviewStatus',
+      type: 'select',
+      required: true,
+      defaultValue: 'pending',
+      index: true,
+      options: [
+        { label: 'Pending', value: 'pending' },
+        { label: 'Verified', value: 'verified' },
+        { label: 'Rejected', value: 'rejected' },
+        { label: 'Flagged', value: 'flagged' },
+      ],
+      access: {
+        create: adminOnly,
+        update: adminOnly,
+      },
+      admin: {
+        position: 'sidebar',
+        description:
+          'Is this a real swim that counts towards the tally? Separate from "Approved to share", which is just for the photo.',
+      },
+    },
+    {
+      name: 'reviewNotes',
+      type: 'textarea',
+      access: {
+        create: adminOnly,
+        update: adminOnly,
+      },
+      admin: {
+        position: 'sidebar',
+        description: 'Optional notes for other admins.',
+      },
+    },
+    {
+      name: 'reviewedBy',
+      type: 'relationship',
+      relationTo: 'users',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        description: 'Filled in automatically.',
+      },
+    },
+    {
+      name: 'reviewedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        date: { pickerAppearance: 'dayAndTime' },
+        description: 'Filled in automatically.',
       },
     },
   ],
