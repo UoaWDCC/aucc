@@ -35,19 +35,23 @@ export const MembershipGlobal: GlobalConfig = {
     {
       name: 'intro',
       type: 'textarea',
-      required: true,
-    },
-    {
-      name: 'benefits',
-      type: 'textarea',
+      label: 'Pricing intro',
       required: true,
     },
     {
       name: 'tiers',
       type: 'array',
       defaultValue: [
-        { name: 'UoA/AUT students', price: 40 },
-        { name: 'General', price: 60 },
+        {
+          name: 'UoA/AUT students',
+          price: 40,
+          description: 'For current University of Auckland students',
+        },
+        {
+          name: 'General',
+          price: 60,
+          description: 'For alumni, staff, and friends of the club',
+        },
       ],
       fields: [
         {
@@ -60,6 +64,45 @@ export const MembershipGlobal: GlobalConfig = {
           type: 'number',
           required: true,
           min: 0,
+        },
+        {
+          name: 'description',
+          type: 'text',
+        },
+        {
+          name: 'perks',
+          type: 'array',
+          fields: [
+            {
+              name: 'perk',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'benefitsIntro',
+      type: 'textarea',
+      label: 'Benefits intro',
+      defaultValue:
+        'Your membership is your ticket to the river, the pool and one of the best crews on campus.',
+    },
+    {
+      name: 'benefitItems',
+      type: 'array',
+      label: 'Benefit cards',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
         },
       ],
     },

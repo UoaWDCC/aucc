@@ -1,3 +1,4 @@
+import Button from '@/components/Button'
 import { Media } from '@/payload-types'
 import { MembershipHeaderBottomCurve } from './MembershipHeaderBottomCurve'
 import { MembershipHeaderImage } from './MembershipHeaderImage'
@@ -13,15 +14,28 @@ export function MembershipHeaderSection({
   subheading,
 }: MembershipHeaderSectionProps) {
   return (
-    <div className="relative flex h-96 w-full flex-col items-center justify-center align-middle md:h-[460px]">
+    <div className="relative flex h-[370px] w-full flex-col justify-end md:h-[600px]">
       {headerImage ? <MembershipHeaderImage media={headerImage} /> : null}
-      <div className="text-cream relative z-1 flex flex-col items-center md:items-start">
-        <h1 className="font-heading flex justify-self-center text-center text-[60px] md:text-[100px] lg:text-[140px]">
+      <div className="text-cream relative z-1 mx-auto w-full max-w-5xl px-5 pb-14 md:px-8 md:pb-32">
+        <p className="font-[family-name:var(--font-caveat-brush)] text-lg text-[#8fae62] md:text-2xl">
+          join the crew!
+        </p>
+        <h1 className="font-heading text-4xl leading-none uppercase sm:text-7xl lg:text-[7.5rem]">
           {heading}
         </h1>
-        <h2 className="font-body -mt-4 w-60 pl-2 text-center text-xs leading-5 font-light tracking-tighter italic md:-mt-10 md:w-80 md:pl-3 md:text-start md:text-base">
+        <h2 className="font-body mt-3 max-w-xs text-xs leading-5 font-light italic md:mt-5 md:max-w-md md:text-base md:leading-6">
           {subheading}
         </h2>
+        <div className="mt-6 flex justify-start">
+          <Button
+            intent="primary"
+            size="md"
+            className="font-unbounded text-abyss border-0 bg-[#98b969] px-10 text-[15px] font-bold uppercase md:w-auto"
+            href="#plans"
+          >
+            See plans
+          </Button>
+        </div>
       </div>
       <MembershipHeaderBottomCurve />
     </div>

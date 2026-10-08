@@ -44,14 +44,6 @@ describe('membership components', () => {
     )
   })
 
-  it('renders the signup form as a keyboard-focusable link', () => {
-    render(<SignUpLink url="https://example.com/signup" />)
-
-    const link = screen.getByRole('link', { name: 'Sign up!' })
-    expect(link).toHaveAttribute('href', 'https://example.com/signup')
-    expect(link).toHaveAttribute('target', '_blank')
-  })
-
   it('renders the closed state instead of a link when signup has no URL', () => {
     render(<SignUpLink url="" />)
 

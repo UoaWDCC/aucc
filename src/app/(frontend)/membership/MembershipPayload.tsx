@@ -18,7 +18,8 @@ export async function MembershipPayload() {
         heading={content.heading}
         subheading={content.subheading}
         intro={content.intro}
-        benefits={content.benefits}
+        benefitsIntro={content.benefitsIntro ?? ''}
+        benefits={content.benefitItems ?? []}
         tiers={content.tiers ?? []}
         signupUrl={content.signupUrl ?? ''}
       />

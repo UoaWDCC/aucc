@@ -1,7 +1,9 @@
 import type { Media } from '@/payload-types'
 import { MembershipHeaderSection } from './header/MembershipHeaderSection'
-import { MembershipBenefits } from './MembershipBenefits'
-import { MembershipPricing } from './pricing/MembershipPricing'
+import { MembershipBenefit, MembershipBenefits } from './MembershipBenefits'
+import { MembershipPricing, MembershipTier } from './pricing/MembershipPricing'
+import { SectionCurve } from './section/SectionCurve'
+import { SectionHeader } from './section/SectionHeader'
 import { SignUpLink } from './signup/SignUpLink'
 
 type MembershipPageProps = {
@@ -9,8 +11,9 @@ type MembershipPageProps = {
   heading: string
   subheading: string
   intro: string
-  benefits: string
-  tiers: { name: string; price: number }[]
+  benefitsIntro: string
+  benefits: MembershipBenefit[]
+  tiers: MembershipTier[]
   signupUrl: string
 }
 
@@ -19,6 +22,7 @@ export function MembershipPage({
   heading,
   subheading,
   intro,
+  benefitsIntro,
   benefits,
   tiers,
   signupUrl,
@@ -31,21 +35,27 @@ export function MembershipPage({
         subheading={subheading}
       />
 
-      <section className="text-abyss bg-[#89ACAD] px-5 py-14 sm:px-8 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-abyss/80 max-w-2xl text-base leading-7">{intro}</p>
-        </div>
-      </section>
+      <MembershipPricing intro={intro} tiers={tiers} />
 
-      <MembershipBenefits content={benefits} />
-
-      <MembershipPricing tiers={tiers} />
-
-      <div className="bg-[#89ACAD] px-5 pb-16 sm:px-8 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-6xl">
+      <MembershipBenefits intro={benefitsIntro} benefits={benefits} />
+      <section className="bg-abyss text-cream relative px-5 pt-14 pb-20 text-center md:px-8 md:pt-24 md:pb-28">
+        <SectionCurve className="text-abyss" />
+        <SectionHeader
+          eyebrow="what are you waiting for?"
+          title="Ready to join?"
+          eyebrowClassName="text-[#8fae62]"
+          titleClassName="text-cream"
+        >
+          It only takes a couple of minutes. Fill in the membership form and
+          we&apos;ll get you on the next trip.
+        </SectionHeader>
+        <div className="mt-6 md:mt-8">
           {tiers.length > 0 && <SignUpLink url={signupUrl} />}
         </div>
-      </div>
+        <p className="font-body mx-auto mt-6 max-w-xs text-xs italic md:max-w-none">
+          Got questions? Message us on Facebook or Instagram @aucc_nz
+        </p>
+      </section>
     </>
   )
 }

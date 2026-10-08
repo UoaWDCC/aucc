@@ -971,11 +971,25 @@ export interface MembershipGlobal {
   heading: string;
   subheading: string;
   intro: string;
-  benefits: string;
   tiers?:
     | {
         name: string;
         price: number;
+        description?: string | null;
+        perks?:
+          | {
+              perk: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  benefitsIntro?: string | null;
+  benefitItems?:
+    | {
+        title: string;
+        description: string;
         id?: string | null;
       }[]
     | null;
@@ -1100,12 +1114,26 @@ export interface MembershipGlobalSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
   intro?: T;
-  benefits?: T;
   tiers?:
     | T
     | {
         name?: T;
         price?: T;
+        description?: T;
+        perks?:
+          | T
+          | {
+              perk?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  benefitsIntro?: T;
+  benefitItems?:
+    | T
+    | {
+        title?: T;
+        description?: T;
         id?: T;
       };
   signupUrl?: T;

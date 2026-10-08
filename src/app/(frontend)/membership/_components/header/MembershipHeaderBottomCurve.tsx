@@ -11,7 +11,7 @@ export function MembershipHeaderBottomCurve({
       <svg
         viewBox="0 0 1279 88"
         xmlns="http://www.w3.org/2000/svg"
-        className={cn('h-15 w-full fill-[#89ACAD] md:h-30', className)}
+        className={cn('fill-cream h-15 w-full md:h-30', className)}
         preserveAspectRatio="none"
       >
         <path d="M0 43.0521C457.705 178.821 937.756 -49.8513 1279 10.309V88.0004H0V43.0521Z" />
