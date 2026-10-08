@@ -1,5 +1,5 @@
 {
-  "id": "884303b0-c4f5-4232-9234-79c361a01025",
+  "id": "08e20d58-cd86-4d20-9305-e78dd01ccc23",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1808,6 +1808,13 @@
           "primaryKey": false,
           "notNull": false
         },
+        "approved_to_share": {
+          "name": "approved_to_share",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -1844,6 +1851,21 @@
           "columns": [
             {
               "expression": "image_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "swims_approved_to_share_idx": {
+          "name": "swims_approved_to_share_idx",
+          "columns": [
+            {
+              "expression": "approved_to_share",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -3352,6 +3374,495 @@
           "tableFrom": "merch_global",
           "tableTo": "media",
           "columnsFrom": ["header_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.merch_content_towel_poncho_annotations": {
+      "name": "merch_content_towel_poncho_annotations",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "text": {
+          "name": "text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "top_percent": {
+          "name": "top_percent",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "merch_content_towel_poncho_annotations_order_idx": {
+          "name": "merch_content_towel_poncho_annotations_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_towel_poncho_annotations_parent_id_idx": {
+          "name": "merch_content_towel_poncho_annotations_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "merch_content_towel_poncho_annotations_parent_id_fk": {
+          "name": "merch_content_towel_poncho_annotations_parent_id_fk",
+          "tableFrom": "merch_content_towel_poncho_annotations",
+          "tableTo": "merch_content",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.merch_content": {
+      "name": "merch_content",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tshirts_label": {
+          "name": "tshirts_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tshirts_heading": {
+          "name": "tshirts_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tshirts_body": {
+          "name": "tshirts_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tshirts_image_id": {
+          "name": "tshirts_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tshirts_badge": {
+          "name": "tshirts_badge",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stickers_label": {
+          "name": "stickers_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stickers_heading": {
+          "name": "stickers_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stickers_body": {
+          "name": "stickers_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stickers_image_id": {
+          "name": "stickers_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stickers_badge": {
+          "name": "stickers_badge",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "board_shorts_label": {
+          "name": "board_shorts_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "board_shorts_heading": {
+          "name": "board_shorts_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "board_shorts_body": {
+          "name": "board_shorts_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "board_shorts_image_id": {
+          "name": "board_shorts_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "board_shorts_badge": {
+          "name": "board_shorts_badge",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "board_shorts_caption": {
+          "name": "board_shorts_caption",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "board_shorts_group_photo_id": {
+          "name": "board_shorts_group_photo_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "towel_poncho_label": {
+          "name": "towel_poncho_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "towel_poncho_heading": {
+          "name": "towel_poncho_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "towel_poncho_body": {
+          "name": "towel_poncho_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "towel_poncho_image_id": {
+          "name": "towel_poncho_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "towel_poncho_badge": {
+          "name": "towel_poncho_badge",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sweatshirt_label": {
+          "name": "sweatshirt_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sweatshirt_heading": {
+          "name": "sweatshirt_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sweatshirt_body": {
+          "name": "sweatshirt_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sweatshirt_image_id": {
+          "name": "sweatshirt_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sweatshirt_badge": {
+          "name": "sweatshirt_badge",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sweatshirt_year_label": {
+          "name": "sweatshirt_year_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sweatshirt_image_left_id": {
+          "name": "sweatshirt_image_left_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sweatshirt_image_right_id": {
+          "name": "sweatshirt_image_right_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "merch_content_tshirts_tshirts_image_idx": {
+          "name": "merch_content_tshirts_tshirts_image_idx",
+          "columns": [
+            {
+              "expression": "tshirts_image_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_stickers_stickers_image_idx": {
+          "name": "merch_content_stickers_stickers_image_idx",
+          "columns": [
+            {
+              "expression": "stickers_image_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_board_shorts_board_shorts_image_idx": {
+          "name": "merch_content_board_shorts_board_shorts_image_idx",
+          "columns": [
+            {
+              "expression": "board_shorts_image_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_board_shorts_board_shorts_group_photo_idx": {
+          "name": "merch_content_board_shorts_board_shorts_group_photo_idx",
+          "columns": [
+            {
+              "expression": "board_shorts_group_photo_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_towel_poncho_towel_poncho_image_idx": {
+          "name": "merch_content_towel_poncho_towel_poncho_image_idx",
+          "columns": [
+            {
+              "expression": "towel_poncho_image_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_sweatshirt_sweatshirt_image_idx": {
+          "name": "merch_content_sweatshirt_sweatshirt_image_idx",
+          "columns": [
+            {
+              "expression": "sweatshirt_image_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_sweatshirt_sweatshirt_image_left_idx": {
+          "name": "merch_content_sweatshirt_sweatshirt_image_left_idx",
+          "columns": [
+            {
+              "expression": "sweatshirt_image_left_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "merch_content_sweatshirt_sweatshirt_image_right_idx": {
+          "name": "merch_content_sweatshirt_sweatshirt_image_right_idx",
+          "columns": [
+            {
+              "expression": "sweatshirt_image_right_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "merch_content_tshirts_image_id_media_id_fk": {
+          "name": "merch_content_tshirts_image_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["tshirts_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_stickers_image_id_media_id_fk": {
+          "name": "merch_content_stickers_image_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["stickers_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_board_shorts_image_id_media_id_fk": {
+          "name": "merch_content_board_shorts_image_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["board_shorts_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_board_shorts_group_photo_id_media_id_fk": {
+          "name": "merch_content_board_shorts_group_photo_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["board_shorts_group_photo_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_towel_poncho_image_id_media_id_fk": {
+          "name": "merch_content_towel_poncho_image_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["towel_poncho_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_sweatshirt_image_id_media_id_fk": {
+          "name": "merch_content_sweatshirt_image_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["sweatshirt_image_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_sweatshirt_image_left_id_media_id_fk": {
+          "name": "merch_content_sweatshirt_image_left_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["sweatshirt_image_left_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "merch_content_sweatshirt_image_right_id_media_id_fk": {
+          "name": "merch_content_sweatshirt_image_right_id_media_id_fk",
+          "tableFrom": "merch_content",
+          "tableTo": "media",
+          "columnsFrom": ["sweatshirt_image_right_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
