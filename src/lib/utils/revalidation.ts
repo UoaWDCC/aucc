@@ -35,6 +35,8 @@ const tagRelations = {
   merchGlobal: ['media'],
   merchContent: ['media'],
   videoHighlights: [],
+  membership: [],
+  membershipGlobal: [],
   swims: ['media', 'rivers'],
 } as const
 
@@ -143,6 +145,16 @@ export const cacheTags: Record<
     tag: 'videoHighlights',
     relatedTags: getRevalidationTags('videoHighlights'),
     revalidate: () => revalidateTag('videoHighlights'),
+  },
+  membership: {
+    tag: 'membership',
+    relatedTags: getRevalidationTags('membership'),
+    revalidate: () => revalidateTag('membership'),
+  },
+  membershipGlobal: {
+    tag: 'membershipGlobal',
+    relatedTags: getRevalidationTags('membershipGlobal'),
+    revalidate: () => revalidateTag('membershipGlobal'),
   },
   swims: {
     tag: 'swims',
