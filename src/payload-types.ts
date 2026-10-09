@@ -1001,6 +1001,8 @@ export interface MembershipGlobal {
       }[]
     | null;
   signupUrl?: string | null;
+}
+/**
  * via the `definition` "merch-content".
  */
 export interface MerchContent {
@@ -1322,6 +1324,8 @@ export interface MembershipGlobalSelect<T extends boolean = true> {
         id?: T;
       };
   signupUrl?: T;
+}
+/**
  * via the `definition` "merch-content_select".
  */
 export interface MerchContentSelect<T extends boolean = true> {

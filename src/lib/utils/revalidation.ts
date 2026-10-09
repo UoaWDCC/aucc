@@ -37,7 +37,6 @@ const tagRelations = {
   videoHighlights: [],
   membership: [],
   membershipGlobal: [],
-  swims: ['media'],
   swims: ['media', 'rivers'],
 } as const
 
