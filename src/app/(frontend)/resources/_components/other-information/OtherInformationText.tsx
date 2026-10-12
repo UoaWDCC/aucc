@@ -1,155 +1,147 @@
+type InfoLink = {
+  label: string
+  href: string
+  description?: string
+}
+
+const SECTIONS: { title: string; links: InfoLink[] }[] = [
+  {
+    title: 'River Information and flows',
+    links: [
+      {
+        label: 'Whitewater New Zealand website',
+        href: 'https://whitewater.nz/',
+        description:
+          ': New Zealand River Beta (RiverGuide), events, resources, and more...',
+      },
+      {
+        label: 'Environment Waikato',
+        href: 'http://www.waikatoregion.govt.nz/',
+        description: ': flow data for K Gorge',
+      },
+      {
+        label: 'Environment Bay of Plenty',
+        href: 'http://www.boprc.govt.nz/environment/',
+        description: ': flow data for bay of plenty rivers',
+      },
+      {
+        label: 'Genesis Energy',
+        href: 'https://www.genesisenergy.co.nz/home',
+        description: ': for flow data for the Tongariro',
+      },
+      { label: 'River Valley', href: 'http://www.rivervalley.co.nz/' },
+    ],
+  },
+  {
+    title: 'Other Whitewater Clubs',
+    links: [
+      {
+        label: 'Hawkes Bay Canoe Club',
+        href: 'http://www.sportsground.co.nz/hbcc/',
+      },
+      {
+        label: 'Kaimai Canoe Club',
+        href: 'http://www.kaimaicanoeclub.org.nz/',
+      },
+      {
+        label: 'Waikato Canoe Club',
+        href: 'https://www.facebook.com/groups/5883361179/',
+      },
+      {
+        label: 'Whitewater Canoe Club (Christchurch)',
+        href: 'http://whitewater.org.nz/',
+      },
+      {
+        label: 'Victoria University Canoe Club (VUCC)',
+        href: 'http://vucc.nz/#/',
+      },
+      {
+        label: 'University of Canterbury Canoe Club (UCCC)',
+        href: 'http://uccc.org.nz/index.php/uccc/main_content/start',
+      },
+      {
+        label: 'Exeter University Canoe Club',
+        href: 'http://www.exetercanoeclub.org.uk/',
+        description:
+          ", because Exeter rocks and you have to go kayaking with the canoe club there if you're in the UK!",
+      },
+    ],
+  },
+  {
+    title: 'Safety Rescue & First Aid',
+    links: [
+      {
+        label: 'Mountain Safety Council',
+        href: 'https://www.mountainsafety.org.nz/',
+        description: ' - Free downloads, buy books and survival equipment',
+      },
+    ],
+  },
+  {
+    title: 'Other',
+    links: [
+      {
+        label: 'http://www.cumecmagazine.com/',
+        href: 'http://www.cumecmagazine.com/',
+        description:
+          ' NZ and Oz whitewater mag featuring news, updates, and pics.',
+      },
+      {
+        label: 'Playak',
+        href: 'http://playak.com/',
+        description:
+          ', Gives boat specs for almost any boat out there and has a sweet comparison function',
+      },
+      {
+        label: 'http://whitewaterinstruction.com/',
+        href: 'http://whitewaterinstruction.com/',
+        description: ' Cool instructional videos from Shane Benedict',
+      },
+      {
+        label:
+          'http://www.ehow.com/videos-on_1265_rodeo-kayaking-tips-freestyle-techniques.html',
+        href: 'http://www.ehow.com/videos-on_1265_rodeo-kayaking-tips-freestyle-techniques.html',
+        description: ' Some "how to playboat" instructional videos',
+      },
+      {
+        label: 'http://www.urbandictionary.com/define.php?term=AUCC',
+        href: 'http://www.urbandictionary.com/define.php?term=AUCC',
+        description: ' Urban dictionary definition for AUCC',
+      },
+    ],
+  },
+]
+
 export function OtherInformationText() {
   return (
-    <div className="flex flex-col gap-16 bg-[#FCF9EF] pt-11 pr-107 pb-28 pl-30">
-      <div className="flex w-109 flex-col">
-        <h2 className="font-heading text-algae text-lg">
-          River Information and flows
-        </h2>
-        <div className="text-abyss font-body mt-3 flex flex-col text-sm">
-          <p>
-            <a href="https://whitewater.nz/" className="underline">
-              Whitewater New Zealand website
-            </a>
-            : New Zealand River Beta (RiverGuide), events, resources, and
-            more...
-          </p>
-          <p>
-            <a href="http://www.waikatoregion.govt.nz/" className="underline">
-              Environment Waikato
-            </a>
-            : flow data for K Gorge
-          </p>
-          <p>
-            <a
-              href="http://www.boprc.govt.nz/environment/"
-              className="underline"
-            >
-              Environment Bay of Plenty
-            </a>
-            : flow data for bay of plenty rivers
-          </p>
-          <p>
-            <a
-              href="https://www.genesisenergy.co.nz/home"
-              className="underline"
-            >
-              Genesis Energy
-            </a>
-            : for flow data for the Tongariro River
-          </p>
-          <p>
-            <a href="http://www.rivervalley.co.nz/" className="underline">
-              Valley
-            </a>
-            : Rangitikei
-          </p>
-        </div>
-      </div>
-
-      <div className="flex w-109 flex-col">
-        <h2 className="font-heading text-algae text-lg">
-          Other Whitewater Clubs
-        </h2>
-        <div className="text-abyss font-body mt-3 flex flex-col text-sm">
-          <a href="http://www.sportsground.co.nz/hbcc/" className="underline">
-            Hawkes Bay Canoe Club
-          </a>
-
-          <a href="http://www.kaimaicanoeclub.org.nz/" className="underline">
-            Kaimai Canoe Club
-          </a>
-
-          <a
-            href="https://www.facebook.com/groups/5883361179/"
-            className="underline"
-          >
-            Waikato Canoe Club
-          </a>
-
-          <a href="http://whitewater.org.nz/" className="underline">
-            Whitewater Canoe Club (Christchurch)
-          </a>
-
-          <a href="http://vucc.nz/#/" className="underline">
-            Victoria University Canoe Club (VUCC)
-          </a>
-
-          <a
-            href="http://uccc.org.nz/index.php/uccc/main_content/start"
-            className="underline"
-          >
-            University of Canterbury Canoe Club (UCCC)
-          </a>
-
-          <p>
-            <a href="http://www.exetercanoeclub.org.uk/" className="underline">
-              Exeter University Canoe Club
-            </a>
-            , because Exeter rocks and you have to go kayaking with the canoe
-            club there if you&#39;re in the UK!
-          </p>
-        </div>
-      </div>
-
-      <div className="flex w-109 flex-col">
-        <h2 className="font-heading text-algae text-lg">
-          Safety Rescue and First Aid
-        </h2>
-        <div className="text-abyss font-body mt-3 flex flex-col text-sm">
-          <p>
-            <a href="http://www.exetercanoeclub.org.uk/" className="underline">
-              Mountain Safety Council{' '}
-            </a>
-            - Free downloads, buy books and survival equipment
-          </p>
-        </div>
-      </div>
-
-      <div className="flex w-109 flex-col">
-        <h2 className="font-heading text-algae text-lg">other</h2>
-        <div className="text-abyss font-body mt-3 flex flex-col text-sm">
-          <p>
-            <a href="http://www.cumecmagazine.com/" className="underline">
-              http://www.cumecmagazine.com/{' '}
-            </a>
-            NZ and Oz whitewater mag featuring news, updates, and pics.
-          </p>
-
-          <p>
-            <a href="http://playak.com/" className="underline">
-              Playak
-            </a>
-            , Gives boat specs for almost any boat out there and has a sweet
-            comparison function
-          </p>
-
-          <p>
-            <a href="http://whitewaterinstruction.com/" className="underline">
-              http://whitewaterinstruction.com/{' '}
-            </a>
-            Cool instructional videos from Shane Benedict
-          </p>
-
-          <p>
-            <a
-              href="http://www.ehow.com/videos-on_1265_rodeo-kayaking-tips-freestyle-techniques.html"
-              className="underline"
-            >
-              http://www.ehow.com/videos-on_1265_rodeo-kayaking-tips-freestyle-techniques.html{' '}
-            </a>
-            Some &#34;how to playboat&#34; instructional videos
-          </p>
-
-          <p>
-            <a
-              href="http://www.urbandictionary.com/define.php?term=AUCC"
-              className="underline"
-            >
-              http://www.urbandictionary.com/define.php?term=AUCC{' '}
-            </a>
-            Urban dictionary definition for AUCC
-          </p>
-        </div>
+    <div className="relative w-full lg:w-auto lg:shrink-0">
+      <div
+        aria-hidden
+        className="from-cream to-seafoam absolute top-1/2 left-1/2 hidden aspect-square h-[130%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b lg:block"
+      />
+      <div className="from-cream to-seafoam relative flex flex-col gap-10 rounded-[2.5rem] bg-gradient-to-b px-6 py-12 md:gap-16 md:px-12 lg:rounded-none lg:bg-none lg:py-0 lg:pr-24 lg:pl-[max(2rem,8vw)]">
+        {SECTIONS.map((section) => (
+          <div key={section.title} className="flex max-w-109 flex-col">
+            <h3 className="font-heading text-algae text-base uppercase md:text-lg">
+              {section.title}
+            </h3>
+            <div className="text-abyss font-body mt-3 flex flex-col text-sm italic">
+              {section.links.map((link) => (
+                <p key={link.href} className="break-words">
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    {link.label}
+                  </a>
+                  {link.description}
+                </p>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

@@ -4,10 +4,12 @@ import { OtherInformationText } from './OtherInformationText'
 
 export function OtherInformationSection() {
   return (
-    <div className="relative mb-17 flex w-full items-start">
+    <section className="bg-abyss relative w-full overflow-hidden">
       <OtherInformationBackground />
-      <OtherInformationText />
-      <OtherInformationHeading />
-    </div>
+      <div className="relative flex flex-col items-center gap-10 px-4 py-16 md:px-8 md:py-24 lg:flex-row lg:items-stretch lg:gap-0 lg:px-0 lg:py-40">
+        <OtherInformationText />
+        <OtherInformationHeading />
+      </div>
+    </section>
   )
 }

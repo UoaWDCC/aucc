@@ -1,7 +1,9 @@
 export function OtherInformationHeading() {
   return (
-    <h1 className="font-heading text-cream w-0 origin-bottom-left rotate-90 text-5xl text-nowrap">
-      OTHER INFORMATION
-    </h1>
+    <div className="order-first lg:order-none lg:flex lg:flex-1 lg:items-center lg:justify-center">
+      <h2 className="font-heading text-cream text-center text-3xl md:text-5xl lg:[writing-mode:vertical-rl]">
+        OTHER INFORMATION
+      </h2>
+    </div>
   )
 }
