@@ -8,6 +8,7 @@ import { customUploadField } from './_fields/custom-upload'
 export const Events: CollectionConfig = {
   slug: 'events',
   admin: {
+    group: 'Club Content',
     useAsTitle: 'title',
     defaultColumns: [
       'featuredImage',

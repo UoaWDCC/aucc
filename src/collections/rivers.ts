@@ -9,6 +9,7 @@ import { customUploadField } from './_fields/custom-upload'
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
   admin: {
+    group: 'Club Content',
     useAsTitle: 'name',
     defaultColumns: [
       'featuredImage',

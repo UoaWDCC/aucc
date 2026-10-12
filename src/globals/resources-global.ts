@@ -7,6 +7,9 @@ import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const ResourcesGlobal: GlobalConfig = {
   slug: 'resources-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Resources Page',
   access: {
     read: anyone,

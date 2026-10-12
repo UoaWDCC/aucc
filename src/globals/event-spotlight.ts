@@ -13,6 +13,7 @@ export const EventSpotlight: GlobalConfig = {
     update: authenticated,
   },
   admin: {
+    group: 'Website Pages',
     description:
       'Featured image and caption shown on the event spotlight section.',
   },
