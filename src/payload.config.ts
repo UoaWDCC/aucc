@@ -36,18 +36,32 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    // One light theme, styled in app/(payload)/custom.scss to match the
+    // public site, so every admin sees the same thing.
+    theme: 'light',
+    meta: {
+      titleSuffix: '- AUCC Admin',
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/admin/AdminLogo#AdminLogo',
+        Icon: '@/components/admin/AdminIcon#AdminIcon',
+      },
+      beforeDashboard: ['@/components/admin/WelcomePanel#WelcomePanel'],
+    },
   },
+  // Listed in the order the admin navigation shows them.
   collections: [
-    Users,
-    Media,
-    Rivers,
     Events,
     TripReports,
+    Rivers,
+    Swims,
     Execs,
     Gallery,
-    Tags,
     VideoHighlights,
-    Swims,
+    Media,
+    Tags,
+    Users,
   ],
   globals: [
     EventsGlobal,

@@ -1,3 +1,345 @@
+// ---------------------------------------------------------------------------
+// AUCC admin theme
+//
+// Payload's own styles live in `@layer payload-default`, so anything here wins
+// without needing !important. The admin is locked to the light theme in
+// payload.config.ts; these rules restyle it with the public site's palette
+// (see app/(frontend)/styles.css): a dark "abyss" sidebar like the site
+// header, cream pages, and green for the main actions.
+// ---------------------------------------------------------------------------
+
+:root,
+html[data-theme='light'] {
+  // Site palette
+  --aucc-abyss: #1e2a29;
+  --aucc-grass: #7f9f66;
+  --aucc-cream: #efede3;
+  --aucc-water: #a3c6c2;
+  --aucc-algae: #98b969;
+  --aucc-seafoam: #d3e2da;
+  --aucc-paper: #fbfaf5;
+
+  // Greys become a cream-to-abyss scale
+  --theme-elevation-0: color-mix(in srgb, var(--aucc-abyss) 0%, var(--aucc-paper));
+  --theme-elevation-50: color-mix(in srgb, var(--aucc-abyss) 5%, var(--aucc-paper));
+  --theme-elevation-100: color-mix(in srgb, var(--aucc-abyss) 10%, var(--aucc-paper));
+  --theme-elevation-150: color-mix(in srgb, var(--aucc-abyss) 15%, var(--aucc-paper));
+  --theme-elevation-200: color-mix(in srgb, var(--aucc-abyss) 20%, var(--aucc-paper));
+  --theme-elevation-250: color-mix(in srgb, var(--aucc-abyss) 25%, var(--aucc-paper));
+  --theme-elevation-300: color-mix(in srgb, var(--aucc-abyss) 30%, var(--aucc-paper));
+  --theme-elevation-350: color-mix(in srgb, var(--aucc-abyss) 35%, var(--aucc-paper));
+  --theme-elevation-400: color-mix(in srgb, var(--aucc-abyss) 40%, var(--aucc-paper));
+  --theme-elevation-450: color-mix(in srgb, var(--aucc-abyss) 45%, var(--aucc-paper));
+  --theme-elevation-500: color-mix(in srgb, var(--aucc-abyss) 50%, var(--aucc-paper));
+  --theme-elevation-550: color-mix(in srgb, var(--aucc-abyss) 55%, var(--aucc-paper));
+  --theme-elevation-600: color-mix(in srgb, var(--aucc-abyss) 60%, var(--aucc-paper));
+  --theme-elevation-650: color-mix(in srgb, var(--aucc-abyss) 65%, var(--aucc-paper));
+  --theme-elevation-700: color-mix(in srgb, var(--aucc-abyss) 70%, var(--aucc-paper));
+  --theme-elevation-750: color-mix(in srgb, var(--aucc-abyss) 75%, var(--aucc-paper));
+  --theme-elevation-800: color-mix(in srgb, var(--aucc-abyss) 80%, var(--aucc-paper));
+  --theme-elevation-850: color-mix(in srgb, var(--aucc-abyss) 85%, var(--aucc-paper));
+  --theme-elevation-900: color-mix(in srgb, var(--aucc-abyss) 90%, var(--aucc-paper));
+  --theme-elevation-950: color-mix(in srgb, var(--aucc-abyss) 95%, var(--aucc-paper));
+  --theme-elevation-1000: color-mix(in srgb, var(--aucc-abyss) 100%, var(--aucc-paper));
+
+  // Payload's "success" blue becomes the site green
+  --theme-success-50: color-mix(in srgb, var(--aucc-algae) 10%, var(--aucc-paper));
+  --theme-success-100: color-mix(in srgb, var(--aucc-algae) 20%, var(--aucc-paper));
+  --theme-success-150: color-mix(in srgb, var(--aucc-algae) 30%, var(--aucc-paper));
+  --theme-success-200: color-mix(in srgb, var(--aucc-algae) 40%, var(--aucc-paper));
+  --theme-success-250: color-mix(in srgb, var(--aucc-algae) 50%, var(--aucc-paper));
+  --theme-success-300: color-mix(in srgb, var(--aucc-algae) 60%, var(--aucc-paper));
+  --theme-success-350: color-mix(in srgb, var(--aucc-algae) 70%, var(--aucc-paper));
+  --theme-success-400: color-mix(in srgb, var(--aucc-algae) 80%, var(--aucc-paper));
+  --theme-success-450: color-mix(in srgb, var(--aucc-algae) 90%, var(--aucc-paper));
+  --theme-success-500: var(--aucc-algae);
+  --theme-success-550: color-mix(in srgb, var(--aucc-abyss) 10%, var(--aucc-algae));
+  --theme-success-600: color-mix(in srgb, var(--aucc-abyss) 20%, var(--aucc-algae));
+  --theme-success-650: color-mix(in srgb, var(--aucc-abyss) 30%, var(--aucc-algae));
+  --theme-success-700: color-mix(in srgb, var(--aucc-abyss) 40%, var(--aucc-algae));
+  --theme-success-750: color-mix(in srgb, var(--aucc-abyss) 50%, var(--aucc-algae));
+  --theme-success-800: color-mix(in srgb, var(--aucc-abyss) 60%, var(--aucc-algae));
+  --theme-success-850: color-mix(in srgb, var(--aucc-abyss) 70%, var(--aucc-algae));
+  --theme-success-900: color-mix(in srgb, var(--aucc-abyss) 80%, var(--aucc-algae));
+  --theme-success-950: color-mix(in srgb, var(--aucc-abyss) 90%, var(--aucc-algae));
+
+  --theme-bg: var(--aucc-cream);
+  --theme-input-bg: var(--aucc-paper);
+  --theme-text: var(--aucc-abyss);
+  --theme-border-color: color-mix(in srgb, var(--aucc-abyss) 18%, var(--aucc-paper));
+
+  // --font-face-* variables are set by next/font in app/fonts.ts
+  --font-body: var(--font-face-rubik, Rubik), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  // Slightly larger text and rounder corners than the Payload default
+  --base-body-size: 14;
+  --style-radius-s: 6px;
+  --style-radius-m: 10px;
+  --style-radius-l: 16px;
+}
+
+// The root layout also loads the public site's stylesheet, which paints the
+// body abyss. Payload sets data-theme on its own <html>, so this only
+// applies inside the admin.
+html[data-theme] body {
+  background: var(--theme-bg);
+  color: var(--theme-text);
+}
+
+// Headings use the site's display font
+.dashboard__label,
+.doc-header__title,
+.list-header h1,
+.collection-list__header h1,
+.aucc-welcome__heading,
+.aucc-admin-logo__title {
+  font-family: var(--font-face-unbounded, Unbounded), var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+// --- Sidebar: abyss with cream text, like the site header ------------------
+
+.nav {
+  --theme-text: var(--aucc-cream);
+  background: var(--aucc-abyss);
+  border-right: 0;
+  color: var(--aucc-cream);
+
+  .nav-group__toggle {
+    color: var(--aucc-algae);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.8em;
+  }
+
+  .nav__link {
+    color: var(--aucc-cream);
+    border-radius: var(--style-radius-s);
+    padding-block: 6px;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in srgb, var(--aucc-cream) 12%, transparent);
+      text-decoration: none;
+    }
+  }
+
+  // The page you are on
+  .nav__link:has(.nav__link-indicator) {
+    background: color-mix(in srgb, var(--aucc-algae) 22%, transparent);
+    font-weight: 600;
+  }
+
+  .nav__link-indicator {
+    background: var(--aucc-algae);
+  }
+
+  .nav__controls a,
+  .nav__controls button,
+  .nav__log-out {
+    color: var(--aucc-cream);
+  }
+}
+
+// --- Main actions are green; everything else stays quiet -------------------
+
+.btn--style-primary {
+  --color: var(--aucc-abyss);
+  --bg-color: var(--aucc-algae);
+  --hover-bg: var(--aucc-grass);
+  --hover-color: var(--aucc-abyss);
+  font-weight: 600;
+}
+
+.btn--style-pill {
+  --bg-color: var(--aucc-seafoam);
+  --color: var(--aucc-abyss);
+  --hover-bg: var(--aucc-water);
+  --hover-color: var(--aucc-abyss);
+}
+
+// "Create New" on list pages is the thing people come here to do, so make
+// it look like a main action rather than a small grey pill.
+.list-header .btn--style-pill {
+  --bg-color: var(--aucc-algae);
+  --hover-bg: var(--aucc-grass);
+  padding: 8px 16px;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+// Column headings and field labels were light grey; make them readable
+.table th,
+.field-label {
+  color: var(--theme-elevation-800);
+}
+
+// Rich text areas had no outline, so it was not obvious where to type. Give
+// them the same box as every other input.
+.rich-text-lexical .editor-container {
+  min-height: 120px;
+  padding: 10px 14px;
+  border: 1px solid var(--theme-border-color);
+  border-radius: var(--style-radius-s);
+  background: var(--theme-input-bg);
+
+  &:focus-within {
+    border-color: var(--aucc-grass);
+  }
+}
+
+// The Save button is the one that matters on an edit page
+#action-save {
+  padding-inline: 28px;
+  font-size: 1em;
+}
+
+// Clear keyboard focus everywhere
+:focus-visible {
+  outline: 2px solid var(--aucc-grass);
+  outline-offset: 2px;
+}
+
+// --- Dashboard --------------------------------------------------------------
+
+.card {
+  background: var(--aucc-paper);
+
+  &:hover {
+    border-color: var(--aucc-grass);
+  }
+}
+
+.aucc-welcome {
+  margin-bottom: calc(var(--base) * 2);
+  padding: calc(var(--base) * 1.5);
+  border-radius: var(--style-radius-l);
+  background: var(--aucc-abyss);
+  color: var(--aucc-cream);
+
+  &__heading {
+    margin: 0 0 calc(var(--base) * 0.5);
+    font-size: 1.5rem;
+    line-height: 1.25;
+    color: var(--aucc-cream);
+  }
+
+  &__intro {
+    margin: 0 0 var(--base);
+    max-width: 60ch;
+  }
+
+  &__links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: calc(var(--base) * 0.6);
+    margin: 0 0 var(--base);
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding: calc(var(--base) * 0.7);
+    border-radius: var(--style-radius-m);
+    background: var(--aucc-algae);
+    color: var(--aucc-abyss);
+    text-decoration: none;
+    transition: background 0.1s;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--aucc-cream);
+      text-decoration: none;
+    }
+  }
+
+  &__link-title {
+    font-weight: 700;
+  }
+
+  &__link-description {
+    font-size: 0.9em;
+  }
+
+  &__guide {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: calc(var(--base) * 0.6);
+    margin: 0 0 var(--base);
+
+    dt {
+      font-weight: 700;
+      color: var(--aucc-algae);
+    }
+
+    dd {
+      margin: 2px 0 0;
+      font-size: 0.9em;
+    }
+  }
+
+  &__site {
+    margin: 0;
+
+    a {
+      color: var(--aucc-cream);
+      text-decoration: underline;
+    }
+  }
+}
+
+// --- Branding ---------------------------------------------------------------
+
+// The site logo sizes itself with Tailwind classes, which the admin does not
+// load, so size the SVG and its mask here.
+.aucc-admin-icon,
+.aucc-admin-logo__mark {
+  svg,
+  svg mask,
+  svg rect {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.aucc-admin-icon {
+  width: 100%;
+  height: 100%;
+  color: var(--aucc-abyss);
+}
+
+.aucc-admin-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  color: var(--aucc-abyss);
+
+  &__mark {
+    width: 120px;
+    height: 120px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: var(--theme-elevation-700);
+  }
+}
+
+// --- Existing field helpers -------------------------------------------------
+
 .hide-filename {
   .file__filename {
     display: none !important;

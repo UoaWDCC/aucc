@@ -7,6 +7,9 @@ import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const GearHireGlobal: GlobalConfig = {
   slug: 'gear-hire-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Gear Hire Page',
   access: {
     read: anyone,

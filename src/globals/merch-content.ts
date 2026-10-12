@@ -52,6 +52,9 @@ function badgeField(sectionLabel: string) {
 
 export const MerchContent: GlobalConfig = {
   slug: 'merch-content',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Merch Product Sections',
   access: {
     read: anyone,

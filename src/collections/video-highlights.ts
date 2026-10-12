@@ -7,6 +7,7 @@ import { authenticated } from './_access/authenticated'
 export const VideoHighlights: CollectionConfig = {
   slug: 'video-highlights',
   admin: {
+    group: 'Photos & Videos',
     useAsTitle: 'title',
     defaultColumns: ['title', 'url', 'createdAt'],
   },

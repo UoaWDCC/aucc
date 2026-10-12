@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Rubik+Mono+One&family=Rubik:ital,wght@0,300..900;1,300..900&family=Unbounded:wght@200..900&display=swap');
 @import 'tailwindcss';
 @plugin "tailwindcss-animate";
 @plugin "@tailwindcss/typography";
@@ -7,11 +6,11 @@
 /* @custom-variant dark (&:is(.dark *)); */
 
 :root {
-  /* Fonts */
-  --font-heading: Rubik Mono One, monospace;
-  --font-body: Rubik, sans-serif;
-  --font-handwritten: Caveat, cursive;
-  --font-unbounded: Unbounded, sans-serif;
+  /* Fonts: the --font-face-* variables are set by next/font in app/fonts.ts */
+  --font-heading: var(--font-face-rubik-mono-one, Rubik Mono One), monospace;
+  --font-body: var(--font-face-rubik, Rubik), sans-serif;
+  --font-handwritten: var(--font-face-caveat, Caveat), cursive;
+  --font-unbounded: var(--font-face-unbounded, Unbounded), sans-serif;
 
   /* Colors */
   --abyss: oklch(27.35% 0.017 189.89);

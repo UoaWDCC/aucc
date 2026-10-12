@@ -9,6 +9,7 @@ import { customUploadField } from './_fields/custom-upload'
 export const TripReports: CollectionConfig = {
   slug: 'trip-reports',
   admin: {
+    group: 'Club Content',
     useAsTitle: 'title',
     defaultColumns: [
       'featuredImage',
