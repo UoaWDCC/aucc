@@ -1,36 +1,44 @@
 import Button from '@/components/Button'
 
+const TRIP_GUIDE_URL = '#'
+const TRIP_TEMPLATE_URL = '#'
+
 export function TripOrganizingText() {
   return (
-    <div className="mb-46 flex w-full flex-col items-end pt-33 pr-25">
-      <h1 className="font-heading text-water text-end text-5xl">
+    <div className="flex w-full flex-col items-center px-6 pt-20 pb-24 md:items-end md:pt-33 md:pr-25 md:pb-46">
+      <h2 className="font-heading text-water text-center text-3xl md:text-end md:text-5xl">
         TRIP ORGANISING
-      </h1>
-      <div className="mt-8 flex">
-        <div className="mr-11 flex flex-col justify-center gap-5">
+      </h2>
+      <div className="mt-8 flex flex-col-reverse items-center gap-8 md:flex-row md:gap-11">
+        <div className="flex flex-col gap-5">
           <Button
-            className="text-abyss bg-water border-water h-8 w-46 px-4 text-xs tracking-tighter"
-            intent="primary"
+            href={TRIP_GUIDE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="sm"
+            className="text-abyss bg-water border-water font-unbounded w-46 px-4 text-[10px]"
           >
             ORGANIZE A TRIP GUIDE
           </Button>
           <Button
-            className="text-water border-water h-8 w-46 bg-none px-4 text-xs tracking-tighter"
-            intent="primary"
+            href={TRIP_TEMPLATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="sm"
+            className="text-water border-water font-unbounded w-46 px-4 text-[10px]"
           >
             TRIP ORGANIZE TEMPLATE
           </Button>
         </div>
-        <div className="flex w-fit flex-col text-end">
-          <p className="text-cream font-body w-105 text-sm">
+        <div className="text-cream font-body flex max-w-105 flex-col gap-5 text-center text-sm italic md:text-end">
+          <p>
             It’s not only your instructors and exec members that can organise
-            trips. We welcome all club members (no matter the experience level)
+            trips. We welcome all club members (no matter the experience level)
             to organise a trip of their choosing. We&#39;ll even give you all
             the help and support you need to ensure a smooth, safe and enjoyable
             trip. It isn’t as scary as it may seem!
           </p>
-          <br />
-          <p className="text-cream font-body w-105 text-sm">
+          <p>
             Here is a guidebook to help you get started on planning a trip and a
             trip planning template that you&#39;ll need to fill out and get
             signed off by the River Vice President or River Safety Officer.

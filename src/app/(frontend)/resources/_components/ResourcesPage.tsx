@@ -1,7 +1,7 @@
 import { Media } from '@/payload-types'
 import { ResourcesHeaderSection } from './header/ResourcesHeaderSection'
 import { OtherInformationSection } from './other-information/OtherInformationSection'
-import { TripOrganizingSection } from './trip-organizing/TripOrganizingSectieon'
+import { TripOrganizingSection } from './trip-organizing/TripOrganizingSection'
 import { UsefulLinksSection } from './useful-links/UsefulLinksSection'
 
 interface ResourcesPageProps {

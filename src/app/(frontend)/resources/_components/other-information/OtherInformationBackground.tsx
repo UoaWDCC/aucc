@@ -1,8 +1,8 @@
 export function OtherInformationBackground() {
   return (
-    <div>
+    <div className="absolute inset-x-0 top-[15%] bottom-0">
       <svg
-        className="absolute inset-0 -z-10 h-full w-full"
+        className="h-full w-full"
         viewBox="0 0 1280 1176"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
