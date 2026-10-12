@@ -7,6 +7,9 @@ import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const RiversGlobal: GlobalConfig = {
   slug: 'rivers-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Rivers Page',
   access: {
     read: anyone,

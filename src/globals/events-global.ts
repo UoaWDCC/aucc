@@ -7,6 +7,9 @@ import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const EventsGlobal: GlobalConfig = {
   slug: 'events-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Events Page',
   access: {
     read: anyone,

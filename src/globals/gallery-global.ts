@@ -33,6 +33,9 @@ const placeholderRichText = {
 
 export const GalleryGlobal: GlobalConfig = {
   slug: 'gallery-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Gallery Page',
   access: {
     read: anyone,

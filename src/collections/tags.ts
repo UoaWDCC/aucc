@@ -17,6 +17,7 @@ export const Tags: CollectionConfig = {
     afterDelete: [() => cacheTags.tags.revalidate()],
   },
   admin: {
+    group: 'Photos & Videos',
     useAsTitle: 'name',
   },
   fields: [
