@@ -8,8 +8,6 @@
 // header, cream pages, and green for the main actions.
 // ---------------------------------------------------------------------------
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Unbounded:wght@400..700&display=swap');
-
 :root,
 html[data-theme='light'] {
   // Site palette
@@ -70,7 +68,8 @@ html[data-theme='light'] {
   --theme-text: var(--aucc-abyss);
   --theme-border-color: color-mix(in srgb, var(--aucc-abyss) 18%, var(--aucc-paper));
 
-  --font-body: Rubik, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  // --font-face-* variables are set by next/font in app/fonts.ts
+  --font-body: var(--font-face-rubik, Rubik), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   // Slightly larger text and rounder corners than the Payload default
   --base-body-size: 14;
@@ -94,7 +93,7 @@ html[data-theme] body {
 .collection-list__header h1,
 .aucc-welcome__heading,
 .aucc-admin-logo__title {
-  font-family: Unbounded, var(--font-body);
+  font-family: var(--font-face-unbounded, Unbounded), var(--font-body);
   font-weight: 600;
   letter-spacing: -0.01em;
 }
