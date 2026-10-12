@@ -33,6 +33,9 @@ const placeholderRichText = {
 
 export const MerchGlobal: GlobalConfig = {
   slug: 'merch-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Merch Page',
   access: {
     read: anyone,
