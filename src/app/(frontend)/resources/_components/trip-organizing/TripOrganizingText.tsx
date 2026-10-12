@@ -5,7 +5,7 @@ const TRIP_TEMPLATE_URL = '#'
 
 export function TripOrganizingText() {
   return (
-    <div className="flex w-full flex-col items-center px-6 pt-20 pb-24 md:items-end md:pt-33 md:pr-25 md:pb-46">
+    <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-20 pb-24 md:items-end md:pt-33 md:pb-46">
       <h2 className="font-heading text-water text-center text-3xl md:text-end md:text-5xl">
         TRIP ORGANISING
       </h2>
@@ -15,8 +15,8 @@ export function TripOrganizingText() {
             href={TRIP_GUIDE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            size="sm"
-            className="text-abyss bg-water border-water font-unbounded w-46 px-4 text-[10px]"
+            size="md"
+            className="text-abyss bg-water border-water font-unbounded w-60 px-4 text-xs whitespace-nowrap"
           >
             ORGANIZE A TRIP GUIDE
           </Button>
@@ -24,13 +24,13 @@ export function TripOrganizingText() {
             href={TRIP_TEMPLATE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            size="sm"
-            className="text-water border-water font-unbounded w-46 px-4 text-[10px]"
+            size="md"
+            className="text-water border-water font-unbounded w-60 px-4 text-xs whitespace-nowrap"
           >
             TRIP ORGANIZE TEMPLATE
           </Button>
         </div>
-        <div className="text-cream font-body flex max-w-105 flex-col gap-5 text-center text-sm italic md:text-end">
+        <div className="text-cream font-body flex max-w-120 flex-col gap-5 text-center text-sm italic md:text-end md:text-base">
           <p>
             It’s not only your instructors and exec members that can organise
             trips. We welcome all club members (no matter the experience level)
