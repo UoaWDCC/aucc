@@ -114,12 +114,12 @@ const SECTIONS: { title: string; links: InfoLink[] }[] = [
 
 export function OtherInformationText() {
   return (
-    <div className="relative w-full md:w-[70%]">
+    <div className="relative w-full lg:w-auto lg:shrink-0">
       <div
         aria-hidden
-        className="from-cream to-seafoam absolute top-1/2 right-0 hidden aspect-square w-[130%] -translate-y-1/2 rounded-full bg-gradient-to-b md:block"
+        className="from-cream to-seafoam absolute top-1/2 left-1/2 hidden aspect-square h-[130%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b lg:block"
       />
-      <div className="from-cream to-seafoam relative flex flex-col gap-10 rounded-[2.5rem] bg-gradient-to-b px-6 py-12 md:gap-16 md:rounded-none md:bg-none md:py-0 md:pr-24 md:pl-[max(2rem,8vw)]">
+      <div className="from-cream to-seafoam relative flex flex-col gap-10 rounded-[2.5rem] bg-gradient-to-b px-6 py-12 md:gap-16 md:px-12 lg:rounded-none lg:bg-none lg:py-0 lg:pr-24 lg:pl-[max(2rem,8vw)]">
         {SECTIONS.map((section) => (
           <div key={section.title} className="flex max-w-109 flex-col">
             <h3 className="font-heading text-algae text-base uppercase md:text-lg">
