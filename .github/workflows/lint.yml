@@ -39,3 +39,8 @@ jobs:
 
       - name: Lint
         run: pnpm lint
+
+      - name: Type check
+        # Run even if lint failed, so both results show on the PR
+        if: ${{ !cancelled() }}
+        run: pnpm type-check

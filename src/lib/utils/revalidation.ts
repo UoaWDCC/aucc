@@ -163,7 +163,7 @@ export const cacheTags: Record<
  **/
 export function getRevalidationTags(
   tagName: CacheTag,
-  relations: Record<CacheTag, readonly CacheTag[]> = tagRelations,
+  relations: Partial<Record<CacheTag, readonly CacheTag[]>> = tagRelations,
 ): CacheTag[] {
   const revalidationTags: CacheTag[] = []
   const seen = new Set([tagName])
@@ -178,12 +178,12 @@ export function getRevalidationTags(
 
     revalidationTags.push(newTag)
 
-    relations[newTag].forEach((element) => {
+    for (const element of relations[newTag] ?? []) {
       if (!seen.has(element)) {
         seen.add(element)
         stack.push(element)
       }
-    })
+    }
   }
 
   return revalidationTags
