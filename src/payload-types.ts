@@ -67,32 +67,32 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
-    media: Media;
-    rivers: River;
     events: Event;
     'trip-reports': TripReport;
+    rivers: River;
+    swims: Swim;
     execs: Exec;
     gallery: Gallery;
-    tags: Tag;
     'video-highlights': VideoHighlight;
-    swims: Swim;
+    media: Media;
+    tags: Tag;
+    users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    rivers: RiversSelect<false> | RiversSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     'trip-reports': TripReportsSelect<false> | TripReportsSelect<true>;
+    rivers: RiversSelect<false> | RiversSelect<true>;
+    swims: SwimsSelect<false> | SwimsSelect<true>;
     execs: ExecsSelect<false> | ExecsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
-    tags: TagsSelect<false> | TagsSelect<true>;
     'video-highlights': VideoHighlightsSelect<false> | VideoHighlightsSelect<true>;
-    swims: SwimsSelect<false> | SwimsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -101,6 +101,7 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
+    'site-settings': SiteSetting;
     'events-global': EventsGlobal;
     'gallery-global': GalleryGlobal;
     'trip-reports-global': TripReportsGlobal;
@@ -112,6 +113,7 @@ export interface Config {
     'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
     'gallery-global': GalleryGlobalSelect<false> | GalleryGlobalSelect<true>;
     'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
@@ -151,21 +153,77 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "events".
  */
-export interface User {
+export interface Event {
   id: number;
-  name?: string | null;
+  title: string;
+  status: 'draft' | 'published' | 'archived';
+  startTime: string;
+  endTime: string;
+  location: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  ticketsInformation?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  eventType: 'trip' | 'other';
+  river?: (number | null) | River;
+  featuredImage: number | Media;
+  tag?: (number | null) | Tag;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers".
+ */
+export interface River {
+  id: number;
+  name: string;
+  grade: number;
+  putIn: {
+    latitude: number;
+    longitude: number;
+  };
+  takeOut: {
+    latitude: number;
+    longitude: number;
+  };
+  featuredImage: number | Media;
+  description?: string | null;
+  location?: string | null;
+  /**
+   * Automatically generated from name
+   */
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -239,80 +297,6 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "rivers".
- */
-export interface River {
-  id: number;
-  name: string;
-  grade: number;
-  putIn: {
-    latitude: number;
-    longitude: number;
-  };
-  takeOut: {
-    latitude: number;
-    longitude: number;
-  };
-  featuredImage: number | Media;
-  description?: string | null;
-  location?: string | null;
-  /**
-   * Automatically generated from name
-   */
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events".
- */
-export interface Event {
-  id: number;
-  title: string;
-  status: 'draft' | 'published' | 'archived';
-  startTime: string;
-  endTime: string;
-  location: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  ticketsInformation?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  eventType: 'trip' | 'other';
-  river?: (number | null) | River;
-  featuredImage: number | Media;
-  tag?: (number | null) | Tag;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags".
  */
 export interface Tag {
@@ -372,6 +356,29 @@ export interface Exec {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "swims".
+ */
+export interface Swim {
+  id: number;
+  date: string;
+  tripName: string;
+  river: number | River;
+  memberName: string;
+  email: string;
+  /**
+   * Honeypot field for spam protection. Hidden in admin and not stored.
+   */
+  honeypot?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.
+   */
+  approvedToShare?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "gallery".
  */
 export interface Gallery {
@@ -400,26 +407,21 @@ export interface VideoHighlight {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "swims".
+ * via the `definition` "users".
  */
-export interface Swim {
+export interface User {
   id: number;
-  date: string;
-  tripName: string;
-  river: number | River;
-  memberName: string;
-  email: string;
-  /**
-   * Honeypot field for spam protection. Hidden in admin and not stored.
-   */
-  honeypot?: string | null;
-  image?: (number | null) | Media;
-  /**
-   * Tick to publish this photo on the website. Submissions will stay hidden until an admin approves them.
-   */
-  approvedToShare?: boolean | null;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -429,24 +431,20 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'rivers';
-        value: number | River;
-      } | null)
-    | ({
         relationTo: 'events';
         value: number | Event;
       } | null)
     | ({
         relationTo: 'trip-reports';
         value: number | TripReport;
+      } | null)
+    | ({
+        relationTo: 'rivers';
+        value: number | River;
+      } | null)
+    | ({
+        relationTo: 'swims';
+        value: number | Swim;
       } | null)
     | ({
         relationTo: 'execs';
@@ -457,16 +455,20 @@ export interface PayloadLockedDocument {
         value: number | Gallery;
       } | null)
     | ({
-        relationTo: 'tags';
-        value: number | Tag;
-      } | null)
-    | ({
         relationTo: 'video-highlights';
         value: number | VideoHighlight;
       } | null)
     | ({
-        relationTo: 'swims';
-        value: number | Swim;
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -512,19 +514,114 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "events_select".
  */
-export interface UsersSelect<T extends boolean = true> {
-  name?: T;
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  status?: T;
+  startTime?: T;
+  endTime?: T;
+  location?: T;
+  description?: T;
+  ticketsInformation?: T;
+  eventType?: T;
+  river?: T;
+  featuredImage?: T;
+  tag?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trip-reports_select".
+ */
+export interface TripReportsSelect<T extends boolean = true> {
+  title?: T;
+  status?: T;
+  authors?: T;
+  datePublished?: T;
+  relatedEvent?: T;
+  featuredImage?: T;
+  content?: T;
+  gallery?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rivers_select".
+ */
+export interface RiversSelect<T extends boolean = true> {
+  name?: T;
+  grade?: T;
+  putIn?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  takeOut?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  featuredImage?: T;
+  description?: T;
+  location?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "swims_select".
+ */
+export interface SwimsSelect<T extends boolean = true> {
+  date?: T;
+  tripName?: T;
+  river?: T;
+  memberName?: T;
   email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  honeypot?: T;
+  image?: T;
+  approvedToShare?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "execs_select".
+ */
+export interface ExecsSelect<T extends boolean = true> {
+  name?: T;
+  pronouns?: T;
+  role?: T;
+  email?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery_select".
+ */
+export interface GallerySelect<T extends boolean = true> {
+  image?: T;
+  tags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-highlights_select".
+ */
+export interface VideoHighlightsSelect<T extends boolean = true> {
+  title?: T;
+  url?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -611,91 +708,6 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "rivers_select".
- */
-export interface RiversSelect<T extends boolean = true> {
-  name?: T;
-  grade?: T;
-  putIn?:
-    | T
-    | {
-        latitude?: T;
-        longitude?: T;
-      };
-  takeOut?:
-    | T
-    | {
-        latitude?: T;
-        longitude?: T;
-      };
-  featuredImage?: T;
-  description?: T;
-  location?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events_select".
- */
-export interface EventsSelect<T extends boolean = true> {
-  title?: T;
-  status?: T;
-  startTime?: T;
-  endTime?: T;
-  location?: T;
-  description?: T;
-  ticketsInformation?: T;
-  eventType?: T;
-  river?: T;
-  featuredImage?: T;
-  tag?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "trip-reports_select".
- */
-export interface TripReportsSelect<T extends boolean = true> {
-  title?: T;
-  status?: T;
-  authors?: T;
-  datePublished?: T;
-  relatedEvent?: T;
-  featuredImage?: T;
-  content?: T;
-  gallery?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "execs_select".
- */
-export interface ExecsSelect<T extends boolean = true> {
-  name?: T;
-  pronouns?: T;
-  role?: T;
-  email?: T;
-  image?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "gallery_select".
- */
-export interface GallerySelect<T extends boolean = true> {
-  image?: T;
-  tags?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags_select".
  */
 export interface TagsSelect<T extends boolean = true> {
@@ -705,29 +717,19 @@ export interface TagsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "video-highlights_select".
+ * via the `definition` "users_select".
  */
-export interface VideoHighlightsSelect<T extends boolean = true> {
-  title?: T;
-  url?: T;
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "swims_select".
- */
-export interface SwimsSelect<T extends boolean = true> {
-  date?: T;
-  tripName?: T;
-  river?: T;
-  memberName?: T;
   email?: T;
-  honeypot?: T;
-  image?: T;
-  approvedToShare?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -760,6 +762,57 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Contact details, social links and footer links shown across the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * The club’s public email. Shown in the footer and on the About page. Leave empty to hide it.
+   */
+  contactEmail?: string | null;
+  /**
+   * Short text shown under the contact details.
+   */
+  contactNote?: string | null;
+  /**
+   * Optional. Leave empty to hide it.
+   */
+  address?: string | null;
+  /**
+   * Shown in the footer and on the About page, in this order.
+   */
+  socials?:
+    | {
+        platform: 'instagram' | 'facebook' | 'youtube' | 'other';
+        /**
+         * The name shown, e.g. aucanoeclub
+         */
+        handle: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Quick links in the footer, in this order.
+   */
+  footerLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown when a page without its own image is shared on social media or in messages. 1200×630 works best.
+   */
+  defaultShareImage?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1164,6 +1217,34 @@ export interface EventSpotlight {
   eventLabel?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  contactEmail?: T;
+  contactNote?: T;
+  address?: T;
+  socials?:
+    | T
+    | {
+        platform?: T;
+        handle?: T;
+        url?: T;
+        id?: T;
+      };
+  footerLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  defaultShareImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

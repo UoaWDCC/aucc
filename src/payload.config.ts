@@ -25,6 +25,7 @@ import { MerchContent } from './globals/merch-content'
 import { MerchGlobal } from './globals/merch-global'
 import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
+import { SiteSettings } from './globals/site-settings'
 import { TripReportsGlobal } from './globals/trip-reports-global'
 
 const filename = fileURLToPath(import.meta.url)
@@ -64,6 +65,7 @@ export default buildConfig({
     Users,
   ],
   globals: [
+    SiteSettings,
     EventsGlobal,
     GalleryGlobal,
     TripReportsGlobal,
