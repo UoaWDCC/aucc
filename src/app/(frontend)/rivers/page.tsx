@@ -1,6 +1,16 @@
+import { buildPageMetadata, headerImageOf } from '@/lib/page-metadata'
 import { getRivers } from '@/queries/rivers'
 import { getRiversGlobal } from '@/queries/rivers-global'
 import { RiversPage } from './_components/RiversPage'
+
+export async function generateMetadata() {
+  return buildPageMetadata({
+    title: 'Rivers',
+    description: 'The rivers AUCC paddles, with grades, put-ins and take-outs.',
+    path: '/rivers',
+    image: await headerImageOf(getRiversGlobal),
+  })
+}
 
 export default async function Page() {
   try {
