@@ -37,8 +37,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install playwright
-        run: pnpm exec playwright install
-
+      # No Playwright install: the unit tests run in jsdom and don't need a
+      # browser. (Playwright 1.52 can't install on ubuntu-latest, now 26.04.)
       - name: Run tests
         run: pnpm test
