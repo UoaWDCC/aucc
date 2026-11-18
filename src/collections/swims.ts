@@ -12,6 +12,7 @@ const adminOnly: FieldAccess = ({ req: { user } }) => Boolean(user)
 export const Swims: CollectionConfig = {
   slug: 'swims',
   admin: {
+    group: 'Club Content',
     useAsTitle: 'tripName',
     defaultColumns: [
       'date',
