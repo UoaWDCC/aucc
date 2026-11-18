@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getGallery, getGalleryByTag } from '@/queries/gallery'
 
+/** Largest page size a client may ask for. */
+export const MAX_LIMIT = 48
+
 function parsePositiveInt(value: string | null): number | null {
   if (value === null || value.trim() === '') {
     return null
@@ -9,7 +12,8 @@ function parsePositiveInt(value: string | null): number | null {
   if (!/^\d+$/.test(value.trim())) {
     return null
   }
-  return Number(value)
+  const number = Number(value)
+  return number >= 1 ? number : null
 }
 
 export async function GET(request: NextRequest) {
@@ -30,16 +34,25 @@ export async function GET(request: NextRequest) {
 
   if (page === null || limit === null) {
     return NextResponse.json(
-      { error: 'page and limit must be numeric' },
+      { error: 'page and limit must be positive whole numbers' },
       { status: 400 },
     )
   }
 
   const tag = tagParam?.trim()
+  const pageSize = Math.min(limit, MAX_LIMIT)
 
-  const { gallery, hasNextPage } = tag
-    ? await getGalleryByTag(tag, { page, limit })
-    : await getGallery({ page, limit })
+  try {
+    const { gallery, hasNextPage } = tag
+      ? await getGalleryByTag(tag, { page, limit: pageSize })
+      : await getGallery({ page, limit: pageSize })
 
-  return NextResponse.json({ images: gallery, hasMore: hasNextPage })
+    return NextResponse.json({ images: gallery, hasMore: hasNextPage })
+  } catch (error) {
+    console.error('Failed to load gallery images:', error)
+    return NextResponse.json(
+      { error: 'Could not load gallery images' },
+      { status: 500 },
+    )
+  }
 }
