@@ -36,7 +36,7 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
       style="gap: clamp(0.5rem, 1.5vw, 1.5rem);"
     >
       <div
-        class="relative aspect-square w-full cursor-pointer overflow-hidden"
+        class="group relative aspect-square w-full cursor-pointer overflow-hidden"
       >
         <div
           class="bg-skeleton animate-pulse absolute inset-0 h-full w-full rounded-none"
@@ -45,7 +45,7 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
         />
         <img
           alt="Image 1"
-          class="object-cover transition-opacity duration-300 opacity-0"
+          class="object-cover transition-[opacity,scale] duration-300 ease-out motion-reduce:transition-none opacity-0"
           data-nimg="fill"
           decoding="async"
           loading="lazy"
@@ -56,7 +56,7 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
         />
       </div>
       <div
-        class="relative aspect-square w-full cursor-pointer overflow-hidden"
+        class="group relative aspect-square w-full cursor-pointer overflow-hidden"
       >
         <div
           class="bg-skeleton animate-pulse absolute inset-0 h-full w-full rounded-none"
@@ -65,7 +65,7 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
         />
         <img
           alt="Image 2"
-          class="object-cover transition-opacity duration-300 opacity-0"
+          class="object-cover transition-[opacity,scale] duration-300 ease-out motion-reduce:transition-none opacity-0"
           data-nimg="fill"
           decoding="async"
           loading="lazy"

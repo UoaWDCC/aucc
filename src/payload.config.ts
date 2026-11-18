@@ -21,6 +21,7 @@ import { EventSpotlight } from './globals/event-spotlight'
 import { EventsGlobal } from './globals/events-global'
 import { GalleryGlobal } from './globals/gallery-global'
 import { GearHireGlobal } from './globals/gear-hire-global'
+import { MerchContent } from './globals/merch-content'
 import { MerchGlobal } from './globals/merch-global'
 import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
@@ -35,18 +36,32 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    // One light theme, styled in app/(payload)/custom.scss to match the
+    // public site, so every admin sees the same thing.
+    theme: 'light',
+    meta: {
+      titleSuffix: '- AUCC Admin',
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/admin/AdminLogo#AdminLogo',
+        Icon: '@/components/admin/AdminIcon#AdminIcon',
+      },
+      beforeDashboard: ['@/components/admin/WelcomePanel#WelcomePanel'],
+    },
   },
+  // Listed in the order the admin navigation shows them.
   collections: [
-    Users,
-    Media,
-    Rivers,
     Events,
     TripReports,
+    Rivers,
+    Swims,
     Execs,
     Gallery,
-    Tags,
     VideoHighlights,
-    Swims,
+    Media,
+    Tags,
+    Users,
   ],
   globals: [
     EventsGlobal,
@@ -56,6 +71,7 @@ export default buildConfig({
     ResourcesGlobal,
     GearHireGlobal,
     MerchGlobal,
+    MerchContent,
     EventSpotlight,
   ],
   editor: lexicalEditor({}),
@@ -68,6 +84,7 @@ export default buildConfig({
     pool: {
       connectionString: env.DATABASE_URL,
     },
+    push: false,
   }),
   sharp,
   plugins: [

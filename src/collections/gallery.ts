@@ -8,6 +8,7 @@ import { customUploadField } from './_fields/custom-upload'
 export const Gallery: CollectionConfig = {
   slug: 'gallery',
   admin: {
+    group: 'Photos & Videos',
     defaultColumns: ['image', 'tags'],
   },
   access: {

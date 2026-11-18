@@ -8,6 +8,7 @@ import { customUploadField } from './_fields/custom-upload'
 export const Execs: CollectionConfig = {
   slug: 'execs',
   admin: {
+    group: 'Club Content',
     useAsTitle: 'name',
     defaultColumns: ['image', 'name', 'role', 'email'],
   },

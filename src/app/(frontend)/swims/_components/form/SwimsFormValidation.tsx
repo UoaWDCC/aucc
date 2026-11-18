@@ -4,9 +4,12 @@ export interface SwimsFormValues {
   date: string
   tripName: string
   email: string
+  honeypot?: string
 }
 
-export type SwimsFormErrors = Partial<Record<keyof SwimsFormValues, string>>
+export type SwimsFormErrors = Partial<
+  Record<keyof SwimsFormValues | 'photo', string>
+>
 
 export const emptySwimsForm: SwimsFormValues = {
   memberName: '',
@@ -14,6 +17,7 @@ export const emptySwimsForm: SwimsFormValues = {
   date: '',
   tripName: '',
   email: '',
+  honeypot: '',
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/

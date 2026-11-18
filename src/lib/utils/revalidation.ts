@@ -1,21 +1,19 @@
 import { revalidateTag } from 'next/cache'
 
-import { MerchGlobal } from '@/globals/merch-global'
-
 /**
  @typedef CacheTag Custom type definined by keys of tagRelatinos
  */
 export type CacheTag = keyof typeof tagRelations
 
-/** 
+/**
  * Dictionary representing the relationship between collections
- * 
+ *
  * Update when adding new collections or new relationships are added
- * 
+ *
  * Key - The tag for collection
- * 
+ *
  * Value - List of tags for collections that it is relatedTo
- * 
+ *
  @constant
  @type {readonly CacheTag: readonly CacheTag[]}
  */
@@ -35,16 +33,18 @@ const tagRelations = {
   gearHireGlobal: ['media'],
   eventSpotlight: ['media'],
   merchGlobal: ['media'],
+  merchContent: ['media'],
   videoHighlights: [],
+  swims: ['media', 'rivers'],
 } as const
 
-/** 
+/**
  * Dictionary of cacheTags with list of related tags and funciton to revalidate tag
- * 
+ *
  * Key - The CacheTags for the collection
- * 
+ *
  * Value - Object containing list of related CacheTags and function to revalidate collection
- * 
+ *
  * Update when adding new collections or new relationships are added
  @constant
  @type {CacheTag: {CacheTag, { relatedTags, revalidate }}}
@@ -134,19 +134,29 @@ export const cacheTags: Record<
     relatedTags: getRevalidationTags('merchGlobal'),
     revalidate: () => revalidateTag('merchGlobal'),
   },
+  merchContent: {
+    tag: 'merchContent',
+    relatedTags: getRevalidationTags('merchContent'),
+    revalidate: () => revalidateTag('merchContent'),
+  },
   videoHighlights: {
     tag: 'videoHighlights',
     relatedTags: getRevalidationTags('videoHighlights'),
     revalidate: () => revalidateTag('videoHighlights'),
   },
+  swims: {
+    tag: 'swims',
+    relatedTags: getRevalidationTags('swims'),
+    revalidate: () => revalidateTag('swims'),
+  },
 }
 
 /**
  * Use dfs to find every tag that is related to the given tag
- * 
+ *
  * Dfs is used to ensure are tags that are indirectly related to the given tag
  * are also found and included
- * 
+ *
  @param tagName - The tag for the collection to get revalidation tags for
  @param relations - The record of relationships between collections
  @returns - List of tags that is related to given tag
