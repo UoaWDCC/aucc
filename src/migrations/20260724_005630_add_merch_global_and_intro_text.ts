@@ -562,7 +562,7 @@ export async function down({
   DROP TABLE "payload_locked_documents_rels" CASCADE;
   DROP TABLE "payload_preferences" CASCADE;
   DROP TABLE "payload_preferences_rels" CASCADE;
-  DROP TABLE "payload_migrations" CASCADE;
+  -- payload_migrations is kept: Payload must record the rollback in it
   DROP TABLE "events_global" CASCADE;
   DROP TABLE "gallery_global" CASCADE;
   DROP TABLE "trip_reports_global" CASCADE;
