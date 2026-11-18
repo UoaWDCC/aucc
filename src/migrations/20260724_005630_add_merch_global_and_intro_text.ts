@@ -541,36 +541,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "merch_global_header_image_idx" ON "merch_global" USING btree ("header_image_id");`)
 }
 
-export async function down({
-  db,
-  payload,
-  req,
-}: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
-   DROP TABLE "users" CASCADE;
-  DROP TABLE "media" CASCADE;
-  DROP TABLE "rivers" CASCADE;
-  DROP TABLE "events" CASCADE;
-  DROP TABLE "trip_reports" CASCADE;
-  DROP TABLE "trip_reports_rels" CASCADE;
-  DROP TABLE "execs" CASCADE;
-  DROP TABLE "gallery" CASCADE;
-  DROP TABLE "gallery_rels" CASCADE;
-  DROP TABLE "tags" CASCADE;
-  DROP TABLE "video_highlights" CASCADE;
-  DROP TABLE "payload_locked_documents" CASCADE;
-  DROP TABLE "payload_locked_documents_rels" CASCADE;
-  DROP TABLE "payload_preferences" CASCADE;
-  DROP TABLE "payload_preferences_rels" CASCADE;
-  -- payload_migrations is kept: Payload must record the rollback in it
-  DROP TABLE "events_global" CASCADE;
-  DROP TABLE "gallery_global" CASCADE;
-  DROP TABLE "trip_reports_global" CASCADE;
-  DROP TABLE "rivers_global" CASCADE;
-  DROP TABLE "resources_global" CASCADE;
-  DROP TABLE "gear_hire_global" CASCADE;
-  DROP TABLE "merch_global" CASCADE;
-  DROP TYPE "public"."enum_events_status";
-  DROP TYPE "public"."enum_events_event_type";
-  DROP TYPE "public"."enum_trip_reports_status";`)
+/**
+ * The baseline creates every table, including the ones Payload itself needs
+ * to record a rollback (payload_preferences, payload_locked_documents), so it
+ * cannot roll itself back. To start from an empty database, use
+ * `pnpm payload migrate:fresh` on a throwaway database instead.
+ */
+export async function down(_args: MigrateDownArgs): Promise<void> {
+  throw new Error(
+    'The baseline migration (20260724_005630) cannot be rolled back. ' +
+      'Use `payload migrate:fresh` on a throwaway database to start from empty.',
+  )
 }
