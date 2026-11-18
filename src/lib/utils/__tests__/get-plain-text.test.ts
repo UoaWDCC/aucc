@@ -3,15 +3,18 @@ import { describe, expect, it } from 'vitest'
 
 import { getPlainText } from '@/lib/utils/get-plain-text'
 
-// Mock type for test data that matches the expected structure
-type MockEditorState = Partial<SerializedEditorState>
+// Loose shape for test data: real Lexical nodes also need version, format, etc.
+type MockEditorState = { root: { children: unknown[] } }
+
+const asState = (state: MockEditorState) =>
+  state as unknown as SerializedEditorState
 
 describe('getPlainText', () => {
   it('returns plain text for a simple text node', () => {
     const state: MockEditorState = {
       root: { children: [{ type: 'text', text: 'Hello Payload' }] },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe('Hello Payload')
+    expect(getPlainText(asState(state))).toBe('Hello Payload')
   })
 
   it('joins multiple paragraph nodes with newlines', () => {
@@ -29,9 +32,7 @@ describe('getPlainText', () => {
         ],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe(
-      'First line\nSecond line',
-    )
+    expect(getPlainText(asState(state))).toBe('First line\nSecond line')
   })
 
   it('recursively extracts text from nested structures', () => {
@@ -53,14 +54,14 @@ describe('getPlainText', () => {
         ],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe('Nested content')
+    expect(getPlainText(asState(state))).toBe('Nested content')
   })
 
   it('does not append an ellipsis when under maxLength', () => {
     const state = {
       root: { children: [{ type: 'text', text: 'Short text' }] },
     }
-    expect(getPlainText(state as SerializedEditorState, 20)).toBe('Short text')
+    expect(getPlainText(asState(state), 20)).toBe('Short text')
   })
 
   it('appends an ellipsis when over maxLength', () => {
@@ -69,9 +70,7 @@ describe('getPlainText', () => {
         children: [{ type: 'text', text: 'abcdefghijklmnopqrstuvwxyz' }],
       },
     }
-    expect(getPlainText(state as SerializedEditorState, 20)).toBe(
-      'abcdefghijklmnopqrst…',
-    )
+    expect(getPlainText(asState(state), 20)).toBe('abcdefghijklmnopqrst…')
   })
 
   it('ignores image nodes and extracts surrounding text', () => {
@@ -84,7 +83,7 @@ describe('getPlainText', () => {
         ],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe('Before  After')
+    expect(getPlainText(asState(state))).toBe('Before  After')
   })
 
   it('extracts text from link nodes', () => {
@@ -100,9 +99,7 @@ describe('getPlainText', () => {
         ],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe(
-      'Click here for more',
-    )
+    expect(getPlainText(asState(state))).toBe('Click here for more')
   })
 
   it('extracts nothing if there are photos and links but no text', () => {
@@ -118,7 +115,7 @@ describe('getPlainText', () => {
         ],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe('')
+    expect(getPlainText(asState(state))).toBe('')
   })
 
   it('returns nothing if there is an empty rich text object with some structure', () => {
@@ -134,7 +131,7 @@ describe('getPlainText', () => {
         ],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe('')
+    expect(getPlainText(asState(state))).toBe('')
   })
 
   it('returns nothing if there is an empty rich text object containing nothing at all', () => {
@@ -143,7 +140,7 @@ describe('getPlainText', () => {
         children: [],
       },
     }
-    expect(getPlainText(state as SerializedEditorState)).toBe('')
+    expect(getPlainText(asState(state))).toBe('')
   })
   it('returns nothing if maxLength is 0', () => {
     const state = {
@@ -151,7 +148,7 @@ describe('getPlainText', () => {
         children: [{ type: 'text', text: 'among us' }],
       },
     }
-    expect(getPlainText(state as SerializedEditorState, 0)).toBe('…')
+    expect(getPlainText(asState(state), 0)).toBe('…')
   })
   it('returns nothing if maxLength is 0 and there is nothing in the rich text object', () => {
     const state = {
@@ -159,7 +156,7 @@ describe('getPlainText', () => {
         children: [],
       },
     }
-    expect(getPlainText(state as SerializedEditorState, 0)).toBe('…')
+    expect(getPlainText(asState(state), 0)).toBe('…')
   })
   it('returns nothing if maxLength is negative', () => {
     const state = {
@@ -167,6 +164,6 @@ describe('getPlainText', () => {
         children: [{ type: 'text', text: 'among us' }],
       },
     }
-    expect(getPlainText(state as SerializedEditorState, -10)).toBe('')
+    expect(getPlainText(asState(state), -10)).toBe('')
   })
 })
