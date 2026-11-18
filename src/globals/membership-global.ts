@@ -26,17 +26,20 @@ export const MembershipGlobal: GlobalConfig = {
       name: 'heading',
       type: 'text',
       required: true,
+      defaultValue: 'Membership',
     },
     {
       name: 'subheading',
       type: 'text',
       required: true,
+      defaultValue: 'Join the Auckland University Canoe Club.',
     },
     {
       name: 'intro',
       type: 'textarea',
       label: 'Pricing intro',
       required: true,
+      defaultValue: 'Pick the membership that suits you.',
     },
     {
       name: 'tiers',
@@ -110,6 +113,11 @@ export const MembershipGlobal: GlobalConfig = {
       name: 'signupUrl',
       type: 'text',
       label: 'Signup URL',
+      defaultValue: 'https://pci.jotform.com/form/260532948493870',
+      admin: {
+        description:
+          'The membership form. Leave empty to show "Signups are closed".',
+      },
     },
   ],
 }

@@ -1,5 +1,7 @@
 import Button from '@/components/Button'
+import { cn } from '@/lib/utils/cn'
 import { Media } from '@/payload-types'
+import { caveatBrush } from '../fonts'
 import { MembershipHeaderBottomCurve } from './MembershipHeaderBottomCurve'
 import { MembershipHeaderImage } from './MembershipHeaderImage'
 
@@ -17,7 +19,12 @@ export function MembershipHeaderSection({
     <div className="relative flex h-[370px] w-full flex-col justify-end md:h-[600px]">
       {headerImage ? <MembershipHeaderImage media={headerImage} /> : null}
       <div className="text-cream relative z-1 mx-auto w-full max-w-5xl px-5 pb-14 md:px-8 md:pb-32">
-        <p className="font-[family-name:var(--font-caveat-brush)] text-lg text-[#8fae62] md:text-2xl">
+        <p
+          className={cn(
+            caveatBrush.className,
+            'text-lg text-[#8fae62] md:text-2xl',
+          )}
+        >
           join the crew!
         </p>
         <h1 className="font-heading text-4xl leading-none uppercase sm:text-7xl lg:text-[7.5rem]">

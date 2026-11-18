@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils/cn'
+import { caveatBrush } from '../fonts'
 
 type SectionHeaderProps = {
   eyebrow: string
@@ -26,7 +27,8 @@ export function SectionHeader({
     >
       <p
         className={cn(
-          'font-[family-name:var(--font-caveat-brush)] text-lg md:text-2xl',
+          caveatBrush.className,
+          'text-lg md:text-2xl',
           eyebrowClassName,
         )}
       >
