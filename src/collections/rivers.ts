@@ -5,6 +5,7 @@ import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
+import { preventDeleteIfReferenced } from './_hooks/prevent-delete-if-referenced'
 
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
@@ -37,6 +38,7 @@ export const Rivers: CollectionConfig = {
       },
     ],
     afterChange: [() => cacheTags.rivers.revalidate()],
+    beforeDelete: [preventDeleteIfReferenced],
     afterDelete: [() => cacheTags.rivers.revalidate()],
   },
   fields: [
