@@ -7,6 +7,9 @@ import { customUploadField } from '../collections/_fields/custom-upload'
 
 export const TripReportsGlobal: GlobalConfig = {
   slug: 'trip-reports-global',
+  admin: {
+    group: 'Website Pages',
+  },
   label: 'Trip Reports Page',
   access: {
     read: anyone,

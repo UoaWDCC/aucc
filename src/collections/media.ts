@@ -7,6 +7,9 @@ import { preventDeleteIfReferenced } from './_hooks/prevent-delete-if-referenced
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  admin: {
+    group: 'Photos & Videos',
+  },
   access: {
     create: authenticated,
     read: anyone,

@@ -10,6 +10,7 @@ import { preventDeleteIfReferenced } from './_hooks/prevent-delete-if-referenced
 export const Rivers: CollectionConfig = {
   slug: 'rivers',
   admin: {
+    group: 'Club Content',
     useAsTitle: 'name',
     defaultColumns: [
       'featuredImage',
