@@ -50,7 +50,7 @@ export function ResourceCard({
             color="algae"
             size="sm"
             className={cn(
-              'font-unbounded px-4 text-[10px]',
+              'font-unbounded px-4 text-xs',
               i === 0 && links.length > 1 && 'bg-algae text-cream',
             )}
           >
