@@ -10,18 +10,22 @@ type RiversPageProps = {
   headerImage: Media | null
   introText: SerializedEditorState | null
   rivers: RiverDTO[]
+  page: number
+  totalPages: number
 }
 
 export function RiversPage({
   headerImage,
   introText,
   rivers,
+  page,
+  totalPages,
 }: RiversPageProps) {
   return (
     <>
       <RiversHeaderSection headerImage={headerImage} />
       <OurRivers introText={introText} />
-      <RiverCardSection rivers={rivers} />
+      <RiverCardSection rivers={rivers} page={page} totalPages={totalPages} />
     </>
   )
 }

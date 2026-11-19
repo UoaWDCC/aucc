@@ -33,6 +33,7 @@ describe('River queries', () => {
         hasNextPage: false,
         nextPage: null,
         totalDocs: 1,
+        totalPages: 1,
       }
 
       mockPayloadClient.find.mockResolvedValue(mockResponse)
@@ -44,7 +45,7 @@ describe('River queries', () => {
           collection: 'rivers',
           page: 1,
           limit: 10,
-          sort: 'grade',
+          sort: ['grade', 'name'],
           depth: 2,
         }),
       )
@@ -53,6 +54,7 @@ describe('River queries', () => {
         hasNextPage: mockResponse.hasNextPage,
         nextPage: mockResponse.nextPage,
         totalDocs: mockResponse.totalDocs,
+        totalPages: mockResponse.totalPages,
       })
     })
 
@@ -62,6 +64,7 @@ describe('River queries', () => {
         hasNextPage: true,
         nextPage: 3,
         totalDocs: 25,
+        totalPages: 2,
       }
 
       mockPayloadClient.find.mockResolvedValue(mockResponse)
@@ -82,6 +85,7 @@ describe('River queries', () => {
         hasNextPage: mockResponse.hasNextPage,
         nextPage: mockResponse.nextPage,
         totalDocs: mockResponse.totalDocs,
+        totalPages: mockResponse.totalPages,
       })
     })
 
