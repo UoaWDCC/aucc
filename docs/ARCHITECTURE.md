@@ -276,7 +276,6 @@ sequenceDiagram
 
 ```
 src/app/api/
-├── webhook/           # Payload CMS webhooks
 └── (payload)/
     ├── [...slug]/     # REST API endpoints
     └── graphql/       # GraphQL endpoint
@@ -401,7 +400,6 @@ const componentStyles = cn(
 **API Security**:
 
 - Environment variable validation via `@t3-oss/env-nextjs`
-- API key authentication for webhooks
 - Input validation on all endpoints
 
 ### Data Security
