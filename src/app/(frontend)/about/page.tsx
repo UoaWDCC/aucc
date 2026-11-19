@@ -1,19 +1,15 @@
-import type { Metadata } from 'next'
-
+import { buildPageMetadata } from '@/lib/page-metadata'
 import { getExecs } from '@/queries/execs'
 import { getSiteSettings } from '@/queries/site-settings'
 import { AboutPage } from './_components/AboutPage'
 
-export const metadata: Metadata = {
-  title: 'About Us - Auckland University Canoe Club',
-  description:
-    "Learn about AUCC's history, mission, and meet our executive team. Join New Zealand's premier university canoe club.",
-  openGraph: {
-    title: 'About Us - AUCC',
+export async function generateMetadata() {
+  return buildPageMetadata({
+    title: 'About Us',
     description:
-      "Learn about AUCC's history, mission, and meet our executive team.",
-    type: 'website',
-  },
+      "Learn about AUCC's history, get in touch, and meet our executive team.",
+    path: '/about',
+  })
 }
 
 async function getExecsOrEmpty() {

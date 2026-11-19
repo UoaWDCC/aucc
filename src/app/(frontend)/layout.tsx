@@ -1,18 +1,31 @@
 import React from 'react'
+import type { Metadata } from 'next'
 
 import './styles.css'
 
 import { FontVariables } from '@/components/FontVariables'
+import { env } from '@/lib/env'
+import { SITE_NAME, SITE_SHORT_NAME } from '@/lib/metadata'
+import { buildPageMetadata } from '@/lib/page-metadata'
 import { Footer } from './_components/layout/Footer'
 import { Navbar } from './_components/layout/Navbar'
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
-  // The design layers SVG shapes over matching background colours. Dark
-  // Reader recolours the two differently, which leaves visible seams, so ask
-  // it to leave the site alone. The site already has its own dark design.
-  other: { 'darkreader-lock': 'true' },
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    // Defaults for every page; no path, so no shared canonical URL
+    ...(await buildPageMetadata({})),
+    // Makes relative image and canonical URLs absolute
+    metadataBase: new URL(env.SERVER_URL),
+    title: {
+      default: SITE_NAME,
+      template: `%s | ${SITE_SHORT_NAME}`,
+    },
+    applicationName: SITE_NAME,
+    // The design layers SVG shapes over matching background colours. Dark
+    // Reader recolours the two differently, which leaves visible seams, so ask
+    // it to leave the site alone. The site already has its own dark design.
+    other: { 'darkreader-lock': 'true' },
+  }
 }
 
 export default async function FrontendLayout(props: {
