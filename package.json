@@ -10,13 +10,13 @@
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "lint": "eslint src",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "format": "prettier --write .",
     "prepare": "husky install",
     "test": "vitest",
-    "type-check": "tsc --noEmit",
+    "type-check": "next typegen && tsc --noEmit",
     "test:coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -41,9 +41,9 @@
     "next": "15.5.25",
     "payload": "3.30.0",
     "postcss": "^8.5.3",
-    "react": "19.0.0",
+    "react": "19.0.9",
     "react-aria-components": "^1.9.0",
-    "react-dom": "19.0.0",
+    "react-dom": "19.0.9",
     "react-leaflet": "^5.0.0",
     "react-scroll-parallax": "^3.4.5",
     "sharp": "0.32.6",
@@ -90,7 +90,7 @@
     "@payloadcms/*": "3.30.0"
   },
   "engines": {
-    "node": "^22.14.0",
+    "node": "^22.23.5",
     "pnpm": "^10.5.2"
   },
   "pnpm": {
@@ -99,7 +99,7 @@
     ]
   },
   "volta": {
-    "node": "22.14.0"
+    "node": "22.23.5"
   },
   "lint-staged": {
     "*.{mjs,js,ts,tsx,json,md}": [
