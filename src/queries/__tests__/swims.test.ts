@@ -54,10 +54,42 @@ describe('countRecentSwimsByEmail', () => {
     ).resolves.toBe(1)
   })
 
-  it('filters case-insensitively by email and by creation time in the database', async () => {
+  it('counts plus-tagged variants of the same mailbox together', async () => {
+    payload.find.mockResolvedValue({
+      docs: [
+        { email: 'johndoe@outlook.com' },
+        { email: 'johndoe+marketing@outlook.com' },
+        { email: 'JohnDoe+swims@Outlook.com' },
+        // Dots matter outside Gmail: a different person
+        { email: 'john.doe@outlook.com' },
+      ],
+    })
+
+    await expect(
+      countRecentSwimsByEmail('johndoe+other@outlook.com', since),
+    ).resolves.toBe(3)
+  })
+
+  it('counts Gmail dot, plus and googlemail variants together', async () => {
+    payload.find.mockResolvedValue({
+      docs: [
+        { email: 'john.doe@gmail.com' },
+        { email: 'johndoe@gmail.com' },
+        { email: 'j.o.h.n.doe+marketing@gmail.com' },
+        { email: 'JohnDoe@googlemail.com' },
+        { email: 'janedoe@gmail.com' },
+      ],
+    })
+
+    await expect(
+      countRecentSwimsByEmail('johndoe@gmail.com', since),
+    ).resolves.toBe(4)
+  })
+
+  it('narrows by domain and creation time in the database', async () => {
     payload.find.mockResolvedValue({ docs: [] })
 
-    await countRecentSwimsByEmail('  Alex@Example.COM ', since)
+    await countRecentSwimsByEmail('  Alex+x@Example.COM ', since)
 
     expect(payload.find).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -65,7 +97,7 @@ describe('countRecentSwimsByEmail', () => {
         where: {
           and: [
             // Payload's like is a case-insensitive ILIKE in Postgres
-            { email: { like: 'alex@example.com' } },
+            { or: [{ email: { like: '@example.com' } }] },
             { createdAt: { greater_than: since.toISOString() } },
           ],
         },
@@ -75,8 +107,22 @@ describe('countRecentSwimsByEmail', () => {
     )
   })
 
-  it('returns 0 without querying for an empty email', async () => {
+  it('searches both Gmail domains for a Gmail address', async () => {
+    payload.find.mockResolvedValue({ docs: [] })
+
+    await countRecentSwimsByEmail('john.doe@googlemail.com', since)
+
+    expect(payload.find.mock.calls[0][0].where.and[0]).toEqual({
+      or: [
+        { email: { like: '@gmail.com' } },
+        { email: { like: '@googlemail.com' } },
+      ],
+    })
+  })
+
+  it('returns 0 without querying for something that is not an email', async () => {
     await expect(countRecentSwimsByEmail('   ', since)).resolves.toBe(0)
+    await expect(countRecentSwimsByEmail('no-at-sign', since)).resolves.toBe(0)
     expect(payload.find).not.toHaveBeenCalled()
   })
 })

@@ -1,6 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/payload'
+import { emailKeyDomains, emailRateLimitKey } from '@/lib/utils/email-key'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { NoNumber } from '@/lib/utils/util-types'
 import type { Swim } from '@/payload-types'
@@ -103,19 +104,21 @@ export async function deleteSwimPhoto(id: number): Promise<void> {
 }
 
 /**
- * Number of swims submitted with this email address since `since`,
- * ignoring case, so Alex@Example.com and alex@example.com share one count.
+ * Number of swims submitted to the same mailbox as `email` since `since`.
+ * Addresses are compared by `emailRateLimitKey`, so casing, plus tags and
+ * Gmail dots don't give the same inbox a fresh allowance. Stored records keep
+ * the address as typed, so they're compared the same way.
  *
- * Stored emails keep the casing they were typed with. Payload's `like` is a
- * case-insensitive substring match (ILIKE '%value%'), so it narrows the rows
- * in the database and the exact comparison happens here.
+ * The database narrows to recent swims on the same domain (Payload's `like`
+ * is a case-insensitive substring match, ILIKE '%value%'), and the exact key
+ * comparison happens here. A club gets few swims an hour, so this stays small.
  */
 export async function countRecentSwimsByEmail(
   email: string,
   since: Date,
 ): Promise<number> {
-  const target = email.trim().toLowerCase()
-  if (!target) return 0
+  const key = emailRateLimitKey(email)
+  if (!key) return 0
 
   const payload = await getPayloadClient()
 
@@ -123,7 +126,11 @@ export async function countRecentSwimsByEmail(
     collection: 'swims',
     where: {
       and: [
-        { email: { like: target } },
+        {
+          or: emailKeyDomains(key).map((domain) => ({
+            email: { like: `@${domain}` },
+          })),
+        },
         { createdAt: { greater_than: since.toISOString() } },
       ],
     },
@@ -133,7 +140,7 @@ export async function countRecentSwimsByEmail(
     overrideAccess: true,
   })
 
-  return docs.filter((doc) => doc.email?.trim().toLowerCase() === target).length
+  return docs.filter((doc) => emailRateLimitKey(doc.email ?? '') === key).length
 }
 
 export async function createSwim(input: CreateSwimInput): Promise<Swim> {
