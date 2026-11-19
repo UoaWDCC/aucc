@@ -1,8 +1,12 @@
 import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
-export async function up({ db }: MigrateUpArgs): Promise<void> {
+export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
+   DO $$ BEGIN
    CREATE TYPE "public"."enum_site_settings_socials_platform" AS ENUM('instagram', 'facebook', 'youtube', 'other');
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
   CREATE TABLE IF NOT EXISTS "site_settings_socials" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
@@ -55,10 +59,14 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "site_settings_default_share_image_idx" ON "site_settings" USING btree ("default_share_image_id");`)
 }
 
-export async function down({ db }: MigrateDownArgs): Promise<void> {
+export async function down({
+  db,
+  payload,
+  req,
+}: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
-   DROP TABLE "site_settings_socials" CASCADE;
-  DROP TABLE "site_settings_footer_links" CASCADE;
-  DROP TABLE "site_settings" CASCADE;
-  DROP TYPE "public"."enum_site_settings_socials_platform";`)
+   DROP TABLE IF EXISTS "site_settings_socials" CASCADE;
+  DROP TABLE IF EXISTS "site_settings_footer_links" CASCADE;
+  DROP TABLE IF EXISTS "site_settings" CASCADE;
+  DROP TYPE IF EXISTS "public"."enum_site_settings_socials_platform";`)
 }

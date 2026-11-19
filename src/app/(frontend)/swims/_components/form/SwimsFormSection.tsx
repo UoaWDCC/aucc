@@ -1,11 +1,15 @@
 import type { SwimDTO } from '@/queries/swims'
-import { SwimsLogForm } from './SwimsLogForm'
+import { SwimsLogForm, type RiverOption } from './SwimsLogForm'
 
 type SwimsFormSectionProps = {
+  rivers: RiverOption[]
   approvedPhotos: SwimDTO[]
 }
 
-export function SwimsFormSection({ approvedPhotos }: SwimsFormSectionProps) {
+export function SwimsFormSection({
+  rivers,
+  approvedPhotos,
+}: SwimsFormSectionProps) {
   return (
     <section className="relative overflow-hidden">
       <div className="relative bg-[#66989F] pt-6 pb-16 md:pt-12 md:pb-28">
@@ -57,7 +61,7 @@ export function SwimsFormSection({ approvedPhotos }: SwimsFormSectionProps) {
             className="h-28 w-24 text-[#EFEFE1] md:h-40 md:w-32"
           >
             <path
-              d="M6 14C14 13 24 9 34 9C46 9 61 13 66 35C70 45 65 56 55 57C43 59 36 50 39 41C43 30 58 30 71 39C77 42 86 66 84 82C83 93 80 100 80 108"
+              d="M6 17C14 13 24 9 34 9C46 9 61 13 66 35C70 45 65 56 55 57C43 59 36 50 39 41C43 30 58 30 71 39C77 42 86 66 84 82C83 93 80 100 80 108"
               stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
@@ -79,7 +83,7 @@ export function SwimsFormSection({ approvedPhotos }: SwimsFormSectionProps) {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-md px-5 md:max-w-2xl">
-          <SwimsLogForm approvedPhotos={approvedPhotos} />
+          <SwimsLogForm rivers={rivers} approvedPhotos={approvedPhotos} />
         </div>
       </div>
     </section>
