@@ -1,17 +1,10 @@
 'use client'
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error
+import ErrorMessage from '@/components/ErrorMessage'
+
+export default function Error(props: {
+  error: Error & { digest?: string }
   reset: () => void
 }) {
-  return (
-    <div>
-      <p>Error:</p>
-      <p>{error.message}</p>
-      <button onClick={reset}>Try again</button>
-    </div>
-  )
+  return <ErrorMessage {...props} href="/events" linkText="Return to Events" />
 }
