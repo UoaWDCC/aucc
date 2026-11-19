@@ -12,14 +12,15 @@ Written 17 Nov 2026 from the Handoff Audit (15 Nov, `main` @ `cb2928a`), checked
 - Confirmed in code: the "Payload Blank Template" title, the footer with only ©, `swims={[]}`, `merch-content` read by no page, rivers `limit: 10`, `push: false`, and the Jotform `fbclid` link in Navbar and event sign-up.
 - Confirmed from the audit memory: **all Payload users are admins by design** (the public never logs in). The audit's "editor/admin roles" item is dropped.
 
-### A correction to the audit's migration fix
+### Hosting: production is on Vercel, not Fly (18 Nov)
 
-The audit suggests `release_command = "pnpm payload migrate"` on Fly. That **won't work as written**. The Dockerfile ships Next's `standalone` output and runs `node server.js`. The image has no pnpm, no Payload CLI and no full `node_modules`. Two options:
+The audit (and the Fly configs, workflows and `docs/DEPLOYMENT.md`) assume Fly.io. **Production has moved to Vercel, and Fly is no longer used.** So:
 
-1. **`prodMigrations` in `postgresAdapter`** (recommended). Payload runs pending migrations when the server starts. No image changes, and it works on any host.
-2. A `pnpm payload migrate` step in the GitHub workflow before `flyctl deploy`, run against that environment's `DATABASE_URL`.
-
-I'll use option 1, plus a step in the workflow that fails the deploy if a migration errors.
+- Migrations run in a **`vercel-build`** script: `payload migrate` runs first, then `next build`, **only when `VERCEL_ENV=production`**.
+  - Preview deployments (every branch push) never touch the database.
+  - If a migration fails, the build stops and the broken version never goes live.
+- `prodMigrations` was tried first and then dropped. On Vercel it would run during every Preview build and on every serverless cold start.
+- The Fly-only files are now dead weight and are planned for removal in 1.4.
 
 ---
 
@@ -27,7 +28,7 @@ I'll use option 1, plus a step in the workflow that fails the deploy if a migrat
 
 - **You do all git and GitHub work by hand after review**: branches, commits, pushes, PRs, rebases, merges, issues and workflow runs. I only edit files in the working tree and run local checks. I don't run `git` write commands or `gh`.
 - I work one numbered item at a time and stop at the end of each with a summary of changed files and a suggested commit message and PR description. You review, commit and open the PR, then tell me which branch to continue on.
-- Before handing an item over, I run `tsc --noEmit`, `pnpm lint`, `pnpm test run` and `pnpm build`. For schema work, I also run `payload migrate` on a fresh local Postgres (`docker-compose.yml`) and a `migrate:create` drift check.
+- Before handing an item over, I run `tsc --noEmit`, `pnpm lint`, `pnpm test run` and `pnpm build`. For schema work, I also run migrations on a throwaway embedded Postgres (in my scratch folder, never the shared dev DB) and a `migrate:create` drift check.
 - UI changes get checked in the browser preview at phone and desktop widths.
 - For other people's PRs (#294, #313, #314, #317), you check out the branch and start the rebase or merge. I resolve the conflicts and make the fixes in the working tree.
 
@@ -51,14 +52,23 @@ I'll use option 1, plus a step in the workflow that fails the deploy if a migrat
 
 ## Phase 1 — Database, migrations and deploy
 
-| #   | Task                                                                                                                                                                                   | Files                                                        | Done when                                                                         |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| 1.1 | Run migrations on deploy with `prodMigrations`                                                                                                                                         | `payload.config.ts`                                          | A fresh DB comes up migrated when the built image starts                          |
-| 1.2 | Fix the `20260818_003440` `down()` (use `DROP CONSTRAINT IF EXISTS`, or drop the FK first). Stop the baseline `down()` dropping `payload_migrations`.                                  | `src/migrations/*.ts`                                        | `migrate:reset` then `migrate` both succeed locally                               |
-| 1.3 | Make the seed script exit (`process.exit(0)`, and close the pool)                                                                                                                      | `src/scripts/seed-globals.ts`                                | Exits within a few seconds locally                                                |
-| 1.4 | Production pipeline: `fly.prod.toml`, `deploy-production.yml` (manual trigger plus tag or `main`), Infisical `prod` env. Re-enable staging auto-deploy on `main`.                      | `fly.prod.toml`, `.github/workflows/`, `terraform/`          | Workflow is valid. **The first prod deploy is run by you or with your go-ahead.** |
-| 1.5 | Friendly delete errors: `beforeDelete` hooks on rivers and media that block deletes when the record is still referenced (swims, merch, spotlight, merch-content), with a clear message | `collections/rivers.ts`, `collections/media.ts`, shared hook | Deleting a referenced river shows a readable error in the admin                   |
-| 1.6 | Optional: a Neon branch per PR instead of the shared dev DB                                                                                                                            | `build.yml`                                                  | Only if you want it; see Decisions                                                |
+**Status (18 Nov):**
+
+- 1.1, 1.2, 1.3 and 1.5 are done and were verified on a throwaway Postgres 17:
+  - Fresh migrate, then reset, then re-migrate gives the same schema as a fresh database.
+  - Referenced deletes return 409 with a clear message.
+  - Preview, production and failed-migration builds all behave as intended.
+- **1.2 changed during testing.** The baseline can't record its own rollback, because Payload's record delete needs `payload_preferences`, which the baseline drops. Its `down()` now throws a clear error pointing to `migrate:fresh`.
+- 1.4 is waiting on the Vercel project settings (see Decisions #4).
+
+| #   | Task                                                                                                                                                                                                                                                                                                                                     | Files                                                                                        | Done when                                                              |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| 1.1 | Run migrations on production deploys: a `vercel-build` script runs `payload migrate` before `next build` when `VERCEL_ENV=production`                                                                                                                                                                                                    | `package.json`, `payload.config.ts`                                                          | Production builds migrate first; preview builds don't touch the DB     |
+| 1.2 | Fix the `20260818_003440` `down()` (`DROP CONSTRAINT IF EXISTS`). Make the baseline `down()` refuse with a clear error.                                                                                                                                                                                                                  | `src/migrations/*.ts`                                                                        | `migrate:reset` rolls back all but the baseline; re-migrating succeeds |
+| 1.3 | Make the seed script exit (`process.exit(0)`, and close the pool)                                                                                                                                                                                                                                                                        | `src/scripts/seed-globals.ts`                                                                | Exits within a few seconds locally                                     |
+| 1.4 | Vercel clean-up. Remove the Fly-only pieces: `fly.*.toml`, `deploy-preview.yml`, `deploy-staging.yml`, the `deploy_preview` job in `pr.yml`, and the Dockerfile and `STANDALONE_OUTPUT`. Set the terraform prod CORS origin to the Vercel domain. **You:** confirm the Vercel settings (Decisions #4) and destroy any leftover Fly apps. | `.github/workflows/`, `fly.*.toml`, `Dockerfile`, `next.config.mjs`, `terraform/prod.tfvars` | No Fly references left; PR checks don't try to deploy to Fly           |
+| 1.5 | Friendly delete errors: `beforeDelete` hooks on rivers and media that block deletes when the record is still referenced (swims, merch, spotlight, merch-content), with a clear message                                                                                                                                                   | `collections/rivers.ts`, `collections/media.ts`, shared hook                                 | Deleting a referenced river shows a readable error in the admin        |
+| 1.6 | Optional: a Neon branch per PR instead of the shared dev DB                                                                                                                                                                                                                                                                              | `build.yml`                                                                                  | Only if you want it; see Decisions                                     |
 
 ## Phase 2 — Launch blockers (site-wide)
 
@@ -124,7 +134,10 @@ These block specific items. Everything else I can start now.
 1. **Merch (4.1)**: wire in `merch-content` (matches the client design) or remove it?
 2. **Email (2.7)**: which provider (club Gmail SMTP, Resend, other), and who adds the credentials to Infisical?
 3. **Contact details (2.1, 2.4, 2.6)**: the club's public contact email, socials and any address.
-4. **Production (1.4)**: does a prod Fly app and prod database exist yet? What's the final domain, and when is the Wix cutover?
+4. **Vercel (1.1, 1.4)**: check these in the Vercel dashboard, under Project → Settings:
+   - **Build & Development → Build Command** is left on the default, so `vercel-build` runs. If it's overridden, set it to `pnpm run vercel-build`.
+   - **Environment Variables**: `DATABASE_URL` for **Preview** must _not_ be the production database.
+   - **Domains**: the final domain, and when the Wix cutover happens.
 5. **Wix PDFs (2.8)**: can you get the constitution and gear policy files (or their current text)?
 6. **Swims admin tool (#297–#310)**: in scope for handoff, or a post-handoff backlog? It's 14 tickets. I'd suggest shipping public swims (3.1–3.5) first and doing the admin tool only if time allows.
 7. **Per-PR databases (1.6)**: worth doing, or keep the shared dev DB?
