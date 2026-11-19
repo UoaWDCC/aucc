@@ -36,6 +36,10 @@ const PAGES: { name: string; href: string }[] = [
     href: '/merchandise',
   },
   {
+    name: 'MEMBERSHIP',
+    href: '/membership',
+  },
+  {
     name: 'GEAR HIRE',
     href: '/gear-hire',
   },
