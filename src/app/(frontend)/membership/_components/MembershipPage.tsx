@@ -53,7 +53,7 @@ export function MembershipPage({
           {tiers.length > 0 && <SignUpLink url={signupUrl} />}
         </div>
         <p className="font-body mx-auto mt-6 max-w-xs text-xs italic md:max-w-none">
-          Got questions? Message us on Facebook or Instagram @aucc_nz
+          Got questions? Message us on Facebook or Instagram @aucanoeclub
         </p>
       </section>
     </>

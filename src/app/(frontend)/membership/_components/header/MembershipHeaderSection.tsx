@@ -27,7 +27,7 @@ export function MembershipHeaderSection({
         >
           join the crew!
         </p>
-        <h1 className="font-heading text-4xl leading-none uppercase sm:text-7xl lg:text-[7.5rem]">
+        <h1 className="font-heading text-[min(9.5vw,2.25rem)] leading-none break-words uppercase sm:text-7xl lg:text-[7.5rem]">
           {heading}
         </h1>
         <h2 className="font-body mt-3 max-w-xs text-xs leading-5 font-light italic md:mt-5 md:max-w-md md:text-base md:leading-6">
