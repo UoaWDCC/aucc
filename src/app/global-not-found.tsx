@@ -10,6 +10,8 @@ import './(frontend)/styles.css'
 // whole document. Pages that call notFound() use (frontend)/not-found.tsx.
 export const metadata: Metadata = {
   title: 'Page not found | AUCC',
+  // Same as (frontend)/layout.tsx: ask Dark Reader to leave the site alone.
+  other: { 'darkreader-lock': 'true' },
 }
 
 export default function GlobalNotFound() {
