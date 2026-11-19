@@ -1,12 +1,19 @@
 import type { RiverDTO } from '@/queries/rivers'
 import { RiverCard } from './RiverCard'
 import { RiverCardBackground } from './RiverCardBackground'
+import { RiversPagination } from './RiversPagination'
 
 interface RiverCardSectionProps {
   rivers: RiverDTO[]
+  page?: number
+  totalPages?: number
 }
 
-export function RiverCardSection({ rivers }: RiverCardSectionProps) {
+export function RiverCardSection({
+  rivers,
+  page = 1,
+  totalPages = 1,
+}: RiverCardSectionProps) {
   if (!rivers || rivers.length === 0) return null
 
   const riversWithDefaults = rivers.map((r) => ({
@@ -25,6 +32,7 @@ export function RiverCardSection({ rivers }: RiverCardSectionProps) {
             <RiverCard key={river.slug} river={river} />
           ))}
         </div>
+        <RiversPagination page={page} totalPages={totalPages} />
       </div>
     </RiverCardBackground>
   )

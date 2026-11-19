@@ -49,6 +49,7 @@ function mockGalleryResponse(
   hasMore: boolean,
 ) {
   return {
+    ok: true,
     json: async () => ({
       images: images.map(
         (img): PayloadGalleryDoc => ({ image: { url: img.src, alt: img.alt } }),
@@ -415,5 +416,112 @@ describe('GalleryGrid filtering', () => {
         '/api/gallery-images?page=2&limit=12&tag=Taupo',
       )
     })
+  })
+})
+
+describe('GalleryGrid loading states', () => {
+  function failedResponse() {
+    return { ok: false, status: 500, json: async () => ({}) } as Response
+  }
+
+  it('shows an error with a retry button when a later page fails, then recovers', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(failedResponse())
+      .mockResolvedValueOnce(mockGalleryResponse(mockImages, false) as Response)
+
+    render(
+      <GalleryGrid
+        initialImages={initialImages}
+        initialHasMore={true}
+        availableTags={availableTags}
+      />,
+    )
+    const observer = latestObserver()
+    observer.trigger() // initial mount callback — ignored
+    observer.trigger()
+
+    expect(await screen.findByTestId('gallery-load-error')).toBeInTheDocument()
+    // The grid keeps the photos it already has.
+    expect(screen.getAllByRole('img')).toHaveLength(12)
+
+    // The observer does not retry by itself while the error is showing.
+    observer.trigger()
+    expect(fetch).toHaveBeenCalledTimes(1)
+
+    await userEvent.click(screen.getByRole('button', { name: 'Try again' }))
+
+    await waitFor(() => expect(screen.getAllByRole('img')).toHaveLength(15))
+    expect(fetch).toHaveBeenCalledTimes(2)
+    expect(screen.queryByTestId('gallery-load-error')).not.toBeInTheDocument()
+  })
+
+  it('shows an error instead of the empty state when a filter fails, and retries it', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(failedResponse())
+      .mockResolvedValueOnce(mockGalleryResponse(mockImages, false) as Response)
+
+    render(
+      <GalleryGrid
+        initialImages={initialImages}
+        initialHasMore={true}
+        availableTags={availableTags}
+      />,
+    )
+    await userEvent.click(
+      screen.getByRole('button', { name: 'Filter gallery images' }),
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Taupo' }))
+
+    expect(await screen.findByTestId('gallery-load-error')).toBeInTheDocument()
+    expect(screen.queryByTestId('gallery-empty-state')).not.toBeInTheDocument()
+
+    await userEvent.click(screen.getByRole('button', { name: 'Try again' }))
+
+    await waitFor(() => expect(screen.getAllByRole('img')).toHaveLength(3))
+    expect(fetch).toHaveBeenLastCalledWith(
+      '/api/gallery-images?page=1&limit=12&tag=Taupo',
+    )
+  })
+
+  it('shows a spinner while the next page loads', async () => {
+    vi.mocked(fetch).mockReturnValueOnce(new Promise(() => {}))
+
+    render(
+      <GalleryGrid
+        initialImages={initialImages}
+        initialHasMore={true}
+        availableTags={availableTags}
+      />,
+    )
+    const observer = latestObserver()
+    observer.trigger()
+    observer.trigger()
+
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Loading photos',
+    )
+  })
+
+  it('shows an end-of-gallery message only when there are no more pages', async () => {
+    const { rerender } = render(
+      <GalleryGrid
+        initialImages={initialImages}
+        initialHasMore={true}
+        availableTags={availableTags}
+      />,
+    )
+    expect(screen.queryByTestId('gallery-end')).not.toBeInTheDocument()
+
+    rerender(
+      <GalleryGrid
+        key="no-more"
+        initialImages={initialImages}
+        initialHasMore={false}
+        availableTags={availableTags}
+      />,
+    )
+    expect(screen.getByTestId('gallery-end')).toBeInTheDocument()
   })
 })
