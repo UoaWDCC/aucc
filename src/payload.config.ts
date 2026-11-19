@@ -84,6 +84,8 @@ export default buildConfig({
     pool: {
       connectionString: env.DATABASE_URL,
     },
+    // Schema changes only reach a database through migrations. Production
+    // runs them in the `vercel-build` script before `next build`.
     push: false,
   }),
   sharp,
