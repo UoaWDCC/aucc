@@ -1,5 +1,7 @@
+import { randomUUID } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { SWIM_PHOTO_PREFIX } from '@/collections/_hooks/delete-swim-photo'
 import { todayInNZ } from '@/lib/utils/nz-date'
 import { clientIp } from '@/lib/utils/rate-limit'
 import { validateSwimPhoto } from '@/lib/utils/swim-photo'
@@ -214,8 +216,9 @@ export async function POST(request: NextRequest) {
         {
           data: Buffer.from(await photo.arrayBuffer()),
           mimetype: photo.type,
-          // Never trust the uploaded file name
-          name: `swim-${Date.now()}.${PHOTO_EXTENSIONS[photo.type]}`,
+          // Never trust the uploaded file name. Random, so a photo awaiting
+          // approval can't be found by guessing its URL.
+          name: `${SWIM_PHOTO_PREFIX}${randomUUID()}.${PHOTO_EXTENSIONS[photo.type]}`,
           size: photo.size,
         },
         `${values.tripName} (${values.date})`,

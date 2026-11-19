@@ -4,6 +4,7 @@ import { APIError } from 'payload'
 import { cacheTags } from '@/lib/utils/revalidation'
 import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
+import { deleteSwimPhoto } from './_hooks/delete-swim-photo'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const adminOnly: FieldAccess = ({ req: { user } }) => Boolean(user)
@@ -34,7 +35,7 @@ export const Swims: CollectionConfig = {
   },
   hooks: {
     afterChange: [() => cacheTags.swims.revalidate()],
-    afterDelete: [() => cacheTags.swims.revalidate()],
+    afterDelete: [deleteSwimPhoto, () => cacheTags.swims.revalidate()],
 
     // Simple server-side spam protection: if the honeypot field
     // (named `honeypot`) contains any value on create/update,
