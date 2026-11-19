@@ -30,7 +30,10 @@ type SwimsLogFormProps = {
   approvedPhotos: SwimDTO[]
 }
 
-type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+// Feedback shown to the user. Whether a request is in flight is tracked
+// separately (isSubmitting), so editing a field can clear the feedback
+// without re-enabling Submit mid-request.
+type SubmitStatus = 'idle' | 'success' | 'error'
 
 export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
   const [values, setValues] = useState<SwimsFormValues>(emptySwimsForm)
@@ -40,6 +43,9 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
   const [isPreparingPhoto, setIsPreparingPhoto] = useState(false)
   const [status, setStatus] = useState<SubmitStatus>('idle')
   const [message, setMessage] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  // A ref, not state, so a second submit in the same render is still blocked
+  const submittingRef = useRef(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const riverOptions = rivers.map((river) => ({
@@ -80,6 +86,7 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (submittingRef.current) return
 
     const nextErrors = validateSwimsForm(values)
     if (photo) {
@@ -90,7 +97,9 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
 
     if (hasErrors(nextErrors)) return
 
-    setStatus('submitting')
+    submittingRef.current = true
+    setIsSubmitting(true)
+    setStatus('idle')
     setMessage(null)
 
     const body = new FormData()
@@ -139,10 +148,11 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
     } catch {
       setStatus('error')
       setMessage('Could not reach the server. Please check your connection.')
+    } finally {
+      submittingRef.current = false
+      setIsSubmitting(false)
     }
   }
-
-  const isSubmitting = status === 'submitting'
 
   return (
     <form
@@ -154,7 +164,9 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
         SWIMS SUBMISSION
       </h2>
 
-      <div className="flex flex-col gap-5">
+      {/* Fields are locked while a submission is in flight, so the request
+          can't be duplicated and its response can't overwrite newer edits. */}
+      <fieldset disabled={isSubmitting} className="flex min-w-0 flex-col gap-5">
         <SwimsFormField
           id="memberName"
           label="Name:"
@@ -194,7 +206,7 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
           onChange={setField('tripName')}
           error={errors.tripName}
         />
-      </div>
+      </fieldset>
 
       {/* Honeypot field for spam protection. Hidden from real users via CSS. */}
       <input
@@ -212,7 +224,10 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
         <SwimsCarousel photos={approvedPhotos} />
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-3">
+      <fieldset
+        disabled={isSubmitting}
+        className="mt-8 flex min-w-0 items-center justify-center gap-3"
+      >
         <p className="text-[11px] text-[#EFEFE1] md:text-sm">
           Have your own image? Upload it here:
         </p>
@@ -253,7 +268,7 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
           className="hidden"
           onChange={handlePhotoChange}
         />
-      </div>
+      </fieldset>
 
       {isPreparingPhoto ? (
         <p className="mt-2 text-center text-[11px] text-[#EFEFE1]/70">
@@ -262,7 +277,10 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
       ) : null}
 
       {photo && !isPreparingPhoto ? (
-        <div className="mt-3 flex flex-col items-center gap-3">
+        <fieldset
+          disabled={isSubmitting}
+          className="mt-3 flex min-w-0 flex-col items-center gap-3"
+        >
           <p className="flex items-center gap-2 text-[11px] text-[#EFEFE1]/70 md:text-xs">
             <span className="max-w-60 truncate">{photo.name}</span>
             <button
@@ -287,7 +305,7 @@ export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
             />
             {SWIM_PHOTO_CONSENT_LABEL}
           </label>
-        </div>
+        </fieldset>
       ) : null}
 
       {errors.photo ? (
