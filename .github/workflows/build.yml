@@ -47,6 +47,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      # Fails if the Payload config has schema changes with no migration.
+      # migrate:create compares the config with the latest snapshot in
+      # src/migrations and, with --skip-empty, writes nothing when they match.
+      - name: Check for missing migrations
+        run: |
+          pnpm payload migrate:create ci_drift_check --skip-empty
+          if [ -n "$(git status --porcelain -- src/migrations)" ]; then
+            echo "::error::The Payload schema has changed but there is no migration. Run 'pnpm payload migrate:create <name>' locally and commit the result."
+            git status --porcelain -- src/migrations
+            git diff -- src/migrations/index.ts
+            exit 1
+          fi
+
       - name: Run migrations and seed globals
         run: |
           pnpm payload migrate
