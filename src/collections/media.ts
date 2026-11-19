@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
-import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
+import { mediaRead } from './_access/media-read'
 import { preventDeleteIfReferenced } from './_hooks/prevent-delete-if-referenced'
 
 export const ALT_TEXT_REQUIRED_MESSAGE =
@@ -21,7 +21,7 @@ export const Media: CollectionConfig = {
   },
   access: {
     create: authenticated,
-    read: anyone,
+    read: mediaRead,
     update: authenticated,
     delete: authenticated,
   },

@@ -1,5 +1,8 @@
 import Link from 'next/link'
 
+export const SWIMS_TO_REVIEW_HREF =
+  '/admin/collections/swims?where[or][0][and][0][approvedToShare][not_equals]=true'
+
 const quickLinks = [
   {
     href: '/admin/collections/events/create',
@@ -17,9 +20,10 @@ const quickLinks = [
     description: 'Upload photos to the gallery page.',
   },
   {
-    href: '/admin/collections/swims',
+    // Opens the swims list filtered to submissions not yet approved
+    href: SWIMS_TO_REVIEW_HREF,
     title: 'Review swims',
-    description: 'Approve swim photos members have sent in.',
+    description: 'Approve swims and photos members have sent in.',
   },
 ]
 

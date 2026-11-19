@@ -282,8 +282,10 @@ describe('POST /api/swims/submit', () => {
       expect(file.mimetype).toBe('image/jpeg')
       expect(file.size).toBe(1024)
       expect(file.data).toBeInstanceOf(Buffer)
-      // The uploaded file name is replaced with a safe generated one
-      expect(file.name).toMatch(/^swim-\d+\.jpg$/)
+      // The uploaded file name is replaced with a random, unguessable one
+      expect(file.name).toMatch(
+        /^swim-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.jpg$/,
+      )
       expect(alt).toBe('Winter trip (2026-09-01)')
       expect(createSwim).toHaveBeenCalledWith({ ...validBody, image: 42 })
     })

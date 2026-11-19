@@ -19,7 +19,7 @@ describe('WelcomePanel', () => {
     ).toHaveAttribute('href', '/admin/collections/gallery/create')
     expect(screen.getByRole('link', { name: /Review swims/ })).toHaveAttribute(
       'href',
-      '/admin/collections/swims',
+      '/admin/collections/swims?where[or][0][and][0][approvedToShare][not_equals]=true',
     )
   })
 
