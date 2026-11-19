@@ -5,32 +5,6 @@ import { anyone } from '../collections/_access/anyone'
 import { authenticated } from '../collections/_access/authenticated'
 import { customUploadField } from '../collections/_fields/custom-upload'
 
-const placeholderRichText = {
-  root: {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [
-          {
-            type: 'text',
-            text: 'Placeholder text',
-            version: 1,
-          },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        version: 1,
-      },
-    ],
-    direction: 'ltr',
-    format: '',
-    indent: 0,
-    version: 1,
-  },
-}
-
 export const GalleryGlobal: GlobalConfig = {
   slug: 'gallery-global',
   admin: {
@@ -57,7 +31,6 @@ export const GalleryGlobal: GlobalConfig = {
       type: 'richText',
       label: 'Intro Text',
       required: true,
-      defaultValue: placeholderRichText,
     },
   ],
 }

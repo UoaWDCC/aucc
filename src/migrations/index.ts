@@ -5,6 +5,7 @@ import * as migration_20261007_234345_add_merch_content_global from './20261007_
 import * as migration_20261118_081432_add_membership_global from './20261118_081432_add_membership_global'
 import * as migration_20261119_212851_add_site_settings from './20261119_212851_add_site_settings'
 import * as migration_20261119_213552_remove_merch_content from './20261119_213552_remove_merch_content'
+import * as migration_20261119_213739_remove_placeholder_intro_text from './20261119_213739_remove_placeholder_intro_text'
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20261119_213552_remove_merch_content.up,
     down: migration_20261119_213552_remove_merch_content.down,
     name: '20261119_213552_remove_merch_content',
+  },
+  {
+    up: migration_20261119_213739_remove_placeholder_intro_text.up,
+    down: migration_20261119_213739_remove_placeholder_intro_text.down,
+    name: '20261119_213739_remove_placeholder_intro_text',
   },
 ]
