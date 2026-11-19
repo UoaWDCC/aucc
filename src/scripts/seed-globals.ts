@@ -20,3 +20,7 @@ const seedGlobals = async () => {
 }
 
 await seedGlobals()
+
+// The database pool keeps the process alive, so exit explicitly.
+// Errors are logged above and deliberately don't fail the build.
+process.exit(0)
