@@ -36,6 +36,14 @@ const eslintConfig = [
       ],
     },
   },
+  {
+    // Payload generates every migration as up/down({ db, payload, req }),
+    // and most only use db. Don't warn about the unused arguments.
+    files: ['src/migrations/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn', { args: 'none' }],
+    },
+  },
 ]
 
 export default eslintConfig

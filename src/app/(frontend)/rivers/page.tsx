@@ -1,22 +1,38 @@
+import { notFound } from 'next/navigation'
+
 import { getRivers } from '@/queries/rivers'
 import { getRiversGlobal } from '@/queries/rivers-global'
 import { RiversPage } from './_components/RiversPage'
 
-export default async function Page() {
-  try {
-    const { headerImage, introText } = await getRiversGlobal()
-    const { rivers } = await getRivers({ page: 1, limit: 10 })
+const RIVERS_PER_PAGE = 10
 
-    return (
-      <RiversPage
-        headerImage={headerImage}
-        introText={introText}
-        rivers={rivers}
-      />
-    )
+/** Parses ?page=. Missing means page 1; anything but a whole number ≥ 1 is invalid. */
+function parsePage(value: string | string[] | undefined): number | null {
+  if (value === undefined) return 1
+  if (typeof value !== 'string' || !/^\d+$/.test(value)) return null
+  const page = Number(value)
+  return page >= 1 ? page : null
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>
+}) {
+  const page = parsePage((await searchParams).page)
+  // notFound() throws, so it must stay outside the try/catch below.
+  if (page === null) notFound()
+
+  let data
+  try {
+    const [{ headerImage, introText }, { rivers, totalPages }] =
+      await Promise.all([
+        getRiversGlobal(),
+        getRivers({ page, limit: RIVERS_PER_PAGE }),
+      ])
+    data = { headerImage, introText, rivers, totalPages }
   } catch (error) {
     console.error('Error loading rivers data:', error)
-    // Return a fallback component or redirect
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
@@ -26,4 +42,8 @@ export default async function Page() {
       </div>
     )
   }
+
+  if (page > 1 && data.rivers.length === 0) notFound()
+
+  return <RiversPage {...data} page={page} />
 }
