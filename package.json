@@ -16,7 +16,7 @@
     "format": "prettier --write .",
     "prepare": "husky install",
     "test": "vitest",
-    "type-check": "tsc --noEmit",
+    "type-check": "next typegen && tsc --noEmit",
     "test:coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
