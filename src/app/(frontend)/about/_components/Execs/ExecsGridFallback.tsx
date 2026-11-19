@@ -1,6 +1,6 @@
 export function ExecsGridFallback() {
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="border p-2">
           <div className="h-48 animate-pulse bg-gray-200" />
