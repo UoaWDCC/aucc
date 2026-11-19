@@ -79,9 +79,6 @@ S3_REGION="ap-southeast-2"
 
 # CloudFront CDN
 NEXT_PUBLIC_CF_URL="https://dev-cdn.aucc.org.nz"
-
-# API Security
-API_KEY="development-api-key"
 ```
 
 > **🔒 Security Note**: Ask your team lead for the actual development environment values. Never commit `.env.local` to Git.
