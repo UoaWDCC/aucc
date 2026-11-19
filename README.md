@@ -18,13 +18,13 @@ The website for the Auckland University Canoe Club (AUCC), built by the Web Deve
 | Secrets        | Infisical (used by CI)                     |
 | Styling        | Tailwind CSS 4                             |
 | Tests          | Vitest and Testing Library, plus Storybook |
-| Tooling        | pnpm 10.5.2, Node 22.14.0, TypeScript 5    |
+| Tooling        | pnpm 10.5.2, Node 22.23.5, TypeScript 5    |
 
 Exact versions are in `package.json`. See [docs/PAYLOAD_UPGRADE.md](docs/PAYLOAD_UPGRADE.md) for the upgrade plan.
 
 ## Getting started
 
-You need Node 22.14.0 (`.nvmrc`; Volta picks it up from `package.json`) and pnpm 10.5.2 (`corepack enable`).
+You need Node 22.23.5 (`.nvmrc`; Volta picks it up from `package.json`) and pnpm 10.5.2 (`corepack enable`).
 
 ```bash
 git clone https://github.com/UoaWDCC/aucc.git
@@ -47,7 +47,6 @@ Every variable is required. They are checked at startup in `src/lib/env.ts`. Get
 | `SERVER_URL`                                                         | The site's own URL, e.g. `http://localhost:3000`                   |
 | `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY` | Where uploaded media is stored                                     |
 | `NEXT_PUBLIC_CF_URL`                                                 | CloudFront URL that serves the bucket (media and `static/` images) |
-| `API_KEY`                                                            | Shared key for `/api/webhook/signup`                               |
 
 > **Careful:** the shared `dev` database and staging bucket are used by everyone and by CI. Don't test destructive operations (deletes, `migrate:fresh`, `migrate:reset`) against them. Use a local Postgres instead: `docker compose up postgres` starts one on port 5432 (user `user`, password `password`), then run `pnpm payload migrate` against it.
 
@@ -81,7 +80,7 @@ src/
 │   │   ├── _components/   shared layout (navbar, footer, sidebar)
 │   │   └── <page>/_components/   components used only by that page
 │   ├── (payload)/         Payload admin and its REST/GraphQL routes
-│   └── api/               custom API routes (gallery paging, webhook)
+│   └── api/               custom API routes (gallery paging)
 ├── collections/           Payload collections (events, rivers, media, …)
 ├── globals/               Payload globals: one per page's editable content
 ├── components/            reusable UI (Button, PayloadImage, NotFound, …)
