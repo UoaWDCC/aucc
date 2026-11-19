@@ -102,25 +102,38 @@ export async function deleteSwimPhoto(id: number): Promise<void> {
   await payload.delete({ collection: 'media', id })
 }
 
-/** Number of swims submitted with this email address since `since`. */
+/**
+ * Number of swims submitted with this email address since `since`,
+ * ignoring case, so Alex@Example.com and alex@example.com share one count.
+ *
+ * Stored emails keep the casing they were typed with. Payload's `like` is a
+ * case-insensitive substring match (ILIKE '%value%'), so it narrows the rows
+ * in the database and the exact comparison happens here.
+ */
 export async function countRecentSwimsByEmail(
   email: string,
   since: Date,
 ): Promise<number> {
+  const target = email.trim().toLowerCase()
+  if (!target) return 0
+
   const payload = await getPayloadClient()
 
-  const { totalDocs } = await payload.count({
+  const { docs } = await payload.find({
     collection: 'swims',
     where: {
       and: [
-        { email: { equals: email } },
+        { email: { like: target } },
         { createdAt: { greater_than: since.toISOString() } },
       ],
     },
+    select: { email: true },
+    pagination: false,
+    depth: 0,
     overrideAccess: true,
   })
 
-  return totalDocs
+  return docs.filter((doc) => doc.email?.trim().toLowerCase() === target).length
 }
 
 export async function createSwim(input: CreateSwimInput): Promise<Swim> {
