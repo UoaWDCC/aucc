@@ -22,7 +22,6 @@ import { EventsGlobal } from './globals/events-global'
 import { GalleryGlobal } from './globals/gallery-global'
 import { GearHireGlobal } from './globals/gear-hire-global'
 import { MembershipGlobal } from './globals/membership-global'
-import { MerchContent } from './globals/merch-content'
 import { MerchGlobal } from './globals/merch-global'
 import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
@@ -75,7 +74,6 @@ export default buildConfig({
     GearHireGlobal,
     MerchGlobal,
     MembershipGlobal,
-    MerchContent,
     EventSpotlight,
   ],
   editor: lexicalEditor({}),
