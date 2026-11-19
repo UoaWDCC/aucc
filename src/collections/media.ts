@@ -4,6 +4,15 @@ import { cacheTags } from '@/lib/utils/revalidation'
 import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
 
+export const ALT_TEXT_REQUIRED_MESSAGE =
+  'Add alt text that describes the image.'
+
+export function validateAltText(value: unknown): true | string {
+  return typeof value === 'string' && value.trim().length > 0
+    ? true
+    : ALT_TEXT_REQUIRED_MESSAGE
+}
+
 export const Media: CollectionConfig = {
   slug: 'media',
   admin: {
@@ -24,6 +33,15 @@ export const Media: CollectionConfig = {
       name: 'alt',
       label: 'Alt Text',
       type: 'text',
+      admin: {
+        description:
+          'Describe the image for people who use screen readers, e.g. "Paddler running a rapid on the Kaituna".',
+      },
+      // Required through validation rather than `required: true`, which would
+      // make the column NOT NULL and fail to migrate while older images have
+      // no alt text. Older images must be given alt text the next time they
+      // are edited.
+      validate: validateAltText,
     },
   ],
   upload: {

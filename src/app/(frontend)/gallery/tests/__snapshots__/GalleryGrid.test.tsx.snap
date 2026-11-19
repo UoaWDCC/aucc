@@ -80,6 +80,17 @@ exports[`GalleryGrid >  matches the snapshot 1`] = `
       aria-hidden="true"
       class="h-px w-full"
     />
+    <div
+      aria-live="polite"
+      class="text-cream flex justify-center py-8"
+    >
+      <p
+        class="text-cream/70"
+        data-testid="gallery-end"
+      >
+        You've reached the end of the gallery.
+      </p>
+    </div>
   </div>
 </DocumentFragment>
 `;
