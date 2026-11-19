@@ -108,6 +108,7 @@ export interface Config {
     'resources-global': ResourcesGlobal;
     'gear-hire-global': GearHireGlobal;
     'merch-global': MerchGlobal;
+    'membership-global': MembershipGlobal;
     'merch-content': MerchContent;
     'event-spotlight': EventSpotlight;
   };
@@ -119,6 +120,7 @@ export interface Config {
     'resources-global': ResourcesGlobalSelect<false> | ResourcesGlobalSelect<true>;
     'gear-hire-global': GearHireGlobalSelect<false> | GearHireGlobalSelect<true>;
     'merch-global': MerchGlobalSelect<false> | MerchGlobalSelect<true>;
+    'membership-global': MembershipGlobalSelect<false> | MembershipGlobalSelect<true>;
     'merch-content': MerchContentSelect<false> | MerchContentSelect<true>;
     'event-spotlight': EventSpotlightSelect<false> | EventSpotlightSelect<true>;
   };
@@ -968,6 +970,39 @@ export interface MerchGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "membership-global".
+ */
+export interface MembershipGlobal {
+  id: number;
+  headerImage?: (number | null) | Media;
+  heading: string;
+  subheading: string;
+  intro: string;
+  tiers?:
+    | {
+        name: string;
+        price: number;
+        description?: string | null;
+        perks?:
+          | {
+              perk: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  benefitsIntro?: string | null;
+  benefitItems?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  signupUrl?: string | null;
+}
+/**
  * via the `definition` "merch-content".
  */
 export interface MerchContent {
@@ -1259,6 +1294,38 @@ export interface MerchGlobalSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "membership-global_select".
+ */
+export interface MembershipGlobalSelect<T extends boolean = true> {
+  headerImage?: T;
+  heading?: T;
+  subheading?: T;
+  intro?: T;
+  tiers?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        description?: T;
+        perks?:
+          | T
+          | {
+              perk?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  benefitsIntro?: T;
+  benefitItems?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  signupUrl?: T;
+}
+/**
  * via the `definition` "merch-content_select".
  */
 export interface MerchContentSelect<T extends boolean = true> {
