@@ -2,7 +2,6 @@ import type { CollectionConfig, FieldAccess } from 'payload'
 import { APIError } from 'payload'
 
 import { cacheTags } from '@/lib/utils/revalidation'
-import { anyone } from './_access/anyone'
 import { authenticated } from './_access/authenticated'
 import { customUploadField } from './_fields/custom-upload'
 
@@ -25,7 +24,10 @@ export const Swims: CollectionConfig = {
     ],
   },
   access: {
-    create: anyone,
+    // Public submissions go through /api/swims/submit, which validates them
+    // and saves with the server-side API. The REST endpoint is admin-only so
+    // it can't be used to skip that validation.
+    create: authenticated,
     read: authenticated,
     update: authenticated,
     delete: authenticated,
