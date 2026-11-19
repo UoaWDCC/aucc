@@ -47,6 +47,8 @@ interface PayloadImageProps {
     | undefined
   placeholder?: StaticImageData | string
   className?: string
+  /** How wide the image renders, so the browser picks a suitably sized file. */
+  sizes?: string
 }
 
 /**
@@ -56,6 +58,7 @@ export function PayloadImage({
   media,
   className,
   placeholder,
+  sizes,
 }: PayloadImageProps) {
   if (!media)
     return (
@@ -63,6 +66,7 @@ export function PayloadImage({
         src={placeholder ?? PLACEHOLDER}
         alt={'Placeholder image'}
         fill
+        sizes={sizes}
         className={cn('object-cover', className)}
       />
     )
@@ -75,7 +79,9 @@ export function PayloadImage({
         alt={media.alt || ''}
         fill
         className={cn('object-cover', className)}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes={
+          sizes ?? '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+        }
       />
     )
   }
@@ -105,6 +111,7 @@ export function PayloadImage({
       src={media.url ?? PLACEHOLDER}
       alt={media.alt ?? ''}
       className={cn('object-cover', className)}
+      sizes={sizes}
     />
   )
 }

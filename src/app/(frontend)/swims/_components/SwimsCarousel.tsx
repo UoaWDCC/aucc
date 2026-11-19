@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 
+import { PayloadImage } from '@/components/PayloadImage'
 import type { SwimDTO } from '@/queries/swims'
 
 type SwimsCarouselProps = {
@@ -10,16 +11,6 @@ type SwimsCarouselProps = {
 
 const MIN_TILES = 3
 const SCROLL_SPEED_PX_PER_FRAME = 0.5
-
-function getImageUrl(image: SwimDTO['image']): string {
-  return typeof image === 'object' && image !== null ? (image.url ?? '') : ''
-}
-
-function getImageAlt(image: SwimDTO['image']): string {
-  return typeof image === 'object' && image !== null
-    ? (image.alt ?? 'Swim photo')
-    : 'Swim photo'
-}
 
 export function SwimsCarousel({ photos }: SwimsCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -88,14 +79,17 @@ export function SwimsCarousel({ photos }: SwimsCarouselProps) {
           ) : (
             <div
               key={`${photo.id}-${index}`}
-              className="aspect-4/3 w-1/3 shrink-0 overflow-hidden bg-[#D9D9D9]"
+              className="relative aspect-4/3 w-1/3 shrink-0 overflow-hidden bg-[#D9D9D9]"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={getImageUrl(photo.image)}
-                alt={getImageAlt(photo.image)}
-                className="h-full w-full object-cover"
-              />
+              {photo.image && (
+                <PayloadImage
+                  media={{
+                    ...photo.image,
+                    alt: photo.image.alt || 'Swim photo',
+                  }}
+                  sizes="33vw"
+                />
+              )}
             </div>
           ),
         )}
