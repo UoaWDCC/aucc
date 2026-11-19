@@ -112,7 +112,8 @@ export async function down({
   DROP TABLE "merch_global_items_callout_labels" CASCADE;
   DROP TABLE "merch_global_items" CASCADE;
   DROP TABLE "event_spotlight" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_swims_fk";
+  -- IF EXISTS: DROP TABLE "swims" CASCADE above already removed this FK
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_swims_fk";
   
   DROP INDEX IF EXISTS "payload_locked_documents_rels_swims_id_idx";
   ALTER TABLE "gallery_global" ALTER COLUMN "intro_text" DROP DEFAULT;

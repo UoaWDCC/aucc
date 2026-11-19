@@ -10,18 +10,18 @@ export function SocialsSection({ socials }: SocialsSectionProps) {
   if (socials.length === 0) return null
 
   return (
-    <div className="bg-abyss relative flex h-70 w-screen flex-row">
-      <div className="w-[50%]">
+    <div className="bg-abyss relative flex w-full flex-col xl:h-70 xl:flex-row">
+      <div className="hidden xl:block xl:w-[50%]">
         <div className="z-100 mt-1 ml-50 h-65 w-65 -rotate-10 opacity-15">
           <Logo />
         </div>
       </div>
-      <div className="mt-22 flex w-[50%] flex-row">
+      <div className="flex w-full flex-row px-6 py-12 xl:mt-22 xl:w-[50%] xl:p-0">
         <div className="mb-8">
-          <h2 className="font-heading text-cream text-left text-[48px] md:text-6xl">
+          <h2 className="font-heading text-cream text-left text-4xl md:text-6xl">
             Social Media
           </h2>
-          <ul className="text-cream mt-6 flex flex-row flex-wrap gap-x-12 gap-y-3">
+          <ul className="text-cream mt-6 flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:gap-x-12 xl:gap-x-52">
             {socials.map((social) => (
               <li key={social.id ?? social.url}>
                 <a
@@ -40,7 +40,7 @@ export function SocialsSection({ socials }: SocialsSectionProps) {
             ))}
           </ul>
         </div>
-        <div className="-mt-9 -ml-7 max-w-full overflow-hidden">
+        <div className="-mt-9 -ml-7 hidden max-w-full overflow-hidden xl:block">
           <svg
             width="194"
             height="128"

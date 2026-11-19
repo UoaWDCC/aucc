@@ -1,777 +1,94 @@
-# AUCC Deployment Guide
-
-> ⚠️ **Out of date: the site is hosted on Vercel, not Fly.io.** The Fly configs, Dockerfile and Fly deploy workflows have been removed. Production builds run `pnpm run vercel-build`, which applies Payload migrations before `next build` when `VERCEL_ENV=production`. This guide will be rewritten for Vercel (see `docs/HANDOFF_PLAN.md`, Phase 6).
-
-> **Complete deployment and infrastructure guide for the AUCC website**  
-> Covering local development, staging, production, and infrastructure management
-
-## 📋 Overview
-
-The AUCC website uses a multi-tier deployment strategy with:
-
-- **Local Development**: Hot-reloaded development environment
-- **Preview Deployments**: Pull request preview environments via Fly.io
-- **Staging Environment**: Full testing environment on Fly.io
-- **Production Environment**: Live deployment on Fly.io
-- **Infrastructure**: AWS resources managed via Terraform
-
-## 🏗 Infrastructure Architecture
-
-```mermaid
-graph TB
-    subgraph "Production Environment"
-        A[Fly.io Sydney] --> B[Next.js Application]
-        B --> C[Neon PostgreSQL]
-        B --> D[AWS S3 Storage]
-        D --> E[CloudFront CDN]
-    end
-
-    subgraph "Staging Environment"
-        F[Fly.io Sydney] --> G[Dockerized App]
-        G --> H[Neon PostgreSQL]
-        G --> D
-    end
-
-    subgraph "Infrastructure Management"
-        I[Terraform] --> J[AWS Resources]
-        J --> D
-        J --> E
-        J --> K[IAM Policies]
-    end
-
-    subgraph "Secret Management"
-        L[Infisical] --> M[Environment Variables]
-        M --> A
-        M --> F
-    end
-```
-
-## 🔧 Environment Configuration
-
-### Environment Variables
-
-All environments require these variables:
-
-```bash
-# Database Configuration
-DATABASE_URL="postgresql://username:password@host:5432/database_name"
-
-# Payload CMS Configuration
-PAYLOAD_SECRET="your-32-character-secret-key"
-SERVER_URL="https://your-domain.com"
-
-# AWS S3 Storage
-S3_BUCKET="your-s3-bucket-name"
-S3_ACCESS_KEY_ID="AKIA..."
-S3_SECRET_ACCESS_KEY="your-secret-key"
-S3_REGION="ap-southeast-2"
-
-# CloudFront CDN
-NEXT_PUBLIC_CF_URL="https://your-cloudfront-url.cloudfront.net"
-
-# API Security
-API_KEY="your-api-key"
-
-# Optional: Skip validation for build environments
-SKIP_ENV_VALIDATION="true"
-```
-
-### Environment-Specific Values
-
-| Variable             | Local                   | Staging                        | Production                        |
-| -------------------- | ----------------------- | ------------------------------ | --------------------------------- |
-| `SERVER_URL`         | `http://localhost:3000` | `https://aucc-staging.fly.dev` | `https://aucc-production.fly.dev` |
-| `S3_BUCKET`          | `aucc-dev-media`        | `aucc-staging-media`           | `aucc-production-media`           |
-| `NEXT_PUBLIC_CF_URL` | Dev CDN URL             | Staging CDN URL                | Production CDN URL                |
-
-## 🚀 Deployment Environments
-
-### 1. Local Development
-
-**Purpose**: Developer workstations and testing
-
-**Setup**:
-
-```bash
-# Clone repository
-git clone https://github.com/UoaWDCC/aucc.git
-cd aucc
-
-# Install dependencies
-pnpm install
-
-# Configure environment
-cp .env.example .env.local
-# Edit .env.local with development values
-
-# Start development server
-pnpm dev
-```
-
-**Features**:
-
-- Hot module reloading via Turbopack
-- Real-time TypeScript checking
-- Instant feedback on code changes
-- Access to staging database and S3 bucket
-
-**Access**: <http://localhost:3000>
-
-### 2. Preview Environments (Pull Requests)
-
-**Purpose**: Testing and review of pull request changes
-
-**Trigger**: Automatically created for every pull request
-
-**Platform**: Fly.io (aucc-preview-pr-{number}.fly.dev)
-
-**Features**:
-
-- Isolated environment per PR
-- Full application functionality
-- Shared staging database
-- Automatic cleanup when PR closed
-
-**Configuration**: `.github/workflows/deploy-preview.yml`
-
-```yaml
-# Automatic PR preview deployment
-name: Deploy Preview App
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-# Creates: https://aucc-preview-pr-123.fly.dev
-```
-
-### 3. Staging Environment
-
-**Purpose**: Pre-production testing and validation
-
-**Platform**: Fly.io Sydney region
-
-**Deployment**: Manual via GitHub Actions workflow
-
-**Configuration**: `fly.staging.toml`
-
-```toml
-app = 'aucc-staging'
-primary_region = 'syd'
-
-[build]
-  dockerfile = "Dockerfile"
-  swap_size_mb = 256
-
-[http_service]
-  internal_port = 3000
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-
-[[vm]]
-  cpu_kind = 'shared'
-  cpus = 1
-  memory = '256mb'
-```
-
-**Deployment Command**:
-
-```bash
-# Manual staging deployment
-gh workflow run deploy-staging.yml
-```
-
-**Access**: <https://aucc-staging.fly.dev>
-
-### 4. Production Environment
-
-**Purpose**: Live website serving end users
-
-**Platform**: Fly.io Sydney region
-
-**Deployment**: Automatic on push to `main` branch via GitHub Actions
-
-**Configuration**: `fly.toml` (production configuration)
-
-**Features**:
-
-- Auto-scaling based on traffic
-- Rolling deployments with zero downtime
-- Built-in health checks
-- Automatic HTTPS/SSL certificates
-
-**Build Configuration**:
-
-```toml
-app = 'aucc-production'
-primary_region = 'syd'
-
-[build]
-  dockerfile = "Dockerfile"
-
-[http_service]
-  internal_port = 3000
-  force_https = true
-  auto_stop_machines = false
-  auto_start_machines = true
-  min_machines_running = 1
-
-[[vm]]
-  cpu_kind = 'shared'
-  cpus = 2
-  memory = '512mb'
-```
-
-**Deployment Commands**:
-
-```bash
-# Production deployment
-flyctl deploy --app aucc-production
-
-# Check production status
-flyctl status --app aucc-production
-
-# View production logs
-flyctl logs --app aucc-production
-```
-
-**Access**: <https://aucc-production.fly.dev> (or custom domain)
-
-**Access**: <https://aucc.org.nz> (when configured)
-
-## 🏗 Infrastructure Management
-
-### AWS Infrastructure (Terraform)
-
-**Location**: `/terraform` directory
-
-**Resources Managed**:
-
-- S3 buckets for media storage
-- CloudFront distributions for CDN
-- IAM users and policies
-- Origin Access Control (OAC) configurations
-
-**File Structure**:
+# Deployment
+
+How the AUCC website is hosted, deployed and migrated. Written for Vercel; the old Fly.io setup has been removed.
+
+## Overview
+
+| Piece            | Where                                                             |
+| ---------------- | ----------------------------------------------------------------- |
+| App (site + CMS) | Vercel, a single Next.js project                                  |
+| Database         | Neon Postgres: one production database, one shared `dev` database |
+| Media            | AWS S3 bucket per environment, served through CloudFront          |
+| Infrastructure   | Terraform in `terraform/` (S3, CloudFront, IAM)                   |
+| CI secrets       | Infisical, project `aucc-website`, environment `dev`              |
 
 ```text
-terraform/
-├── main.tf              # Main infrastructure configuration
-├── prod.tfvars          # Production variables
-├── staging.tfvars       # Staging variables
-└── README.md           # Terraform documentation
+Browser ──► Vercel (Next.js + Payload) ──► Neon Postgres
+   │                    │
+   └──► CloudFront ◄──── S3 (uploads written by Payload)
 ```
 
-### Terraform Configuration
+## Environments
 
-**Initialize Terraform**:
+| Environment    | Triggered by                  | Database                 | Media bucket |
+| -------------- | ----------------------------- | ------------------------ | ------------ |
+| **Production** | push to `main`                | production               | production   |
+| **Preview**    | push to any other branch / PR | shared `dev`             | staging      |
+| **Local**      | `pnpm dev`                    | your choice (see README) | staging      |
+
+Vercel's Git integration does the deploying; there are no deploy workflows in GitHub Actions. Each environment's variables (the list is in the README) are set in Vercel under **Project → Settings → Environment Variables**.
+
+**Check these in the Vercel dashboard**, because the repo can't enforce them:
+
+- **Build & Development → Build Command** is the default (so Vercel runs the `vercel-build` script) or set to `pnpm run vercel-build`.
+- **Preview** `DATABASE_URL` is **not** the production database.
+- **Production** `SERVER_URL` is the real domain, and that domain is also in `cors_allowed_origins` in `terraform/prod.tfvars` (still a TODO there).
+
+## Database migrations on deploy
+
+Payload's `push` is off, so the schema only changes through committed migrations in `src/migrations/`.
+
+The `vercel-build` script in `package.json` runs:
+
+```sh
+if [ "$VERCEL_ENV" = "production" ]; then pnpm payload migrate; fi && pnpm build
+```
+
+- **Production:** pending migrations run first. If one fails, the build fails and the previous deployment stays live.
+- **Preview:** no migrations run, so a branch's schema change never touches a shared database. A preview of a branch with a new migration can therefore error on the shared `dev` database until that migration is applied there. Apply it deliberately, or test against a local database.
+
+Rolling back:
+
+- `pnpm payload migrate:down` rolls back the latest batch. Every migration has a working `down()` except the baseline (`20260724_005630_…`), which refuses with an error; use `migrate:fresh` on a disposable database instead.
+- To roll back a bad production deploy, use **Instant Rollback** in Vercel. It does **not** undo migrations, so a deploy that changed the schema needs a follow-up migration (or `migrate:down` run against production) as well.
+
+## Continuous integration
+
+`.github/workflows/pr.yml` runs on every PR to `main`, and all jobs must pass (the "PR Check Summary" check):
+
+- **Lint** (`lint.yml`): ESLint, then `pnpm type-check`.
+- **Build** (`build.yml`): migration drift check (fails if the schema has changed with no migration), then migrations and the globals seed against the `dev` database, then `next build`.
+- **Unit tests** (`test.yml`): Vitest.
+
+CI reads its secrets from Infisical using the `INFISICAL_CLIENT_ID` and `INFISICAL_CLIENT_SECRET` repository secrets.
+
+> CI runs `payload migrate` against the shared `dev` database, so a PR with a new migration applies it there as soon as CI runs. Keep migrations safe to apply before merge, or switch CI to a per-PR Neon branch.
+
+## Infrastructure (Terraform)
+
+`terraform/main.tf` creates, per environment, in `ap-southeast-2`:
+
+- S3 bucket `aucc-payload-bucket-<environment>`, with public access blocked and CORS for the allowed origins.
+- A CloudFront distribution in front of it, using Origin Access Control. This is the `NEXT_PUBLIC_CF_URL`.
+- An IAM user `aucc-payload-cms-s3-user-<environment>` whose keys Payload uses (`S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`), limited to that bucket.
 
 ```bash
 cd terraform
 terraform init
+terraform plan  -var-file=staging.tfvars   # or prod.tfvars
+terraform apply -var-file=staging.tfvars
 ```
 
-**Plan Deployment**:
+Outputs: `cloudfront_domain_name`, `payload_cms_access_key_id` and `payload_cms_secret_access_key` (sensitive).
 
-```bash
-# Staging environment
-terraform plan -var-file="staging.tfvars"
+> **Before running Terraform, find out where the state is.** No remote backend is configured, so state lives wherever it was last applied from. Staging and production also share one configuration, so they must use separate state (e.g. `terraform workspace select staging`). Applying `prod.tfvars` over staging's state would replace the staging resources. The Origin Access Control name (`aucc-payload-cms-oac`) is not per-environment, so the second environment in the same AWS account may also need a different name.
 
-# Production environment
-terraform plan -var-file="prod.tfvars"
-```
+Static images that aren't managed in the CMS (e.g. the home page hero) live in the bucket under `static/` and are referenced as `${NEXT_PUBLIC_CF_URL}/static/…`.
 
-**Apply Changes**:
+## Troubleshooting
 
-```bash
-# Staging
-terraform apply -var-file="staging.tfvars"
-
-# Production (requires confirmation)
-terraform apply -var-file="prod.tfvars"
-```
-
-### Infrastructure Components
-
-#### S3 Media Buckets
-
-```hcl
-resource "aws_s3_bucket" "media_bucket" {
-  bucket = "aucc-payload-bucket-${var.environment}"
-
-  tags = {
-    Name        = "Payload CMS Media Bucket"
-    Environment = var.environment
-  }
-}
-```
-
-**Features**:
-
-- Public access blocked for security
-- CORS configuration for CMS uploads
-- Versioning enabled for data protection
-
-#### CloudFront CDN
-
-```hcl
-resource "aws_cloudfront_distribution" "media_distribution" {
-  origin {
-    domain_name              = aws_s3_bucket.media_bucket.bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.default.id
-    origin_id                = local.s3_origin_id
-  }
-
-  # Optimized cache behavior for images
-  default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    compress         = true
-    cache_policy_id  = "658327ea-f89d-4fab-a63d-7e88639e58f6" # CachingOptimized
-  }
-}
-```
-
-**Benefits**:
-
-- Global content delivery
-- Automatic image compression
-- Edge caching for performance
-- HTTPS encryption by default
-
-#### IAM Configuration
-
-```hcl
-resource "aws_iam_user" "payload_cms_user" {
-  name = "aucc-payload-cms-s3-user-${var.environment}"
-}
-
-resource "aws_iam_policy" "payload_cms_s3_policy" {
-  name = "aucc-payload-cms-s3-policy-${var.environment}"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:DeleteObject",
-          "s3:ListBucket"
-        ]
-        Resource = [
-          aws_s3_bucket.media_bucket.arn,
-          "${aws_s3_bucket.media_bucket.arn}/*"
-        ]
-      }
-    ]
-  })
-}
-```
-
-## 🔄 Deployment Workflows
-
-### GitHub Actions Workflows
-
-**Location**: `.github/workflows/`
-
-#### 1. Build Test (`build.yml`)
-
-**Trigger**: All pull requests and pushes
-
-**Purpose**: Validate code quality and buildability
-
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-      - name: Setup pnpm & Node.js
-      - name: Install dependencies
-      - name: Run linting
-      - name: Run tests
-      - name: Build application
-```
-
-#### 2. Deploy Preview (`deploy-preview.yml`)
-
-**Trigger**: Pull request events
-
-**Purpose**: Create isolated preview environments
-
-```yaml
-- name: Deploy PR app to Fly.io
-  uses: superfly/fly-pr-review-apps@latest
-  with:
-    name: aucc-preview-pr-${{ github.event.number }}
-    config: fly.preview.toml
-```
-
-#### 3. Deploy Staging (`deploy-staging.yml`)
-
-**Trigger**: Manual workflow dispatch
-
-**Purpose**: Deploy to staging environment
-
-```yaml
-- name: Deploy
-  run: >-
-    flyctl deploy --remote-only --config fly.staging.toml
-    --build-secret DATABASE_URL="${{ env.DATABASE_URL }}"
-    --build-secret PAYLOAD_SECRET="${{ env.PAYLOAD_SECRET}}"
-    # ... other secrets
-```
-
-### Secret Management
-
-**Platform**: Infisical (centralized secret management)
-
-**Configuration**:
-
-```yaml
-- name: Get Environment Secrets
-  uses: Infisical/secrets-action@v1.0.9
-  with:
-    method: 'universal'
-    client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
-    client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
-    domain: 'https://app.infisical.com'
-    env-slug: 'staging' # or 'dev', 'production'
-    project-slug: 'aucc-website'
-```
-
-## 🐳 Docker Configuration
-
-### Dockerfile Structure
-
-**Multi-stage Build**:
-
-```dockerfile
-# Stage 1: Dependencies
-FROM node:22.14.0-alpine AS deps
-WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable pnpm && pnpm install --frozen-lockfile
-
-# Stage 2: Build
-FROM node:22.14.0-alpine AS builder
-WORKDIR /app
-ENV STANDALONE_OUTPUT "true"
-# Build secrets mounted for SSG
-RUN --mount=type=secret,id=DATABASE_URL \
-    --mount=type=secret,id=PAYLOAD_SECRET \
-    # ... build with secrets
-    pnpm build
-
-# Stage 3: Runtime
-FROM node:22.14.0-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV production
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
-
-### Build Secrets
-
-Required secrets for build process:
-
-- `DATABASE_URL`: For Payload CMS schema validation
-- `PAYLOAD_SECRET`: For CMS initialization
-- `S3_*`: For S3 plugin configuration
-- `NEXT_PUBLIC_CF_URL`: For static asset URLs
-
-## 📊 Monitoring & Observability
-
-### Vercel Analytics (Production)
-
-**Metrics Tracked**:
-
-- Core Web Vitals (LCP, FID, CLS)
-- Page load performance
-- Function execution times
-- Build and deployment status
-
-**Access**: Vercel Dashboard → Analytics
-
-### Fly.io Monitoring (Staging)
-
-**Metrics Available**:
-
-- Application health checks
-- Resource utilization (CPU, memory)
-- Request/response metrics
-- Error rates and logs
-
-**Access**: Fly.io Dashboard → Monitoring
-
-### Error Tracking
-
-**Production**: Vercel's built-in error tracking
-**Staging**: Fly.io logs and metrics
-**Development**: Console logging and Next.js error overlay
-
-## 🔐 Security Considerations
-
-### Environment Security
-
-**Secret Management**:
-
-- Never commit secrets to version control
-- Use Infisical for centralized secret management
-- Rotate secrets regularly
-- Use least-privilege IAM policies
-
-**Network Security**:
-
-- HTTPS enforced on all environments
-- CloudFront security headers
-- S3 bucket public access blocked
-- Origin Access Control for CloudFront
-
-### Build Security
-
-**Docker Security**:
-
-- Multi-stage builds to minimize attack surface
-- Non-root user in production container
-- Security-scanned base images
-- Minimal runtime dependencies
-
-## 🚨 Troubleshooting
-
-### Common Deployment Issues
-
-#### Build Failures
-
-**Symptoms**: Build process fails during CI/CD
-
-**Common Causes**:
-
-- Missing environment variables
-- TypeScript compilation errors
-- Dependency conflicts
-- Out of memory during build
-
-**Solutions**:
-
-```bash
-# Check environment variables
-echo $DATABASE_URL
-
-# Clear Next.js cache
-rm -rf .next
-
-# Update dependencies
-pnpm update
-
-# Increase build memory (Dockerfile)
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-```
-
-#### Database Connection Issues
-
-**Symptoms**: Application fails to connect to database
-
-**Debugging**:
-
-```bash
-# Test database connection
-psql $DATABASE_URL
-
-# Check connection pooling
-# Monitor active connections in Neon dashboard
-
-# Verify environment variables
-env | grep DATABASE_URL
-```
-
-#### S3/CloudFront Issues
-
-**Symptoms**: Images not loading or upload failures
-
-**Debugging**:
-
-```bash
-# Test S3 access
-aws s3 ls s3://your-bucket-name --profile your-profile
-
-# Check CloudFront distribution status
-aws cloudfront get-distribution --id YOUR_DISTRIBUTION_ID
-
-# Verify CORS configuration
-curl -H "Origin: https://your-domain.com" \
-     -H "Access-Control-Request-Method: PUT" \
-     -H "Access-Control-Request-Headers: Content-Type" \
-     -X OPTIONS \
-     https://your-cloudfront-url.cloudfront.net
-```
-
-#### Memory Issues (Fly.io)
-
-**Symptoms**: Application crashes with OOM errors
-
-**Solutions**:
-
-```toml
-# Increase memory in fly.toml
-[[vm]]
-  memory = '512mb'  # or higher
-
-# Add swap for builds
-[build]
-  swap_size_mb = 512
-```
-
-### Health Checks
-
-#### Application Health
-
-```bash
-# Check application status
-curl https://your-domain.com/api/health
-
-# Verify CMS admin access
-curl https://your-domain.com/admin
-
-# Test database connectivity
-curl https://your-domain.com/api/ping
-```
-
-#### Infrastructure Health
-
-```bash
-# Terraform state check
-terraform state list
-
-# AWS resource verification
-aws s3 ls
-aws cloudfront list-distributions
-
-# Fly.io app status
-flyctl status --app your-app-name
-```
-
-## 📈 Performance Optimization
-
-### Build Optimization
-
-**Next.js Configuration**:
-
-```javascript
-// next.config.mjs
-export default withPayload({
-  output: process.env.STANDALONE_OUTPUT === 'true' ? 'standalone' : undefined,
-  transpilePackages: ['@t3-oss/env-nextjs'],
-  images: {
-    unoptimized: false,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_CF_URL
-          ? new URL(process.env.NEXT_PUBLIC_CF_URL).hostname
-          : '*.cloudfront.net',
-      },
-    ],
-  },
-})
-```
-
-**Caching Strategy**:
-
-- CloudFront: 7-day TTL for images
-- Next.js: ISR for dynamic content
-- Browser: Aggressive caching for static assets
-
-### Database Optimization
-
-**Connection Pooling**:
-
-- Neon's built-in connection pooling
-- Optimal connection limits per environment
-- Proper connection cleanup
-
-**Query Optimization**:
-
-- Indexed fields in Payload collections
-- Efficient pagination patterns
-- Cached query results
-
-## 🔄 Maintenance Procedures
-
-### Regular Maintenance Tasks
-
-#### Weekly
-
-- [ ] Review deployment logs for errors
-- [ ] Monitor performance metrics
-- [ ] Check security alerts
-
-#### Monthly
-
-- [ ] Update dependencies
-- [ ] Review and rotate secrets
-- [ ] Audit IAM permissions
-- [ ] Performance optimization review
-
-#### Quarterly
-
-- [ ] Infrastructure cost review
-- [ ] Security audit
-- [ ] Backup verification
-- [ ] Disaster recovery testing
-
-### Update Procedures
-
-#### Dependency Updates
-
-```bash
-# Check for updates
-pnpm outdated
-
-# Update dependencies
-pnpm update
-
-# Test thoroughly
-pnpm test && pnpm build
-```
-
-#### Infrastructure Updates
-
-```bash
-# Update Terraform providers
-terraform init -upgrade
-
-# Plan and apply changes
-terraform plan -var-file="prod.tfvars"
-terraform apply -var-file="prod.tfvars"
-```
-
-## 📚 Additional Resources
-
-### Documentation Links
-
-- [Vercel Deployment Docs](https://vercel.com/docs/deployments)
-- [Fly.io Deployment Guide](https://fly.io/docs/getting-started/)
-- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-- [Next.js Deployment](https://nextjs.org/docs/deployment)
-
-### Internal Documentation
-
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture
-- [ONBOARDING.md](./ONBOARDING.md) - Developer setup
-- [README_HANDOVER.md](../README_HANDOVER.md) - Complete handover guide
-
-### Support Contacts
-
-- **DevOps**: Tech Lead (Phawat Saengsiripongpun)
-- **Infrastructure**: WDCC Infrastructure Team
-- **AWS Support**: Via AWS Console
-- **Vercel Support**: Via Vercel Dashboard
-
----
-
-_This deployment guide is maintained by the AUCC development team. For updates or questions about deployment procedures, please contact the technical team lead._
+- **Build fails at "Invalid environment variables":** a variable from the README list is missing for that Vercel environment. `src/lib/env.ts` validates them at build and start.
+- **Production build fails in `payload migrate`:** read the migration error in the build log. Nothing was deployed. Fix the migration in a new PR; don't edit a migration that has already run in production.
+- **CI drift check fails:** you changed a collection, global or field without a migration. Run `pnpm payload migrate:create <name>` against an up-to-date database and commit the result.
+- **Images missing or 403:** check `NEXT_PUBLIC_CF_URL` points at the right environment's distribution, and that the CloudFront host is allowed by `images.remotePatterns` in `next.config.mjs` (derived from that variable).
+- **Admin edits don't show on the site:** the page's query is cached. Check the collection's `afterChange` hook revalidates its tag, and that `tagRelations` in `src/lib/utils/revalidation.ts` lists the dependency.
