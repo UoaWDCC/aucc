@@ -18,13 +18,15 @@ export type CacheTag = keyof typeof tagRelations
  @type {readonly CacheTag: readonly CacheTag[]}
  */
 const tagRelations = {
-  events: ['media'],
+  // Each entry lists what that collection's documents point to, so editing
+  // a river also refreshes cached events that show it.
+  events: ['media', 'rivers', 'tags'],
   execs: ['media'],
   media: [],
   rivers: ['media'],
-  tripReports: ['media'],
-  gallery: ['media'],
-  tags: ['gallery'],
+  tripReports: ['media', 'execs', 'events'],
+  gallery: ['media', 'tags'],
+  tags: [],
   eventsGlobal: ['media'],
   galleryGlobal: ['media'],
   tripReportsGlobal: ['media'],

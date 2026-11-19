@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getGallery } from '@/queries/gallery'
-import { GET } from './route'
+import { GET, MAX_LIMIT } from './route'
 
 vi.mock('@/queries/gallery', () => ({
   getGallery: vi.fn(),
@@ -107,5 +107,35 @@ describe('GET /api/gallery-images', () => {
     expect(response.status).toBe(400)
     expect(body.error).toBeDefined()
     expect(getGallery).not.toHaveBeenCalled()
+  })
+
+  it('returns 400 when page or limit is zero', async () => {
+    for (const query of ['?page=0&limit=10', '?page=1&limit=0']) {
+      const response = await GET(makeRequest(query))
+      expect(response.status).toBe(400)
+    }
+    expect(getGallery).not.toHaveBeenCalled()
+  })
+
+  it('caps limit at MAX_LIMIT', async () => {
+    ;(getGallery as any).mockResolvedValue({
+      gallery: [],
+      hasNextPage: false,
+    })
+
+    await GET(makeRequest('?page=1&limit=100000'))
+
+    expect(getGallery).toHaveBeenCalledWith({ page: 1, limit: MAX_LIMIT })
+  })
+
+  it('returns 500 with a generic message when the query fails', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    ;(getGallery as any).mockRejectedValue(new Error('db password wrong'))
+
+    const response = await GET(makeRequest('?page=1&limit=10'))
+    const body = await response.json()
+
+    expect(response.status).toBe(500)
+    expect(body.error).toBe('Could not load gallery images')
   })
 })
