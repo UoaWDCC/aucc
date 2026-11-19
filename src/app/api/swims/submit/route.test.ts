@@ -5,10 +5,17 @@
 import { NextRequest } from 'next/server'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { createSwim, createSwimPhoto, deleteSwimPhoto } from '@/queries/swims'
+import {
+  countRecentSwimsByEmail,
+  createSwim,
+  createSwimPhoto,
+  deleteSwimPhoto,
+} from '@/queries/swims'
+import { EMAIL_LIMIT, IP_LIMIT, swimSubmitIpLimiter } from './rate-limit'
 import { POST } from './route'
 
 vi.mock('@/queries/swims', () => ({
+  countRecentSwimsByEmail: vi.fn(),
   createSwim: vi.fn(),
   createSwimPhoto: vi.fn(),
   deleteSwimPhoto: vi.fn(),
@@ -33,6 +40,8 @@ function makeRequest(body: unknown) {
 describe('POST /api/swims/submit', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    swimSubmitIpLimiter.reset()
+    ;(countRecentSwimsByEmail as any).mockResolvedValue(0)
   })
 
   it('returns 201 with the created record on valid input', async () => {
@@ -169,6 +178,59 @@ describe('POST /api/swims/submit', () => {
 
     expect(response.status).toBe(201)
     expect(createSwim).toHaveBeenCalledWith(validBody)
+  })
+
+  describe('rate limiting', () => {
+    const fromIp = (ip: string) =>
+      new NextRequest('http://localhost/api/swims/submit', {
+        method: 'POST',
+        body: JSON.stringify(validBody),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-forwarded-for': `${ip}, 10.0.0.1`,
+        },
+      })
+
+    beforeEach(() => {
+      ;(createSwim as any).mockResolvedValue({ id: 1, ...validBody })
+    })
+
+    it('returns 429 with Retry-After once an IP goes over the limit', async () => {
+      for (let i = 0; i < IP_LIMIT; i++) {
+        expect((await POST(fromIp('203.0.113.5'))).status).toBe(201)
+      }
+
+      const response = await POST(fromIp('203.0.113.5'))
+      expect(response.status).toBe(429)
+      expect(Number(response.headers.get('Retry-After'))).toBeGreaterThan(0)
+      expect(createSwim).toHaveBeenCalledTimes(IP_LIMIT)
+    })
+
+    it('counts each IP separately', async () => {
+      for (let i = 0; i < IP_LIMIT; i++) await POST(fromIp('203.0.113.5'))
+
+      expect((await POST(fromIp('198.51.100.7'))).status).toBe(201)
+    })
+
+    it('returns 429 when the email has logged too many recent swims', async () => {
+      ;(countRecentSwimsByEmail as any).mockResolvedValue(EMAIL_LIMIT)
+
+      const response = await POST(makeRequest(validBody))
+
+      expect(response.status).toBe(429)
+      expect(countRecentSwimsByEmail).toHaveBeenCalledWith(
+        validBody.email,
+        expect.any(Date),
+      )
+      expect(createSwim).not.toHaveBeenCalled()
+    })
+
+    it('lets the submission through if the email count fails', async () => {
+      ;(countRecentSwimsByEmail as any).mockRejectedValue(new Error('db down'))
+      vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      expect((await POST(makeRequest(validBody))).status).toBe(201)
+    })
   })
 
   describe('with a photo (multipart form)', () => {

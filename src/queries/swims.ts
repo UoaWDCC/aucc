@@ -102,6 +102,27 @@ export async function deleteSwimPhoto(id: number): Promise<void> {
   await payload.delete({ collection: 'media', id })
 }
 
+/** Number of swims submitted with this email address since `since`. */
+export async function countRecentSwimsByEmail(
+  email: string,
+  since: Date,
+): Promise<number> {
+  const payload = await getPayloadClient()
+
+  const { totalDocs } = await payload.count({
+    collection: 'swims',
+    where: {
+      and: [
+        { email: { equals: email } },
+        { createdAt: { greater_than: since.toISOString() } },
+      ],
+    },
+    overrideAccess: true,
+  })
+
+  return totalDocs
+}
+
 export async function createSwim(input: CreateSwimInput): Promise<Swim> {
   const payload = await getPayloadClient()
 

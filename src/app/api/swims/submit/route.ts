@@ -1,8 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { todayInNZ } from '@/lib/utils/nz-date'
+import { clientIp } from '@/lib/utils/rate-limit'
 import { validateSwimPhoto } from '@/lib/utils/swim-photo'
-import { createSwim, createSwimPhoto, deleteSwimPhoto } from '@/queries/swims'
+import {
+  countRecentSwimsByEmail,
+  createSwim,
+  createSwimPhoto,
+  deleteSwimPhoto,
+} from '@/queries/swims'
+import {
+  EMAIL_LIMIT,
+  EMAIL_WINDOW_MS,
+  swimSubmitIpLimiter,
+  TOO_MANY_SUBMISSIONS,
+} from './rate-limit'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -136,7 +148,33 @@ function validateSubmission(
   }
 }
 
+function tooManySubmissions(retryAfterSeconds: number) {
+  return NextResponse.json(
+    { error: TOO_MANY_SUBMISSIONS },
+    { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+  )
+}
+
+/**
+ * Whether this email has already logged EMAIL_LIMIT swims within the window.
+ * Counted in the database, so it holds across serverless instances. If the
+ * count fails, let the submission through rather than block real members.
+ */
+async function emailOverLimit(email: string): Promise<boolean> {
+  try {
+    const since = new Date(Date.now() - EMAIL_WINDOW_MS)
+    return (await countRecentSwimsByEmail(email, since)) >= EMAIL_LIMIT
+  } catch (error) {
+    console.error('Failed to count recent swims for rate limiting', error)
+    return false
+  }
+}
+
 export async function POST(request: NextRequest) {
+  // Checked first, before reading a body that may carry a photo
+  const ipCheck = swimSubmitIpLimiter.check(clientIp(request.headers))
+  if (!ipCheck.allowed) return tooManySubmissions(ipCheck.retryAfterSeconds)
+
   const submission = await readSubmission(request)
 
   if (!submission) {
@@ -162,6 +200,10 @@ export async function POST(request: NextRequest) {
       { error: 'Invalid swim submission', fields: errors },
       { status: 400 },
     )
+  }
+
+  if (await emailOverLimit(values.email)) {
+    return tooManySubmissions(Math.ceil(EMAIL_WINDOW_MS / 1000))
   }
 
   let photoId: number | null = null
