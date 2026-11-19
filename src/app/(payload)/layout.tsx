@@ -6,6 +6,8 @@ import type { ServerFunctionClient } from 'payload'
 import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import React from 'react'
 
+import { FontVariables } from '@/components/FontVariables'
+
 import { importMap } from './admin/importMap.js'
 import './custom.scss'
 
@@ -24,6 +26,9 @@ const serverFunction: ServerFunctionClient = async function (args) {
 
 const Layout = ({ children }: Args) => (
   <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+    {/* AUCC: custom.scss uses the site fonts. Keep this if Payload's template
+        layout is copied in again. */}
+    <FontVariables />
     {children}
   </RootLayout>
 )

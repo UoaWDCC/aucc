@@ -1,9 +1,13 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import type { Media } from '@/payload-types'
 import type { SwimDTO } from '@/queries/swims'
 import { SwimsCarousel } from './SwimsCarousel'
+
+vi.mock('@/lib/env', () => ({
+  env: { NEXT_PUBLIC_CF_URL: 'https://cdn.example.test' },
+}))
 
 function mockImage(overrides: Partial<Media>): Media {
   return {
@@ -62,7 +66,22 @@ describe('SwimsCarousel', () => {
   it('renders images with correct src and alt text', () => {
     render(<SwimsCarousel photos={mockPhotos} />)
     const matches = screen.getAllByAltText('Swim A')
-    expect(matches[0]).toHaveAttribute('src', '/a.jpg')
+    // Served through Next's image optimiser, sized for a third of the width
+    expect(matches[0].getAttribute('src')).toContain(
+      `url=${encodeURIComponent('/a.jpg')}`,
+    )
+    expect(matches[0]).toHaveAttribute('sizes', '33vw')
+  })
+
+  it('falls back to "Swim photo" when an image has no alt text', () => {
+    render(
+      <SwimsCarousel
+        photos={[
+          { ...mockPhotos[0], image: mockImage({ url: '/x.jpg', alt: '' }) },
+        ]}
+      />,
+    )
+    expect(screen.getAllByAltText('Swim photo')).toHaveLength(2)
   })
 
   it('applies horizontal scroll container classes for responsiveness', () => {
