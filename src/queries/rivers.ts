@@ -1,4 +1,5 @@
 import { unstable_cache } from 'next/cache'
+import type { Sort } from 'payload'
 
 import { getPayloadClient } from '@/lib/payload'
 import { cacheTags } from '@/lib/utils/revalidation'
@@ -18,28 +19,32 @@ export const getRivers = unstable_cache(
   async function ({
     page = 1,
     limit = 10,
-    sort = 'grade',
+    // Name breaks ties between rivers of the same grade, so each river
+    // lands on exactly one page.
+    sort = ['grade', 'name'],
   }: {
     page?: number
     limit?: number
-    sort?: string
+    sort?: Sort
   } = {}) {
     try {
       const payload = await getPayloadClient()
 
-      const { docs, hasNextPage, nextPage, totalDocs } = await payload.find({
-        collection: 'rivers',
-        page,
-        limit,
-        sort,
-        depth: 2, // hydrate relations so RiverDTO matches
-      })
+      const { docs, hasNextPage, nextPage, totalDocs, totalPages } =
+        await payload.find({
+          collection: 'rivers',
+          page,
+          limit,
+          sort,
+          depth: 2, // hydrate relations so RiverDTO matches
+        })
 
       return {
         rivers: docs as RiverDTO[],
         hasNextPage,
         nextPage,
         totalDocs,
+        totalPages,
       }
     } catch (error) {
       console.error('Error fetching rivers:', error)
@@ -49,6 +54,7 @@ export const getRivers = unstable_cache(
         hasNextPage: false,
         nextPage: null,
         totalDocs: 0,
+        totalPages: 0,
       }
     }
   },

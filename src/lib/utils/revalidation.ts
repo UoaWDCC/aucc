@@ -18,13 +18,15 @@ export type CacheTag = keyof typeof tagRelations
  @type {readonly CacheTag: readonly CacheTag[]}
  */
 const tagRelations = {
-  events: ['media'],
+  // Each entry lists what that collection's documents point to, so editing
+  // a river also refreshes cached events that show it.
+  events: ['media', 'rivers', 'tags'],
   execs: ['media'],
   media: [],
   rivers: ['media'],
-  tripReports: ['media'],
-  gallery: ['media'],
-  tags: ['gallery'],
+  tripReports: ['media', 'execs', 'events'],
+  gallery: ['media', 'tags'],
+  tags: [],
   eventsGlobal: ['media'],
   galleryGlobal: ['media'],
   tripReportsGlobal: ['media'],
@@ -169,7 +171,7 @@ export const cacheTags: Record<
  **/
 export function getRevalidationTags(
   tagName: CacheTag,
-  relations: Record<CacheTag, readonly CacheTag[]> = tagRelations,
+  relations: Partial<Record<CacheTag, readonly CacheTag[]>> = tagRelations,
 ): CacheTag[] {
   const revalidationTags: CacheTag[] = []
   const seen = new Set([tagName])
@@ -184,12 +186,12 @@ export function getRevalidationTags(
 
     revalidationTags.push(newTag)
 
-    relations[newTag].forEach((element) => {
+    for (const element of relations[newTag] ?? []) {
       if (!seen.has(element)) {
         seen.add(element)
         stack.push(element)
       }
-    })
+    }
   }
 
   return revalidationTags
