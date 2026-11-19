@@ -2,16 +2,16 @@ import { Logo } from '@/assets/Logo'
 
 export function SocialsSection() {
   return (
-    <div className="bg-abyss relative flex h-70 w-screen flex-row">
-      <div className="w-[50%]">
+    <div className="bg-abyss relative flex w-full flex-col xl:h-70 xl:flex-row">
+      <div className="hidden xl:block xl:w-[50%]">
         <div className="z-100 mt-1 ml-50 h-65 w-65 -rotate-10 opacity-15">
           <Logo />
         </div>
       </div>
-      <div className="mt-22 flex w-[50%] flex-row">
-        <h2 className="font-heading text-cream mb-8 text-left text-[48px] md:text-6xl">
+      <div className="flex w-full flex-row px-6 py-12 xl:mt-22 xl:w-[50%] xl:p-0">
+        <h2 className="font-heading text-cream mb-8 text-left text-4xl md:text-6xl">
           Social Media
-          <div className="flex flex-row gap-52">
+          <div className="flex flex-col sm:flex-row sm:gap-12 xl:gap-52">
             <div className="font-body mt-6 flex flex-row items-center gap-3 text-lg italic">
               <svg
                 width="30"
@@ -44,7 +44,7 @@ export function SocialsSection() {
             </div>
           </div>
         </h2>
-        <div className="-mt-9 -ml-7 max-w-full overflow-hidden">
+        <div className="-mt-9 -ml-7 hidden max-w-full overflow-hidden xl:block">
           <svg
             width="194"
             height="128"
