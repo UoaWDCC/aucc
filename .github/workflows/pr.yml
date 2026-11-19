@@ -36,8 +36,5 @@ jobs:
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')
         run: exit 1
 
-  deploy_preview:
-    name: Deploy Preview
-    needs: [required]
-    uses: ./.github/workflows/deploy-preview.yml
-    secrets: inherit
+  # Deployments are handled by Vercel's Git integration (see the Vercel
+  # dashboard), not by GitHub Actions.

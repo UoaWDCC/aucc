@@ -1,5 +1,7 @@
 # AUCC Deployment Guide
 
+> ⚠️ **Out of date: the site is hosted on Vercel, not Fly.io.** The Fly configs, Dockerfile and Fly deploy workflows have been removed. Production builds run `pnpm run vercel-build`, which applies Payload migrations before `next build` when `VERCEL_ENV=production`. This guide will be rewritten for Vercel (see `docs/HANDOFF_PLAN.md`, Phase 6).
+
 > **Complete deployment and infrastructure guide for the AUCC website**  
 > Covering local development, staging, production, and infrastructure management
 

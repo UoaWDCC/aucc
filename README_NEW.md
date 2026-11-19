@@ -1,5 +1,7 @@
 # AUCC - Auckland University Canoe Club Website
 
+> ⚠️ **Hosting is out of date in this README: the site runs on Vercel, not Fly.io.** See the note at the top of `docs/DEPLOYMENT.md`. The READMEs will be merged into one (see `docs/HANDOFF_PLAN.md`, Phase 6).
+
 [![Next.js](https://img.shields.io/badge/Next.js-15.2.3-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![Payload CMS](https://img.shields.io/badge/Payload%20CMS-3.30.0-blue?style=flat-square)](https://payloadcms.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
