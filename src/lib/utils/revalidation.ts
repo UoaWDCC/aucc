@@ -39,6 +39,7 @@ const tagRelations = {
   videoHighlights: [],
   membershipGlobal: ['media'],
   swims: ['media', 'rivers'],
+  siteSettings: ['media'],
 } as const
 
 /**
@@ -156,6 +157,11 @@ export const cacheTags: Record<
     tag: 'swims',
     relatedTags: getRevalidationTags('swims'),
     revalidate: () => revalidateTag('swims'),
+  },
+  siteSettings: {
+    tag: 'siteSettings',
+    relatedTags: getRevalidationTags('siteSettings'),
+    revalidate: () => revalidateTag('siteSettings'),
   },
 }
 

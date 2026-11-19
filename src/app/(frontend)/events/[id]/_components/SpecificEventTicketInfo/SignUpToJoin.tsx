@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
+/** Club membership sign-up. The /membership page links to the current form. */
 export function SignUpToJoin() {
   return (
-    <Link href="https://form.jotform.com/250418674375867?fbclid=PAZXh0bgNhZW0CMTEAAaeWIjTTV9xmRZdfLddy8HFmM9hUlfwNq9s9cwQ25cArwsCTzYgQgbH-2bx3Pw_aem_0HuEKOXK5sj-2w6iUQDzWA">
-      <button className="text-cream border-cream font-unbounded text-md flex cursor-pointer items-center text-left text-sm">
-        SIGN UP TO JOIN
-        <ArrowRight />
-      </button>
+    <Link
+      href="/membership"
+      className="text-cream font-unbounded flex items-center gap-1 text-left text-sm"
+    >
+      SIGN UP TO JOIN
+      <ArrowRight aria-hidden="true" />
     </Link>
   )
 }

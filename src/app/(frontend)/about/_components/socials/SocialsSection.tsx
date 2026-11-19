@@ -1,6 +1,14 @@
 import { Logo } from '@/assets/Logo'
+import { SocialIcon } from '@/components/SocialIcon'
+import type { SiteSettingsDTO } from '@/queries/site-settings'
 
-export function SocialsSection() {
+interface SocialsSectionProps {
+  socials: NonNullable<SiteSettingsDTO['socials']>
+}
+
+export function SocialsSection({ socials }: SocialsSectionProps) {
+  if (socials.length === 0) return null
+
   return (
     <div className="bg-abyss relative flex w-full flex-col xl:h-70 xl:flex-row">
       <div className="hidden xl:block xl:w-[50%]">
@@ -9,41 +17,29 @@ export function SocialsSection() {
         </div>
       </div>
       <div className="flex w-full flex-row px-6 py-12 xl:mt-22 xl:w-[50%] xl:p-0">
-        <h2 className="font-heading text-cream mb-8 text-left text-4xl md:text-6xl">
-          Social Media
-          <div className="flex flex-col sm:flex-row sm:gap-12 xl:gap-52">
-            <div className="font-body mt-6 flex flex-row items-center gap-3 text-lg italic">
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8.7 0H21.3C26.1 0 30 3.875 30 8.64423V21.1635C30 23.4561 29.0834 25.6547 27.4518 27.2759C25.8203 28.897 23.6074 29.8077 21.3 29.8077H8.7C3.9 29.8077 0 25.9327 0 21.1635V8.64423C0 6.35164 0.916605 4.15294 2.54817 2.53184C4.17974 0.910729 6.39262 0 8.7 0ZM8.4 2.98077C6.96783 2.98077 5.59432 3.54605 4.58162 4.55225C3.56893 5.55846 3 6.92316 3 8.34615V21.4615C3 24.4274 5.415 26.8269 8.4 26.8269H21.6C23.0322 26.8269 24.4057 26.2616 25.4184 25.2554C26.4311 24.2492 27 22.8845 27 21.4615V8.34615C27 5.38029 24.585 2.98077 21.6 2.98077H8.4ZM22.875 5.21635C23.3723 5.21635 23.8492 5.41262 24.2008 5.762C24.5525 6.11138 24.75 6.58523 24.75 7.07933C24.75 7.57342 24.5525 8.04728 24.2008 8.39665C23.8492 8.74603 23.3723 8.94231 22.875 8.94231C22.3777 8.94231 21.9008 8.74603 21.5492 8.39665C21.1975 8.04728 21 7.57342 21 7.07933C21 6.58523 21.1975 6.11138 21.5492 5.762C21.9008 5.41262 22.3777 5.21635 22.875 5.21635ZM15 7.45192C16.9891 7.45192 18.8968 8.23703 20.3033 9.63454C21.7098 11.032 22.5 12.9275 22.5 14.9038C22.5 16.8802 21.7098 18.7756 20.3033 20.1732C18.8968 21.5707 16.9891 22.3558 15 22.3558C13.0109 22.3558 11.1032 21.5707 9.6967 20.1732C8.29018 18.7756 7.5 16.8802 7.5 14.9038C7.5 12.9275 8.29018 11.032 9.6967 9.63454C11.1032 8.23703 13.0109 7.45192 15 7.45192ZM15 10.4327C13.8065 10.4327 12.6619 10.9038 11.818 11.7423C10.9741 12.5808 10.5 13.718 10.5 14.9038C10.5 16.0897 10.9741 17.2269 11.818 18.0654C12.6619 18.9039 13.8065 19.375 15 19.375C16.1935 19.375 17.3381 18.9039 18.182 18.0654C19.0259 17.2269 19.5 16.0897 19.5 14.9038C19.5 13.718 19.0259 12.5808 18.182 11.7423C17.3381 10.9038 16.1935 10.4327 15 10.4327Z"
-                  fill="#98B969"
-                />
-              </svg>
-              aucanoeclub
-            </div>
-            <div className="font-body mt-6 flex flex-row items-center gap-3 text-lg italic">
-              <svg
-                width="30"
-                height="28"
-                viewBox="0 0 30 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.5833 0C6.5625 0 0 6.11619 0 13.649C0 20.4599 5.3375 26.113 12.3083 27.1346V17.5994H8.60417V13.649H12.3083V10.6386C12.3083 7.21955 14.4812 5.33974 17.8208 5.33974C19.4104 5.33974 21.0729 5.59856 21.0729 5.59856V8.96314H19.2354C17.4271 8.96314 16.8583 10.012 16.8583 11.0881V13.649H20.9125L20.2562 17.5994H16.8583V27.1346C20.2948 26.6277 23.424 24.9899 25.6811 22.5169C27.9382 20.0439 29.1745 16.8987 29.1667 13.649C29.1667 6.11619 22.6042 0 14.5833 0Z"
-                  fill="#98B969"
-                />
-              </svg>
-              AUCanoeClub
-            </div>
-          </div>
-        </h2>
+        <div className="mb-8">
+          <h2 className="font-heading text-cream text-left text-4xl md:text-6xl">
+            Social Media
+          </h2>
+          <ul className="text-cream mt-6 flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:gap-x-12 xl:gap-x-52">
+            {socials.map((social) => (
+              <li key={social.id ?? social.url}>
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body flex flex-row items-center gap-3 text-lg italic underline-offset-4 hover:underline"
+                >
+                  <SocialIcon
+                    platform={social.platform}
+                    className="text-algae size-7.5 shrink-0"
+                  />
+                  {social.handle}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="-mt-9 -ml-7 hidden max-w-full overflow-hidden xl:block">
           <svg
             width="194"
