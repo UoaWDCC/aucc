@@ -1,9 +1,14 @@
 'use client'
 
-import { useRef, useState, type FormEvent } from 'react'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 
+import {
+  SWIM_PHOTO_CONSENT_LABEL,
+  validateSwimPhoto,
+} from '@/lib/utils/swim-photo'
 import type { SwimDTO } from '@/queries/swims'
 import { SwimsCarousel } from '../SwimsCarousel'
+import { preparePhoto } from './prepare-photo'
 import { SwimsFormField } from './SwimsFormField'
 import {
   emptySwimsForm,
@@ -13,31 +18,140 @@ import {
   type SwimsFormErrors,
   type SwimsFormValues,
 } from './SwimsFormValidation'
+import { SwimsSelectField } from './SwimsSelectField'
+
+export interface RiverOption {
+  id: number
+  name: string
+}
 
 type SwimsLogFormProps = {
+  rivers: RiverOption[]
   approvedPhotos: SwimDTO[]
 }
 
-export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
+// Feedback shown to the user. Whether a request is in flight is tracked
+// separately (isSubmitting), so editing a field can clear the feedback
+// without re-enabling Submit mid-request.
+type SubmitStatus = 'idle' | 'success' | 'error'
+
+export function SwimsLogForm({ rivers, approvedPhotos }: SwimsLogFormProps) {
   const [values, setValues] = useState<SwimsFormValues>(emptySwimsForm)
   const [errors, setErrors] = useState<SwimsFormErrors>({})
-  const [fileName, setFileName] = useState<string | null>(null)
+  const [photo, setPhoto] = useState<File | null>(null)
+  const [photoConsent, setPhotoConsent] = useState(false)
+  const [isPreparingPhoto, setIsPreparingPhoto] = useState(false)
+  const [status, setStatus] = useState<SubmitStatus>('idle')
+  const [message, setMessage] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  // A ref, not state, so a second submit in the same render is still blocked
+  const submittingRef = useRef(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const riverOptions = rivers.map((river) => ({
+    value: String(river.id),
+    label: river.name,
+  }))
 
   const setField = (field: keyof SwimsFormValues) => (value: string) => {
     setValues((previous) => ({ ...previous, [field]: value }))
     setErrors((previous) => ({ ...previous, [field]: undefined }))
+    setStatus('idle')
+    setMessage(null)
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const clearPhoto = () => {
+    setPhoto(null)
+    setPhotoConsent(false)
+    setErrors((previous) => ({ ...previous, photo: undefined }))
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  const handlePhotoChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    setIsPreparingPhoto(true)
+    // Consent is for a specific photo, so ask again for a new one
+    setPhotoConsent(false)
+    setErrors((previous) => ({ ...previous, photo: undefined }))
+    setStatus('idle')
+    setMessage(null)
+    try {
+      setPhoto(await preparePhoto(file))
+    } finally {
+      setIsPreparingPhoto(false)
+    }
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (submittingRef.current) return
 
     const nextErrors = validateSwimsForm(values)
+    if (photo) {
+      const photoError = validateSwimPhoto(photo, photoConsent)
+      if (photoError) nextErrors.photo = photoError
+    }
     setErrors(nextErrors)
 
     if (hasErrors(nextErrors)) return
 
-    // UI only for this ticket - no submission logic yet
+    submittingRef.current = true
+    setIsSubmitting(true)
+    setStatus('idle')
+    setMessage(null)
+
+    const body = new FormData()
+    body.set('memberName', values.memberName.trim())
+    body.set('river', values.river)
+    body.set('date', values.date)
+    body.set('tripName', values.tripName.trim())
+    body.set('email', values.email.trim())
+    body.set('honeypot', values.honeypot ?? '')
+    if (photo) {
+      body.set('photo', photo)
+      body.set('photoConsent', String(photoConsent))
+    }
+
+    try {
+      // No Content-Type header: the browser sets the multipart boundary
+      const response = await fetch('/api/swims/submit', {
+        method: 'POST',
+        body,
+      })
+
+      if (response.status === 201) {
+        setValues(emptySwimsForm)
+        setErrors({})
+        clearPhoto()
+        setStatus('success')
+        setMessage('Thanks, your swim has been logged.')
+        return
+      }
+
+      const result = await response.json().catch(() => null)
+
+      if (response.status === 400 && result?.fields) {
+        setErrors(result.fields as SwimsFormErrors)
+        setStatus('error')
+        setMessage('Please check the highlighted fields and try again.')
+        return
+      }
+
+      setStatus('error')
+      setMessage(
+        response.status === 413
+          ? 'That photo is too large. Please choose a smaller one.'
+          : (result?.error ?? 'Something went wrong. Please try again.'),
+      )
+    } catch {
+      setStatus('error')
+      setMessage('Could not reach the server. Please check your connection.')
+    } finally {
+      submittingRef.current = false
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -50,38 +164,49 @@ export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
         SWIMS SUBMISSION
       </h2>
 
-      <div className="flex flex-col gap-5">
+      {/* Fields are locked while a submission is in flight, so the request
+          can't be duplicated and its response can't overwrite newer edits. */}
+      <fieldset disabled={isSubmitting} className="flex min-w-0 flex-col gap-5">
         <SwimsFormField
-          id="name"
+          id="memberName"
           label="Name:"
-          value={values.name}
-          onChange={setField('name')}
-          error={errors.name}
+          value={values.memberName}
+          onChange={setField('memberName')}
+          error={errors.memberName}
         />
         <SwimsFormField
-          id="riverName"
+          id="email"
+          label="Email:"
+          type="email"
+          value={values.email}
+          onChange={setField('email')}
+          error={errors.email}
+        />
+        <SwimsSelectField
+          id="river"
           label="River Name:"
-          value={values.riverName}
-          onChange={setField('riverName')}
-          error={errors.riverName}
+          value={values.river}
+          options={riverOptions}
+          onChange={setField('river')}
+          error={errors.river}
         />
         <SwimsFormField
-          id="dateSwam"
+          id="date"
           label="Date Swam:"
           type="date"
           max={todayAsInputValue()}
-          value={values.dateSwam}
-          onChange={setField('dateSwam')}
-          error={errors.dateSwam}
+          value={values.date}
+          onChange={setField('date')}
+          error={errors.date}
         />
         <SwimsFormField
-          id="trip"
+          id="tripName"
           label="Trip:"
-          value={values.trip}
-          onChange={setField('trip')}
-          error={errors.trip}
+          value={values.tripName}
+          onChange={setField('tripName')}
+          error={errors.tripName}
         />
-      </div>
+      </fieldset>
 
       {/* Honeypot field for spam protection. Hidden from real users via CSS. */}
       <input
@@ -99,7 +224,10 @@ export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
         <SwimsCarousel photos={approvedPhotos} />
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-3">
+      <fieldset
+        disabled={isSubmitting}
+        className="mt-8 flex min-w-0 items-center justify-center gap-3"
+      >
         <p className="text-[11px] text-[#EFEFE1] md:text-sm">
           Have your own image? Upload it here:
         </p>
@@ -134,27 +262,82 @@ export function SwimsLogForm({ approvedPhotos }: SwimsLogFormProps) {
         </button>
         <input
           ref={fileInputRef}
+          id="photo"
           type="file"
           accept="image/*"
           className="hidden"
-          onChange={(event) =>
-            setFileName(event.target.files?.[0]?.name ?? null)
-          }
+          onChange={handlePhotoChange}
         />
-      </div>
+      </fieldset>
 
-      {fileName ? (
+      {isPreparingPhoto ? (
         <p className="mt-2 text-center text-[11px] text-[#EFEFE1]/70">
-          {fileName}
+          Preparing photo...
+        </p>
+      ) : null}
+
+      {photo && !isPreparingPhoto ? (
+        <fieldset
+          disabled={isSubmitting}
+          className="mt-3 flex min-w-0 flex-col items-center gap-3"
+        >
+          <p className="flex items-center gap-2 text-[11px] text-[#EFEFE1]/70 md:text-xs">
+            <span className="max-w-60 truncate">{photo.name}</span>
+            <button
+              type="button"
+              onClick={clearPhoto}
+              className="underline hover:text-[#EFEFE1]"
+            >
+              Remove
+            </button>
+          </p>
+          <label className="flex max-w-sm items-start gap-2 text-left text-[11px] text-[#EFEFE1] md:text-xs">
+            <input
+              type="checkbox"
+              name="photoConsent"
+              checked={photoConsent}
+              onChange={(event) => {
+                setPhotoConsent(event.target.checked)
+                setErrors((previous) => ({ ...previous, photo: undefined }))
+              }}
+              aria-describedby={errors.photo ? 'photo-error' : undefined}
+              className="mt-0.5 h-4 w-4 shrink-0 accent-[#98B969]"
+            />
+            {SWIM_PHOTO_CONSENT_LABEL}
+          </label>
+        </fieldset>
+      ) : null}
+
+      {errors.photo ? (
+        <p
+          id="photo-error"
+          className="mt-2 text-center text-[11px] text-red-200"
+        >
+          {errors.photo}
+        </p>
+      ) : null}
+
+      {message ? (
+        <p
+          role="status"
+          aria-live="polite"
+          className={
+            status === 'success'
+              ? 'mt-6 text-center text-sm text-[#98B969]'
+              : 'mt-6 text-center text-sm text-red-300'
+          }
+        >
+          {message}
         </p>
       ) : null}
 
       <div className="mt-6 flex justify-center">
         <button
           type="submit"
-          className="rounded-lg border-1 border-white bg-[#98B969] px-5 py-2 text-sm font-normal tracking-widest text-white transition-opacity hover:opacity-90 md:text-base"
+          disabled={isSubmitting || isPreparingPhoto}
+          className="rounded-lg border-1 border-white bg-[#98B969] px-5 py-2 text-sm font-normal tracking-widest text-white transition-opacity hover:opacity-90 disabled:opacity-60 md:text-base"
         >
-          SUBMIT
+          {isSubmitting ? 'SENDING...' : 'SUBMIT'}
         </button>
       </div>
     </form>

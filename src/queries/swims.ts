@@ -65,3 +65,55 @@ export const getApprovedSwims = unstable_cache(
   ['getApprovedSwims'],
   { tags: cacheTags.swims.relatedTags },
 )
+
+export interface CreateSwimInput {
+  memberName: string
+  date: string
+  tripName: string
+  river: number
+  email: string
+  image?: number
+}
+
+export interface SwimPhotoUpload {
+  data: Buffer
+  mimetype: string
+  name: string
+  size: number
+}
+
+/** Stores a submitted photo in the media collection (S3) and returns its id. */
+export async function createSwimPhoto(
+  file: SwimPhotoUpload,
+  alt: string,
+): Promise<number> {
+  const payload = await getPayloadClient()
+  const media = await payload.create({
+    collection: 'media',
+    data: { alt },
+    file,
+  })
+  return media.id
+}
+
+/** Removes a photo whose swim could not be saved, so no orphan is left. */
+export async function deleteSwimPhoto(id: number): Promise<void> {
+  const payload = await getPayloadClient()
+  await payload.delete({ collection: 'media', id })
+}
+
+export async function createSwim(input: CreateSwimInput): Promise<Swim> {
+  const payload = await getPayloadClient()
+
+  return payload.create({
+    collection: 'swims',
+    data: {
+      memberName: input.memberName,
+      date: input.date,
+      tripName: input.tripName,
+      river: input.river,
+      email: input.email,
+      ...(input.image !== undefined ? { image: input.image } : {}),
+    },
+  })
+}
