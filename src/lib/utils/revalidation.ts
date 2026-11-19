@@ -35,7 +35,6 @@ const tagRelations = {
   gearHireGlobal: ['media'],
   eventSpotlight: ['media'],
   merchGlobal: ['media'],
-  merchContent: ['media'],
   videoHighlights: [],
   membershipGlobal: ['media'],
   swims: ['media', 'rivers'],
@@ -137,11 +136,6 @@ export const cacheTags: Record<
     tag: 'merchGlobal',
     relatedTags: getRevalidationTags('merchGlobal'),
     revalidate: () => revalidateTag('merchGlobal'),
-  },
-  merchContent: {
-    tag: 'merchContent',
-    relatedTags: getRevalidationTags('merchContent'),
-    revalidate: () => revalidateTag('merchContent'),
   },
   videoHighlights: {
     tag: 'videoHighlights',
