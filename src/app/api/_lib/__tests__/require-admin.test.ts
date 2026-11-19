@@ -17,7 +17,11 @@ describe('requireAdmin', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(getPayloadClient as any).mockResolvedValue(mockPayloadClient)
+    vi.mocked(getPayloadClient).mockResolvedValue(
+      mockPayloadClient as unknown as Awaited<
+        ReturnType<typeof getPayloadClient>
+      >,
+    )
   })
 
   it('returns the user when the session is valid', async () => {
