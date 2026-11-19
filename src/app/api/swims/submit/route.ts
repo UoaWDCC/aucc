@@ -28,6 +28,25 @@ function asId(value: unknown): number | null {
   return null
 }
 
+/**
+ * The local API skips relationship validation, so a river ID that doesn't
+ * exist reaches Postgres and fails as a foreign key violation (code 23503).
+ * The driver error may arrive directly or as the cause of a wrapper.
+ */
+function isForeignKeyViolation(error: unknown): boolean {
+  const codeOf = (value: unknown) =>
+    typeof value === 'object' && value !== null
+      ? (value as { code?: unknown }).code
+      : undefined
+
+  return (
+    codeOf(error) === '23503' ||
+    (typeof error === 'object' &&
+      error !== null &&
+      codeOf((error as { cause?: unknown }).cause) === '23503')
+  )
+}
+
 function isTicked(value: unknown): boolean {
   return value === true || value === 'true' || value === 'on'
 }
@@ -172,7 +191,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ swim }, { status: 201 })
   } catch (error) {
-    console.error('Failed to create swim', error)
+    const unknownRiver = isForeignKeyViolation(error)
+    if (!unknownRiver) console.error('Failed to create swim', error)
 
     if (photoId !== null) {
       try {
@@ -180,6 +200,18 @@ export async function POST(request: NextRequest) {
       } catch (cleanupError) {
         console.error('Failed to remove orphaned swim photo', cleanupError)
       }
+    }
+
+    // The river is the only relationship the submitter controls, so this is
+    // their mistake to fix, not a server fault.
+    if (unknownRiver) {
+      return NextResponse.json(
+        {
+          error: 'Invalid swim submission',
+          fields: { river: 'That river does not exist' },
+        },
+        { status: 400 },
+      )
     }
 
     return NextResponse.json(

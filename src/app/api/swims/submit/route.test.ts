@@ -129,6 +129,30 @@ describe('POST /api/swims/submit', () => {
     expect(response.status).toBe(500)
   })
 
+  it('returns 400 when the river does not exist', async () => {
+    ;(createSwim as any).mockRejectedValue(
+      Object.assign(new Error('violates foreign key constraint'), {
+        code: '23503',
+      }),
+    )
+
+    const response = await POST(makeRequest({ ...validBody, river: 9999 }))
+    const body = await response.json()
+
+    expect(response.status).toBe(400)
+    expect(body.fields.river).toBe('That river does not exist')
+  })
+
+  it('returns 400 when a wrapped error is a foreign key violation', async () => {
+    ;(createSwim as any).mockRejectedValue(
+      new Error('Failed query', { cause: { code: '23503' } }),
+    )
+
+    const response = await POST(makeRequest({ ...validBody, river: 9999 }))
+
+    expect(response.status).toBe(400)
+  })
+
   it('rejects the submission when the honeypot is filled', async () => {
     const response = await POST(
       makeRequest({ ...validBody, honeypot: 'http://spam.example' }),
@@ -245,6 +269,20 @@ describe('POST /api/swims/submit', () => {
       const response = await POST(makeFormRequest({ photo: jpeg() }))
 
       expect(response.status).toBe(500)
+      expect(deleteSwimPhoto).toHaveBeenCalledWith(42)
+    })
+
+    it('removes the stored photo if the river does not exist', async () => {
+      ;(createSwimPhoto as any).mockResolvedValue(42)
+      ;(createSwim as any).mockRejectedValue(
+        Object.assign(new Error('violates foreign key constraint'), {
+          code: '23503',
+        }),
+      )
+
+      const response = await POST(makeFormRequest({ photo: jpeg() }))
+
+      expect(response.status).toBe(400)
       expect(deleteSwimPhoto).toHaveBeenCalledWith(42)
     })
 
