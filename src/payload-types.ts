@@ -101,6 +101,7 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
+    'site-settings': SiteSetting;
     'events-global': EventsGlobal;
     'gallery-global': GalleryGlobal;
     'trip-reports-global': TripReportsGlobal;
@@ -113,6 +114,7 @@ export interface Config {
     'event-spotlight': EventSpotlight;
   };
   globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'events-global': EventsGlobalSelect<false> | EventsGlobalSelect<true>;
     'gallery-global': GalleryGlobalSelect<false> | GalleryGlobalSelect<true>;
     'trip-reports-global': TripReportsGlobalSelect<false> | TripReportsGlobalSelect<true>;
@@ -764,6 +766,57 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Contact details, social links and footer links shown across the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * The club’s public email. Shown in the footer and on the About page. Leave empty to hide it.
+   */
+  contactEmail?: string | null;
+  /**
+   * Short text shown under the contact details.
+   */
+  contactNote?: string | null;
+  /**
+   * Optional. Leave empty to hide it.
+   */
+  address?: string | null;
+  /**
+   * Shown in the footer and on the About page, in this order.
+   */
+  socials?:
+    | {
+        platform: 'instagram' | 'facebook' | 'youtube' | 'other';
+        /**
+         * The name shown, e.g. aucanoeclub
+         */
+        handle: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Quick links in the footer, in this order.
+   */
+  footerLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown when a page without its own image is shared on social media or in messages. 1200×630 works best.
+   */
+  defaultShareImage?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events-global".
  */
@@ -1199,6 +1252,34 @@ export interface EventSpotlight {
   eventLabel?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  contactEmail?: T;
+  contactNote?: T;
+  address?: T;
+  socials?:
+    | T
+    | {
+        platform?: T;
+        handle?: T;
+        url?: T;
+        id?: T;
+      };
+  footerLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  defaultShareImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { getExecs } from '@/queries/execs'
+import { getSiteSettings } from '@/queries/site-settings'
 import { AboutPage } from './_components/AboutPage'
 
 export const metadata: Metadata = {
@@ -15,17 +16,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Page() {
+async function getExecsOrEmpty() {
   try {
     const { execs } = await getExecs()
-
-    if (!execs || execs.length === 0) {
-      return <div>No executives found.</div>
-    }
-
-    return <AboutPage execs={execs} />
+    return execs ?? []
   } catch (error) {
+    // Show the rest of the page; the execs grid has its own empty state
     console.error('Failed to load executives:', error)
-    return <div>Failed to load page. Please try again later.</div>
+    return []
   }
+}
+
+export default async function Page() {
+  const [execs, settings] = await Promise.all([
+    getExecsOrEmpty(),
+    getSiteSettings(),
+  ])
+
+  return <AboutPage execs={execs} settings={settings} />
 }
