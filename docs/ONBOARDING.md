@@ -79,9 +79,6 @@ S3_REGION="ap-southeast-2"
 
 # CloudFront CDN
 NEXT_PUBLIC_CF_URL="https://dev-cdn.aucc.org.nz"
-
-# API Security
-API_KEY="development-api-key"
 ```
 
 > **🔒 Security Note**: Ask your team lead for the actual development environment values. Never commit `.env.local` to Git.
@@ -389,35 +386,7 @@ When working with the CMS admin panel:
 
 ## 🚀 Deployment & Environment
 
-### Development Environment
-
-- **Local**: <http://localhost:3000>
-- **Staging**: Automatically deployed from `develop` branch
-- **Production**: Manually deployed from `main` branch
-
-### Environment Variables by Environment
-
-```bash
-# Local Development
-SERVER_URL="http://localhost:3000"
-NEXT_PUBLIC_CF_URL="https://dev-cdn.aucc.org.nz"
-
-# Staging
-SERVER_URL="https://aucc-staging.vercel.app"
-NEXT_PUBLIC_CF_URL="https://staging-cdn.aucc.org.nz"
-
-# Production
-SERVER_URL="https://aucc.org.nz"
-NEXT_PUBLIC_CF_URL="https://cdn.aucc.org.nz"
-```
-
-### Deployment Process
-
-1. **Feature Development**: Work on feature branch
-2. **Pull Request**: Create PR to `develop` branch
-3. **Review**: Team review and approval
-4. **Staging**: Automatic deployment for testing
-5. **Production**: Manual deployment after staging approval
+Vercel deploys `main` to production and every other branch to a preview. Production builds apply pending migrations first. See [DEPLOYMENT.md](./DEPLOYMENT.md) for environments, migrations and infrastructure.
 
 ## 🐛 Common Issues & Solutions
 
@@ -471,7 +440,7 @@ pnpm payload generate:types
 
 - **README**: [README.md](../README.md) - Project overview
 - **Architecture**: [ARCHITECTURE.md](./ARCHITECTURE.md) - System design
-- **Handover Docs**: [README_HANDOVER.md](../README_HANDOVER.md) - Detailed guide
+- **Deployment**: [DEPLOYMENT.md](./DEPLOYMENT.md) - Hosting, migrations and infrastructure
 
 ### Technology Documentation
 

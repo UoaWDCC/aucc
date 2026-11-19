@@ -26,7 +26,6 @@ import { MerchGlobal } from './globals/merch-global'
 import { ResourcesGlobal } from './globals/resources-global'
 import { RiversGlobal } from './globals/rivers-global'
 import { TripReportsGlobal } from './globals/trip-reports-global'
-import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -85,12 +84,9 @@ export default buildConfig({
     pool: {
       connectionString: env.DATABASE_URL,
     },
+    // Schema changes only reach a database through migrations. Production
+    // runs them in the `vercel-build` script before `next build`.
     push: false,
-    // Apply any pending migrations when Payload connects with
-    // NODE_ENV=production (the deployed server, and also `next build`).
-    // The Docker image is Next's standalone output, so it has no Payload CLI
-    // to run `payload migrate` separately.
-    prodMigrations: migrations,
   }),
   sharp,
   plugins: [

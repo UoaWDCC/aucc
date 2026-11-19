@@ -6,6 +6,7 @@
   "packageManager": "pnpm@10.5.2",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "vercel-build": "if [ \"$VERCEL_ENV\" = \"production\" ]; then pnpm payload migrate; fi && pnpm build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
