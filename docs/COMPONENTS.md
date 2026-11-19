@@ -677,7 +677,7 @@ export function Component({
 
 - **Architecture**: [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture
 - **Onboarding**: [ONBOARDING.md](./ONBOARDING.md) - Developer setup
-- **Handover**: [README_HANDOVER.md](../README_HANDOVER.md) - Complete handover guide
+- **Project overview**: [README.md](../README.md) - Setup, commands and common tasks
 - **Storybook**: <http://localhost:6006> - Live component gallery
 
 ---
