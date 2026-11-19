@@ -8,7 +8,7 @@ Before you begin, ensure you have the following installed and configured:
 
 ### Required Software
 
-- [ ] **Node.js** 22.14.0 (managed with Volta - see installation below)
+- [ ] **Node.js** 22.23.5 (managed with Volta - see installation below)
 - [ ] **pnpm** 10.5.2+ (package manager)
 - [ ] **Git** (version control)
 - [ ] **VS Code** (recommended editor with extensions)
@@ -39,10 +39,10 @@ Before you begin, ensure you have the following installed and configured:
 curl https://get.volta.sh | bash
 
 # Install the project's Node.js version
-volta install node@22.14.0
+volta install node@22.23.5
 
 # Verify installation
-node --version  # Should output v22.14.0
+node --version  # Should output v22.23.5
 ```
 
 ### 2. Clone and Setup Project
@@ -79,9 +79,6 @@ S3_REGION="ap-southeast-2"
 
 # CloudFront CDN
 NEXT_PUBLIC_CF_URL="https://dev-cdn.aucc.org.nz"
-
-# API Security
-API_KEY="development-api-key"
 ```
 
 > **🔒 Security Note**: Ask your team lead for the actual development environment values. Never commit `.env.local` to Git.
